@@ -1,0 +1,252 @@
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+.card-sign-in {
+  float: left;
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Lato", sans-serif;
+}
+
+.form-sign-in {
+  width: 90%;
+  height: 550px;
+  -webkit-box-shadow: 0 20px 30px 0 #dfe7ff;
+  -moz-box-shadow: 0 20px 30px 0 #dfe7ff;
+  box-shadow: 0 20px 30px 0 #dfe7ff;
+  border: 1px solid #e7f0f8;
+}
+
+.contain-link-register {
+  float: left;
+  width: 95%;
+  text-align: right;
+  margin: 5px 2.5% 5px 2.5%;
+}
+
+.contain-link-register a {
+  text-decoration: underline;
+}
+
+.contain-title {
+  position: relative;
+  float: left;
+  width: 100%;
+  text-align: center;
+  line-height: 90px;
+  height: 110px;
+  font-size: 18px;
+  color: #133698;
+}
+
+.title-image {
+  height: 90px;
+  line-height: 30px;
+  width: 90px;
+  margin-bottom: 15px;
+}
+
+.welcome-text {
+  float: left;
+  width: 100%;
+  color: #707070;
+}
+
+.welcome-login-text {
+  float: left;
+  width: 90%;
+  color: #707070;
+  margin: 0px 5% 0px 5%;
+  font-weight: 500;
+}
+
+.link-shop {
+  float: left;
+  width: 100%;
+  color: #707070;
+  margin: 0px;
+}
+
+.contain-control-login {
+  float: left;
+  width: 90%;
+  text-align: center;
+  margin: 10px 5% 0px 5%;
+}
+
+.control-login {
+  width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.text-danger {
+  font-size: 10px;
+  text-align: left;
+  width: 200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.eye-password,
+.spinner-pos {
+  position: absolute;
+  right: 10%;
+  top: 15px;
+}
+
+.eye-password {
+  z-index: 2;
+}
+
+.spinner-pos {
+  z-index: 1;
+}
+
+.eye-password:hover {
+  cursor: pointer;
+}
+
+.control-users {
+  text-align: left;
+  width: 80%;
+  margin-left: 10%;
+  margin-right: 10%;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.remember-password {
+  float: right;
+  color: black;
+  line-height: 24px;
+}
+
+.remember-password:hover {
+  cursor: pointer;
+}
+
+.submit-login {
+  float: left;
+  width: 100%;
+}
+
+.button-submit {
+  width: 150px;
+  margin-left: auto;
+  margin-right: auto;
+  border: unset;
+  background-color: #f9c053;
+  border-radius: 2px;
+  margin-top: 2px;
+  height: 40px;
+}
+
+.button-submit:hover {
+  cursor: pointer;
+}
+
+.card-announcement {
+  display: none;
+}
+
+@media only screen and (min-width: 540px) {
+  .form-sign-in {
+    width: 80%;
+  }
+
+  .control-login {
+    width: 400px;
+  }
+
+  .eye-password,
+  .spinner-pos {
+    right: 20%;
+  }
+}
+
+@media only screen and (min-width: 720px) {
+  .form-sign-in {
+    width: 65%;
+    height: 650px;
+  }
+
+  .contain-title {
+    height: 150px;
+    font-size: 20px;
+  }
+
+  .title-image {
+    height: 130px;
+    width: 130px;
+    margin-bottom: 25px;
+  }
+
+  .welcome-text,
+  .welcome-login-text {
+    font-size: 18px;
+  }
+
+  .text-danger {
+    width: 300px;
+    font-size: 12px;
+  }
+
+  .eye-password,
+  .spinner-pos {
+    right: 5%;
+  }
+
+  .control-users {
+    font-size: 16px;
+    margin-top: 20px;
+  }
+
+  .remember-password {
+    line-height: 22px;
+  }
+
+  .submit-login {
+    margin-top: 20px;
+  }
+
+  .button-submit {
+    height: 50px;
+    width: 200px;
+    font-size: 18px;
+  }
+}
+
+@media only screen and (min-width: 960px) {
+  .card-sign-in {
+    width: 50%;
+  }
+
+  .form-sign-in {
+    width: 90%;
+  }
+
+  .card-announcement {
+    position: fixed;
+    width: 50%;
+    min-height: 100vh;
+    right: 0px;
+    display: block;
+    background: #f8f8fc
+      url(/assets/images/picture.svg)
+      center no-repeat;
+  }
+}
+
+@media only screen and (min-width: 1140px) {
+  .form-sign-in {
+    width: 80%;
+  }
+}

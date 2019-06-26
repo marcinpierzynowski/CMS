@@ -1,0 +1,121 @@
+<div class="card" [@fadeInOutTranslate]>
+  <div class="title-section">Nowe wiadomości</div>
+  <div class="settings-card">
+    <div
+      *ngIf="!vissibleMessage"
+      [@fadeInOutTranslate]
+      class="list-messages-section"
+    >
+      <div
+        *ngIf="!checkAuthorized && authorizationMessages"
+        style="float:left;width:100%;text-align:center;margin-top: 120px;height: 200px;"
+      >
+        <div
+          style="float:left;width:100%;text-align:center;font-size: 20px;font-weight: 400;"
+        >
+          Trwa autoryzacja
+        </div>
+        <div class="spinner">
+          <div class="bounce1"></div>
+          <div class="bounce2"></div>
+          <div class="bounce3"></div>
+        </div>
+      </div>
+      <div class="img-error" *ngIf="!authorizationMessages">
+        <img
+          class="img-fluid"
+          height="350"
+          width="262"
+          src="./assets/images/error.svg"
+        />
+        <p
+          style="float: left;width: 100%;font-weight: 500;font-size: 18px;margin-bottom: 20px;"
+        >
+          Nie masz uprawnień aby korzystać z tej sekcji strony!
+        </p>
+      </div>
+      <div *ngIf="checkAuthorized && !vissibleMessage" class="list-products">
+        <table *ngIf="detailUserMessages" class="table">
+          <thead style="background-color: #255190;color: #fff;">
+            <tr>
+              <th scope="col">Email</th>
+              <th scope="col">Data</th>
+              <th scope="col">Opcje</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let message of detailUserMessages; let i = index">
+              <td>{{ message.email }}</td>
+              <td>{{ message.data }}</td>
+              <td>
+                <mat-select class="mat-select" placeholder="Opcje">
+                  <mat-option (click)="editMessage(i)">Edytuj</mat-option>
+                  <mat-option (click)="deleteMessage(i)">Usuń</mat-option>
+                </mat-select>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <p *ngIf="!detailUserMessages" class="text-messages">
+          Brak nowych wiadomości!
+        </p>
+      </div>
+    </div>
+    <div
+      [@fadeInOutTranslate]
+      *ngIf="!vissibleMessage && checkAuthorized"
+      class="filter-contain"
+    >
+      <p>Filtruj:</p>
+      <div class="container">
+        <div class="row">
+          <div class="col-12 col-md-6" style="margin-bottom: 10px;">
+            Tytuł:&nbsp;&nbsp;&nbsp;&nbsp;<input
+              (ngModelChange)="setFilterEmail($event)"
+              [(ngModel)]="valueEmail"
+              placeholder="Email"
+            /><span class="logo-form"><i class="fas fa-search"></i></span>
+          </div>
+          <div class="col-12 col-md-6" style="margin-bottom: 10px;">
+            Numer:
+            <input
+              (ngModelChange)="setFilterData($event)"
+              [(ngModel)]="valueData"
+              placeholder="Data: dd-mm-yyyy"
+            /><span class="logo-form"><i class="fas fa-search"></i></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      *ngIf="vissibleMessage"
+      class="edit-message-section"
+      [@fadeInOutTranslate]
+    >
+      <div>
+        <div class="title-second-section"><p>Wiadomość:</p></div>
+        <div class="underline"></div>
+      </div>
+      <div class="information-message">
+        <h6>Email:</h6>
+        <input disabled placeholder="{{ messageData.email }}" />
+      </div>
+      <div class="information-message">
+        <h6>Data:</h6>
+        <input disabled placeholder="{{ messageData.data }}" />
+      </div>
+      <div class="information-message">
+        <h6>Treść:</h6>
+        <textarea disabled>{{ messageData.description }}</textarea>
+      </div>
+      <div class="submit-section">
+        <button mat-button class="exit-edit" (click)="vissibleMessage = false">
+          Wróć
+        </button>
+        <button mat-button class="save-submit" (click)="saveMessage()">
+          Zapisz
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

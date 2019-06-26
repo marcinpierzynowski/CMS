@@ -1,0 +1,82 @@
+<div class="card" [@fadeInOutTranslate]>
+  <div class="title-section">Komentarze produktów</div>
+  <div class="settings-card">
+    <div [@fadeInOutTranslate] class="list-messages-section">
+      <div
+        *ngIf="!checkAuthorized && authorizationComments"
+        style="float:left;width:100%;text-align:center;margin-top: 120px;height: 200px;"
+      >
+        <div
+          style="float:left;width:100%;text-align:center;font-size: 20px;font-weight: 400;"
+        >
+          Trwa autoryzacja
+        </div>
+        <div class="spinner">
+          <div class="bounce1"></div>
+          <div class="bounce2"></div>
+          <div class="bounce3"></div>
+        </div>
+      </div>
+      <div class="img-error" *ngIf="!authorizationComments">
+        <img
+          class="img-fluid"
+          height="350"
+          width="262"
+          src="./assets/images/error.svg"
+        />
+        <p
+          style="float: left;width: 100%;font-weight: 500;font-size: 18px;margin-bottom: 20px;"
+        >
+          Nie masz uprawnień aby korzystać z tej sekcji strony!
+        </p>
+      </div>
+      <div *ngIf="checkAuthorized">
+        <table *ngIf="detailComments" class="table">
+          <thead style="background-color: #255190;color: #fff;">
+            <tr>
+              <th scope="col">Produkt nr. ref.</th>
+              <th scope="col">Komentarz</th>
+              <th scope="col">Opcje</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let comment of detailComments; let i = index">
+              <td class="more-information" (click)="searchProduct(comment.ref)">
+                {{ comment.ref }}
+              </td>
+              <td
+                class="more-information"
+                (click)="showComments(comment.description)"
+              >
+                {{
+                  comment.description.length > 10
+                    ? comment.description.substr(0, 10) + "..."
+                    : comment.description
+                }}
+              </td>
+              <td>
+                <mat-select class="mat-select" placeholder="Opcje">
+                  <mat-option
+                    (click)="
+                      addNewComments(
+                        comment.ref,
+                        comment.description,
+                        i,
+                        comment.email
+                      )
+                    "
+                    >Dodaj</mat-option
+                  >
+                  <mat-option (click)="deleteEvaluation(i)">Usuń</mat-option>
+                </mat-select>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <p *ngIf="!detailComments" class="text-messages">
+          Brak nowych komentarzy!
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

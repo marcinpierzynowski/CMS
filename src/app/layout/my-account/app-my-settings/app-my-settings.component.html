@@ -1,0 +1,187 @@
+<div class="card" [@fadeInOutTranslate]>
+  <div class="title-section">Ustawienia konta</div>
+  <div class="settings-card">
+    <div class="profile-section">
+      <div class="title">Dane podstawowe</div>
+      <div class="underline"></div>
+      <div class="form-contener">
+        <div class="form-center">
+          <mat-form-field class="example-full-width">
+            <input
+              id="firstname-settings"
+              matInput
+              class="input"
+              placeholder="Imię"
+              [(ngModel)]="firstName"
+            />
+          </mat-form-field>
+          <span class="logo-input"><i class="fa fa-user"></i></span>
+        </div>
+      </div>
+      <div class="form-contener">
+        <div class="form-center">
+          <mat-form-field class="example-full-width">
+            <input
+              [(ngModel)]="lastName"
+              id="lastname-settings"
+              matInput
+              class="input"
+              placeholder="Nazwisko"
+            />
+          </mat-form-field>
+          <span class="logo-input"><i class="fa fa-user"></i></span>
+        </div>
+      </div>
+      <div class="form-contener">
+        <div class="form-center">
+          <mat-form-field class="example-full-width">
+            <input
+              id="email-settings"
+              matInput
+              class="input"
+              disabled
+              placeholder="Email"
+            />
+          </mat-form-field>
+          <span class="logo-input"><i class="fas fa-at"></i></span>
+        </div>
+      </div>
+      <div class="form-submit">
+        <button
+          mat-raised-button
+          style="background-color:#ffc107; width: 120px;margin-top: 20px;"
+          (click)="updateProfil()"
+        >
+          Zapisz
+        </button>
+      </div>
+    </div>
+    <div class="password-section">
+      <div class="title">Zmiana Hasła</div>
+      <div class="underline"></div>
+      <div class="form-contener">
+        <div class="form-center">
+          <mat-form-field class="example-full-width">
+            <input
+              matInput
+              class="input"
+              placeholder="Stare Hasło"
+              [(ngModel)]="oldPassword"
+              type="password"
+            />
+          </mat-form-field>
+          <span class="logo-input"><i class="fa fa-key"></i></span>
+        </div>
+      </div>
+      <form
+        (ngSubmit)="submitChangePassword()"
+        [formGroup]="changePassword"
+        novalidate="true"
+      >
+        <div class="form-contener">
+          <div class="form-center">
+            <mat-form-field class="example-full-width">
+              <input
+                matInput
+                class="input"
+                placeholder="Hasło"
+                formControlName="password"
+                type="password"
+              />
+            </mat-form-field>
+            <span class="logo-input"><i class="fa fa-key"></i></span>
+          </div>
+          <div
+            class="text-danger"
+            *ngIf="
+              changePassword.controls.password.errors?.required &&
+              changePassword.controls.password.touched
+            "
+            [@fadeInOutTranslate]
+          >
+            Pole nie może być puste!
+          </div>
+          <div
+            class="text-danger"
+            *ngIf="
+              changePassword.controls.password.errors?.pattern &&
+              changePassword.controls.password.touched
+            "
+            [@fadeInOutTranslate]
+          >
+            Minimum 8 znaków, przynajmniej jedna litera,
+          </div>
+          <div
+            class="text-danger"
+            *ngIf="
+              changePassword.controls.password.errors?.pattern &&
+              changePassword.controls.password.touched
+            "
+            [@fadeInOutTranslate]
+          >
+            jedna cyfra i jeden znak specjalny
+          </div>
+        </div>
+        <div class="form-contener">
+          <div class="form-center">
+            <mat-form-field class="example-full-width">
+              <input
+                matInput
+                class="input"
+                placeholder="Powtórz Hasło"
+                formControlName="repeatPassword"
+                type="password"
+              />
+            </mat-form-field>
+            <span class="logo-input"><i class="fa fa-key"></i></span>
+          </div>
+          <div
+            class="text-danger"
+            *ngIf="
+              changePassword.controls.repeatPassword.errors?.required &&
+              changePassword.controls.repeatPassword.touched
+            "
+            [@fadeInOutTranslate]
+          >
+            Pole nie może być puste!
+          </div>
+          <div
+            class="text-danger"
+            *ngIf="
+              changePassword.controls.repeatPassword.errors?.equalTo &&
+              changePassword.controls.repeatPassword.touched
+            "
+            [@fadeInOutTranslate]
+          >
+            Hasła muszą się zgadzać!
+          </div>
+        </div>
+        <div class="form-submit">
+          <button
+            type="submit"
+            mat-raised-button
+            style="background-color:#6c757d; width: 120px;margin-top: 20px;color:white;"
+          >
+            Zmień
+          </button>
+        </div>
+      </form>
+    </div>
+    <div class="notification-security-contener">
+      <h6>
+        <b
+          >Ustawienia wyświetlania powiadomienia o bezpieczeństwie strony panelu
+          zarządzającego sklepem:</b
+        >
+      </h6>
+      <mat-slide-toggle
+        class="example-margin"
+        [color]="color"
+        [(ngModel)]="activeNotificationSecurity"
+        (change)="setSecurity()"
+      >
+        {{ activeNotificationSecurity ? "Aktywne" : "Nieaktywne" }}
+      </mat-slide-toggle>
+    </div>
+  </div>
+</div>

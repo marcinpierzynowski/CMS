@@ -1,0 +1,60 @@
+.card {
+  float: left;
+  width: 95%;
+  padding: 20px 10px 20px 10px;
+  margin-left: 2.5%;
+  margin-right: 2.5%;
+  background-color: #f5f5f5;
+  border: unset;
+  font-family: "Lato", sans-serif;
+}
+
+.title-section {
+  font-size: 25px;
+  font-weight: 600;
+  font-style: italic;
+  color: #011b66;
+  float: left;
+  width: 100%;
+}
+
+.settings-card {
+  width: 100%;
+  float: left;
+  font-family: "Lato", sans-serif;
+}
+
+.list-messages-section {
+  float: left;
+  width: 100%;
+  box-shadow: 0 1px 2px 0 rgba(117, 117, 117, 0.2);
+  background-color: #fff;
+  min-height: 50px;
+  margin-bottom: 20px;
+}
+
+.img-error {
+  float: left;
+  width: 100%;
+  min-height: 200px;
+  text-align: center;
+}
+
+.text-messages {
+  float: left;
+  text-align: center;
+  width: 100%;
+  font-size: 18px;
+  font-weight: 500;
+  margin: 10px 0px 10px 0px;
+}
+
+.more-information:hover {
+  cursor: pointer;
+}
+
+@media only screen and (min-width: 720px) {
+  .title-section {
+    font-size: 35px;
+  }
+}

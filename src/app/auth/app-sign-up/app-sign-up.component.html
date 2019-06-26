@@ -1,0 +1,148 @@
+<div class="card-sign-up">
+    <div class="form-sign-up" [@flipInX]>
+      <div class="contain-link-login">
+        <span style="opacity: 0.7;"> Masz już konto? </span>
+        <a routerLink="/auth/sign-in"> Zaloguj </a>
+      </div>
+      <div class="contain-title">
+        SHOP
+        <img class="title-image" src="./assets/images/iconfinder_E-Commerce_1016078.png"/>
+        ADMIN
+      </div>
+      <p class="text-center welcome-register-text">Rejestracja</p>
+      <div class="contain-control-register">
+        
+        <!-- Form Register -->
+        <form (ngSubmit)="submitRegister()" [formGroup]="newDataAccount" novalidate="true">
+          
+          <!-- Input Login -->
+          <div class="control-register">
+            <label [ngClass]="(newDataAccount.controls.email.errors?.required || newDataAccount.controls.email.errors?.email) 
+              && newDataAccount.controls.email.touched ? 
+              'field-resize field_danger b-field b-field_b1 page__field' : 'field-resize field a-field a-field_a1 page__field'">
+              <input type="email" placeholder="Email"
+                [ngClass]="(newDataAccount.controls.email.errors?.required || newDataAccount.controls.email.errors?.email) 
+                && newDataAccount.controls.email.touched ? 'field_danger__input b-field__input' : 'field__input a-field__input'"
+                formControlName="email"/>
+              <span [ngClass]="(newDataAccount.controls.email.errors?.required || newDataAccount.controls.email.errors?.email) 
+                && newDataAccount.controls.email.touched ? 'b-field__label-wrap' : 'a-field__label-wrap'">
+                <span [ngClass]="(newDataAccount.controls.email.errors?.required || newDataAccount.controls.email.errors?.email) 
+                  && newDataAccount.controls.email.touched ? 'b-field__label' : 'a-field__label'">
+                  Email
+                </span>
+              </span>
+            </label>
+
+            <!-- Alert Validate-->
+            <div class="text-danger" *ngIf="newDataAccount.controls.email.errors?.required && newDataAccount.controls.email.touched"
+              [@fadeInOutTranslate]>
+              Pole nie może być puste!
+            </div>
+            <div class="text-danger"
+              *ngIf="newDataAccount.controls.email.errors?.email && newDataAccount.controls.email.touched"
+              [@fadeInOutTranslate]>
+              Zły format emaila!
+            </div>
+          </div>
+
+          <!-- Input Register -->
+          <div class="control-register">
+            <label [ngClass]="(newDataAccount.controls.password.errors?.required || newDataAccount.controls.password.errors?.pattern) 
+              && newDataAccount.controls.password.touched ? 'field-resize field_danger b-field b-field_b1 page__field' : 'field-resize field a-field a-field_a1 page__field'">
+              <input #password type="password"
+                [ngClass]="(newDataAccount.controls.password.errors?.required ||newDataAccount.controls.password.errors?.pattern) 
+                && newDataAccount.controls.password.touched ? 'field_danger__input b-field__input' : 'field__input a-field__input'"
+                placeholder="Hasło"formControlName="password"/>
+              <span [ngClass]="(newDataAccount.controls.password.errors?.required || newDataAccount.controls.password.errors?.pattern) 
+                && newDataAccount.controls.password.touched ? 'b-field__label-wrap' : 'a-field__label-wrap'">
+                <span [ngClass]="(newDataAccount.controls.password.errors?.required || newDataAccount.controls.password.errors?.pattern) 
+                  && newDataAccount.controls.password.touched ? 'b-field__label' : 'a-field__label'">
+                  Hasło
+                </span>
+              </span>
+            </label>
+
+            <!-- Alert Validate-->
+            <div class="text-danger" *ngIf="newDataAccount.controls.password.errors?.required && newDataAccount.controls.password.touched"
+              [@fadeInOutTranslate]>
+              Pole nie może być puste!
+            </div>
+            <div class="text-danger" *ngIf="newDataAccount.controls.password.errors?.pattern && newDataAccount.controls.password.touched"
+              [@fadeInOutTranslate]>
+              Minimum 8 znaków, przynajmniej jedna litera, jedna cyfra i jeden
+              znak specjalny
+            </div>
+            <div class="eye-password" (click)="setVisiblePassword(password)">
+              <img *ngIf="vissiblePassword" height="40" width="40"
+                src="./assets/images/iconfinder_icon-22-eye_315220.png" [@fadeInOutTranslate]/>
+              <img *ngIf="!vissiblePassword" height="40" width="40"
+                src="./assets/images/iconfinder_icon-21-eye-hidden_315219.png" [@fadeInOutTranslate]/>
+            </div>
+            <div class="spinner spinner-pos" [ngStyle]="{ display: displayAnimate }"></div>
+          </div>
+
+          <!-- Input Repeat Register -->
+          <div class="control-register">
+            <label [ngClass]="(newDataAccount.controls.repeatPassword.errors?.required || newDataAccount.controls.repeatPassword.errors?.equalTo) 
+              && newDataAccount.controls.repeatPassword.touched ? 'field-resize field_danger b-field b-field_b1 page__field' : 'field-resize field a-field a-field_a1 page__field'">
+              <input #Repeatpassword type="password"
+                [ngClass]="(newDataAccount.controls.repeatPassword.errors?.required || newDataAccount.controls.repeatPassword.errors?.equalTo) 
+                && newDataAccount.controls.repeatPassword.touched ? 'field_danger__input b-field__input' : 'field__input a-field__input'"
+                placeholder="Powtórz Hasło" formControlName="repeatPassword"/>
+              <span [ngClass]="(newDataAccount.controls.repeatPassword.errors?.required || newDataAccount.controls.repeatPassword.errors?.equalTo) 
+                && newDataAccount.controls.repeatPassword.touched ? 'b-field__label-wrap' : 'a-field__label-wrap'">
+                <span [ngClass]="(newDataAccount.controls.repeatPassword.errors?.required || newDataAccount.controls.repeatPassword.errors?.equalTo)
+                  && newDataAccount.controls.repeatPassword.touched ? 'b-field__label' : 'a-field__label'">
+                  Powtórz Hasło
+                </span>
+              </span>
+            </label>
+
+            <!-- Alert Validate-->
+            <div class="text-danger" *ngIf="newDataAccount.controls.repeatPassword.errors?.required && newDataAccount.controls.repeatPassword.touched"
+              [@fadeInOutTranslate]>
+              Pole nie może być puste!
+            </div>
+            <div class="text-danger"
+              *ngIf="newDataAccount.controls.repeatPassword.errors?.equalTo &&newDataAccount.controls.repeatPassword.touched"
+              [@fadeInOutTranslate]>
+              Hasła muszą się zgadzać!
+            </div>
+            <div class="eye-password"(click)="setVisibleRepeatPassword(Repeatpassword)">
+              <img *ngIf="vissibleRepeatPassword" height="40" width="40"
+                src="./assets/images/iconfinder_icon-22-eye_315220.png" [@fadeInOutTranslate]/>
+              <img *ngIf="!vissibleRepeatPassword" height="40" width="40"
+                src="./assets/images/iconfinder_icon-21-eye-hidden_315219.png"[@fadeInOutTranslate]/>
+            </div>
+            <div class="spinner spinner-pos" [ngStyle]="{ display: displayAnimateRepeatPassword }"></div>
+          </div>
+
+          <!-- Submit Register -->
+          <div class="submit-register">
+            <button type="submit" class="button-submit" *ngIf="!submitCheck" [@fadeInOutTranslate]>
+              Zarejestruj
+            </button>
+
+            <!-- Roller -->
+            <div class="lds-roller" *ngIf="submitCheck" [@fadeInOutTranslate]>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+            <div *ngIf="submitCheck" style="opacity: 0.7;" [@fadeInOutTranslate]>
+              Trwa rejestracja
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Card Picture Right Section -->
+  <div class="card-announcement"></div>
+  

@@ -1,0 +1,130 @@
+.background-opacity {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 3;
+  height: 100vh;
+  width: 100%;
+  background-color: black;
+  opacity: 0.7;
+}
+
+.contain {
+  height: 100vh;
+  width: 100%;
+  position: fixed;
+  z-index: 4;
+  left: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Lato", sans-serif;
+}
+
+.card-modal {
+  background-color: white;
+  position: relative;
+  overflow-y: auto;
+  height: 500px;
+  width: 350px;
+  border-radius: 5px;
+  box-shadow: 0 1px 2px 0 rgba(185, 185, 185, 0.2);
+  border: 1px solid gray;
+}
+
+.card-modal::-webkit-scrollbar-track {
+  display: none;
+}
+
+.card-modal::-webkit-scrollbar {
+  display: none;
+}
+
+.card-modal::-webkit-scrollbar-thumb {
+  display: none;
+}
+
+.title {
+  float: left;
+  width: 100%;
+  padding-left: 10px;
+  padding-top: 10px;
+  font-style: italic;
+}
+
+.underline {
+  float: left;
+  width: 95%;
+  margin-left: 2.5%;
+  margin-right: 2.5%;
+  background-color: black;
+  opacity: 0.5;
+  height: 1px;
+}
+
+.description {
+  float: left;
+  width: 100%;
+  padding: 10px;
+}
+
+.description p {
+  opacity: 0.7;
+  font-size: 15px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.contain-process {
+  width: 90%;
+  margin-left: 5%;
+  margin-right: 5%;
+  float: left;
+  padding: 10px;
+  box-shadow: 0 1px 2px 0 rgb(105, 105, 105);
+  margin-bottom: 20px;
+}
+
+.contain-process p {
+  color: rgb(77, 77, 77);
+}
+
+.contain-process p span {
+  color: black;
+  font-size: 14px;
+}
+
+.contain-process p span i {
+  padding-left: 5px;
+}
+
+.loader-animate {
+  float: left;
+  width: 100%;
+  text-align: center;
+}
+
+.succes-upload {
+  text-align: center;
+  float: left;
+  width: 100%;
+  height: 100px;
+  line-height: 50px;
+}
+
+@media only screen and (min-width: 540px) {
+  .card-modal {
+    width: 500px;
+  }
+}
+
+@media only screen and (min-width: 720px) {
+}
+
+@media only screen and (min-width: 960px) {
+}
+
+@media only screen and (min-width: 1140px) {
+}

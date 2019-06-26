@@ -1,0 +1,88 @@
+.not-found {
+  position: fixed;
+  z-index: 100;
+  left: 0;
+  top: 0;
+  width: 100%;
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #b3b3b3 0%, white 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Varela Round', sans-serif;
+}
+
+.contain-not-found {
+  float: left;
+  width: 90%;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+.title {
+  float: left;
+  width: 100%;
+  font-size: 120px;
+}
+
+.underline {
+  float: left;
+  width: 100%;
+}
+
+.underline div {
+  height: 5px;
+  background-color: #255190;
+  border-radius: 0.5px;
+  float: left;
+  width: 70px;
+}
+
+.description {
+  float: left;
+  width: 100%;
+  margin-top: 10px;
+  font-size: 30px;
+  opacity: 0.5;
+  font-family: "Lato", sans-serif;
+}
+
+.back-contain {
+  float: left;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.back-contain div {
+  width: 130px;
+  height: 50px;
+  border: 2px solid #b4b4b4;
+  border-radius: 10px;
+  line-height: 50px;
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.25s linear;
+}
+
+.back-contain div:hover {
+  cursor: pointer;
+  border-color: #868686;
+  transition: 0.25s linear;
+}
+
+@media only screen and (min-width: 740px) {
+ .contain-not-found {
+   width: 60%;
+   margin-left: 20%;
+   margin-right: 20%;
+ }
+}
+
+
+@media only screen and (min-width: 960px) {
+  .contain-not-found {
+    width: 50%;
+    margin-left: 25%;
+    margin-right: 25%;
+  }
+}

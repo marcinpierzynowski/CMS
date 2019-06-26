@@ -1,0 +1,148 @@
+.card {
+  float: left;
+  width: 95%;
+  padding: 20px 10px 20px 10px;
+  margin-left: 2.5%;
+  margin-right: 2.5%;
+  background-color: #f5f5f5;
+  border: unset;
+  font-family: "Lato", sans-serif;
+}
+
+.title-section {
+  font-size: 25px;
+  font-weight: 600;
+  font-style: italic;
+  color: #011b66;
+  float: left;
+  width: 100%;
+}
+
+.settings-card {
+  width: 100%;
+  float: left;
+  font-family: "Lato", sans-serif;
+}
+
+.list-messages-section {
+  float: left;
+  width: 100%;
+  box-shadow: 0 1px 2px 0 rgba(117, 117, 117, 0.2);
+  background-color: #fff;
+  min-height: 50px;
+  margin-bottom: 20px;
+}
+
+.img-error {
+  float: left;
+  width: 100%;
+  min-height: 200px;
+  text-align: center;
+}
+
+.area-picture {
+  text-align: center;
+  position: relative;
+}
+
+.picture-drop {
+  text-align: center;
+  position: absolute;
+  z-index: 0;
+  top: 50px;
+  width: 100%;
+}
+
+.image-drop {
+  width: 100px;
+  height: 85px;
+}
+
+.image-drop-contain {
+  width: 100%;
+  position: relative;
+  float: left;
+  margin-top: 10px;
+}
+
+.drop-title {
+  position: absolute;
+  text-align: center;
+  width: 300px;
+  top: 150px;
+  width: 100%;
+}
+
+.text-drop {
+  color: #5b5b7b;
+  font-weight: bold;
+}
+
+.picture-section {
+  width: calc(100% - 20px);
+  margin-bottom: 10px;
+  float: left;
+  font-family: "Lato", sans-serif;
+  box-shadow: 0 1px 2px 0 rgba(117, 117, 117, 0.2);
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  font-family: "Lato", sans-serif;
+  position: relative;
+  text-align: center;
+  height: 240px;
+}
+
+.picture-section img {
+  max-width: 100%;
+  max-height: 200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hide-options {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  opacity: 0.3;
+}
+
+.delete-container {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.delete-container i {
+  color: white;
+  font-size: 50px;
+}
+
+.delete-container i:hover {
+  cursor: pointer;
+}
+
+@media only screen and (min-width: 720px) {
+  .title-section {
+    font-size: 35px;
+  }
+
+  .picture-section:nth-child(even) {
+    width: calc(50% - 10px);
+    margin-right: 10px;
+  }
+
+  .picture-section:nth-child(odd) {
+    width: calc(50% - 10px);
+    margin-left: 10px;
+  }
+}

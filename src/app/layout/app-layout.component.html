@@ -1,0 +1,237 @@
+
+<!-- Loader -->
+<div class="loading-check" [@fadeOutTranslate] *ngIf="!userAuth">
+  <div class="loading-contain" style="text-align:center;">
+    <img class="img-firebase" src="./assets/images/firebase-icon.png" />
+    <h5 class="col-12" style="opacity:0.5;margin-top: 25px;">Proszę czekać!</h5>
+    <div class="container">
+      <svg class="loader" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 340">
+        <circle cx="170" cy="170" r="160" stroke="#f58411" />
+        <circle cx="170" cy="170" r="135" stroke="#404041" />
+        <circle cx="170" cy="170" r="110" stroke="#f58411" />
+        <circle cx="170" cy="170" r="85" stroke="#404041" />
+      </svg>
+    </div>
+  </div>
+</div>
+
+<!-- Content -->
+<ng-container *ngIf="userAuth">
+<div id="style-panel-contain" class="panel-contain"
+  [ngStyle]="{width: vissibleLeftPanel ? '200px' : '50px',transition: vissibleLeftPanel ? 'unset' : '0.25s linear'}">
+  <div class="menu-item">
+    <div>
+      <i class="fas fa-broadcast-tower icon-panel"></i>
+      <span *ngIf="vissibleLeftPanel"> Admin Panel </span>
+    </div>
+  </div>
+  <div class="menu-item" (click)="setActiveItemPanel(0)" routerLink="/dashboard">
+    <div class="section-item"></div>
+    <div class="item">
+      <i class="fas fa-home icon-panel"></i>
+      <span *ngIf="vissibleLeftPanel">Start </span>
+    </div>
+  </div>
+
+  <!-- Moje konto -->
+  <div class="menu-item" (click)="setUrl('/my-profile*', 1); setActiveItemPanel(1)">
+    <div class="section-item"></div>
+    <div class="item">
+      <i class="fas fa-user-alt icon-panel"></i>
+      <span *ngIf="vissibleLeftPanel"> Moje konto </span>
+      <div class="contain-angle" (click)="hideSubMenu(0); $event.stopPropagation()" *ngIf="vissibleLeftPanel">
+        <i [ngClass]="activeSubMenu[0] ? 'fa fa-angle-right rotate' : 'fa fa-angle-right'"></i>
+      </div>
+    </div>
+    <div class="sub-menu" [@fadeInOutTranslate] *ngIf="activeSubMenu[0] && vissibleLeftPanel">
+      <div class="sub-menu-item"(click)="setUrl('/my-profile', 1);$event.stopPropagation();setActiveItemPanel(1)">
+        Profil
+      </div>
+      <div class="sub-menu-item" (click)="setUrl('/my-settings', 1);$event.stopPropagation();setActiveItemPanel(1)">
+        Ustawienia
+      </div>
+      <div class="sub-menu-item" (click)="logout(); $event.stopPropagation()">
+        Wyloguj
+      </div>
+    </div>
+  </div>
+
+  <!-- Użytkownicy -->
+  <div class="menu-item" (click)="setUrl('/list-users*', 2); setActiveItemPanel(2)">
+    <div class="section-item"></div>
+    <div class="item">
+      <i class="fas fa-users icon-panel"></i>
+      <span *ngIf="vissibleLeftPanel"> Użytkownicy </span>
+      <div class="contain-angle" (click)="hideSubMenu(1); $event.stopPropagation()" *ngIf="vissibleLeftPanel">
+        <i [ngClass]="activeSubMenu[1] ? 'fa fa-angle-right rotate' : 'fa fa-angle-right'"></i>
+      </div>
+    </div>
+    <div class="sub-menu" [@fadeInOutTranslate] *ngIf="activeSubMenu[1] && vissibleLeftPanel">
+      <div class="sub-menu-item"
+        (click)="setUrl('/list-users', 2);$event.stopPropagation();setActiveItemPanel(2)">
+        Lista użytkowników
+      </div>
+    </div>
+  </div>
+
+  <!-- Produkty -->
+  <div class="menu-item" (click)="setUrl('/add-product*', 3); setActiveItemPanel(3)">
+    <div class="section-item"></div>
+    <div class="item">
+      <i class="fas fa-shopping-cart icon-panel"></i>
+      <span *ngIf="vissibleLeftPanel"> Produkty </span>
+      <div class="contain-angle" (click)="hideSubMenu(2); $event.stopPropagation()" *ngIf="vissibleLeftPanel">
+        <i [ngClass]="activeSubMenu[2] ? 'fa fa-angle-right rotate' : 'fa fa-angle-right'"></i>
+      </div>
+    </div>
+    <div class="sub-menu" [@fadeInOutTranslate] *ngIf="activeSubMenu[2] && vissibleLeftPanel">
+      <div class="sub-menu-item"
+        (click)="setUrl('/add-product', 3);$event.stopPropagation();setActiveItemPanel(3)">
+        Dodaj produkt
+      </div>
+      <div class="sub-menu-item"
+        (click)="setUrl('/list-products', 3);$event.stopPropagation();setActiveItemPanel(3)">
+        Lista produktów
+      </div>
+    </div>
+  </div>
+
+  <!-- Wiadomości -->
+  <div class="menu-item" (click)="setUrl('/new-messages*', 4); setActiveItemPanel(4)">
+    <div class="section-item"></div>
+    <div class="item">
+      <i class="fas fa-envelope icon-panel"></i>
+      <span *ngIf="vissibleLeftPanel"> Wiadomości </span>
+      <div class="contain-angle" (click)="hideSubMenu(3); $event.stopPropagation()" *ngIf="vissibleLeftPanel">
+        <i [ngClass]="activeSubMenu[3] ? 'fa fa-angle-right rotate' : 'fa fa-angle-right'"></i>
+      </div>
+    </div>
+    <div class="sub-menu" [@fadeInOutTranslate] *ngIf="activeSubMenu[3] && vissibleLeftPanel">
+      <div class="sub-menu-item"
+        (click)="setUrl('/new-messages', 4);$event.stopPropagation();setActiveItemPanel(4)">
+        Nowe
+      </div>
+      <div class="sub-menu-item"
+        (click)="setUrl('/received-messages', 4);$event.stopPropagation();setActiveItemPanel(4)">
+        Odebrane
+      </div>
+    </div>
+  </div>
+
+  <!-- Powiadomienia -->
+  <div class="menu-item" (click)="setUrl('/evaluations*', 5); setActiveItemPanel(5)">
+    <div class="section-item"></div>
+    <div class="item">
+      <i class="fas fa-bell icon-panel"></i>
+      <span *ngIf="vissibleLeftPanel"> Powiadomienia </span>
+      <div class="contain-angle" (click)="hideSubMenu(4); $event.stopPropagation()" *ngIf="vissibleLeftPanel">
+        <i [ngClass]="activeSubMenu[4] ? 'fa fa-angle-right rotate' : 'fa fa-angle-right'"></i>
+      </div>
+    </div>
+    <div class="sub-menu" [@fadeInOutTranslate] *ngIf="activeSubMenu[4] && vissibleLeftPanel">
+      <div class="sub-menu-item"
+        (click)="setUrl('/evaluations', 5);$event.stopPropagation();setActiveItemPanel(5)">
+        Oceny
+      </div>
+      <div class="sub-menu-item"
+        (click)="setUrl('/comments', 5);$event.stopPropagation();setActiveItemPanel(5)">
+        Komentarze
+      </div>
+    </div>
+  </div>
+
+  <!-- Strona -->
+  <div class="menu-item" (click)="setUrl('/slider*', 6); setActiveItemPanel(6)">
+    <div class="section-item"></div>
+    <div class="item">
+      <i class="fas fa-globe icon-panel"></i>
+      <span *ngIf="vissibleLeftPanel"> Strona </span>
+      <div class="contain-angle" (click)="hideSubMenu(5); $event.stopPropagation()" *ngIf="vissibleLeftPanel">
+        <i [ngClass]="activeSubMenu[5] ? 'fa fa-angle-right rotate' : 'fa fa-angle-right'"></i>
+      </div>
+    </div>
+    <div class="sub-menu" [@fadeInOutTranslate] *ngIf="activeSubMenu[5] && vissibleLeftPanel">
+      <div class="sub-menu-item" (click)="setUrl('/slider', 6)">
+        Slajder
+      </div>
+      <div class="sub-menu-item"
+        (click)="setUrl('/promotions', 6);$event.stopPropagation();setActiveItemPanel(6)">
+        Promocje
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Down Panel Section -->
+<div class="down-panel-contain" [ngStyle]="{width: vissibleLeftPanel ? '200px' : '50px',transition: vissibleLeftPanel ? 'unset' : '0.25s linear'}"
+  *ngIf="userAuth">
+  <div class="menu-item">
+    <a class="item link-firebase"
+      href="https://console.firebase.google.com/u/0/project/muszelka-users-products/database/muszelka-users-products/data"
+      target="_blank">
+      <i class="fas fa-database icon-panel"></i>
+      <span *ngIf="vissibleLeftPanel"> Firebase Database </span>
+    </a>
+  </div>
+  <div class="menu-item">
+    <a class="item link-firebase"
+      href="https://console.firebase.google.com/u/0/project/muszelka-users-products/storage/muszelka-users-products.appspot.com/files"
+      target="_blank">
+      <i class="fas fa-hdd icon-panel"></i>
+      <span *ngIf="vissibleLeftPanel"> Firebase Storage </span>
+    </a>
+  </div>
+</div>
+
+<!-- Nav Panel -->
+<div class="nav-panel"
+  [ngStyle]="{width: vissibleLeftPanel ? 'calc(100% - 200px)' : 'calc(100% - 50px)'}">
+  <div class="nav-menu col-2" (click)="vissibleLeftPanel = !vissibleLeftPanel">
+    <i class="fas fa-bars"></i> <span class="menu-text">Menu</span>
+  </div>
+  <div class="nav-title col-8">
+    <span class="logo-text"> SHOP </span>
+    <img class="title-image" src="./assets/images/iconfinder_E-Commerce_1016078.png"/>
+    <span class="logo-text"> ADMIN </span>
+  </div>
+  <div class="nav-more">
+    <div class="nav-profil">
+      {{ user ? user.email : "" }}
+    </div>
+    <div class="nav-notification"
+      [ngStyle]="{'background-color': moreOptionsProfile ? 'orange' : 'unset'}"
+      (click)="moreOptionsProfile = !moreOptionsProfile;$event.stopImmediatePropagation()">
+      <i class="far fa-bell"></i>
+    </div>
+  </div>
+</div>
+
+<!-- Router Contain Section -->
+<div class="contain-layout" [ngStyle]="{width: vissibleLeftPanel ? 'calc(100% - 200px)' : 'calc(100% - 50px)'}">
+  <router-outlet></router-outlet>
+</div>
+
+<!-- Contain Notification Right Panel Toogle -->
+<div class="contain-notification" (click)="$event.stopPropagation()" [ngStyle]="{ right: moreOptionsProfile ? '0px' : '-200px' }">
+  <div class="notification">
+    <div class="empty-notifications" *ngIf="!notifications || notifications.length === 0">
+      <p>Brak powiadomień</p>
+    </div>
+    <div class="notification-contener" *ngIf="notifications && notifications.length > 0">
+      <div class="notification-detail"
+        *ngFor="let notife of notifications; let i = index">
+        <p>{{ notife.date}}<i class="fas fa-ban" (click)="deleteNotification(i)"></i></p>
+        <p class="notification-description">
+          Nowych wiadomości: {{ notife.messages }}<i class="fas fa-envelope"></i>
+        </p>
+        <p class="notification-description">
+          Nowych komentarzy: {{ notife.evaluations }}<i class="fas fa-comments"></i>
+        </p>
+        <p class="notification-description">
+          Nowych ocen: {{ notife.messages }}<i class="fas fa-star-half-alt"></i>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+</ng-container>

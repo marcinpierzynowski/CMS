@@ -1,0 +1,125 @@
+<div class="card-sign-in">
+  <div class="form-sign-in" [@flipInX]>
+    <div class="contain-link-register">
+      <span style="opacity: 0.7;"> Potrzebujesz konta? </span>
+      <a routerLink="/auth/sign-up"> Zarejestruj </a>
+    </div>
+    <div class="contain-title">
+      SHOP
+      <img class="title-image" src="./assets/images/iconfinder_E-Commerce_1016078.png"/>
+      ADMIN
+    </div>
+    <p class="text-center welcome-text">Witamy ponownie!</p>
+    <p class="text-center welcome-login-text">
+      Logowanie do panelu zarządzającego sklepem
+    </p>
+    <p class="text-center link-shop">
+      <a target="blank" href="https://www.w3schools.com"> muszelkasklep.pl</a>
+    </p>
+    <div class="contain-control-login">
+      
+      <!-- Form Login -->
+      <form (ngSubmit)="submitLogin()" [formGroup]="loginAccountForm" novalidate="true">
+        
+        <!-- Input Email -->
+        <div class="control-login">
+          <label [ngClass]="(loginAccountForm.controls.email.errors?.required || loginAccountForm.controls.email.errors?.email) 
+              && loginAccountForm.controls.email.touched ? 
+              'field-resize field_danger b-field b-field_b1 page__field' : 'field-resize field a-field a-field_a1 page__field'">
+            <input type="email" placeholder="Email"
+              [ngClass]="(loginAccountForm.controls.email.errors?.required || loginAccountForm.controls.email.errors?.email) 
+                && loginAccountForm.controls.email.touched ? 
+                'field_danger__input b-field__input' : 'field__input a-field__input'"
+              formControlName="email"/>
+            <span [ngClass]="(loginAccountForm.controls.email.errors?.required || loginAccountForm.controls.email.errors?.email) 
+              && loginAccountForm.controls.email.touched ? 
+                'b-field__label-wrap' : 'a-field__label-wrap'">
+              <span [ngClass]="(loginAccountForm.controls.email.errors?.required || loginAccountForm.controls.email.errors?.email)
+                  && loginAccountForm.controls.email.touched? 
+                  'b-field__label' : 'a-field__label'">
+                Email
+              </span>
+            </span>
+          </label>
+
+           <!-- Alert Validate-->
+          <div class="text-danger" *ngIf="loginAccountForm.controls.email.errors?.required && loginAccountForm.controls.email.touched"
+            [@fadeInOutTranslate]>
+            Pole nie może być puste!
+          </div>
+          <div class="text-danger"
+            *ngIf="loginAccountForm.controls.email.errors?.email && loginAccountForm.controls.email.touched"
+            [@fadeInOutTranslate]>
+            Zły format emaila!
+          </div>
+        </div>
+
+        <!-- Input Password -->
+        <div class="control-login">
+          <label [ngClass]="loginAccountForm.controls.password.errors?.required && loginAccountForm.controls.password.touched ? 
+            'field-resize field_danger b-field b-field_b1 page__field' : 'field-resize field a-field a-field_a1 page__field'">
+            <input #password type="password"
+              [ngClass]="loginAccountForm.controls.password.errors?.required && loginAccountForm.controls.password.touched ? 
+                'field_danger__input b-field__input' : 'field__input a-field__input'"
+              placeholder="Hasło" formControlName="password"/>
+            <span [ngClass]=" loginAccountForm.controls.password.errors?.required && loginAccountForm.controls.password.touched ? 
+                'b-field__label-wrap' :'a-field__label-wrap'">
+              <span [ngClass]="loginAccountForm.controls.password.errors?.required && loginAccountForm.controls.password.touched ? 
+                  'b-field__label' : 'a-field__label'">
+                Hasło
+              </span>
+            </span>
+          </label>
+
+           <!-- Alert Validate-->
+          <div class="text-danger" *ngIf="loginAccountForm.controls.password.errors?.required &&loginAccountForm.controls.password.touched"
+            [@fadeInOutTranslate]>
+            Pole nie może być puste!
+          </div>
+          <div class="eye-password" (click)="setVisiblePassword(password)">
+            <img *ngIf="vissiblePassword" height="40" width="40"
+              src="./assets/images/iconfinder_icon-22-eye_315220.png" [@fadeInOutTranslate]/>
+            <img *ngIf="!vissiblePassword" height="40" width="40"
+              src="./assets/images/iconfinder_icon-21-eye-hidden_315219.png" [@fadeInOutTranslate]/>
+          </div>
+          <div class="spinner spinner-pos" [ngStyle]="{ display: displayAnimate }"></div>
+        </div>
+
+        <!-- CheckBox Remember Me -->
+        <div class="control-users">
+          <mat-checkbox color="primary" (change)="savePassword = $event.checked">
+            Zapamiętaj mnie
+          </mat-checkbox>
+          <a class="remember-password" routerLink="/auth/reset-password">
+            Zapomniałeś Hasła?
+          </a>
+        </div>
+
+        <!-- Submit -->
+        <div class="submit-login">
+          <button type="submit" class="button-submit" *ngIf="!submitCheck" [@fadeInOutTranslate]>
+            Zaloguj
+          </button>
+
+          <!-- Roller -->
+          <div class="lds-roller" *ngIf="submitCheck" [@fadeInOutTranslate]>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+          <div *ngIf="submitCheck" style="opacity: 0.7;" [@fadeInOutTranslate]>
+            Trwa logowanie
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Card Picture Right Section -->
+<div class="card-announcement"></div>

@@ -1,0 +1,152 @@
+<div *ngIf="vissibleModal" class="background-opacity"></div>
+<div *ngIf="vissibleModal" class="contain">
+  <div class="card-modal">
+    <div class="title"><h4>Dodawanie produktu</h4></div>
+    <div class="underline"></div>
+    <div class="description">
+      <p>Proces dodania nowego produktu, oczekuj na dodanie!</p>
+    </div>
+    <div
+      style="float:left;width:100%"
+      *ngFor="let process of proccessAdd; let i = index"
+      [id]="i + '-process'"
+    >
+      <div class="contain-process" *ngIf="process.template === 1">
+        <p>
+          <b>{{ i + 1 }}) {{ process.title }}</b>
+        </p>
+        <p *ngFor="let description of process.description; let j = index">
+          {{ description }} <span>{{ process.value[j] }}</span>
+        </p>
+        <p *ngIf="process.status !== 'check'">
+          Status:
+          <span
+            >{{ process.status === "success" ? "Dodano" : "Błąd"
+            }}<i
+              [ngStyle]="{
+                color: process.status === 'success' ? 'green' : 'red'
+              }"
+              [ngClass]="
+                process.status === 'success'
+                  ? 'fas fa-check-circle'
+                  : 'fas fa-times'
+              "
+            ></i
+          ></span>
+        </p>
+        <p *ngIf="process.status === 'check'">Status: <span>Oczekuje</span></p>
+      </div>
+      <div class="contain-process" *ngIf="process.template === 2">
+        <p>
+          <b>{{ i + 1 }}) {{ process.title }}</b>
+        </p>
+        <p>
+          {{ process.description }} <span>{{ process.value }}</span>
+        </p>
+        <div class="progress">
+          <div
+            [id]="i + '-a-test'"
+            class="progress-bar progress-bar-striped progress-bar-animated"
+            role="progressbar"
+            aria-valuemin="0"
+            aria-valuemax="100"
+          ></div>
+        </div>
+        <p *ngIf="process.status !== 'check'">
+          Status:
+          <span
+            >{{
+              process.status === "success"
+                ? "Dodano"
+                : process.status === "warning"
+                ? "Nie dodano"
+                : "Błąd"
+            }}<i
+              [ngStyle]="{
+                color:
+                  process.status === 'success'
+                    ? 'green'
+                    : process.status === 'warning'
+                    ? 'orange'
+                    : 'red'
+              }"
+              [ngClass]="
+                process.status === 'success'
+                  ? 'fas fa-check-circle'
+                  : process.status === 'warning'
+                  ? 'fas fa-exclamation'
+                  : 'fas fa-times'
+              "
+            ></i
+          ></span>
+        </p>
+        <p *ngIf="process.status === 'check'">Status: <span>Oczekuje</span></p>
+      </div>
+
+      <div class="contain-process" *ngIf="process.template === 3">
+        <p>
+          <b>{{ i + 1 }}) {{ process.title }}</b>
+        </p>
+        <p>
+          {{ process.description }} <span>{{ process.value }}</span>
+        </p>
+        <div class="progress">
+          <div
+            [id]="i + '-image'"
+            class="progress-bar progress-bar-striped progress-bar-animated"
+            role="progressbar"
+            aria-valuemin="0"
+            aria-valuemax="100"
+          ></div>
+        </div>
+        <p *ngIf="process.status !== 'check'">
+          Status:
+          <span
+            >{{
+              process.status === "success"
+                ? "Dodano"
+                : process.status === "warning"
+                ? "Nie dodano"
+                : "Błąd"
+            }}<i
+              [ngStyle]="{
+                color:
+                  process.status === 'success'
+                    ? 'green'
+                    : process.status === 'warning'
+                    ? 'orange'
+                    : 'red'
+              }"
+              [ngClass]="
+                process.status === 'success'
+                  ? 'fas fa-check-circle'
+                  : process.status === 'warning'
+                  ? 'fas fa-exclamation'
+                  : 'fas fa-times'
+              "
+            ></i
+          ></span>
+        </p>
+        <p *ngIf="process.status === 'check'">Status: <span>Oczekuje</span></p>
+      </div>
+    </div>
+    <div *ngIf="!successUploadProduct" class="loader-animate">
+      <div class="lds-dual-ring"></div>
+    </div>
+    <div *ngIf="successUploadProduct" class="succes-upload">
+      <div>
+        <b>Dodano pomyślnie!</b>
+      </div>
+      <div>
+        <button
+          id="end-add-product"
+          (click)="exitModal()"
+          mat-raised-button
+          style="background-color:#f29700; width: 120px;margin-bottom: 20px;"
+        >
+          Kontynuuj
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
