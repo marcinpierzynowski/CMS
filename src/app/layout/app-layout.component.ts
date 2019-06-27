@@ -21,14 +21,14 @@ import { DatePipe } from '@angular/common';
 })
 export class AppLayoutComponent implements OnInit {
   public activeSubMenu = [false, false, false, false, false, false, false];
-  public userAuth: boolean = false;
+  public userAuth = false;
   public vissibleLeftPanel: boolean;
   public moreOptionsProfile: boolean;
   public user: Admin;
   public notifications: Array<Notificactions>;
 
   private sectionActually;
-  private flag: boolean = true;
+  private flag = true;
   private admins: Array<Admin>;
   private urlToSetActivePanel: object = {
     '/my-profile': 1,
@@ -66,7 +66,7 @@ export class AppLayoutComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.router.events.subscribe((e) => {
+    this.router.events.subscribe(() => {
       this.getUrlAndSetActivePanelAdmin(this.router.url);
     });
 
@@ -95,7 +95,10 @@ export class AppLayoutComponent implements OnInit {
   public checkAuth(): void {
     if (this.firebaseService.authorization) {
       this.userAuth = true;
-      this.user = this.admins.find(ad => ad.email.toLocaleLowerCase() === this.layoutManageService.email.toLocaleLowerCase());
+
+      this.user = this.admins.find(
+        ad => ad.email.toLocaleLowerCase() === this.layoutManageService.emailData.getValue().toLocaleLowerCase()
+      );
       this.getNotifications();
       this.getUrlAndSetActivePanelAdmin(this.router.url);
       this.setNewDataLogin();

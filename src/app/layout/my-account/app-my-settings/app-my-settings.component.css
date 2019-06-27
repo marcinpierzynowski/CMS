@@ -24,7 +24,6 @@
   font-family: "Lato", sans-serif;
 }
 
-.profile-section,
 .password-section {
   float: left;
   width: 100%;
@@ -124,12 +123,16 @@
   margin-bottom: 15px;
 }
 
-@media only screen and (min-width: 540px) {
-}
-
 @media only screen and (min-width: 720px) {
   .title-section {
     font-size: 35px;
+    text-align: center;
+  }
+
+  .settings-card {
+    width: 50%;
+    margin-left: 25%;
+    margin-right: 25%;
   }
 
   .text-danger {
@@ -144,17 +147,14 @@
     float: left;
   }
 
-  .profile-section,
   .password-section {
-    width: 48%;
     margin-left: 1%;
     margin-right: 1%;
   }
 
   .notification-security-contener {
-    width: 97.5%;
-    margin-left: 1.25%;
-    margin-right: 1.25%;
+    margin-left: 1%;
+    margin-right: 1%;
   }
 }
 

@@ -1,4 +1,6 @@
 <div class="card" [@fadeInOutTranslate]>
+  
+  <!-- Notification Fixed Contain -->
   <div class="notification-contain" *ngIf="user?.security && visibleNotificationSecurity"
     [@fadeInOutTranslate]>
     <div class="icon-notification"><i class="fas fa-check-circle"></i></div>
@@ -14,6 +16,8 @@
       <i class="fas fa-times"></i>
     </div>
   </div>
+
+  <!-- Card Welcome -->
   <div class="col-12" style="margin-top: 50px;display: flex;align-items: center;justify-content: center;margin-bottom: 10px;">
     <div style="font-style: italic" class="col-12 col-md-6">
       <div class="welcome-text">
@@ -27,7 +31,11 @@
       <img class="img-fluid" src="./assets/images/home-welcome.png" />
     </div>
   </div>
+
+  <!-- Fisrt Card Navs -->
   <div class="col-12 card-main container">
+    
+    <!-- Router to add products-->
     <div class="card-options">
       <div class="col-12 card-options-title">
         <p style="margin-top:80px;">Dodaj nowy produkt</p>
@@ -41,6 +49,8 @@
         </button>
       </div>
     </div>
+
+    <!-- Router to new messages-->
     <div class="card-options">
       <div class="col-12 card-options-title">
         <p style="margin-top:80px;">Zobacz wiadomości</p>
@@ -55,6 +65,8 @@
       </div>
     </div>
   </div>
+
+   <!-- Second Card Navs -->
   <div class="card-footer">
     <div class="card-options-text contain-footer">
       Codziennie sprawdzaj powiadomienia aby być na bieżąco

@@ -182,16 +182,12 @@
 
   .profil-information-contain {
     width: 100%;
-    float: left;
-    min-height: 150px;
-    display: flex;
-    justify-content: space-between;
   }
 
   .profil-information {
-    padding: 10px;
-    width: 30%;
-    background-color: #fff;
+    float: left;
+    width: 50%;
+    box-shadow: 0 1px 0px 0 rgba(117, 117, 117, 0.2);
   }
 
   .history-filter,
@@ -221,6 +217,10 @@
 }
 
 @media only screen and (min-width: 960px) {
+  .profil-information-contain {
+    width: 65%;
+  }
+  
   .history-section {
     display: flex;
     justify-content: space-between;
