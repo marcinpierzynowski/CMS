@@ -6,7 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'muszelka-shop-admin';
   selector;
   alreadySelector = 1;
   clickDeleteSpam;

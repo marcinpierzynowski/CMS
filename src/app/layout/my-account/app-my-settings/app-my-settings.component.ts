@@ -28,16 +28,12 @@ export class AppMySettingsComponent implements OnInit {
 
   ngOnInit(): void {
     const admins = this.layoutManageService.adminsData.getValue();
-    this.layoutManageService.readyData.subscribe((data) => {
-      if (data === true) {
-        const email = this.layoutManageService.emailData.getValue();
-        this.user = admins.find((ad, index) => {
-          this.indexUser = index.toString();
-          return ad.email === email;
-        });
-        this.activeNotificationSecurity = this.user.security;
-      }
+    const email = this.layoutManageService.emailData.getValue();
+    this.user = admins.find((ad, index) => {
+      this.indexUser = index.toString();
+      return ad.email === email;
     });
+    this.activeNotificationSecurity = this.user.security;
     this.initForm();
   }
 

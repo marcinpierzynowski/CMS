@@ -14,7 +14,7 @@ import { fadeInOutTranslate } from '../../../shared/animations/animation';
 })
 export class AppDashboardComponent implements OnInit {
   public user: Admin;
-  public visibleNotificationSecurity: boolean = true;
+  public visibleNotificationSecurity = true;
 
   constructor(
     private router: Router,
@@ -22,13 +22,9 @@ export class AppDashboardComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.layoutManageService.emailData.subscribe((email) => {
-      if (email) {
-        this.layoutManageService.adminsData.subscribe(admins =>
-          this.user = admins.find(admin => admin.email === email)
-        );
-      }
-    });
+    const email = this.layoutManageService.emailData.getValue();
+    const admins = this.layoutManageService.adminsData.getValue();
+    this.user = admins.find(admin => admin.email === email);
   }
 
   public goToSection(url): void {

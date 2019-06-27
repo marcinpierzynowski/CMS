@@ -1,72 +1,40 @@
 <div class="card" [@fadeInOutTranslate]>
+
+  <!-- Title -->
   <div class="title-section">Lista użytkowników</div>
   <div class="settings-card">
     <div class="profile-section">
+
+      <!-- Title Card -->
       <div class="title">Lista użytkowników z uprawnieniami.</div>
-      <div
-        *ngIf="!checkAuthorized && authorized"
-        style="float:left;width:100%;text-align:center;margin-top: 100px;"
-      >
-        <div
-          style="float:left;width:100%;text-align:center;font-size: 20px;font-weight: 400;"
-        >
-          Trwa autoryzacja
-        </div>
-        <div class="spinner">
-          <div class="bounce1"></div>
-          <div class="bounce2"></div>
-          <div class="bounce3"></div>
-        </div>
-      </div>
-      <div class="img-error" *ngIf="!authorized">
-        <img
-          class="img-fluid"
-          height="350"
-          width="262"
-          src="./assets/images/error.svg"
-        />
-        <p
-          style="float: left;width: 100%;font-weight: 500;font-size: 18px;margin-bottom: 20px;"
-        >
-          Nie masz uprawnień aby korzystać z tej sekcji strony!
-        </p>
-      </div>
-      <div
-        *ngIf="authorizationUsers.length === 0 && checkAuthorized"
-        style="float:left;margin-top:100px;width:100%;"
-      >
-        <p
-          style="float: left;width: 100%;font-weight: 500;font-size: 18px;margin-bottom: 20px; text-align: center"
-        >
-          Brak użytkowników oczekujących na dodanie!
-        </p>
-      </div>
-      <div
-        class="list-users"
-        [@fadeInOutTranslate]
-        *ngIf="authorizationUsers.length > 0"
-      >
+      
+      <!-- List Header -->
+      <div class="list-users" [@fadeInOutTranslate] *ngIf="admins && admins.length > 0">
         <div style="float:left;width:100%;">
           <div class="information-user information">Email</div>
           <div class="information-user information">Opcje</div>
         </div>
-        <div
-          *ngFor="let user of authorizationUsers; let i = index"
-          style="float:left;width:100%;"
-        >
-          <div class="information-user">{{ user.email }}</div>
+
+        <!-- List Body -->
+        <div *ngFor="let admin of admins; let i = index" style="float:left;width:100%;">
+          <div class="information-user">{{ admin.email }}</div>
           <div class="information-user">
-            <button
-              (click)="checkSureDelete(i)"
-              mat-raised-button
-              style="background-color:#c82333;color: white;"
-              class="mat-select"
-            >
+            <button (click)="checkSureDelete(i)" mat-raised-button
+              style="background-color:#c82333;color: white;" class="mat-select">
               Usuń
             </button>
           </div>
         </div>
       </div>
+
+      <!-- Empty List Admins -->
+      <div class="img-error" *ngIf="admins && admins.length === 0">
+        <img class="img-fluid" height="350" width="262" src="./assets/images/error.svg"/>
+        <p style="float: left;width: 100%;font-weight: 500;font-size: 18px;margin-bottom: 20px;">
+          Brak innych użytkowników!
+        </p>
+      </div>
+
     </div>
   </div>
 </div>

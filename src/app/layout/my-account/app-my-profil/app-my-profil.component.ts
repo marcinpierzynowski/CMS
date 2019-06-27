@@ -35,13 +35,9 @@ export class AppMyProfilComponent implements OnInit {
 
   ngOnInit(): void {
     const admins = this.layoutManageService.adminsData.getValue();
-    this.layoutManageService.readyData.subscribe((data) => {
-      if (data === true) {
-        const email = this.layoutManageService.emailData.getValue();
-        this.user = admins.find(ad => ad.email === email);
-        this.prepareScores();
-      }
-    });
+    const email = this.layoutManageService.emailData.getValue();
+    this.user = admins.find(ad => ad.email === email);
+    this.prepareScores();
   }
 
   public prepareScores(): void {
