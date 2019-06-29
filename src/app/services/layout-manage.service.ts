@@ -60,10 +60,6 @@ export class LayoutManageService {
         this.notificationsData.next(notifications);
     }
 
-    public catchError(error: string) {
-        console.error(error);
-    }
-
     public prepareData(data) {
         const keys = Object.keys(data);
         const preData = [];
@@ -72,6 +68,10 @@ export class LayoutManageService {
             preData.push(data[keys[i]]);
         }
         return preData;
+    }
+
+    public catchError(error: string) {
+        console.error(error);
     }
 
     public addReadyStatus() {

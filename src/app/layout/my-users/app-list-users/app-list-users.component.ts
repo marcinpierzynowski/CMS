@@ -97,7 +97,7 @@ export class AppListUsersComponent implements OnInit {
       .then(() => {
         swal.close();
         swal('Usuwanie użytkownika', 'Użytkownik został usunięty pomyślnie!', 'success');
-      })
+      });
   }
 
   public generateSwalWaitingFromRequest(type, title, text): void {

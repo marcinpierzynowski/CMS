@@ -57,7 +57,7 @@ export class AppSignInComponent implements OnInit {
 
   public authorizedLogin() {
     if (localStorage.getItem('shop-admin')) {
-      this.router.navigate(['/'])
+      this.router.navigate(['/']);
     }
     this.layoutManageService.adminsData.subscribe(el => this.admins = el);
   }

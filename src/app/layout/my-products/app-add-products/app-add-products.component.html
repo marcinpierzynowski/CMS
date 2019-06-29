@@ -1,730 +1,283 @@
 <div class="card" [@fadeInOutTranslate]>
+
+  <!-- Title Section -->
   <div class="title-section">Dodaj Produkt</div>
+
+  <!-- Product Card -->
   <div class="settings-card">
     <div class="product-section">
-      <div
-        *ngIf="!checkAuthorized && authorizationProducts"
-        style="float:left;width:100%;text-align:center;margin-top: 120px;"
-      >
-        <div
-          style="float:left;width:100%;text-align:center;font-size: 20px;font-weight: 400;"
-        >
-          Trwa autoryzacja
-        </div>
-        <div class="spinner">
-          <div class="bounce1"></div>
-          <div class="bounce2"></div>
-          <div class="bounce3"></div>
-        </div>
-      </div>
-      <div class="img-error" *ngIf="!authorizationProducts">
-        <img
-          class="img-fluid"
-          height="350"
-          width="262"
-          src="./assets/images/error.svg"
-        />
-        <p
-          style="float: left;width: 100%;font-weight: 500;font-size: 18px;margin-bottom: 20px;"
-        >
-          Nie masz uprawnień aby korzystać z tej sekcji strony!
-        </p>
-      </div>
-      <div class="product-form" [@fadeInOutTranslate] *ngIf="checkAuthorized">
+      <div class="product-form" [@fadeInOutTranslate]>
         <div class="stepper-contain">
+
+          <!-- Stepper -->
+
+          <!-- First Stepper -->
+          <div (click)="setStepper(-1)" class="stepper-description">
+            <span [ngStyle]="{ backgroundColor: stepperSection === 1 ? 'rgba(63, 81, 181, 1)' : 'gray' }">{{ getStepperNumber(-1) }}</span>
+            <span [ngStyle]="{ fontWeight: stepperSection === 1 ? '800' : '500' }">
+                &nbsp;&nbsp; {{ getStepperName(-1) }}
+            </span>
+          </div>
+
+          <!-- Break Line Stepper -->
+          <div class="stepper-line"><div></div></div>
+
+          <!-- Second Stepper -->
+          <div (click)="setStepper(0)" class="stepper-description">
+            <span [ngStyle]="{ backgroundColor: stepperSection === 2 || stepperSection === 3 ? 'rgba(63, 81, 181, 1)' : 'gray' }">{{ getStepperNumber(0) }}</span>
+            <span [ngStyle]="{ fontWeight: stepperSection === 2 || stepperSection === 3 ? '800': '500' }">
+                &nbsp;&nbsp; {{ getStepperName(0) }}
+            </span>
+          </div>
+
+          <!-- Break Line Stepper -->
+          <div class="stepper-line"><div></div></div>
+
+            <!-- Third Stepper -->
           <div (click)="setStepper(1)" class="stepper-description">
-            <span
-              [ngStyle]="{
-                backgroundColor:
-                  stepperSection === 1 ? 'rgba(63, 81, 181, 1)' : 'gray'
-              }"
-              >{{ stepperSection === 1 || stepperSection === 2 ? "1" : ""
-              }}{{ stepperSection === 3 ? "2" : ""
-              }}{{ stepperSection === 4 ? "3" : ""
-              }}{{ stepperSection === 5 ? "4" : ""
-              }}{{ stepperSection === 6 ? "5" : ""
-              }}{{ stepperSection === 7 ? "5" : "" }}</span
-            >
-            <span
-              [ngStyle]="{
-                fontWeight: stepperSection === 1 ? '800' : '500'
-              }"
-              >&nbsp;&nbsp;{{
-                stepperSection === 1 || stepperSection === 2 ? "Zdjęcia" : ""
-              }}{{ stepperSection === 3 ? "Opis" : ""
-              }}{{ stepperSection === 4 ? "Kategorie" : ""
-              }}{{ stepperSection === 5 ? "Powiąż" : ""
-              }}{{ stepperSection === 6 ? "Parametry" : ""
-              }}{{ stepperSection === 7 ? "Parametry" : "" }}</span
-            >
+            <span [ngStyle]="{ backgroundColor: stepperSection === 4 ? 'rgba(63, 81, 181, 1)' : 'gray' }">{{ getStepperNumber(1) }}</span>
+            <span [ngStyle]="{ fontWeight: stepperSection === 4 ? '800' : '500' }">
+              &nbsp;&nbsp; {{ getStepperName(1) }}
+            </span>
           </div>
-          <div class="stepper-line"><div></div></div>
-          <div (click)="setStepper(2)" class="stepper-description">
-            <span
-              [ngStyle]="{
-                backgroundColor:
-                  stepperSection === 2 ||
-                  stepperSection === 3 ||
-                  stepperSection === 4 ||
-                  stepperSection === 5 ||
-                  stepperSection === 6
-                    ? 'rgba(63, 81, 181, 1)'
-                    : 'gray'
-              }"
-              >{{ stepperSection === 1 || stepperSection === 2 ? "2" : ""
-              }}{{ stepperSection === 3 ? "3" : ""
-              }}{{ stepperSection === 4 ? "4" : ""
-              }}{{ stepperSection === 5 ? "5" : ""
-              }}{{ stepperSection === 6 ? "6" : ""
-              }}{{ stepperSection === 7 ? "6" : "" }}</span
-            ><span
-              [ngStyle]="{
-                fontWeight:
-                  stepperSection === 2 ||
-                  stepperSection === 3 ||
-                  stepperSection === 4 ||
-                  stepperSection === 5 ||
-                  stepperSection === 6
-                    ? '800'
-                    : '500'
-              }"
-              >&nbsp;&nbsp;{{
-                stepperSection === 1 || stepperSection === 2 ? "Opis" : ""
-              }}{{ stepperSection === 3 ? "Kategorie" : ""
-              }}{{ stepperSection === 4 ? "Powiąż" : ""
-              }}{{ stepperSection === 5 ? "Parametry" : ""
-              }}{{ stepperSection === 6 ? "A-Test" : ""
-              }}{{ stepperSection === 7 ? "A-Test" : "" }}</span
-            >
-          </div>
-          <div class="stepper-line"><div></div></div>
-          <div (click)="setStepper(3)" class="stepper-description">
-            <span
-              [ngStyle]="{
-                backgroundColor:
-                  stepperSection === 7 ? 'rgba(63, 81, 181, 1)' : 'gray'
-              }"
-              >{{ stepperSection === 1 || stepperSection === 2 ? "3" : ""
-              }}{{ stepperSection === 3 ? "4" : ""
-              }}{{ stepperSection === 4 ? "5" : ""
-              }}{{ stepperSection === 5 ? "6" : ""
-              }}{{ stepperSection === 6 ? "7" : ""
-              }}{{ stepperSection === 7 ? "7" : "" }}</span
-            >
-            <span
-              [ngStyle]="{
-                fontWeight: stepperSection === 7 ? '800' : '500'
-              }"
-              >&nbsp;&nbsp;{{
-                stepperSection === 1 || stepperSection === 2 ? "Kategorie" : ""
-              }}{{ stepperSection === 3 ? "Powiąż" : ""
-              }}{{ stepperSection === 4 ? "Parametry" : ""
-              }}{{ stepperSection === 5 ? "A-Test" : ""
-              }}{{ stepperSection === 6 ? "Niezbędne" : ""
-              }}{{ stepperSection === 7 ? "Niezbędne" : "" }}</span
-            >
-          </div>
+
         </div>
+
+        <!-- Form Add New Product -->
         <div class="stepper">
-          <div *ngIf="stepperSection === 1" [@fadeInOutTranslate]>
-            <div class="area-picture">
-              <div class="picture-drop">
-                <img class="image-drop" src="./assets/images/cloud-drop.png" />
+
+          <form (ngSubmit)="submitAddProduct()" [formGroup]="productForm" novalidate="true">
+            <!-- Upload Images -->
+            <div *ngIf="stepperSection === 1" [@fadeInOutTranslate]>
+              <div class="area-picture">
+                <div class="picture-drop">
+                  <img class="image-drop" src="./assets/images/cloud-drop.png" />
+                </div>
+
+                <!-- Step:1 Drag File Drop Area -->
+                <file-drop (onFileDrop)="dropped($event)">
+                  <div class="drop-title">
+                    <p class="text-drop">Przeciągnij i upuść plik.</p>
+                    <p class="text-drop">lub</p>
+                    <input #dropInput type="file" style="display:none;" multiple
+                      (change)="uploadImage($event.target)" accept="image/x-png,image/gif,image/jpeg"/>
+                    <button mat-raised-button style="background-color:#f29700; width: 120px;" (click)="getFile(dropInput)">
+                      Wybierz plik
+                    </button>
+                  </div>
+                </file-drop>
+
               </div>
-              <file-drop (onFileDrop)="dropped($event)">
-                <div class="drop-title">
-                  <p class="text-drop">Przeciągnij i upuść plik.</p>
-                  <p class="text-drop">lub</p>
-                  <input
-                    #dropInput
-                    type="file"
-                    style="display:none;"
-                    multiple
-                    (change)="uploadImage($event.target)"
-                    accept="image/x-png,image/gif,image/jpeg"
-                  />
-                  <button
-                    mat-raised-button
-                    style="background-color:#f29700; width: 120px;"
-                    (click)="getFile(dropInput)"
-                  >
-                    Wybierz plik
-                  </button>
+
+              <!-- Images View -->
+              <div class="image-drop-contain" *ngFor="let image of this.productForm.value.images; let i = index"
+                [@fadeInOutTranslate]>
+                <div class="contain-image"><img class="image-upload" /></div>
+                <div class="image-information-contain">
+                  <p class="image-information name-image">{{ image.urlName }}</p>
+                  <p class="image-information size-image">
+                    {{ countSizeImage(image.urlSize) }}
+                  </p>
                 </div>
-              </file-drop>
-            </div>
-            <div
-              class="image-drop-contain"
-              *ngFor="let image of urlImage; let i = index"
-              [@fadeInOutTranslate]
-            >
-              <div class="contain-image"><img class="image-upload" /></div>
-              <div class="image-information-contain">
-                <p class="image-information name-image">{{ image.urlName }}</p>
-                <p class="image-information size-image">
-                  {{ countSizeImage(image.urlSize) }}
-                </p>
-              </div>
-              <div class="cancel-image-contain">
-                <button mat-fab class="cancel-image" (click)="cancelImage(i)">
-                  <i class="fas fa-times icon-cancel-image"></i>
-                </button>
-              </div>
-            </div>
-            <div class="step-next-submit">
-              <button mat-button class="next-step" (click)="setStepper(2)">
-                Dalej
-              </button>
-            </div>
-          </div>
-          <!-- 2 Dane o produkcie 2 -->
-          <div *ngIf="stepperSection === 2" [@fadeInOutTranslate]>
-            <div class="title-second-section"><p>Dane o produkcie</p></div>
-            <div class="underline"></div>
-            <div class="form-contain">
-              <mat-form-field
-                style="text-align:center;position: relative;"
-                class="second-form-input"
-              >
-                <input
-                  style="text-align:center;"
-                  matInput
-                  placeholder="Cena"
-                  type="number"
-                  [(ngModel)]="price"
-                />
-              </mat-form-field>
-            </div>
-            <div class="form-contain">
-              <mat-form-field
-                style="text-align:center;position: relative;"
-                class="second-form-input"
-              >
-                <div class="form-help">
-                  <i
-                    class="fas fa-info-circle tooltip-info"
-                    matTooltip="Podaj wartość procentową obniżenia, względem głównej ceny. *symbol procenta nie jest potrzebny i nie jest dozwolony!"
-                  ></i>
-                </div>
-                <input
-                  style="text-align:center;"
-                  matInput
-                  placeholder="Promocja"
-                  type="number"
-                  [(ngModel)]="promotionPrice"
-                />
-              </mat-form-field>
-            </div>
-            <div class="form-contain">
-              <mat-form-field
-                style="text-align:center;position: relative;"
-                class="second-form-input"
-              >
-                <div class="form-help">
-                  <i
-                    class="fas fa-info-circle tooltip-info"
-                    matTooltip="Tytuł produktu używany jako tag wyszukiwania w wyszukiwarce produktów"
-                  ></i>
-                </div>
-                <input
-                  style="text-align:center;"
-                  matInput
-                  placeholder="Tytuł"
-                  type="text"
-                  id="title-product"
-                  [(ngModel)]="titleProduct"
-                />
-              </mat-form-field>
-            </div>
-            <div class="form-contain">
-              <mat-form-field
-                style="text-align:center;position: relative;"
-                class="second-form-input"
-              >
-                <div class="form-help">
-                  <i
-                    class="fas fa-info-circle tooltip-info"
-                    matTooltip="Nr referencyjny indentyfikujacy produkt widoczny dla klienta minimum 9 znaków i musi być unikatowy. Jeśli nie podasz, numer zostanie automatycznie wygenerowany"
-                  ></i>
-                </div>
-                <input
-                  style="text-align:center;"
-                  matInput
-                  placeholder="Nr. referencyjny"
-                  type="number"
-                  [(ngModel)]="refNumberProduct"
-                />
-              </mat-form-field>
-            </div>
-            <div class="form-contain">
-              <mat-form-field
-                style="text-align:center;position: relative;"
-                class="example-full-width"
-                class="second-form-input"
-              >
-                <div class="form-help">
-                  <i
-                    class="fas fa-info-circle tooltip-info"
-                    matTooltip="Główny opis produktu widoczny dla klienta"
-                  ></i>
-                </div>
-                <textarea
-                  matInput
-                  style="text-align:center;"
-                  matInput
-                  placeholder="Opis produktu"
-                  [(ngModel)]="descriptionProduct"
-                ></textarea>
-              </mat-form-field>
-            </div>
-            <div class="step-next-submit">
-              <button mat-button class="prev-step" (click)="setStepper(1)">
-                Wróć
-              </button>
-              <button mat-button class="next-step" (click)="setStepper(3)">
-                Dalej
-              </button>
-            </div>
-          </div>
-          <!-- 3 Kategorie 3 -->
-          <div *ngIf="stepperSection === 3" [@fadeInOutTranslate]>
-            <div class="title-second-section">
-              <p>
-                Kategorie
-                <span style="font-size: 14px;font-weight: 400;"
-                  >*opcjonalnie</span
-                >
-              </p>
-            </div>
-            <div class="underline"></div>
-            <div class="form-contain">
-              <div>
-                <p *ngIf="!detailCategoryProducts" class="text-category">
-                  Brak kategorii! *dodaj nową aby przypisać
-                </p>
-                <p *ngIf="detailCategoryProducts">
-                  {{ "Kategoria: " + categoryLevel }}
-                  {{ level ? " Poziom: " + level : "" }}
-                </p>
-                <div>
-                  <button
-                    *ngIf="level > 0"
-                    style="background-color:rgba(117, 117, 117, 0.2);width:120px;"
-                    (click)="returnToCategory()"
-                    mat-button
-                  >
-                    Cofinj
-                  </button>
-                </div>
-                <div class="category-list">
-                  <table
-                    *ngIf="detailCategoryProducts"
-                    class="table table-borderless"
-                  >
-                    <thead>
-                      <tr>
-                        <th scope="col">Numer</th>
-                        <th scope="col">Kategoria</th>
-                        <th scope="col">Opcje</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr
-                        [ngStyle]="{
-                          backgroundColor:
-                            categoryChoose === category.id
-                              ? 'lightgray'
-                              : 'unset'
-                        }"
-                        *ngFor="let category of vissibleCategory; let i = index"
-                      >
-                        <td>{{ i + 1 }}</td>
-                        <td>{{ category.name }}</td>
-                        <td>
-                          <mat-select class="mat-select" placeholder="Opcje">
-                            <mat-option
-                              (click)="assignCategoryProducts(category.id)"
-                              *ngIf="
-                                categoryChoose !== category.id &&
-                                !category.subCategory
-                              "
-                              >Przypisz</mat-option
-                            >
-                            <mat-option
-                              (click)="categoryChoose = -1"
-                              *ngIf="categoryChoose === category.id"
-                              >Odpisz</mat-option
-                            >
-                            <mat-option
-                              (click)="createSubCategory(category.id, i)"
-                              *ngIf="checkAssign(category.id)"
-                              >Stwórz</mat-option
-                            >
-                            <mat-option
-                              *ngIf="category.subCategory"
-                              (click)="setVissibleCategoryProducts(i)"
-                              >Przejdź</mat-option
-                            >
-                            <mat-option
-                              (click)="deleteCategory(category.id, i)"
-                            >
-                              Usuń
-                            </mat-option>
-                          </mat-select>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-                <div *ngIf="level === 0" class="category-form">
-                  <button mat-button (click)="createCategory()">Stwórz</button>
-                </div>
-                <div class="step-next-submit">
-                  <button mat-button class="prev-step" (click)="setStepper(1)">
-                    Wróc
-                  </button>
-                  <button mat-button class="next-step" (click)="setStepper(3)">
-                    Dalej
+                <div class="cancel-image-contain">
+                  <button mat-fab class="cancel-image" (click)="cancelImage(i)">
+                    <i class="fas fa-times icon-cancel-image"></i>
                   </button>
                 </div>
               </div>
             </div>
-          </div>
-          <!-- 4 Powiązania 4 -->
-          <div *ngIf="stepperSection === 4" [@fadeInOutTranslate]>
-            <div class="break-beetween-forms"></div>
-            <div class="title-second-section">
-              <p>
-                Powiązanie produktu
-                <span style="font-size: 14px;font-weight: 400;"
-                  >*opcjonalnie</span
-                >
-              </p>
-            </div>
-            <div class="underline"></div>
-            <div class="content-info">
-              Informacja -
-              <i
-                matTooltip="Stwórz powiązanie pomiędzy różnymi produktami. Np. choinka o
-                wysokości 50cm 150cm 200cm. Przy produkcie wyświetli się szybka
-                możliwość w tym przypadku zmiany wysokości produktu nie szukając
-                go po stronie. Co ułatwi możliwość szybkiego wyboru zakupu dla
-                klienta. Jeśli przypiszesz powiązanie pamiętaj aby w następnym
-                kroku przypisać danemu atrybutowi to powiązanie klikając w
-                checkboxa który wyświetli się wraz z dodanym parametrem."
-                class="fas fa-info-circle"
-              ></i>
-            </div>
-            <div class="form-contain">
-              <mat-form-field
-                style="text-align:center;position: relative;"
-                class="example-full-width second-form-input"
-              >
-                <div class="form-help">
-                  <i
-                    class="fas fa-info-circle tooltip-info"
-                    matTooltip="Opcjonalnie* powiąż nowy produkt z którymś z wybranej listy"
-                  ></i>
-                </div>
-                <mat-select
-                  [(ngModel)]="connectionsProduct"
-                  placeholder="Powiązania"
-                >
-                  <mat-option
-                    value="pusty"
-                    *ngIf="detailConnectionsProducts"
-                    (click)="setConnectionProduct(-1)"
-                  >
-                    Pusty
-                  </mat-option>
-                  <mat-option
-                    *ngFor="
-                      let connection of detailConnectionsProducts;
-                      let i = index
-                    "
-                    [value]="connection.id"
-                    (click)="setConnectionProduct(connection.id)"
-                  >
-                    {{ connection.name + " id:" + connection.id
-                    }}<i
-                      (click)="
-                        deleteConnectionsProducts(i); $event.stopPropagation()
-                      "
-                      style="margin-left: 5px;"
-                      class="fas fa-times"
-                    ></i>
-                  </mat-option>
-                  <mat-option *ngIf="!detailConnectionsProducts">
-                    Brak powiązań stwórz nowy!
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-            <div class="form-contain">
-              <div>
-                <mat-checkbox
-                  color="primary"
-                  (change)="
-                    visibleFormNewConnectionProducts = !visibleFormNewConnectionProducts
-                  "
-                  #checkNewConnection
-                >
-                  Nowe powiązanie
-                </mat-checkbox>
-              </div>
-              <mat-form-field
-                *ngIf="visibleFormNewConnectionProducts"
-                style="text-align:center;position: relative;"
-                class="example-full-width second-form-input"
-                [@fadeInOutTranslate]
-              >
-                <div class="form-help">
-                  <i
-                    class="fas fa-info-circle tooltip-info"
-                    matTooltip="Opcjonalnie* stwórz nowe powiązanie dla produktów. Nazwy mogą się powtarzać ,obok pojawi sie identyfikator powiązania który jest widoczny tylko dla administatorów"
-                  ></i>
-                </div>
-                <input
-                  style="text-align:center;"
-                  matInput
-                  placeholder="Nazwa powiązania"
-                  (change)="
-                    nameOfCreateNewConnectionProducts = $event.target.value
-                  "
-                  type="text"
-                />
-              </mat-form-field>
-              <div
-                *ngIf="visibleFormNewConnectionProducts"
-                class="submit-create-connection"
-                [@fadeInOutTranslate]
-              >
-                <button
-                  mat-button
-                  (click)="createNewConnectionProducts(checkNewConnection)"
-                >
-                  Stwórz
-                </button>
-              </div>
-              <div class="break-beetween-forms"></div>
-              <div class="step-next-submit">
-                <button mat-button class="prev-step" (click)="setStepper(1)">
-                  Wróc
-                </button>
-                <button mat-button class="next-step" (click)="setStepper(3)">
-                  Dalej
-                </button>
-              </div>
-            </div>
-          </div>
-          <!-- 5 Parametry 5 -->
-          <div *ngIf="stepperSection === 5" [@fadeInOutTranslate]>
-            <div class="title-second-section">
-              <p>
-                Parametry
-                <span style="font-size: 14px;font-weight: 400;"
-                  >*opcjonalnie</span
-                >
-              </p>
-            </div>
-            <div class="underline"></div>
-            <div class="form-contain">
-              <div
-                class="parametrs-list"
-                *ngFor="let parametr of listParametrs; let i = index"
-              >
-                <mat-form-field class="parametrs-field">
-                  <input
-                    matInput
-                    placeholder="Nazwa"
-                    type="text"
-                    (change)="parametr.name = $event.target.value"
-                  />
+
+            <!-- Step:2 Detail Products -->
+            <div *ngIf="stepperSection === 2" [@fadeInOutTranslate]>
+              <div class="title-second-section"><p>Dane o produkcie</p></div>
+              <div class="underline"></div>
+              
+              <!-- Title Product -->
+              <div class="form-contain">
+                <mat-form-field style="text-align:center;position: relative;" class="second-form-input">
+                  <div class="form-help">
+                    <i class="fas fa-info-circle tooltip-info"
+                      matTooltip="Tytuł produktu używany jako tag wyszukiwania w wyszukiwarce produktów">
+                    </i>
+                  </div>
+                  <input style="text-align:center;" matInput placeholder="Tytuł" formControlName="title" type="text" id="title-product"/>
                 </mat-form-field>
-                <mat-form-field class="parametrs-field">
-                  <input
-                    matInput
-                    placeholder="Jednostka"
-                    type="text"
-                    (change)="parametr.unit = $event.target.value"
-                  />
+              </div>
+
+              <!-- Input Price -->
+              <div class="form-contain">
+                <mat-form-field style="text-align:center;position: relative;"class="second-form-input">
+                  <input style="text-align:center;" matInput placeholder="Cena" type="number" formControlName="price"/>
                 </mat-form-field>
-                <span class="option-parametr" (click)="deleteParametr(i)">
-                  <mat-checkbox
-                    #checkBox
-                    [checked]="parametrChoose === i"
-                    (click)="$event.stopPropagation()"
-                    (change)="chooseConnectionParametr(i, checkBox)"
-                    color="primary"
-                    *ngIf="
-                      connectionsProduct >= 0 &&
-                      (parametrChoose === i || parametrChoose === -1)
-                    "
-                    matTooltip="Kliknij aby wybrać ten atrybut który powiąże tą jednostkę z wybranym powiązaniem poniżej. *wymagane *jeden wybór"
-                    >-&nbsp;<i class="fas fa-info-circle tooltip-info"></i
-                  ></mat-checkbox>
-                  <span
-                    style="width: 46px;"
-                    *ngIf="
-                      connectionsProduct >= 0 &&
-                      parametrChoose !== i &&
-                      parametrChoose !== -1
-                    "
-                    >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span
-                  >
-                  <span class="remove-parametr">
-                    <i class="fas fa-times"></i>
+              </div>
+
+              <!-- Promotion Price -->
+              <div class="form-contain">
+                <mat-form-field style="text-align:center;position: relative;" class="second-form-input">
+                  <div class="form-help">
+                    <i class="fas fa-info-circle tooltip-info" 
+                      matTooltip="Podaj wartość procentową obniżenia, względem głównej ceny. *symbol procenta nie jest potrzebny i nie jest dozwolony!">
+                    </i>
+                  </div>
+                  <input style="text-align:center;" matInput placeholder="Promocja" formControlName="promotion" type="number"/>
+                </mat-form-field>
+              </div>
+
+              <!-- Number Reference Product -->
+              <div class="form-contain">
+                <mat-form-field style="text-align:center;position: relative;" class="second-form-input">
+                  <div class="form-help">
+                    <i class="fas fa-info-circle tooltip-info"
+                      matTooltip="Nr referencyjny indentyfikujacy produkt widoczny dla klienta minimum 9 znaków i musi być unikatowy. Jeśli nie podasz, numer zostanie automatycznie wygenerowany">
+                    </i>
+                  </div>
+                  <input style="text-align:center;" matInput placeholder="Nr. referencyjny" type="number" formControlName="ref"/>
+                </mat-form-field>
+              </div>
+
+              <!-- Description Product -->
+              <div class="form-contain">
+                <mat-form-field style="text-align:center;position: relative;" class="example-full-width" class="second-form-input">
+                  <div class="form-help">
+                    <i class="fas fa-info-circle tooltip-info"
+                      matTooltip="Główny opis produktu widoczny dla klienta">
+                    </i>
+                  </div>
+                  <textarea matInput style="text-align:center;" matInput placeholder="Opis produktu" formControlName="desc"></textarea>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <!-- Step:3 Product Params -->
+            <div *ngIf="stepperSection === 3" [@fadeInOutTranslate]>
+              <div class="title-second-section">
+                <p>
+                  Parametry
+                  <span style="font-size: 14px;font-weight: 400;">*opcjonalnie</span>
+                </p>
+              </div>
+              <div class="underline"></div>
+              <div class="form-contain">
+
+                <!-- Params List -->
+                <div class="parametrs-list" *ngFor="let param of productForm.value.params; let i = index" [formGroup]="param">
+                  <mat-form-field class="parametrs-field">
+                    <input matInput placeholder="Nazwa" type="text" formControlName="name"/>
+                  </mat-form-field>
+                  <mat-form-field class="parametrs-field">
+                    <input matInput placeholder="War./Jedn." type="text" formControlName="value"/>
+                  </mat-form-field>
+                  <span class="option-parametr" (click)="deleteParam(i)">
+                    <span class="remove-parametr">
+                      <i class="fas fa-times"></i>
+                    </span>
                   </span>
-                </span>
-              </div>
-              <div style="float:left;width:100%;margin-top: 10px;">
-                <button
-                  mat-raised-button
-                  style="background-color:#888888;color:white;width: 120px;margin-bottom: 20px;"
-                  (click)="
-                    listParametrs.push({
-                      name: '',
-                      unit: ''
-                    })
-                  "
-                >
-                  Parametr <i class="fas fa-plus"></i>
-                </button>
-              </div>
-              <div class="break-beetween-forms"></div>
-              <div class="step-next-submit">
-                <button mat-button class="prev-step" (click)="setStepper(1)">
-                  Wróc
-                </button>
-                <button mat-button class="next-step" (click)="setStepper(3)">
-                  Dalej
-                </button>
+                </div>
+
+                <!-- Add New Params -->
+                <div style="float:left;width:100%;margin-top: 10px;">
+                  <button mat-raised-button style="background-color:#888888;color:white;width: 120px;margin-bottom: 20px;"
+                    (click)="addParam()">
+                    Dodaj 
+                    <i class="fas fa-plus"></i>
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-          <!-- 6 A-Test 6 -->
-          <div *ngIf="stepperSection === 6" [@fadeInOutTranslate]>
-            <div class="title-second-section">
-              <p>
-                A-test
-                <span style="font-size: 14px;font-weight: 400;"
-                  >*opcjonalnie</span
-                >
-              </p>
-            </div>
-            <div class="underline"></div>
-            <div class="form-contain">
-              <div
-                *ngIf="!fileATest"
-                style="float: left;width: 100%;margin-top: 10px;"
-              >
-                <input
-                  #dropAtestInput
-                  type="file"
-                  style="display:none;"
-                  multiple
-                  (change)="uploadATestFile($event.target)"
-                />
-                <button
-                  mat-raised-button
-                  style="background-color:#f29700; width: 120px;"
-                  (click)="getFileATest(dropAtestInput)"
-                >
-                  Wybierz plik
-                </button>
+
+            <!-- 4 Kategorie -->
+            <div *ngIf="stepperSection === 4" [@fadeInOutTranslate]>
+                
+              <!-- Title-->
+              <div class="title-second-section">
+                <p>
+                  Kategorie
+                  <span style="font-size: 14px;font-weight: 400;">*opcjonalnie</span>
+                </p>
               </div>
-              <div *ngIf="fileATest" class="atest-contain">
-                <p>{{ fileATest["name"] }}</p>
-                <p>{{ countSizeImage(fileATest["size"]) }}</p>
-                <span (click)="fileATest = null"
-                  ><i class="fas fa-folder-minus"></i
-                ></span>
-              </div>
-              <div class="break-beetween-forms"></div>
-              <div class="step-next-submit">
-                <button mat-button class="prev-step" (click)="setStepper(1)">
-                  Wróc
-                </button>
-                <button mat-button class="next-step" (click)="setStepper(3)">
-                  Dalej
-                </button>
-              </div>
-            </div>
-          </div>
-          <!-- 7 Niezbędne produkty 7 -->
-          <div *ngIf="stepperSection === 7" [@fadeInOutTranslate]>
-            <div class="title-second-section">
-              <p>
-                Niezbędne produkty
-                <span style="font-size: 14px;font-weight: 400;"
-                  >*opcjonalnie</span
-                >
-              </p>
-            </div>
-            <div class="underline"></div>
-            <!-- wyszukiwanie potrzebnych produktów -->
-            <div class="form-contain">
-              <p *ngIf="!detailProducts">Brak dostępnych produktów!</p>
-              <div *ngIf="detailProducts">
-                <mat-form-field
-                  style="text-align:center;position:relative;"
-                  class="example-full-width second-form-input"
-                >
-                  <div *ngIf="filterDetailProducts" class="products-suggestion">
-                    <div
-                      class="product"
-                      id="product-filter"
-                      *ngFor="let product of filterDetailProducts"
-                      (click)="addNeccesaryProduct(product)"
-                    >
-                      {{ product.id + ": " + product.title }}
-                    </div>
+              <div class="underline"></div>
+              
+              <!-- Form Category -->
+              <div class="form-contain">
+                <div>
+
+                  <!-- List Empty Category -->
+                  <p *ngIf="categories && categories.length === 0" class="text-category">
+                    Brak kategorii! *dodaj nową aby przypisać
+                  </p>
+
+                  <!-- List Category -->
+                  <div class="category-list">
+                    <table *ngIf="categories && categories.length > 0" class="table table-borderless">
+                        
+                      <!-- List Hedaer -->
+                      <thead>
+                        <tr>
+                          <th scope="col">Numer</th>
+                          <th scope="col">Kategoria</th>
+                          <th scope="col">Opcje</th>
+                        </tr>
+                      </thead>
+
+                      <!-- List Body -->
+                      <tbody>
+                        <tr [style.backgroundColor]="catID === category.id ? 'lightgray' : 'unset'"        
+                          *ngFor="let category of categories; let i = index">
+                            
+                          <!-- No -->
+                          <td>{{ i + 1 }}</td>
+
+                          <!-- Name -->
+                          <td>{{ category.name }}</td>
+
+                          <!-- Options -->
+                          <td>
+                            <mat-select class="mat-select" placeholder="Opcje">
+                                
+                              <!-- Assign Category -->
+                              <mat-option (click)="catID = category.id" *ngIf="catID !== category.id">
+                                Przypisz
+                              </mat-option>
+
+                              <!-- Unassign Category -->
+                              <mat-option (click)="catID = null" *ngIf="catID === category.id">
+                                Odpisz
+                              </mat-option>
+
+                              <!-- Delete Category -->
+                              <mat-option (click)="showModalDeleteCategory(category.id)">
+                                Usuń
+                              </mat-option>
+                            </mat-select>
+                          </td>
+                        </tr>
+                      </tbody>
+
+                    </table>
                   </div>
-                  <input
-                    matInput
-                    placeholder="Szukaj Produkt"
-                    autocomplete="off"
-                    [(ngModel)]="filterValue"
-                    (ngModelChange)="setFilterProducts($event)"
-                  />
-                </mat-form-field>
-                <div
-                  *ngIf="necesaryProducts.length > 0"
-                  style="float:left;width:100%;min-height:0px;"
-                >
-                  <p style="font-weight:600;">Wybrane niezbędne produkty</p>
-                  <div
-                    class="list-necesary-product"
-                    *ngFor="let product of necesaryProducts; let i = index"
-                  >
-                    <p>{{ product.id + ": " + product.title }}</p>
-                    <span (click)="necesaryProducts.splice(i, 1)"
-                      ><i class="fas fa-trash-alt"></i
-                    ></span>
+
+                  <!-- Submit Create A New Category -->
+                  <div class="category-form">
+                    <button type="button" mat-button (click)="showModalAddCategory()">Stwórz</button>
                   </div>
                 </div>
               </div>
-              <div class="step-next-submit">
-                <button
-                  (click)="createProduct()"
-                  class="next-step"
-                  mat-button
-                  *ngIf="!checkedAddNewProduct"
-                >
-                  Utwórz
-                </button>
-              </div>
             </div>
-          </div>
+            <div class="step-next-submit">
+              <button type="button" mat-button class="prev-step" (click)="prevOrNextNumber(-1)" *ngIf="stepperSection > 1">
+                 Wróć
+              </button>
+              <button type="button" mat-button class="next-step" (click)="prevOrNextNumber(1)" *ngIf="stepperSection < 4">
+                 Dalej
+              </button>
+              <button type="submit" mat-button class="next-step" *ngIf="stepperSection === 4">
+                 Stwórz
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
   </div>
 </div>
-<app-app-add-products-modal
-  [dataUpload]="dataUpload"
-  [detailProducts]="detailProducts"
-  [vissibleModal]="vissibleModalAddProduct"
-  [closeModal]="closeModal"
-  (upload)="uploadCallBack = $event"
-></app-app-add-products-modal>
+

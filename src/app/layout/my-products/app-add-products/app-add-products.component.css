@@ -29,7 +29,7 @@
   width: 100%;
   box-shadow: 0 1px 2px 0 rgba(117, 117, 117, 0.2);
   background-color: #fff;
-  min-height: 320px;
+  min-height: 450px;
   margin-bottom: 20px;
 }
 
@@ -136,6 +136,9 @@
 .area-picture {
   text-align: center;
   position: relative;
+  float: left;
+  height: 350px;
+  width: 100%;
 }
 
 .picture-drop {
@@ -246,7 +249,8 @@
   float: left;
   width: 100%;
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 50px;
+  margin-top: 50px;
 }
 
 .step-next-submit button {
@@ -531,6 +535,12 @@
   background-color: #2a8b42;
   color: white;
   width: 120px;
+}
+
+file-drop {
+  position: absolute;
+  width: 100%;
+  left: 0;
 }
 
 @media only screen and (min-width: 540px) {

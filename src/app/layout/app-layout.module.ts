@@ -10,7 +10,6 @@ import { AppListUsersComponent } from './my-users/app-list-users/app-list-users.
 import { AppMyProfilComponent } from './my-account/app-my-profil/app-my-profil.component';
 import { AppMySettingsComponent } from './my-account/app-my-settings/app-my-settings.component';
 import { AppAddProductsComponent } from './my-products/app-add-products/app-add-products.component';
-import { AppAddProductsModalComponent } from './my-products/app-add-products/app-add-products-modal/app-add-products-modal.component';
 import { AppListProductsComponent } from './my-products/app-list-products/app-list-products.component';
 import { AppNewMessagesComponent } from './messages/app-new-messages/app-new-messages.component';
 import { AppReceivedMessagesComponent } from './messages/app-received-messages/app-received-messages.component';
@@ -27,7 +26,6 @@ import { AppPromotionComponent } from './pages-properties/app-promotion/app-prom
       AppMySettingsComponent,
       AppListUsersComponent,
       AppAddProductsComponent,
-      AppAddProductsModalComponent,
       AppListProductsComponent,
       AppNewMessagesComponent,
       AppReceivedMessagesComponent,
