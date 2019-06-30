@@ -197,7 +197,7 @@
     <span class="logo-text"> ADMIN </span>
   </div>
   <div class="nav-more">
-    <div class="nav-profil">
+    <div class="nav-profil" (click)="moreOptionsProfile = !moreOptionsProfile;$event.stopImmediatePropagation()">
       {{ user ? user.email : "" }}
     </div>
     <div class="nav-notification"
