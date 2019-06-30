@@ -1,5 +1,5 @@
 {
-  "name": "muszelka-shop-admin",
+  "name": "shop-admin",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",

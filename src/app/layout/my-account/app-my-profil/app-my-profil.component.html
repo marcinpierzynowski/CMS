@@ -46,33 +46,34 @@
 
       <!-- Table Body -->
       <div class="history-data">
-        <div style="float:left; width:100%;" *ngFor="let his of history; let i = index">
+        <div style="float:left; width:100%;" *ngFor="let his of history.reverse(); let i = index">
+          <ng-container *ngIf="i < 100">
+            <!-- No. -->
+            <div class="text-history-id" style="float:left;width:12.5%;height: 50px;line-height: 50px;">
+              {{ i + 1 }}
+            </div>
 
-          <!-- No. -->
-          <div class="text-history-id" style="float:left;width:12.5%;height: 50px;line-height: 50px;">
-            {{ i + 1 }}
-          </div>
+            <!-- Name -->
+            <div class="text-history" style="float:left;width:12.5%;height: 50px;line-height: 50px;" ngxClipboard
+              [cbContent]="his.name" (click)="copy(' nazwy.', his.name)" [innerHTML]="highlight(his.name, name)">
+            </div>
 
-          <!-- Name -->
-          <div class="text-history" style="float:left;width:12.5%;height: 50px;line-height: 50px;" ngxClipboard
-            [cbContent]="his.name" (click)="copy(' nazwy.', his.name)" [innerHTML]="highlight(his.name, name)">
-          </div>
+            <!-- Date -->
+            <div class="text-history" style="float:left;width:25%;height: 50px;line-height: 50px;" ngxClipboard
+              [cbContent]="his.data" (click)="copy(' daty.', his.data)" [innerHTML]="highlight(his.data, date)">
+            </div>
 
-          <!-- Date -->
-          <div class="text-history" style="float:left;width:25%;height: 50px;line-height: 50px;" ngxClipboard
-            [cbContent]="his.data" (click)="copy(' daty.', his.data)" [innerHTML]="highlight(his.data, date)">
-          </div>
+            <!-- Time -->
+            <div class="text-history" style="float:left;width:25%;height: 50px;line-height: 50px;" ngxClipboard
+              [cbContent]="his.time" (click)="copy(' czasu.', his.time)" [innerHTML]="highlight(his.time, time)">
+            </div>
 
-          <!-- Time -->
-          <div class="text-history" style="float:left;width:25%;height: 50px;line-height: 50px;" ngxClipboard
-            [cbContent]="his.time" (click)="copy(' czasu.', his.time)" [innerHTML]="highlight(his.time, time)">
-          </div>
-
-          <!-- IP -->
-          <div class="text-history" style="float:left;width:25%;height: 50px;line-height: 50px;" ngxClipboard
-            [cbContent]="his.ip" (click)="copy(' ip.', his.ip)">
-            {{ his.ip }}
-          </div>
+            <!-- IP -->
+            <div class="text-history" style="float:left;width:25%;height: 50px;line-height: 50px;" ngxClipboard
+              [cbContent]="his.ip" (click)="copy(' ip.', his.ip)">
+              {{ his.ip }}
+            </div>
+          </ng-container>
         </div>
       </div>
     </div>

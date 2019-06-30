@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "muszelka-shop-admin": {
+    "shop-admin": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/muszelka-shop-admin",
+            "outputPath": "dist/shop-admin",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -62,18 +62,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "muszelka-shop-admin:build"
+            "browserTarget": "shop-admin:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "muszelka-shop-admin:build:production"
+              "browserTarget": "shop-admin:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "muszelka-shop-admin:build"
+            "browserTarget": "shop-admin:build"
           }
         },
         "test": {
@@ -108,7 +108,7 @@
         }
       }
     },
-    "muszelka-shop-admin-e2e": {
+    "shop-admin-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "prefix": "",
@@ -117,11 +117,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "muszelka-shop-admin:serve"
+            "devServerTarget": "shop-admin:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "muszelka-shop-admin:serve:production"
+              "devServerTarget": "shop-admin:serve:production"
             }
           }
         },
@@ -137,5 +137,5 @@
       }
     }
   },
-  "defaultProject": "muszelka-shop-admin"
+  "defaultProject": "shop-admin"
 }
