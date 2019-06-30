@@ -238,7 +238,9 @@ export class AppAddProductsComponent implements OnInit {
 
   public getStepperName(value: number): string {
     const index = this.getStepperNumber(value);
-    return this.productsManageService.prepareStepperList[index - 1];
+    if (window.innerWidth > 720) {
+      return this.productsManageService.prepareStepperList[index - 1];
+    }
   }
 
   public getFile(refInputFile): void {

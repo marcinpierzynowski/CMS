@@ -1,133 +1,86 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit } from '@angular/core';
 
-import { fadeInOutTranslate } from "../../../../shared/animations/animation";
-import { FirebaseService } from "../../../services/firebase.service";
+import { fadeInOutTranslate } from '../../../../shared/animations/animation';
+import { FirebaseService } from '../../../services/firebase.service';
 
-import swal from "sweetalert2";
+import swal from 'sweetalert2';
+import { NotificationsManageService } from 'src/app/services/notifications-manage.service';
+import { Comment } from 'src/app/models/model';
 
 @Component({
-  selector: "app-app-comments",
-  templateUrl: "./app-comments.component.html",
+  selector: 'app-app-comments',
+  templateUrl: './app-comments.component.html',
   styleUrls: [
-    "./app-comments.component.css",
-    "../../../../assets/styles-custom/spinner2-style.css"
+    './app-comments.component.css',
+    '../../../../assets/styles-custom/spinner2-style.css'
   ],
+  providers: [NotificationsManageService],
   animations: [fadeInOutTranslate]
 })
 export class AppCommentsComponent implements OnInit {
-  refAuthorizationUser;
-  checkOnUid;
-  authorizationComments: boolean = true;
-  checkAuthorized: boolean;
+  public comments: Array<Comment>;
+  public cpComments: Array<Comment>;
+  public rate = '';
+  public date = '';
 
-  refComments = this.firebaseService
-    .firebase
-    .database()
-    .ref("comments");
+  constructor(
+    private firebaseService: FirebaseService,
+    private notificationsManageService: NotificationsManageService
+    ) {}
 
-  refProducts = this.firebaseService
-    .firebase
-    .database()
-    .ref("products");
-
-  detailComments = [];
-  detailProducts = [];
-  productsSearch = [];
-
-  keys = [];
-
-  constructor(private firebaseService: FirebaseService) {}
-
-  ngOnInit() {
-   
+  ngOnInit(): void {
+    this.notificationsManageService.commentsData.subscribe(coms => {
+      this.comments = coms;
+      if (coms) {
+        this.cpComments = coms.slice();
+      }
+    });
   }
 
-  getComments() {
-    this.refComments.on("value", this.downloadComments.bind(this), this.err);
-  }
+  public filterData(): void {
+    const r = this.rate, d = this.date;
+    const inpVal = [r, d];
+    const keys = ['rate', 'date'];
 
-  downloadComments(data) {
-    let scores = data.val();
-    if (!scores) {
-      this.detailComments = null;
-      return;
+    this.cpComments = this.comments.filter((com) => {
+      // tslint:disable-next-line:no-shadowed-variable
+      for (let i = 0; i < inpVal.length; i++) {
+        if (inpVal[i] !== '' && com[keys[i]].toLowerCase().includes(inpVal[i].toLowerCase()) === false) {
+         return false;
+        }
+      }
+      return true;
+    });
+
+    // if all inputs empty
+    if (!inpVal.find(el => el !== '')) {
+      this.cpComments = this.comments.slice();
     }
-    let keys = Object.keys(scores);
-    let allScore = [];
-    this.keys = keys;
-
-    for (let i = 0; i < keys.length; i++) {
-      allScore.push(scores[keys[i]]);
-    }
-    this.detailComments = allScore;
   }
 
-  getProducts() {
-    this.refProducts.on("value", this.downloadProducts.bind(this), this.err);
-  }
-
-  downloadProducts(data) {
-    let scores = data.val();
-    this.detailProducts = scores;
-  }
-
-  err(error) {
-    console.log(error);
-  }
-
-  showComments(message) {
+  public showComments(message): void {
     swal({
-      type: "info",
-      title: "Komentarz",
+      type: 'info',
+      title: 'Komentarz',
       text: message
     });
   }
 
-  searchProduct(refNumber) {
-    let product;
-    let text = "";
-
-    for (let i = 0; i < this.detailProducts.length; i++) {
-      if (this.detailProducts[i].refNumberProduct === refNumber) {
-        product = this.detailProducts[i];
-      }
-    }
-    text += "<p>id: " + product.id + "</p>";
-    text += "<p>" + product.title + "</p>";
-    text += "<p>" + product.descriptionProduct + "</p>";
-
+  public deleteComment(id: number): void {
     swal({
-      type: "info",
-      title: "Produkt",
-      html: text
-    });
-  }
-
-  deleteEvaluation(index) {
-    swal({
-      title: "Usunięcie Wiadomości",
-      text: "Czy jesteś pewny że chcesz usunąć wiadomość?",
-      type: "warning",
+      title: 'Usunięcie Komentarza',
+      text: 'Czy jesteś pewny że chcesz usunąć komentarz?',
+      type: 'warning',
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Tak",
-      cancelButtonText: "Nie"
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Tak',
+      cancelButtonText: 'Nie'
     }).then(result => {
       if (result.value) {
-        this.refComments
-          .child(this.keys[index])
-          .remove()
-          .then(() => {
-            swal({
-              type: "success",
-              title: "Usunięcie komentarza",
-              text: "Komentarz został pozytywnie usunięty."
-            });
-          })
-          .catch(error => {
-            console.log(error);
-          });
+        const coms = this.comments.filter(com => com.id !== id);
+        this.firebaseService.getDataBaseRef('comments').set(coms)
+          .then(() => swal('Usunięcie Komentarza', 'Komentarz został usunięty', 'success'));
       }
     });
   }

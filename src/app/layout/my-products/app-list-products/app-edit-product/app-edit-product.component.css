@@ -1,0 +1,293 @@
+.card {
+    float: left;
+    width: 95%;
+    padding: 20px 10px 20px 10px;
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+    background-color: #f5f5f5;
+    border: unset;
+    font-family: "Lato", sans-serif;
+  }
+  
+  .title-section {
+    font-size: 25px;
+    font-weight: 600;
+    font-style: italic;
+    color: #011b66;
+    float: left;
+    width: 100%;
+  }
+  
+  .settings-card {
+    width: 100%;
+    float: left;
+    font-family: "Lato", sans-serif;
+  }
+  
+  .list-product-section {
+    float: left;
+    width: 100%;
+    box-shadow: 0 1px 2px 0 rgba(117, 117, 117, 0.2);
+    background-color: #fff;
+    min-height: 50px;
+    margin-bottom: 20px;
+  }
+  
+  .img-error {
+    float: left;
+    width: 100%;
+    text-align: center;
+  }
+  
+  .text-category {
+    float: left;
+    text-align: center;
+    width: 100%;
+    font-size: 18px;
+    font-weight: 500;
+    margin: 10px 0px 10px 0px;
+  }
+  
+  .list-products {
+    max-height: 400px;
+    overflow-y: auto;
+  }
+  
+  .list-products::-webkit-scrollbar-track {
+    border-radius: 4px;
+  }
+  
+  .list-products::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .list-products::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #b3b3b3;
+  }
+  
+  .filter-contain {
+    text-align: center;
+    float: left;
+    width: 100%;
+    box-shadow: 0 1px 2px 0 rgba(117, 117, 117, 0.2);
+    background-color: #fff;
+    margin-top: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  
+  .filter-contain input {
+    margin-left: 5px;
+    text-align: center;
+    width: 150px;
+  }
+  
+  .filter-contain p {
+    font-size: 18px;
+    font-weight: 550;
+    color: #011b66;
+  }
+  
+  .logo-form {
+    padding: 5.5px 7px 5.5px 7px;
+    margin-left: -2px;
+    border-bottom-right-radius: 3px;
+    border-top-right-radius: 3px;
+    background-color: #255190;
+    color: #fff;
+  }
+  
+  .edit-product-section {
+    margin-top: 20px;
+    float: left;
+    width: 100%;
+    box-shadow: 0 1px 2px 0 rgba(117, 117, 117, 0.2);
+    background-color: #fff;
+    min-height: 50px;
+    margin-bottom: 20px;
+  }
+  
+  .title-second-section {
+    float: left;
+    width: 100%;
+    font-size: 15px;
+    text-align: center;
+    opacity: 0.7;
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .title-second-section p {
+    margin: 0px;
+    font-size: 18px;
+    font-weight: 600;
+  }
+  
+  .underline {
+    float: left;
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+    height: 1px;
+    background-color: black;
+    margin-bottom: 10px;
+  }
+  
+  .form-contain {
+    text-align: center;
+    position: relative;
+    float: left;
+    width: 100%;
+  }
+  
+  .second-form-input {
+    text-align: center;
+  }
+  
+  .form-help {
+    position: absolute;
+    right: -20px;
+  }
+  
+  .tooltip-info:hover {
+    cursor: pointer;
+  }
+  
+  .submit-section {
+    float: left;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .exit-edit {
+    margin: 5px;
+    background-color: #5f6368;
+    color: white;
+    width: 120px;
+    margin-top: 15px;
+  }
+  
+  .save-submit {
+    background-color: #255190;
+    color: white;
+    width: 120px;
+    margin-top: 15px;
+  }
+  
+  .products-suggestion {
+    position: absolute;
+    max-height: 250px;
+    overflow-y: auto;
+    background-color: #fff;
+    border-radius: 5px;
+    bottom: 50px;
+    width: 182px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14),
+      0 1px 10px 0 rgba(0, 0, 0, 0.12);
+  }
+  
+  .products-suggestion::-webkit-scrollbar-track {
+    display: none;
+  }
+  
+  .products-suggestion::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .products-suggestion::-webkit-scrollbar-thumb {
+    display: none;
+  }
+  
+  .products-suggestion div {
+    height: 40px;
+    float: left;
+    width: 100%;
+    padding-left: 10px;
+    line-height: 40px;
+    font-size: 18px;
+    text-align: left;
+    transition: 0.25s linear;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  
+  .products-suggestion div:hover {
+    background-color: #f5f5f5;
+    transition: 0.25s linear;
+    cursor: pointer;
+  }
+  
+  .list-necesary-product {
+    width: 180px;
+    margin-left: auto;
+    margin-right: auto;
+    height: 30px;
+    line-height: 30px;
+    font-size: 12px;
+    box-shadow: 0 1px 2px 0 rgba(99, 98, 98, 0.2);
+    margin-bottom: 10px;
+  }
+  
+  .list-necesary-product p {
+    text-align: left;
+    padding-left: 10px;
+    float: left;
+    width: 80%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    margin: 0px;
+  }
+  
+  .list-necesary-product span {
+    float: right;
+    padding-right: 10px;
+  }
+  
+  .list-necesary-product span:hover {
+    cursor: pointer;
+  }
+  
+  @media only screen and (min-width: 540px) {
+    .underline {
+      width: 80%;
+      margin-left: 10%;
+      margin-right: 10%;
+    }
+  }
+  
+  @media only screen and (min-width: 720px) {
+    .title-section {
+      font-size: 35px;
+    }
+  }
+  
+  @media only screen and (min-width: 960px) {
+    .second-form-input {
+      width: 300px;
+    }
+  
+    .products-suggestion {
+      width: 300px;
+    }
+  
+    .list-necesary-product {
+      width: 300px;
+      font-size: 15px;
+    }
+  }
+  
+  @media only screen and (min-width: 1140px) {
+    .underline {
+      width: 70%;
+      margin-left: 15%;
+      margin-right: 15%;
+    }
+  }
+  
+  

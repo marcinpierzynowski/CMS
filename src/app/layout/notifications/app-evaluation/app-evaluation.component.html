@@ -1,71 +1,72 @@
 <div class="card" [@fadeInOutTranslate]>
-  <div class="title-section">Oceny produktów</div>
-  <div class="settings-card">
-    <div [@fadeInOutTranslate] class="list-messages-section">
-      <div
-        *ngIf="!checkAuthorized && authorizationEvaluation"
-        style="float:left;width:100%;text-align:center;margin-top: 120px;height: 200px;"
-      >
-        <div
-          style="float:left;width:100%;text-align:center;font-size: 20px;font-weight: 400;"
-        >
-          Trwa autoryzacja
-        </div>
-        <div class="spinner">
-          <div class="bounce1"></div>
-          <div class="bounce2"></div>
-          <div class="bounce3"></div>
-        </div>
+    <div class="title-section">Oceny produktów</div>
+    <div class="settings-card">
+      
+      <!-- Filter Evaluations -->
+      <div [@fadeInOutTranslate] *ngIf="evaluations && evaluations.length > 0" class="filter-contain" style="margin-bottom: 50px;">
+          <p>Filtruj:</p>
+            <div class="container">
+              <div class="row">
+                <div class="col-12 col-md-6" style="margin-bottom: 10px;">
+                  Użytkownik:&nbsp;&nbsp;&nbsp;&nbsp;
+                  <input [(ngModel)]="rate" (input)="filterData()" placeholder="Ocena"/>
+                  <span class="logo-form"><i class="fas fa-search"></i></span>
+                </div>
+                <div class="col-12 col-md-6" style="margin-bottom: 10px;">
+                  Data:
+                  <input [(ngModel)]="date" (input)="filterData()" placeholder="Data: dd-mm-yyyy"/>
+                  <span class="logo-form"><i class="fas fa-search"></i></span>
+              </div>
+            </div>
+          </div>
       </div>
-      <div class="img-error" *ngIf="!authorizationEvaluation">
-        <img
-          class="img-fluid"
-          height="350"
-          width="262"
-          src="./assets/images/error.svg"
-        />
-        <p
-          style="float: left;width: 100%;font-weight: 500;font-size: 18px;margin-bottom: 20px;"
-        >
-          Nie masz uprawnień aby korzystać z tej sekcji strony!
-        </p>
-      </div>
-      <div *ngIf="checkAuthorized">
-        <table *ngIf="detailEvaluations" class="table">
-          <thead style="background-color: #255190;color: #fff;">
-            <tr>
-              <th scope="col">Produkt nr. ref.</th>
-              <th scope="col">Ocena</th>
-              <th scope="col">Opcje</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let evaluation of detailEvaluations; let i = index">
-              <td
-                class="more-information"
-                (click)="searchProduct(evaluation.ref)"
-              >
-                {{ evaluation.ref }}
-              </td>
-              <td>{{ evaluation.evaluation }}</td>
-              <td>
-                <mat-select class="mat-select" placeholder="Opcje">
-                  <mat-option
-                    (click)="
-                      addNewEvaluation(evaluation.ref, evaluation.evaluation, i)
-                    "
-                    >Dodaj</mat-option
-                  >
-                  <mat-option (click)="deleteEvaluation(i)">Usuń</mat-option>
-                </mat-select>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <p *ngIf="!detailEvaluations" class="text-messages">
-          Brak nowych ocen!
-        </p>
+      
+      <div [@fadeInOutTranslate] class="list-messages-section">
+  
+        <!-- Empty Evaluations -->
+        <div class="img-error" *ngIf="evaluations && evaluations.length === 0">
+          <img class="img-fluid" height="350" width="262" src="./assets/images/error.svg"/>
+          <p style="float: left;width: 100%;font-weight: 500;font-size: 18px;margin-bottom: 20px;">
+            Nie ma nowych komentarzy!
+          </p>
+        </div>
+  
+        <!-- List Evaluations -->
+        <div *ngIf="evaluations && evaluations.length > 0">
+          <table class="table">
+  
+            <!-- List Headers -->
+            <thead style="background-color: #255190;color: #fff;">
+              <tr>
+                <th scope="col">Ocena</th>
+                <th scope="col">Data</th>
+                <th scope="col">Ref.</th>
+              </tr>
+            </thead>
+  
+            <!-- List Body -->
+            <tbody>
+              <tr *ngFor="let evaluation of cpEvaluations;">
+                
+                <!-- Evaluation Rate -->
+                <td class="more-information">
+                  {{ evaluation.rate }}
+                </td>
+                
+                <!-- Evaluation Date -->
+                <td class="more-information">
+                  {{ evaluation.date }}
+                </td>
+                
+                <!-- Evaluation Ref -->
+                <td>
+                  {{ evaluation.ref }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
-</div>
+  

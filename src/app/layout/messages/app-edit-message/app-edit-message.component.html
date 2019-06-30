@@ -1,0 +1,29 @@
+<div class="card" [@fadeInOutTranslate]>
+  <div class="title-section">Szczegóły wiadomości</div>
+  <div *ngIf="message" class="edit-message-section" [@fadeInOutTranslate]>
+    <div>
+      <div class="title-second-section"><p>Wiadomość:</p></div>
+      <div class="underline"></div>
+    </div>
+    <div class="information-message">
+      <h6>Email:</h6>
+      <input disabled placeholder="{{ message.email }}" />
+    </div>
+    <div class="information-message">
+      <h6>Data:</h6>
+      <input disabled placeholder="{{ message.date }}" />
+    </div>
+    <div class="information-message">
+      <h6>Treść:</h6>
+      <textarea disabled>{{ message.desc }}</textarea>
+    </div>
+    <div class="submit-section">
+      <button mat-button class="exit-edit" (click)=back()>
+        Wróć
+      </button>
+      <button mat-button class="save-submit" (click)="deleteMessage()">
+        Usuń
+      </button>
+    </div>
+  </div>
+</div>

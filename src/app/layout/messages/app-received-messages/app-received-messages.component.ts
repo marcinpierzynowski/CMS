@@ -1,149 +1,79 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit } from '@angular/core';
 
-import { fadeInOutTranslate } from "../../../../shared/animations/animation";
-import { FirebaseService } from "../../../services/firebase.service";
+import { fadeInOutTranslate } from '../../../../shared/animations/animation';
+import { FirebaseService } from '../../../services/firebase.service';
 
-import swal from "sweetalert2";
+import swal from 'sweetalert2';
+import { MessagesManageService } from 'src/app/services/messages-manage.service';
+import { Message } from 'src/app/models/model';
 
 @Component({
-  selector: "app-app-received-messages",
-  templateUrl: "./app-received-messages.component.html",
+  selector: 'app-app-received-messages',
+  templateUrl: './app-received-messages.component.html',
   styleUrls: [
-    "./app-received-messages.component.css",
-    "../../../../assets/styles-custom/spinner2-style.css"
+    './app-received-messages.component.css',
+    '../../../../assets/styles-custom/spinner2-style.css'
   ],
+  providers: [MessagesManageService],
   animations: [fadeInOutTranslate]
 })
 export class AppReceivedMessagesComponent implements OnInit {
-  refAuthorizationUser;
-  checkOnUid;
-  authorizationMessages: boolean = true;
-  checkAuthorized: boolean;
+  public messages: Array<Message>;
+  public cpMessages: Array<Message>;
+  public email = '';
+  public date = '';
 
-  refMessages = this.firebaseService
-    .firebase
-    .database()
-    .ref("messages");
+  constructor(
+    private firebaseService: FirebaseService,
+    private messagesManageService: MessagesManageService
+    ) {}
 
-  detailMessages = [];
-
-  valueEmail = "";
-  valueData = "";
-  copyMessages = [];
-  editMessages = -1;
-
-  vissibleMessage: boolean;
-  messageData = {
-    email: null,
-    description: null,
-    data: null
-  };
-
-  constructor(private firebaseService: FirebaseService) {}
-
-  ngOnInit() {
-  }
-
-  getMessages() {
-    this.refMessages.on("value", this.downloadMessages.bind(this), this.err);
-  }
-
-  downloadMessages(data) {
-    let scores = data.val();
-    if (!scores) {
-      this.detailMessages = null;
-      this.copyMessages = null;
-      return;
-    }
-    let keys = Object.keys(scores);
-    let allScore = [];
-
-    for (let i = 0; i < keys.length; i++) {
-      allScore.push(scores[keys[i]]);
-    }
-
-    this.detailMessages = allScore;
-    this.copyMessages = allScore.slice();
-  }
-
-  err(error) {
-    console.log(error);
-  }
-
-  setFilterEmail(value) {
-    this.valueEmail = value;
-    this.filterMessages();
-  }
-
-  setFilterData(value) {
-    this.valueData = value;
-    this.filterMessages();
-  }
-
-  filterMessages() {
-    if (this.copyMessages) {
-      this.detailMessages = this.copyMessages.filter(data => {
-        if (this.valueEmail === "" && this.valueData === "") {
-          return true;
-        } else {
-          if (
-            (this.valueEmail !== "" &&
-              !data.email
-                .toLowerCase()
-                .includes(this.valueEmail.toLowerCase())) ||
-            (this.valueData !== "" &&
-              !data.data.toLowerCase().includes(this.valueData.toLowerCase()))
-          ) {
-            return false;
-          }
-          return true;
-        }
-      });
-    }
-  }
-
-  editMessage(index) {
-    this.messageData = {
-      email: this.detailMessages[index].email,
-      description: this.detailMessages[index].description,
-      data: this.detailMessages[index].data
-    };
-    this.editMessages = index;
-    this.vissibleMessage = true;
-  }
-
-  deleteMessage(index) {
-    if(index === -1) {
-      index = this.editMessages;
-    }
-    swal({
-      title: "Usunięcie Wiadomości",
-      text: "Czy jesteś pewny że chcesz usunąć wiadomość?",
-      type: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Tak",
-      cancelButtonText: "Nie"
-    }).then(result => {
-      if (result.value) {
-        this.detailMessages.splice(index, 1);
-        this.refMessages
-          .set(this.detailMessages)
-          .then(() => {
-            swal({
-              type: "success",
-              title: "Usunięcie wiadomości",
-              text: "Wiadomość została pomyślnie usunięta"
-            });
-            if(this.vissibleMessage) {
-              this.vissibleMessage = false;
-            }
-          })
-          .catch(error => {
-            console.log(error);
-          });
+  ngOnInit(): void {
+    this.messagesManageService.messageData.subscribe(msgs => {
+      if (msgs) {
+        this.cpMessages = msgs.filter(msg => msg.read === true).slice();
+        this.messages = msgs.filter(msg => msg.read === true);
       }
     });
+  }
+
+  public deleteMessage(index) {
+    swal({
+      title: 'Usunięcie Wiadomości',
+      text: 'Czy jesteś pewny że chcesz usunąć wiadomość?',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Tak',
+      cancelButtonText: 'Nie'
+    }).then(result => {
+      if (result.value) {
+       this.messages.splice(index, 1);
+       this.firebaseService.getDataBaseRef('messages').set(this.messages)
+        .then(() => swal('Usunięcie wiadomości', 'Wiadomość została usunięta!', 'success'));
+      }
+    });
+  }
+
+  public filterData(): void {
+    const e = this.email, d = this.date;
+    const inpVal = [e, d];
+    const keys = ['email', 'date'];
+
+    this.cpMessages = this.messages.filter((msg) => {
+      // tslint:disable-next-line:no-shadowed-variable
+      for (let i = 0; i < inpVal.length; i++) {
+        if (inpVal[i] !== '' && msg[keys[i]].toLowerCase().includes(inpVal[i].toLowerCase()) === false) {
+         return false;
+        }
+      }
+      return true;
+    });
+
+    // if all inputs empty
+    if (!inpVal.find(el => el !== '')) {
+      this.cpMessages = this.messages.slice();
+    }
   }
 }

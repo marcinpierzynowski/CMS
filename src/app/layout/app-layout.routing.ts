@@ -13,6 +13,8 @@ import { AppCommentsComponent } from './notifications/app-comments/app-comments.
 import { AppEvaluationComponent } from './notifications/app-evaluation/app-evaluation.component';
 import { AppSliderComponent } from './pages-properties/app-slider/app-slider.component';
 import { AppPromotionComponent } from './pages-properties/app-promotion/app-promotion.component';
+import { AppEditProductComponent } from './my-products/app-list-products/app-edit-product/app-edit-product.component';
+import { AppEditMessageComponent } from './messages/app-edit-message/app-edit-message.component';
 
 const routes: Routes = [
   {
@@ -49,12 +51,20 @@ const routes: Routes = [
           component: AppListProductsComponent
         },
         {
+          path: 'list-products/:id',
+          component: AppEditProductComponent
+        },
+        {
           path: 'new-messages',
           component: AppNewMessagesComponent
         },
         {
           path: 'received-messages',
           component: AppReceivedMessagesComponent
+        },
+        {
+          path: 'edit-message/:id',
+          component: AppEditMessageComponent
         },
         {
           path: 'comments',
@@ -75,10 +85,5 @@ const routes: Routes = [
     ]
   },
 ];
-
-// '/': 5,
-// '/comments': 5,
-// '/slider': 6,
-// '/promotions': 6
 
 export const PageRoutes = RouterModule.forChild(routes);

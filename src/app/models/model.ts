@@ -23,6 +23,21 @@ export interface Notificactions {
     messages: number;
 }
 
+export interface Comment {
+    desc: string;
+    user: string;
+    date: Date | string;
+    ref: string;
+    id: number;
+}
+
+export interface Evaluation {
+    rate: number;
+    date: Date | string;
+    ref: string;
+    id: number;
+}
+
 export enum StatusProduct {
     Complete,
     Idle
@@ -57,4 +72,12 @@ export interface Image {
     id: number;
     name: string;
     url?: string;
+}
+
+export interface Message {
+    email: string;
+    date: Date | string;
+    desc: string;
+    read: boolean;
+    id: number;
 }

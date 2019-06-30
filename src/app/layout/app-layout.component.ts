@@ -39,6 +39,7 @@ export class AppLayoutComponent implements OnInit {
     '/list-products': 3,
     '/new-messages': 4,
     '/received-messages': 4,
+    '/edit-message': 4,
     '/evaluations': 5,
     '/comments': 5,
     '/slider': 6,
@@ -170,8 +171,14 @@ export class AppLayoutComponent implements OnInit {
       this.checkReferenceDom(0);
       this.sectionActually = 0;
     } else {
-      this.checkReferenceDom(this.urlToSetActivePanel[url]);
       this.sectionActually = this.urlToSetActivePanel[url];
+      if (this.sectionActually === undefined) {
+        const prepUrl = '/' + url.split('/')[1];
+        this.sectionActually = this.urlToSetActivePanel[prepUrl];
+        this.checkReferenceDom(this.urlToSetActivePanel[prepUrl]);
+      } else {
+        this.checkReferenceDom(this.urlToSetActivePanel[url]);
+      }
     }
   }
 

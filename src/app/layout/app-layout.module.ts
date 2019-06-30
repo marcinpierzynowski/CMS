@@ -11,12 +11,14 @@ import { AppMyProfilComponent } from './my-account/app-my-profil/app-my-profil.c
 import { AppMySettingsComponent } from './my-account/app-my-settings/app-my-settings.component';
 import { AppAddProductsComponent } from './my-products/app-add-products/app-add-products.component';
 import { AppListProductsComponent } from './my-products/app-list-products/app-list-products.component';
+import { AppEditProductComponent } from './my-products/app-list-products/app-edit-product/app-edit-product.component';
 import { AppNewMessagesComponent } from './messages/app-new-messages/app-new-messages.component';
 import { AppReceivedMessagesComponent } from './messages/app-received-messages/app-received-messages.component';
 import { AppCommentsComponent } from './notifications/app-comments/app-comments.component';
 import { AppEvaluationComponent } from './notifications/app-evaluation/app-evaluation.component';
 import { AppSliderComponent } from './pages-properties/app-slider/app-slider.component';
 import { AppPromotionComponent } from './pages-properties/app-promotion/app-promotion.component';
+import { AppEditMessageComponent } from './messages/app-edit-message/app-edit-message.component';
 
 @NgModule({
     declarations: [
@@ -27,8 +29,10 @@ import { AppPromotionComponent } from './pages-properties/app-promotion/app-prom
       AppListUsersComponent,
       AppAddProductsComponent,
       AppListProductsComponent,
+      AppEditProductComponent,
       AppNewMessagesComponent,
       AppReceivedMessagesComponent,
+      AppEditMessageComponent,
       AppCommentsComponent,
       AppEvaluationComponent,
       AppSliderComponent,
