@@ -4,25 +4,25 @@
     
     <!-- Filter Product -->
     <div [@fadeInOutTranslate] class="filter-contain" style="margin-bottom: 50px;" *ngIf="products && products.length > 0">
-          <p>Filtruj:</p>
-          <div class="container">
-            <div class="row">
+      <p>Filtruj:</p>
+      <div class="container">
+        <div class="row">
     
-              <!-- Input Title -->
-              <div class="col-12 col-md-6" style="margin-bottom: 10px;">
-                Tytuł:&nbsp;&nbsp;&nbsp;&nbsp;
-                <input placeholder="Tytuł produktu" [(ngModel)]="title" (input)="filterData()"/>
-                <span class="logo-form"><i class="fas fa-search"></i></span>
-              </div>
-    
-              <!-- Input Ref Number -->
-              <div class="col-12 col-md-6" style="margin-bottom: 10px;">
-                Numer:
-                <input placeholder="Numer referencyjny" [(ngModel)]="ref" (input)="filterData()"/>
-                <span class="logo-form"><i class="fas fa-search"></i></span>
-              </div>
-            </div>
+          <!-- Input Title -->
+          <div class="col-12 col-md-6" style="margin-bottom: 10px;">
+            Tytuł:&nbsp;&nbsp;&nbsp;&nbsp;
+            <input placeholder="Tytuł produktu" [(ngModel)]="title" (input)="filterData()"/>
+            <span class="logo-form"><i class="fas fa-search"></i></span>
           </div>
+    
+          <!-- Input Ref Number -->
+          <div class="col-12 col-md-6" style="margin-bottom: 10px;">
+            Numer:
+            <input placeholder="Numer referencyjny" [(ngModel)]="ref" (input)="filterData()"/>
+            <span class="logo-form"><i class="fas fa-search"></i></span>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div [@fadeInOutTranslate] class="list-product-section">

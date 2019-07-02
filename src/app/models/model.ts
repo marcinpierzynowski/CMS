@@ -81,3 +81,13 @@ export interface Message {
     read: boolean;
     id: number;
 }
+
+export interface Slider {
+    imageUrl: string;
+    name: string;
+}
+
+export interface Promotion {
+    ref: string;
+    title: string;
+}

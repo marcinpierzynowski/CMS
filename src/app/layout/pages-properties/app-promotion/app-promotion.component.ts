@@ -1,221 +1,110 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit } from '@angular/core';
 
-import { fadeInOutTranslate } from "../../../../shared/animations/animation";
-import { FirebaseService } from "../../../services/firebase.service";
+import { FirebaseService } from '../../../services/firebase.service';
 
-import swal from "sweetalert2";
+import { fadeInOutTranslate } from '../../../../shared/animations/animation';
+import swal from 'sweetalert2';
+import { PagesManageService } from 'src/app/services/pages-manage.service';
+import { ProductsManageService } from 'src/app/services/products-manage.service';
+import { Product, Promotion } from 'src/app/models/model';
 
 @Component({
-  selector: "app-app-promotion",
-  templateUrl: "./app-promotion.component.html",
+  selector: 'app-app-promotion',
+  templateUrl: './app-promotion.component.html',
   styleUrls: [
-    "./app-promotion.component.css",
-    "../../../../assets/styles-custom/spinner2-style.css"
+    './app-promotion.component.css',
+    '../../../../assets/styles-custom/spinner2-style.css'
+  ],
+  providers: [
+    PagesManageService,
+    ProductsManageService
   ],
   animations: [fadeInOutTranslate]
 })
 export class AppPromotionComponent implements OnInit {
-  refAuthorizationUser;
-  checkOnUid;
-  authorizationPromotions: boolean = true;
-  checkAuthorized: boolean;
+  public products: Array<Product>;
+  public cpProducts: Array<Product>;
+  public promotions: Array<Promotion> = [];
+  public title = '';
+  public ref = '';
 
-  valueRef = "";
-  valueTitle = "";
+  constructor(
+    private firebaseService: FirebaseService,
+    private productManageService: ProductsManageService,
+    private pageManageService: PagesManageService
+    ) {}
 
-  copyProducts = [];
-
-  refPromotions = this.firebaseService
-    .firebase
-    .database()
-    .ref("promotions");
-
-  refProducts = this.firebaseService
-    .firebase
-    .database()
-    .ref("products");
-
-  detailPromotions = [];
-  detailProducts = [];
-
-  constructor(private firebaseService: FirebaseService) {}
-
-  ngOnInit() {
+  ngOnInit(): void {
+    this.productManageService.productsData.subscribe(pr => {
+      this.products = pr;
+      if (pr) { this.cpProducts = pr.slice(); }
+      if (this.promotions && this.promotions.length > 0) {
+        this.checkIsPromotion();
+      }
+    });
+    this.pageManageService.promotionsData.subscribe(prs => {
+      this.products = this.productManageService.productsData.getValue();
+      if (this.products) { this.cpProducts = this.products.slice(); }
+      this.promotions = prs;
+      if (prs && prs.length > 0) {
+        this.checkIsPromotion();
+      }
+    });
   }
 
-  getReferenceToDatabaseAuthorization(uid) {
-    return this.firebaseService
-      .firebase
-      .database()
-      .ref("authorizationUsers")
-      .child(uid);
+  public checkIsPromotion() {
+    this.promotions.forEach(prs => {
+      this.products = this.products.filter(pr => pr.ref !== prs.ref);
+      this.cpProducts = this.products.slice();
+    });
   }
 
-  downloadDataWithDatabaseAuthorization(data) {
-    let scores = data.val();
-    if (!scores.promotions) {
-      this.authorizationPromotions = false;
-      swal({
-        type: "error",
-        title: "Autoryzacja",
-        text: "Nie masz uprawnień do edycji promocji!"
-      });
-      return;
-    }
-    this.checkAuthorized = true;
-    this.getPromotions();
-  }
+  public filterData(): void {
+    const t = this.title, r = this.ref;
+    const inpVal = [t, r];
+    const keys = ['title', 'ref'];
 
-  getPromotions() {
-    this.refPromotions.on(
-      "value",
-      this.downloadPromotions.bind(this),
-      this.err
-    );
-  }
-
-  downloadPromotions(data) {
-    let scores = data.val();
-    if (!scores) {
-      this.detailPromotions = null;
-      this.getProducts();
-      return;
-    }
-    this.detailPromotions = scores;
-    this.getProducts();
-  }
-
-  getProducts() {
-    this.refProducts.on("value", this.downloadProducts.bind(this), this.err);
-  }
-
-  downloadProducts(data) {
-    let scores = data.val();
-    if (!scores) {
-      this.detailProducts = null;
-      this.copyProducts = null;
-      return;
-    }
-    this.detailProducts = scores.slice();
-
-    let filterProduct = [];
-    if (this.detailPromotions) {
-      for (let i = 0; i < scores.length; i++) {
-        for (let j = 0; j < this.detailPromotions.length; j++) {
-          if (scores[i].id === this.detailPromotions[j].id) {
-            break;
-          }
-          if(j === this.detailPromotions.length - 1) {
-            filterProduct.push(scores[i]);
-          }
+    this.cpProducts = this.products.filter((prd) => {
+      // tslint:disable-next-line:no-shadowed-variable
+      for (let i = 0; i < inpVal.length; i++) {
+        if (inpVal[i] !== '' && prd[keys[i]].toLowerCase().includes(inpVal[i].toLowerCase()) === false) {
+         return false;
         }
       }
-      this.detailProducts = filterProduct.slice();
-    } else {
-      this.detailProducts = scores.slice();
-    }
+      return true;
+    });
 
-    if(this.detailProducts.length === 0) {
-      this.detailProducts = null;
-      this.copyProducts = null;
-    } else {
-      this.copyProducts = this.detailProducts.slice();
+    // if all inputs empty
+    if (!inpVal.find(el => el !== '')) {
+      this.cpProducts = this.products;
     }
   }
 
-  err(error) {
-    console.log(error);
+  public addToPromotions(product): void {
+    const promotions = this.promotions.slice();
+    const { ref, title } = product;
+    promotions.push({ ref, title });
+    this.firebaseService.getDataBaseRef('promotions').set(promotions)
+      .then(() => swal('Dodanie produktu do promocji', 'Produkt został dodany pomyślnie', 'success'));
   }
 
-  setFilterRef(value) {
-    this.valueRef = value;
-    this.filterProduct();
-  }
-
-  setFilterTitle(value) {
-    this.valueTitle = value;
-    this.filterProduct();
-  }
-
-  filterProduct() {
-    if (this.copyProducts) {
-      this.detailProducts = this.copyProducts.filter(data => {
-        if (this.valueRef === "" && this.valueTitle === "") {
-          return true;
-        } else {
-          if (
-            (this.valueRef !== "" &&
-              !data.refNumberProduct
-                .toLowerCase()
-                .includes(this.valueRef.toLowerCase())) ||
-            (this.valueTitle !== "" &&
-              !data.title.toLowerCase().includes(this.valueTitle.toLowerCase()))
-          ) {
-            return false;
-          }
-          return true;
-        }
-      });
-    }
-  }
-
-  addToPromotions(product) {
-    if (this.detailPromotions) {
-      this.detailPromotions.push({
-        id: product.id,
-        title: product.title,
-        ref: product.refNumberProduct
-      });
-    } else {
-      this.detailPromotions = [
-        {
-          id: product.id,
-          title: product.title,
-          ref: product.refNumberProduct
-        }
-      ];
-    }
-
-    this.refPromotions
-      .set(this.detailPromotions)
-      .then(() => {
-        swal({
-          type: "success",
-          title: "Dodanie produktu do promocji",
-          text: "Produkt został dodany pomyślnie"
-        });
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  }
-
-  deletePromotions(index) {
+  public deletePromotions(index): void {
     swal({
-      title: "Usunięcie produktu z promocji",
+      title: 'Usunięcie produktu z promocji',
       text:
-        "Czy jesteś pewny że chcesz usunąć produkt z promocji?",
-      type: "warning",
+        'Czy jesteś pewny że chcesz usunąć produkt z promocji?',
+      type: 'warning',
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Tak",
-      cancelButtonText: "Nie"
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Tak',
+      cancelButtonText: 'Nie'
     }).then(result => {
       if (result.value) {
-        this.detailPromotions.splice(index, 1)
-        this.refPromotions
-          .set(this.detailPromotions)
-          .then(() => {
-            swal({
-              type: "success",
-              title: "Usunięcie produktu z promocji",
-              text: "Produkt został usunięty z promocji pomyślnie"
-            });
-          })
-          .catch(error => {
-            console.log(error);
-          });
+        const promotions = this.promotions.slice();
+        promotions.splice(index, 1);
+        this.firebaseService.getDataBaseRef('promotions').set(promotions)
+          .then(() => swal('Usunięcie produktu z promocji', 'Produkt został usunięty pomyślnie', 'success'));
       }
     });
   }
