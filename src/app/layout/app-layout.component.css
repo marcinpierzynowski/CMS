@@ -17,7 +17,7 @@
 }
 
 .panel-contain {
-  background-color: #255190;
+  background-color: #222c3c;
   width: 200px;
   height: calc(100vh - 100px);
   overflow: auto;
@@ -46,23 +46,25 @@
   position: relative;
   float: left;
   width: 100%;
-  color: white;
+  color: #b7c0cd;
   line-height: 50px;
-  font-size: 16px;
+  font-size: 14px;
   transition: 0.5s linear;
+  transition: 0.25s ease-in-out;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .active {
-  background-color: #bcc0cc;
+  background-color: #00a8ff;
   position: absolute;
   z-index: 2;
   height: 100%;
-  width: 6px;
+  width: 3px;
   left: 0px;
 }
 
 .active-menu-item {
-  background-color: #1f3452;
+  background-color: #1d2531;
 }
 
 .contain-angle {
@@ -76,11 +78,11 @@
 }
 
 .item:hover,
+.item:hover i,
 .sub-menu-item:hover {
   cursor: pointer;
-  background-color: #cacdd6;
   transition: 0.25s linear;
-  color: black;
+  color: white;
 }
 
 .icon-panel {
@@ -89,7 +91,7 @@
 }
 
 .contain-angle:hover {
-  background-color: #9ba1af;
+  background-color: #00a8ff;
 }
 
 .rotate {
@@ -107,7 +109,7 @@
   height: 100px;
   border-top: 1px solid #bcc0cc;
   width: 200px;
-  background-color: #255190;
+  background-color: #222c3c;
   position: fixed;
   bottom: 0;
   left: 0;
@@ -133,6 +135,7 @@
   right: 0;
   transition: 0.25s linear;
   z-index: 3;
+  border-bottom: 1px solid #e6eaee;
 }
 
 .nav-menu {
