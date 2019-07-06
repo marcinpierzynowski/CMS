@@ -1,0 +1,25 @@
+:host {
+    background-color: #fafafa;
+    border-color: #ddd;
+    color: #333;
+    width: 100%;
+    position: relative;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+    border-top: 1px solid transparent;
+    border-bottom: 1px solid #ddd;
+    height: 41px;
+    display: flex;
+    align-items: center;
+    transition: 0.25s linear;
+    position: fixed;
+    top: 80px;
+    right: 0;
+    z-index: 4;
+    font-size: 14px;
+    color: #333;
+}
+
+span {
+    margin-left: 20px;
+}

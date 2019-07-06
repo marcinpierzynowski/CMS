@@ -232,23 +232,23 @@
 
                           <!-- Options -->
                           <td>
-                            <mat-select class="mat-select" placeholder="Opcje">
+                            <select matNativeControl class="mat-select" placeholder="Opcje">
                                 
                               <!-- Assign Category -->
-                              <mat-option (click)="catID = category.id" *ngIf="catID !== category.id">
+                              <option (click)="catID = category.id" *ngIf="catID !== category.id">
                                 Przypisz
-                              </mat-option>
+                              </option>
 
                               <!-- Unassign Category -->
-                              <mat-option (click)="catID = null" *ngIf="catID === category.id">
+                              <option (click)="catID = null" *ngIf="catID === category.id">
                                 Odpisz
-                              </mat-option>
+                              </option>
 
                               <!-- Delete Category -->
-                              <mat-option (click)="showModalDeleteCategory(category.id)">
+                              <option (click)="showModalDeleteCategory(category.id)">
                                 Usuń
-                              </mat-option>
-                            </mat-select>
+                              </option>
+                            </select>
                           </td>
                         </tr>
                       </tbody>

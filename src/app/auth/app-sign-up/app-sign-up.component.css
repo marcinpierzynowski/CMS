@@ -13,7 +13,7 @@
 
 .form-sign-up {
   width: 90%;
-  height: 550px;
+  height: 580px;
   -webkit-box-shadow: 0 20px 30px 0 #464f6b;
   -moz-box-shadow: 0 20px 30px 0 #464f6b;
   box-shadow: 0 20px 30px 0 #464f6b;
@@ -58,6 +58,7 @@
   color: #707070;
   margin: 0px 5% 0px 5%;
   font-weight: 500;
+  margin-top: 20px;
 }
 
 .contain-control-register {
@@ -166,6 +167,7 @@
 
   .welcome-register-text {
     font-size: 18px;
+    margin-top: 0px;
   }
 
   .text-danger {

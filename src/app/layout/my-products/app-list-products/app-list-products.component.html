@@ -56,14 +56,14 @@
               <td>{{ product.title }}</td>
               <td>{{ product.ref }}</td>
               <td>
-                <mat-select class="mat-select" placeholder="Opcje">
-                  <mat-option>
+                <select matNativeControl  class="mat-select" placeholder="Opcje">
+                  <option>
                     <a style="text-decoration: unset; color: unset" [routerLink]="product.ref">
                       Edytuj
                     </a>
-                  </mat-option>
-                  <mat-option (click)="deleteProduct(product.ref)">Usuń</mat-option>
-                </mat-select>
+                  </option>
+                  <option (click)="deleteProduct(product.ref)">Usuń</option>
+                </select>
               </td>
             </tr>
           </tbody>

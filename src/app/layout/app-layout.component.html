@@ -4,28 +4,31 @@
   <div class="loading-contain" style="text-align:center;">
     <div class="container">
       <svg xmlns="http://www.w3.org/2000/svg" width="135" height="140" viewBox="0 0 135 140" fill="#222c3c">
-        <rect y="9.8795" width="10" height="120.241" rx="6">
+        <rect fill="#3aa9e2" y="9.8795" width="10" height="120.241" rx="6">
           <animate attributeName="height" begin="0.5s" dur="1s" values="120;110;100;90;80;70;60;50;40;140;120" calcMode="linear" repeatCount="indefinite"/>
           <animate attributeName="y" begin="0.5s" dur="1s" values="10;15;20;25;30;35;40;45;50;0;10" calcMode="linear" repeatCount="indefinite"/>
         </rect>
-        <rect x="30" y="22.4398" width="10" height="95.1205" rx="6">
+        <rect fill="#334557" x="30" y="22.4398" width="10" height="95.1205" rx="6">
           <animate attributeName="height" begin="0.25s" dur="1s" values="120;110;100;90;80;70;60;50;40;140;120" calcMode="linear" repeatCount="indefinite"/>
           <animate attributeName="y" begin="0.25s" dur="1s" values="10;15;20;25;30;35;40;45;50;0;10" calcMode="linear" repeatCount="indefinite"/>
         </rect>
-        <rect x="60" width="10" height="70.1205" rx="6" y="34.9398">
+        <rect fill="#3aa9e2" x="60" width="10" height="70.1205" rx="6" y="34.9398">
           <animate attributeName="height" begin="0s" dur="1s" values="120;110;100;90;80;70;60;50;40;140;120" calcMode="linear" repeatCount="indefinite"/>
           <animate attributeName="y" begin="0s" dur="1s" values="10;15;20;25;30;35;40;45;50;0;10" calcMode="linear" repeatCount="indefinite"/>
         </rect>
-        <rect x="90" y="22.4398" width="10" height="95.1205" rx="6">
+        <rect fill="#334557" x="90" y="22.4398" width="10" height="95.1205" rx="6">
           <animate attributeName="height" begin="0.25s" dur="1s" values="120;110;100;90;80;70;60;50;40;140;120" calcMode="linear" repeatCount="indefinite"/>
           <animate attributeName="y" begin="0.25s" dur="1s" values="10;15;20;25;30;35;40;45;50;0;10" calcMode="linear" repeatCount="indefinite"/>
         </rect>
-        <rect x="120" y="9.8795" width="10" height="120.241" rx="6">
+        <rect fill="#3aa9e2" x="120" y="9.8795" width="10" height="120.241" rx="6">
           <animate attributeName="height" begin="0.5s" dur="1s" values="120;110;100;90;80;70;60;50;40;140;120" calcMode="linear" repeatCount="indefinite"/>
           <animate attributeName="y" begin="0.5s" dur="1s" values="10;15;20;25;30;35;40;45;50;0;10" calcMode="linear" repeatCount="indefinite"/>
         </rect>
       </svg>
-      <p style="font-size: 20px; color: #9a9a9a">Autoryzacja</p>
+      <div class="picture-loader">
+        <img src="/assets/images/home-welcome.png">
+      </div>
+     
     </div>
   </div>
 </div>
@@ -49,7 +52,7 @@
       <div class="sidebar-main" [style.paddingLeft]="vissibleLeftPanel ? '0px' : '10px'"
         [style.height]="vissibleLeftPanel ? '180px' : '100px'">
         <div [style.margin-left]="'5px'">
-          <i class="fas fa-dna" [style.margin-right]="'10px'"></i>
+          <img height="20" width="40" src="./assets/images/iconfinder_E-Commerce_1016078.png" [style.margin-right]="'10px'"/>
           <span *ngIf="vissibleLeftPanel">Admin Panel</span>
         </div>
 
@@ -126,7 +129,7 @@
       </div>
 
       <!-- Klienci -->
-      <div class="menu-item" [class.active-menu-item]="url === '/my-customers'" routerLink="/my-customers"
+      <div class="menu-item" [class.active-menu-item]="url === '/list-customers'" routerLink="/my-customers"
         [style.justify-content]="vissibleLeftPanel ? 'initial' : 'center'">
         <div [class.active]="url === '/my-customers'" class="section-item"></div>
         <div class="item" [style.paddingLeft]="vissibleLeftPanel ? '15px' : '0px'">
@@ -282,48 +285,94 @@
 
     <!-- Nav More Information -->
     <div class="nav-more">
-      <div class="nav-profil" (click)="moreOptionsProfile = !moreOptionsProfile;$event.stopImmediatePropagation()">
-        {{ user ? user.email : "" }}
+      
+      <!-- Notification Orders -->
+      <div class="nav-orders"  (click)="moreOptions(0);$event.stopImmediatePropagation()">
+        <i [style.margin-right]="'10px'" class="fas fa-paper-plane"></i>
+        <span [style.left]="'25px'">121</span>
+        <div (click)="$event.stopPropagation()" class="more-options-user" *ngIf="vissibleOptions[0] && orders"
+          [@fadeInOutTranslate]>
+          <a *ngFor="let order of orders" routerLink="/orders/idzamowienia" (click)="vissibleOptions[1] = false; $event.stopPropagation()">
+            <div class="icon-notification">
+              <img src="../../assets/images/custom-customer.jpg"/>
+            </div>
+            <div class="text-notification">
+              <h6>Marcin pierzynowski</h6>
+              <p>Złożył zamówienie 12-02-2018</p> 
+            </div>  
+          </a>
+          <a *ngIf="orders && orders.length === 0" routerLink="/orders/idzamowienia" (click)="vissibleOptions[1] = false; $event.stopPropagation()">
+            <div class="icon-notification">
+              <img src="../../assets/images/user-empty.png"/>
+            </div>
+            <div class="text-notification">
+              <h6>Brak nowych zamówień</h6>
+              <p>Oczekuj na nowe zamówienia</p> 
+            </div>  
+          </a>
       </div>
-      <div class="nav-notification"
-        [ngStyle]="{'background-color': moreOptionsProfile ? 'orange' : 'unset'}"
-        (click)="moreOptionsProfile = !moreOptionsProfile;$event.stopImmediatePropagation()">
+      </div>
+
+      <!-- Notification More -->
+      <div class="nav-notification"  (click)="moreOptions(1);$event.stopImmediatePropagation()">
         <i class="far fa-bell"></i>
+        <span>{{ sumNotification }}</span>
+        <div (click)="$event.stopPropagation()" class="more-options-user" 
+          *ngIf="vissibleOptions[1] && notifications && notifications.length > 0" [@fadeInOutTranslate]>
+          <a routerLink="/new-messages" (click)="vissibleOptions[1] = false; $event.stopPropagation()">
+            <div class="icon-notification">
+              <span [style.background-color]="'#45b70d'">
+                <i class="fas fa-envelope"></i>
+              </span>
+            </div>
+            <div class="text-notification">
+              <h6>Masz ({{ notifications[notifications.length - 1].messages }}) nowych wiadomości</h6>
+              <p>Odczytaj nowe wiadomości</p> 
+            </div>  
+          </a>
+          <a routerLink="/evaluations" (click)="vissibleOptions[1] = false; $event.stopPropagation()">
+            <div class="icon-notification">
+              <span [style.background-color]="'#f7d42b'">
+                <i class="far fa-smile"></i>
+              </span>
+            </div>
+            <div class="text-notification">
+              <h6>Masz ({{ notifications[notifications.length - 1].evaluations }}) nowych ocen</h6>
+              <p>Spójrz na nowe oceny</p> 
+            </div>  
+          </a>
+          <a routerLink="/comments" (click)="vissibleOptions[1] = false; $event.stopPropagation()">
+            <div class="icon-notification">
+              <span [style.background-color]="'#a388e3'">
+                <i class="far fa-comments"></i>
+              </span>
+            </div>
+            <div class="text-notification">
+              <h6>Masz ({{ notifications[notifications.length - 1].comments }}) nowych komentarzy</h6>
+              <p>Zobacz nowe komentarze</p> 
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Profil -->  
+      <div class="nav-profil" (click)="moreOptions(2);$event.stopImmediatePropagation()">
+        <img [src]="user.detail.imageUrl ? user.detail.imageUrl : '../../assets/images/user-empty.png'" 
+          height=40 width=40 />
+          <i [style.margin-left]="'10px'" [style.color]="'#7f8fa4'" class="fas fa-chevron-down"></i>
+          <div (click)="$event.stopPropagation()" class="more-options-user" *ngIf="vissibleOptions[2]"
+            [@fadeInOutTranslate]>
+            <a routerLink="/my-profile" (click)="vissibleOptions[2] = false; $event.stopPropagation()">Edytuj Profil</a>
+            <a routerLink="/my-settings" (click)="vissibleOptions[2] = false; $event.stopPropagation()">Ustawienia Konta</a>
+            <a (click)="logout()">Wyloguj</a>
+          </div>
       </div>
     </div>
-
   </div>
+  <app-current-page [ngStyle]="{width: vissibleLeftPanel ? 'calc(100% - 200px)' : 'calc(100% - 64px)'}"></app-current-page>
 
   <!-- Router Contain Section -->
   <div class="contain-layout" [ngStyle]="{width: vissibleLeftPanel ? 'calc(100% - 200px)' : 'calc(100% - 64px)'}">
     <router-outlet></router-outlet>
-  </div>
-
-  <!-- Contain Notification Right Panel Toogle -->
-  <div class="contain-notification" (click)="$event.stopPropagation()" [ngStyle]="{ right: moreOptionsProfile ? '0px' : '-200px' }">
-    <div class="notification">
-      
-      <!-- Empty Notification -->
-      <div class="empty-notifications" *ngIf="!notifications || notifications.length === 0">
-        <p>Brak powiadomień</p>
-      </div>
-
-      <!-- Notification Contain -->
-      <div class="notification-container" *ngIf="notifications && notifications.length > 0">
-        <div class="notification-detail"
-          *ngFor="let notife of notifications; let i = index">
-          <p>{{ notife.date}}<i class="fas fa-ban" (click)="deleteNotification(i)"></i></p>
-          <p class="notification-description">
-            Nowych wiadomości: {{ notife.messages }}<i class="fas fa-envelope"></i>
-          </p>
-          <p class="notification-description">
-            Nowych komentarzy: {{ notife.evaluations }}<i class="fas fa-comments"></i>
-          </p>
-          <p class="notification-description">
-            Nowych ocen: {{ notife.messages }}<i class="fas fa-star-half-alt"></i>
-          </p>
-        </div>
-      </div>
-    </div>
   </div>
 </ng-container>

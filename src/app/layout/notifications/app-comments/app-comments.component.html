@@ -60,11 +60,11 @@
               
               <!-- Comment More Option -->
               <td (click)="$event.stopPropagation()">
-                <mat-select class="mat-select" placeholder="Opcje">
-                  <mat-option (click)="deleteComment(comment.id)">
+                <select matNativeControl class="mat-select" placeholder="Opcje">
+                  <option (click)="deleteComment(comment.id)">
                     Usuń
-                  </mat-option>
-                </mat-select>
+                  </option>
+                </select>
               </td>
             </tr>
           </tbody>

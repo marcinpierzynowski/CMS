@@ -5,7 +5,7 @@
   2. LEFT PANEL CONTAIN
   3. NAV TOP PANEL
   4. ROUTER CONTAIN
-  5. NOTIFICATION PANEL
+  5. USER OPTIONS
 
   AUTHOR: MARCIN PIERZYNOWSKI
   ================*/
@@ -21,7 +21,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 14;
+  z-index: 16;
   top: 0px;
   left: 0px;
 }
@@ -29,6 +29,8 @@
 .loading-contain {
   width: 165px;
   height: 140px;
+  margin-right: 30px;
+  margin-bottom: 100px;
 }
 
 svg {
@@ -36,6 +38,26 @@ svg {
   height: 100px;
   margin: 20px;
   display:inline-block;
+}
+
+.picture-loader {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding-bottom: 100px;
+}
+
+.picture-loader img {
+  margin-top: 45px;
+  height: 300px;
+  width: 300px;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 /*==========================
@@ -236,16 +258,16 @@ a.item {
   position: fixed;
   top: 0;
   background-color: #fff;
-  height: 50px;
+  height: 80px;
   right: 0;
   transition: 0.25s linear;
-  z-index: 3;
+  z-index: 15;
+  display: flex;
   border-bottom: 1px solid #e6eaee;
+  align-items: center;
 }
 
 .nav-menu {
-  height: 50px;
-  line-height: 50px;
   text-align: left;
   opacity: 0.5;
   transition: 0.5s linear;
@@ -278,14 +300,77 @@ a.item {
 
 .title-image {
   width: 50px;
-  height: 50px;
+  height: 30px;
 }
 
 .nav-more {
   right: 0px;
-  min-width: 150px;
+  width: 85px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
   height: 50px;
   position: absolute;
+}
+
+.nav-orders {
+  position: relative;
+  margin-top: 5px;
+  display: none;
+}
+
+.nav-orders:hover {
+  cursor: pointer;
+}
+
+.nav-orders i {
+  color: #7f8fa4;
+  font-size: 25px;
+}
+
+.nav-orders > span {
+  font-size: 11px;
+  position: absolute;
+  left: 17px;
+  background-color: #f59312;
+  width: 23px;
+  height: 23px;
+  top: -8px;
+  border-radius: 50%;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-notification {
+  position: relative;
+  margin-top: 5px;
+  display: none;
+}
+
+.nav-notification:hover {
+  cursor: pointer;
+}
+
+.nav-notification i {
+  color: #7f8fa4;
+  font-size: 25px;
+}
+
+.nav-notification > span {
+  font-size: 11px;
+  position: absolute;
+  left: 17px;
+  background-color: #f59312;
+  width: 23px;
+  height: 23px;
+  top: -8px;
+  border-radius: 50%;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .nav-profil {
@@ -294,30 +379,36 @@ a.item {
   line-height: 50px;
   font-size: 12px;
   margin-right: 20px;
-  opacity: 0.7;
   position: relative;
 }
 
-.nav-notification {
-  float: right;
-  opacity: 0.5;
-  height: 30px;
-  margin-top: 10px;
-  padding: 5px;
-  border-radius: 50%;
-  width: 30px;
-  text-align: center;
-  margin-right: 5px;
-}
-
-.nav-notification:hover {
-  background-color: #cacdd6;
+.nav-profil:hover {
   transition: 0.25s linear;
   cursor: pointer;
 }
 
+.nav-profil img {
+  border-radius: 50%;
+}
+
 @media only screen and (min-width: 540px) {
   .nav-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+
+  .nav-more {
+    justify-content: space-between;
+    width: 180px;
+  }
+
+  .nav-orders {
+    display: block;
+  }
+
+  .nav-notification {
     display: block;
   }
 }
@@ -330,10 +421,6 @@ a.item {
 }
 
 @media only screen and (min-width: 1100px) {
-  .nav-more {
-    width: 150px;
-  }
-
   .nav-notification {
     display: block;
   }
@@ -354,10 +441,10 @@ a.item {
 .contain-layout {
   background-color: #f5f5f5;
   position: fixed;
-  top: 50px;
+  top: 121px;
   right: 0;
-  z-index: 4;
-  height: calc(100vh - 50px);
+  z-index: 2;
+  height: calc(100vh - 121px);
   transition: 0.25s linear;
   overflow-y: auto;
 }
@@ -376,95 +463,219 @@ a.item {
   border: 2px solid #bcc0cc;
 }
 
-/*==========================
-  5. NOTIFICATION PANEL
-==========================*/
+/*=============================
+  5. USER OPTIONS ORDERS
+=============================*/
 
-.contain-notification {
-  width: 200px;
-  position: fixed;
-  z-index: 5;
-  transition: 0.25s linear;
-  top: 50px;
-  height: calc(100vh - 50px);
-  background: #255190;
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1c5a94', endColorstr='#207ce5', GradientType=1 );
-  font-family: "Lato", sans-serif;
-  overflow-y: auto;
+.nav-orders .more-options-user {
+  position: absolute;
+  transform: translate3d(0px, 45px, 0px);
+  top: -12px;
+  will-change: transform;
+  right: 0;
+  width: 300px;
+  margin: 5px 0 0;
+  transition: visibility .3s ease,opacity .3s ease;
+  border: 1px solid #dfe3e9;
+  border-radius: 4px;
+  background-color: #fff;
+  text-align: left;
+  box-shadow: 0 1px 4px rgba(0,0,0,.08);
+  z-index: 6;
+  min-height: 85px;
+  overflow-y: hidden;
+  max-height: 261px;
 }
 
-.contain-notification::-webkit-scrollbar-track {
+.nav-orders .more-options-user:hover {
+  overflow-y: overlay;
+}
+
+.nav-orders .more-options-user::-webkit-scrollbar-track {
+  background-color: #ffffff;
+}
+
+.nav-orders .more-options-user::-webkit-scrollbar {
+  width: 5px;
+  background-color: #ffffff;
+}
+
+.nav-orders .more-options-user::-webkit-scrollbar-thumb {
+  background-color: rgba(114, 115, 118);
+  border: 2px solid rgba(114, 115, 118);
   border-radius: 2.5px;
 }
 
-.contain-notification::-webkit-scrollbar {
-  width: 5px;
-}
-
-.contain-notification::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-  background-color: #b3b3b3;
-}
-
-.notification {
-  color: white;
-  font-size: 13px;
-  position: relative;
-}
-
-.notification p {
+.nav-orders .more-options-user a {
+  display: block;
+  font-family: 'Source Sans Pro', sans-serif;
   text-align: center;
-  line-height: 100%;
-  margin: 0px;
+  font-size: 14px;
+  padding: 8px 15px;
+  display: grid;
+  grid-template-columns: 20% 80%;
+  transition: 0.25s ease-in-out;
+  color: #354052;
 }
 
-.empty-notifications {
+.nav-orders .more-options-user a {
+  border-bottom: 1px solid #dfe3e9;
+}
+
+.nav-orders .more-options-user a:hover {
+  background-color: #f2f4f7;
+  text-decoration: none;
+  transition: 0.25s ease-in-out;
+}
+
+.nav-orders .icon-notification {
+  padding: 10px 5px;
+}
+
+.nav-orders .icon-notification img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.nav-orders .text-notification {
+  padding: 10px 0;
+  text-align: left;
+}
+
+.nav-orders .text-notification h6 {
+  color: #354052;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.nav-orders .text-notification p {
+  margin-bottom: 0;
+  color: #7f8fa4;
+  font-size: 14px;
+}
+
+/*=============================
+  6. USER OPTIONS NOTIFICATION
+=============================*/
+
+.nav-notification .more-options-user {
+  position: absolute;
+  transform: translate3d(0px, 45px, 0px);
+  top: -12px;
+  will-change: transform;
+  right: 0;
+  width: 300px;
+  margin: 5px 0 0;
+  transition: visibility .3s ease,opacity .3s ease;
+  border: 1px solid #dfe3e9;
+  border-radius: 4px;
+  background-color: #fff;
+  text-align: left;
+  box-shadow: 0 1px 4px rgba(0,0,0,.08);
+  z-index: 6;
+  height: 261px;
+}
+
+.nav-notification .more-options-user a {
+  display: block;
+  font-family: 'Source Sans Pro', sans-serif;
+  text-align: center;
+  font-size: 14px;
+  padding: 8px 15px;
+  display: grid;
+  grid-template-columns: 20% 80%;
+  transition: 0.25s ease-in-out;
+  color: #354052;
+}
+
+.nav-notification .more-options-user a:nth-child(-n + 2) {
+  border-bottom: 1px solid #dfe3e9;
+}
+
+.nav-notification .more-options-user a:hover {
+  background-color: #f2f4f7;
+  text-decoration: none;
+  transition: 0.25s ease-in-out;
+}
+
+.nav-notification .icon-notification {
+  padding: 10px 5px;
+}
+
+.nav-notification .icon-notification span {
+  width: 40px;
+  height: 40px;
+  display: block;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: calc(100vh - 50px);
-  width: 100%;
-  float: left;
+  border-radius: 50%;
 }
 
-.notification-container {
-  float: left;
-  width: 100%;
+.nav-notification .icon-notification span i {
+  color: #fff;
 }
 
-.notification-detail {
-  float: left;
-  width: 90%;
-  margin: 10px 5% 10px 5%;
-  background-color: #cbd2dc;
-  border-radius: 5px;
-  min-height: 50px;
+.nav-notification .text-notification {
+  padding: 10px 0;
 }
 
-.notification-detail p:nth-child(1) {
-  background-color: #d3dbe3;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  color: black;
-  padding: 5px;
+.nav-notification .text-notification h6 {
+  color: #354052;
+  font-weight: 500;
+  font-size: 16px;
 }
 
-.notification-detail p:nth-child(1) i {
-  float: right;
-  margin-left: 5px;
-  color: red;
+.nav-notification .text-notification p {
+  margin-bottom: 0;
+  color: #7f8fa4;
+  font-size: 14px;
 }
 
-.notification-detail i:hover {
-  cursor: pointer;
+/*==========================
+  7. USER OPTIONS NAV PROFIL
+==========================*/
+
+.nav-profil .more-options-user {
+  position: absolute;
+  transform: translate3d(0px, 45px, 0px);
+  top: 0px;
+  will-change: transform;
+  right: 0;
+  width: 9.375rem;
+  margin: 5px 0 0;
+  transition: visibility .3s ease,opacity .3s ease;
+  border: 1px solid #dfe3e9;
+  border-radius: 4px;
+  background-color: #fff;
+  text-align: left;
+  box-shadow: 0 1px 4px rgba(0,0,0,.08);
+  z-index: 6;
+  height: 111px;
 }
 
-.notification-description {
-  padding: 5px;
-  color: black;
+.nav-profil .more-options-user a {
+  display: block;
+  font-family: 'Source Sans Pro', sans-serif;
+  text-align: center;
+  font-size: 14px;
+  padding: 8px 15px;
+  height: 37px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  transition: 0.25s ease-in-out;
+  color: #354052;
 }
 
-.notification-description i {
-  float: right;
-  padding-top: 1px;
+.nav-profil .more-options-user a:nth-child(-n + 2) {
+  border-bottom: 1px solid #dfe3e9;
+}
+
+.nav-profil .more-options-user a:hover {
+  background-color: #f2f4f7;
+  color: #2ea1f8;
+  text-decoration: none;
+  transition: 0.25s ease-in-out;
 }

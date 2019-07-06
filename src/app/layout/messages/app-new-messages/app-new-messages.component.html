@@ -50,14 +50,14 @@
               <td>{{ message.email }}</td>
               <td>{{ message.date }}</td>
               <td>
-                <mat-select class="mat-select" placeholder="Opcje">
-                  <mat-option>
+                <select matNativeControl class="mat-select" placeholder="Opcje">
+                  <option>
                       <a style="text-decoration: unset; color: unset" [routerLink]="['../', 'edit-message', message.id]">
                           Szczegóły
                       </a>
-                  </mat-option>
-                  <mat-option (click)="deleteMessage(i)">Usuń</mat-option>
-                </mat-select>
+                  </option>
+                  <option (click)="deleteMessage(i)">Usuń</option>
+                </select>
               </td>
             </tr>
           </tbody>

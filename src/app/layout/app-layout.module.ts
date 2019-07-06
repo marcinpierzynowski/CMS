@@ -19,6 +19,9 @@ import { AppEvaluationComponent } from './notifications/app-evaluation/app-evalu
 import { AppSliderComponent } from './pages-properties/app-slider/app-slider.component';
 import { AppPromotionComponent } from './pages-properties/app-promotion/app-promotion.component';
 import { AppEditMessageComponent } from './messages/app-edit-message/app-edit-message.component';
+import { CurrentPageComponent } from 'src/shared/components/current-page/current-page.component';
+import { CurrentPageService } from '../services/current-page.service';
+import { OrdersManageService } from '../services/orders-manage.service';
 
 @NgModule({
     declarations: [
@@ -36,13 +39,18 @@ import { AppEditMessageComponent } from './messages/app-edit-message/app-edit-me
       AppCommentsComponent,
       AppEvaluationComponent,
       AppSliderComponent,
-      AppPromotionComponent
+      AppPromotionComponent,
+      CurrentPageComponent
     ],
     imports: [
       CommonModule,
       SharedModule,
       PageRoutes
     ],
-    providers: [DatePipe]
+    providers: [
+      DatePipe,
+      CurrentPageService,
+      OrdersManageService
+    ]
 })
 export class AppLayoutModule {}

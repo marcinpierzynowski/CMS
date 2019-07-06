@@ -5,9 +5,11 @@ import { FirebaseService } from '../services/firebase.service';
 
 import { fadeInOutTranslate, fadeOutTranslate, zoomOut } from '../../shared/animations/animation';
 import swal from 'sweetalert2';
-import { Admin, Notificactions } from '../models/model';
+import { Admin, Notificactions, Order } from '../models/model';
 import { LayoutManageService } from '../services/layout-manage.service';
 import { DatePipe } from '@angular/common';
+import { CurrentPageService } from '../services/current-page.service';
+import { OrdersManageService } from '../services/orders-manage.service';
 
 @Component({
   selector: 'app-layout',
@@ -19,40 +21,43 @@ export class AppLayoutComponent implements OnInit {
   public activeSubMenu = [false, false, false, false, false, false, false];
   public userAuth = false;
   public vissibleLeftPanel: boolean;
-  public moreOptionsProfile: boolean;
   public user: Admin;
   public notifications: Array<Notificactions>;
   public url;
+  public vissibleOptions = [false, false, false];
+  public orders: Array<Order>;
 
   private flag = true;
   private admins: Array<Admin>;
 
   @HostListener('window:resize')
   public onResize(): void {
-    if (window.innerWidth < 1000) { this.moreOptionsProfile = false; }
     if (window.innerWidth < 540 && this.vissibleLeftPanel) { this.vissibleLeftPanel = false; }
+    if (window.innerWidth < 540) { this.vissibleOptions = [false, false, false]; }
   }
 
   @HostListener('window:click')
   public onClick(): void {
-    if (this.moreOptionsProfile) {
-      this.moreOptionsProfile = false;
-    }
+    this.vissibleOptions = [false, false, false];
   }
 
   constructor(
     private router: Router,
     private firebaseService: FirebaseService,
     private layoutManageService: LayoutManageService,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private currentPageService: CurrentPageService,
+    private ordersManageService: OrdersManageService
   ) { }
 
   ngOnInit(): void {
     this.router.events.subscribe(() => {
       this.url = this.router.url;
+      this.currentPageService.update(this.url);
       this.checkPanel();
     });
     this.url = this.router.url;
+    this.currentPageService.update(this.url);
 
     this.layoutManageService.adminsData.subscribe(ad => this.admins = ad);
     this.layoutManageService.readyData.subscribe((data) => {
@@ -66,6 +71,8 @@ export class AppLayoutComponent implements OnInit {
     this.layoutManageService.adminsData.subscribe(admins =>  {
       this.admins = admins;
     });
+
+    this.ordersManageService.ordersData.subscribe(orders => this.orders = orders);
   }
 
   public checkPanel(): void {
@@ -94,7 +101,7 @@ export class AppLayoutComponent implements OnInit {
   }
 
   public tryLogin() {
-    const {email, password} = (<Admin>JSON.parse(localStorage.getItem('shop-admin')));
+    const {email, password} = (JSON.parse(localStorage.getItem('shop-admin')) as Admin);
     this.firebaseService.firebase.auth().signInWithEmailAndPassword(email, password)
       .then(() => {
         this.userAuth = true;
@@ -190,5 +197,20 @@ export class AppLayoutComponent implements OnInit {
   public logout(): void {
     localStorage.clear();
     this.router.navigate(['/auth/sign-in']);
+  }
+
+  public moreOptions(index: number) {
+    for (let i = 0; i < this.vissibleOptions.length; i++) {
+      if (i === index) {
+        this.vissibleOptions[i] = !this.vissibleOptions[i];
+        continue;
+      }
+      this.vissibleOptions[i] = false;
+    }
+  }
+
+  public get sumNotification(): number {
+    const not = this.notifications[this.notifications.length - 1];
+    return not.messages + not.evaluations + not.comments;
   }
 }
