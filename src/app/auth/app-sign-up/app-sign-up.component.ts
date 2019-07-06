@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators, NgControlStatus } from '@angular/forms';
 import { CustomValidators } from 'ng2-validation';
 import { Router } from '@angular/router';
 
@@ -24,7 +24,6 @@ import { Admin } from 'src/app/models/model';
 export class AppSignUpComponent implements OnInit {
   public displayAnimate: string;
   public displayAnimateRepeatPassword: string;
-  public submitCheck: boolean;
   public vissiblePassword: boolean;
   public vissibleRepeatPassword: boolean;
   public newDataAccount: FormGroup;
@@ -82,7 +81,6 @@ export class AppSignUpComponent implements OnInit {
     this.activeInputs();
 
     if (this.newDataAccount.valid) {
-      this.submitCheck = true;
       this.firebaseService
         .firebase
         .auth()
@@ -99,7 +97,6 @@ export class AppSignUpComponent implements OnInit {
           } else {
             swal('Rejestracja', error.code, 'error');
           }
-          this.submitCheck = false;
         });
     } else {
       swal(
@@ -114,7 +111,6 @@ export class AppSignUpComponent implements OnInit {
     this.admins.push(this.prepareAdmin());
     this.firebaseService.getDataBaseRef('admins').set(this.admins);
     this.saveToStorage();
-    this.submitCheck = false;
     this.router.navigate(['/']);
   }
 
@@ -179,5 +175,56 @@ export class AppSignUpComponent implements OnInit {
       this.newDataAccount.get(inner).markAsTouched();
       this.newDataAccount.get(inner).updateValueAndValidity();
     }
+  }
+
+  public checkValidate(inputControl: string, nameControl: string): boolean {
+    const control = this.newDataAccount.controls[inputControl];
+    if (control.errors) {
+      if (control.errors[nameControl] && control.touched) {
+        return true;
+    } else {
+        return false;
+      }
+    }
+    return false;
+  }
+
+  public checkValidateEmail(): boolean {
+    const control = this.newDataAccount.controls.email;
+    if (control.errors) {
+      if ((control.errors.required || control.errors.email)
+        && control.touched) {
+          return true;
+      } else {
+        return false;
+      }
+    }
+    return false;
+  }
+
+  public checkValidatePassword(): boolean {
+    const control = this.newDataAccount.controls.password;
+    if (control.errors) {
+      if ((control.errors.required || control.errors.pattern)
+        && control.touched) {
+          return true;
+      } else {
+        return false;
+      }
+    }
+    return false;
+  }
+
+  public checkValidateRepeatPassword(): boolean {
+    const control = this.newDataAccount.controls.repeatPassword;
+    if (control.errors) {
+      if ((control.errors.required || control.errors.equalTo)
+        && control.touched) {
+          return true;
+      } else {
+        return false;
+      }
+    }
+    return false;
   }
 }

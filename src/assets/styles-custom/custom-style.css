@@ -1,0 +1,13 @@
+/*===================
+  AUTH SET BACKGROUND
+====================*/
+
+section.animate-background {
+    height: 100vh;
+    width: 100%;
+    background: linear-gradient(151deg, #3c7ab6, #aaadae, #334557);
+    background-size: 600% 600%;
+    -webkit-animation: GradientBackground 21s ease infinite;
+    -moz-animation: GradientBackground 21s ease infinite;
+    animation: GradientBackground 21s ease infinite;
+}

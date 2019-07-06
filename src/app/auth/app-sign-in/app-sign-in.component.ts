@@ -22,7 +22,6 @@ import { Admin } from 'src/app/models/model';
 })
 export class AppSignInComponent implements OnInit {
   public displayAnimate: string;
-  public submitCheck: boolean;
   public loginAccountForm: FormGroup;
   public vissiblePassword: boolean;
   public savePassword: boolean;
@@ -66,18 +65,15 @@ export class AppSignInComponent implements OnInit {
     this.activeInputs();
 
     if (this.loginAccountForm.valid) {
-      this.submitCheck = true;
       this.getRefAuth()
         .then(() => {
           this.firebaseService.authorization = true;
           this.layoutManageService.email = this.loginAccountForm.value.email;
-          this.submitCheck = false;
           this.saveToStorage();
           this.router.navigate(['/']);
         })
         .catch(error => {
           this.generateErrorSwal(error);
-          this.submitCheck = false;
         });
     } else {
       swal('Logowanie', 'Wypełnij prawidłowo formularz logowania!', 'warning');
@@ -164,5 +160,42 @@ export class AppSignInComponent implements OnInit {
       this.loginAccountForm.get(inner).markAsUntouched();
       this.loginAccountForm.get(inner).setValue(null);
     }
+  }
+
+  public checkValidate(inputControl: string, nameControl: string): boolean {
+    const control = this.loginAccountForm.controls[inputControl];
+    if (control.errors) {
+      if (control.errors[nameControl] && control.touched) {
+        return true;
+    } else {
+        return false;
+      }
+    }
+    return false;
+  }
+
+  public checkValidateEmail(): boolean {
+    const control = this.loginAccountForm.controls.email;
+    if (control.errors) {
+      if ((control.errors.required || control.errors.email)
+        && control.touched) {
+          return true;
+      } else {
+        return false;
+      }
+    }
+    return false;
+  }
+
+  public checkValidatePassword(): boolean {
+    const control = this.loginAccountForm.controls.password;
+    if (control.errors) {
+      if (control.errors.required && control.touched) {
+          return true;
+      } else {
+        return false;
+      }
+    }
+    return false;
   }
 }

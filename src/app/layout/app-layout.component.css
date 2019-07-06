@@ -1,3 +1,18 @@
+/*================
+  GLOBAL STYLES
+
+  1. LOADER
+  2. LEFT PANEL CONTAIN
+  3. NAV TOP PANEL
+  4. ROUTER CONTAIN
+  5. NOTIFICATION PANEL
+
+  AUTHOR: MARCIN PIERZYNOWSKI
+  ================*/
+
+/*==================
+  1. LOADER
+==================*/
 .loading-check {
   width: 100%;
   height: 100vh;
@@ -6,21 +21,51 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 4;
+  z-index: 14;
   top: 0px;
   left: 0px;
 }
 
-.img-firebase {
-  height: 244px;
-  width: 150px;
+.loading-contain {
+  width: 165px;
+  height: 140px;
+}
+
+svg {
+  width: 100px;
+  height: 100px;
+  margin: 20px;
+  display:inline-block;
+}
+
+/*==========================
+  2. LEFT PANEL CONTAIN
+==========================*/
+
+.panel-blank {
+  position: relative;
+}
+
+.panel-blank:hover .hide-scroolbar {
+  opacity: 0;
+  z-index: -1;
+}
+
+.hide-scroolbar {
+  position: absolute;
+  background-color: #222c3c;
+  width: 5px;
+  top: 0;
+  z-index: 10;
+  height: 10px;
+  height: 100vh;
 }
 
 .panel-contain {
   background-color: #222c3c;
   width: 200px;
-  height: calc(100vh - 100px);
-  overflow: auto;
+  height: 100vh;
+  overflow-y: auto;
   position: fixed;
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   overflow-x: hidden;
@@ -28,30 +73,119 @@
 }
 
 #style-panel-contain::-webkit-scrollbar-track {
-  background-color: #f5f5f5;
+  background-color: #222c3c;
 }
 
 #style-panel-contain::-webkit-scrollbar {
-  width: 10px;
-  background-color: #f5f5f5;
+  width: 5px;
+  background-color: #222c3c;
 }
 
 #style-panel-contain::-webkit-scrollbar-thumb {
-  background-color: #bcc0cc;
-  border: 2px solid #bcc0cc;
+  background-color: rgba(114, 115, 118);
+  border: 2px solid rgba(114, 115, 118);
+  border-radius: 2.5px;
+}
+
+.sidebar-main {
+  float: left;
+  position: relative;
+  border-bottom: 1px solid #2a3547;
+  color: #e6eaee;
+  font-size: 16px;
+  width: 100%;
+  background-color: #1e2129;
+  transition: all 0.25s linear 0s;
+  padding-top: 15px;
+  text-align: center;
+}
+
+.sidebar-main i {
+  color: #00a8ff;
+}
+
+.sidebar-main > div:nth-child(1) {
+  color: rgba(255,255,255,.7);
+}
+
+.sidebar-main > div:nth-child(1) span {
+  font-size: 13px;
+}
+
+.panel-user-detail {
+  margin-top: 25px;
+}
+
+.panel-user-detail h6 {
+  font-weight: 500;
+  font-family: Muli, Arial, Helvetica, sans-serif;
+}
+
+.panel-user-detail p {
+  font-family: Muli, Arial, Helvetica, sans-serif;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 13px;
+}
+
+.user-picture {
+  position: absolute;
+  bottom: -35px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #222c3c;
+  border-radius: 50%;
+  padding: 8px;
+}
+
+.user-picture img {
+  border-radius: 50%;
+}
+
+.user-picture-panel-hide {
+  margin-left: -5px;
+  margin-top: 10px;
+}
+
+.user-picture-panel-hide img {
+  border-radius: 50%;
+}
+
+.sidebar-title {
+  width: 100%;
+  float: left;
+  color: #7f8fa4;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 12px;
+  margin-top: 25px;
+  margin-bottom: 15px;
+  padding-left: 30px;
+  height: 18px;
+  transition: all 0.25s linear 0s;
+}
+
+.hide-sidebar {
+  height: 1px;
+  background-color: #7f8fa4;
+  width: 60%;
+  margin: 0 auto;
 }
 
 .menu-item {
-  min-height: 50px;
+  height: 40px;
   position: relative;
   float: left;
   width: 100%;
   color: #b7c0cd;
-  line-height: 50px;
+  display: flex;
+  align-items: center;
   font-size: 14px;
   transition: 0.5s linear;
   transition: 0.25s ease-in-out;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.active-menu-item {
+  background-color: #1d2531;
 }
 
 .active {
@@ -63,18 +197,17 @@
   left: 0px;
 }
 
-.active-menu-item {
-  background-color: #1d2531;
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 15px;
+  transition: all 0.25s linear 0s;
 }
 
-.contain-angle {
-  position: absolute;
-  right: 0;
-  z-index: 2;
-  top: 0;
-  width: 30px;
-  height: 50px;
-  text-align: center;
+a.item {
+  color: #b7c0cd;
+  text-decoration: none;
 }
 
 .item:hover,
@@ -85,47 +218,19 @@
   color: white;
 }
 
+.item:hover {
+  color: #fff;
+}
+
 .icon-panel {
   margin-left: 15px;
   margin-right: 15px;
+  font-size: 12px;
 }
 
-.contain-angle:hover {
-  background-color: #00a8ff;
-}
-
-.rotate {
-  transform: rotate(90deg);
-  transition: 0.25s linear;
-}
-
-.sub-menu-item {
-  padding-left: 50px;
-  font-size: 14px;
-  height: 50px;
-}
-
-.down-panel-contain {
-  height: 100px;
-  border-top: 1px solid #bcc0cc;
-  width: 200px;
-  background-color: #222c3c;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  border-right: 1px solid #bcc0cc;
-  transition: 0.25s linear;
-}
-
-.link-firebase {
-  text-decoration: unset;
-  color: white;
-  display: block;
-}
-
-.item:hover .link-firebase {
-  color: black;
-}
+/*===================
+  3. NAV TOP PANEL
+===================*/
 
 .nav-panel {
   position: fixed;
@@ -162,10 +267,13 @@
   text-align: center;
   color: black;
   float: left;
+  display: none;
 }
 
 .logo-text {
   display: none;
+  color: #212529;
+  font-weight: 100;
 }
 
 .title-image {
@@ -175,15 +283,24 @@
 
 .nav-more {
   right: 0px;
-  min-width: 50px;
+  min-width: 150px;
   height: 50px;
   position: absolute;
+}
+
+.nav-profil {
+  float: right;
+  height: 50px;
+  line-height: 50px;
+  font-size: 12px;
+  margin-right: 20px;
+  opacity: 0.7;
+  position: relative;
 }
 
 .nav-notification {
   float: right;
   opacity: 0.5;
-  display: none;
   height: 30px;
   margin-top: 10px;
   padding: 5px;
@@ -199,37 +316,40 @@
   cursor: pointer;
 }
 
-.nav-profil {
-  float: right;
-  display: none;
-  height: 50px;
-  line-height: 50px;
-  font-size: 12px;
-  margin-right: 20px;
-  opacity: 0.7;
-  position: relative;
+@media only screen and (min-width: 540px) {
+  .nav-title {
+    display: block;
+  }
 }
 
-.nav-profil-icon {
-  float: right;
-  opacity: 0.7;
-  display: block;
-  height: 20px;
-  margin-top: 15px;
-  margin-right: 20px;
+@media only screen and (min-width: 740px) {
+  .logo-text,
+  .menu-text {
+    display: inline;
+  }
 }
 
-.pop-up-profil {
-  position: absolute;
-  width: 150px;
-  height: 300px;
-  right: 15px;
-  top: 40px;
-  background-color: #fff;
-  border: 0.5px solid rgb(214, 214, 214);
-  border-radius: 5px;
-  z-index: 2;
+@media only screen and (min-width: 1100px) {
+  .nav-more {
+    width: 150px;
+  }
+
+  .nav-notification {
+    display: block;
+  }
+
+  .nav-profil {
+    display: block;
+  }
+
+  .nav-profil-icon {
+    display: none;
+  }
 }
+
+/*===========================
+  4. ROUTER CONTAIN
+==========================*/
 
 .contain-layout {
   background-color: #f5f5f5;
@@ -255,6 +375,10 @@
   background-color: #bcc0cc;
   border: 2px solid #bcc0cc;
 }
+
+/*==========================
+  5. NOTIFICATION PANEL
+==========================*/
 
 .contain-notification {
   width: 200px;
@@ -294,7 +418,16 @@
   margin: 0px;
 }
 
-.notification-contener {
+.empty-notifications {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 50px);
+  width: 100%;
+  float: left;
+}
+
+.notification-container {
   float: left;
   width: 100%;
 }
@@ -334,38 +467,4 @@
 .notification-description i {
   float: right;
   padding-top: 1px;
-}
-
-.empty-notifications {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: calc(100vh - 50px);
-  width: 100%;
-  float: left;
-}
-
-@media only screen and (min-width: 740px) {
-  .logo-text,
-  .menu-text {
-    display: inline;
-  }
-}
-
-@media only screen and (min-width: 1100px) {
-  .nav-more {
-    width: 150px;
-  }
-
-  .nav-notification {
-    display: block;
-  }
-
-  .nav-profil {
-    display: block;
-  }
-
-  .nav-profil-icon {
-    display: none;
-  }
 }

@@ -5,7 +5,6 @@
   width: 100%;
   min-height: 100vh;
   position: relative;
-  background-color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -15,10 +14,11 @@
 .form-sign-in {
   width: 90%;
   height: 550px;
-  -webkit-box-shadow: 0 20px 30px 0 #dfe7ff;
-  -moz-box-shadow: 0 20px 30px 0 #dfe7ff;
-  box-shadow: 0 20px 30px 0 #dfe7ff;
+  -webkit-box-shadow: 0 20px 30px 0 #464f6b;
+  -moz-box-shadow: 0 20px 30px 0 #464f6b;
+  box-shadow: 0 20px 30px 0 #464f6b;
   border: 1px solid #e7f0f8;
+  background-color: #fff;
 }
 
 .contain-link-register {
@@ -26,6 +26,7 @@
   width: 95%;
   text-align: right;
   margin: 5px 2.5% 5px 2.5%;
+  padding: 15px 10px;
 }
 
 .contain-link-register a {
@@ -40,20 +41,22 @@
   line-height: 90px;
   height: 110px;
   font-size: 18px;
-  color: #133698;
+  color: #5599f9;
+  padding-top: 30px;
 }
 
 .title-image {
-  height: 90px;
-  line-height: 30px;
+  height: 70px;
   width: 90px;
-  margin-bottom: 15px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .welcome-text {
   float: left;
   width: 100%;
   color: #707070;
+  font-weight: 700;
 }
 
 .welcome-login-text {
@@ -143,7 +146,8 @@
   margin-left: auto;
   margin-right: auto;
   border: unset;
-  background-color: #f9c053;
+  background-color: #7896b2;
+  color: #fff;
   border-radius: 2px;
   margin-top: 2px;
   height: 40px;
@@ -181,12 +185,6 @@
   .contain-title {
     height: 150px;
     font-size: 20px;
-  }
-
-  .title-image {
-    height: 130px;
-    width: 130px;
-    margin-bottom: 25px;
   }
 
   .welcome-text,
@@ -239,9 +237,7 @@
     min-height: 100vh;
     right: 0px;
     display: block;
-    background: #f8f8fc
-      url(/assets/images/picture.svg)
-      center no-repeat;
+    background:  url(/assets/images/home-welcome.png) center no-repeat;
   }
 }
 

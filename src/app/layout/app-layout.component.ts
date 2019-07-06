@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 import { FirebaseService } from '../services/firebase.service';
 
-import { fadeInOutTranslate, fadeOutTranslate } from '../../shared/animations/animation';
+import { fadeInOutTranslate, fadeOutTranslate, zoomOut } from '../../shared/animations/animation';
 import swal from 'sweetalert2';
 import { Admin, Notificactions } from '../models/model';
 import { LayoutManageService } from '../services/layout-manage.service';
@@ -12,12 +12,8 @@ import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-layout',
   templateUrl: './app-layout.component.html',
-  styleUrls: [
-    './app-layout.component.css',
-    '../../assets/styles-custom/lds-ripple.css',
-    '../../assets/styles-custom/svg-loader.scss'
-  ],
-  animations: [fadeInOutTranslate, fadeOutTranslate]
+  styleUrls: ['./app-layout.component.css'],
+  animations: [fadeInOutTranslate, fadeOutTranslate, zoomOut]
 })
 export class AppLayoutComponent implements OnInit {
   public activeSubMenu = [false, false, false, false, false, false, false];
@@ -26,25 +22,10 @@ export class AppLayoutComponent implements OnInit {
   public moreOptionsProfile: boolean;
   public user: Admin;
   public notifications: Array<Notificactions>;
+  public url;
 
-  private sectionActually;
   private flag = true;
   private admins: Array<Admin>;
-  private urlToSetActivePanel: object = {
-    '/my-profile': 1,
-    '/my-settings': 1,
-    '/add-user': 2,
-    '/list-users': 2,
-    '/add-product': 3,
-    '/list-products': 3,
-    '/new-messages': 4,
-    '/received-messages': 4,
-    '/edit-message': 4,
-    '/evaluations': 5,
-    '/comments': 5,
-    '/slider': 6,
-    '/promotions': 6
-  };
 
   @HostListener('window:resize')
   public onResize(): void {
@@ -68,8 +49,10 @@ export class AppLayoutComponent implements OnInit {
 
   ngOnInit(): void {
     this.router.events.subscribe(() => {
-      this.getUrlAndSetActivePanelAdmin(this.router.url);
+      this.url = this.router.url;
+      this.checkPanel();
     });
+    this.url = this.router.url;
 
     this.layoutManageService.adminsData.subscribe(ad => this.admins = ad);
     this.layoutManageService.readyData.subscribe((data) => {
@@ -101,7 +84,6 @@ export class AppLayoutComponent implements OnInit {
         ad => ad.email.toLocaleLowerCase() === this.layoutManageService.emailData.getValue().toLocaleLowerCase()
       );
       this.getNotifications();
-      this.getUrlAndSetActivePanelAdmin(this.router.url);
       this.setNewDataLogin();
       return;
     } else if (localStorage.getItem('shop-admin')) {
@@ -116,7 +98,6 @@ export class AppLayoutComponent implements OnInit {
     this.firebaseService.firebase.auth().signInWithEmailAndPassword(email, password)
       .then(() => {
         this.userAuth = true;
-        this.getUrlAndSetActivePanelAdmin(this.router.url);
         this.layoutManageService.email = email;
         this.user = this.admins.find(el => el.email.toLowerCase() === email.toLowerCase());
         this.setNewDataLogin();
@@ -166,50 +147,6 @@ export class AppLayoutComponent implements OnInit {
       });
   }
 
-  public getUrlAndSetActivePanelAdmin(url): void {
-    if (url === '/dashboard') {
-      this.checkReferenceDom(0);
-      this.sectionActually = 0;
-    } else {
-      this.sectionActually = this.urlToSetActivePanel[url];
-      if (this.sectionActually === undefined) {
-        const prepUrl = '/' + url.split('/')[1];
-        this.sectionActually = this.urlToSetActivePanel[prepUrl];
-        this.checkReferenceDom(this.urlToSetActivePanel[prepUrl]);
-      } else {
-        this.checkReferenceDom(this.urlToSetActivePanel[url]);
-      }
-    }
-  }
-
-  public checkReferenceDom(index: number): void {
-    const timer = setInterval(() => {
-        const selectorMenuItem = document.getElementsByClassName('menu-item');
-        const selectorSectionItem = document.getElementsByClassName('section-item');
-        if (selectorMenuItem.length > 0 && selectorSectionItem.length > 0) {
-          this.setActiveItemPanel(index);
-          clearInterval(timer);
-        }
-      }, 500);
-  }
-
-  public setActiveItemPanel(index: number): void {
-    if (!this.vissibleLeftPanel) { this.vissibleLeftPanel = true; }
-    const selectorMenuItem = document.getElementsByClassName('menu-item');
-    const selectorSectionItem = document.getElementsByClassName('section-item');
-
-    for (let i = 0; i < selectorSectionItem.length; i++) {
-      if (i === index) {
-        selectorSectionItem[i].className = 'section-item active';
-        selectorMenuItem[i + 1].className = 'menu-item active-menu-item';
-        if (i > 0) { this.activeSubMenu[i - 1] = true; }
-        continue;
-      }
-      selectorSectionItem[i].className = 'section-item';
-      selectorMenuItem[i + 1].className = 'menu-item';
-    }
-  }
-
   public deleteNotification(index): void {
     swal({
       title: 'Usunięcie powiadomienia',
@@ -247,16 +184,6 @@ export class AppLayoutComponent implements OnInit {
     } else {
       document.getElementsByClassName('fa fa-angle-right')[index].className =
         'fa fa-angle-right';
-    }
-  }
-
-  public setUrl(url, index): void {
-    if (url.charAt(url.length - 1) === '*' && index === this.sectionActually) {
-      this.setActiveItemPanel(index);
-    } else if (url.charAt(url.length - 1) === '*') {
-      this.router.navigate([url.substr(0, url.length - 1)]);
-    } else {
-      this.router.navigate([url]);
     }
   }
 

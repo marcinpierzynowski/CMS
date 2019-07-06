@@ -1,239 +1,329 @@
 
 <!-- Loader -->
-<div class="loading-check" [@fadeOutTranslate] *ngIf="!userAuth">
+<div class="loading-check" [@zoomOut] *ngIf="!userAuth">
   <div class="loading-contain" style="text-align:center;">
-    <img class="img-firebase" src="./assets/images/firebase-icon.png" />
-    <h5 class="col-12" style="opacity:0.5;margin-top: 25px;">Proszę czekać!</h5>
     <div class="container">
-      <svg class="loader" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 340">
-        <circle cx="170" cy="170" r="160" stroke="#f58411" />
-        <circle cx="170" cy="170" r="135" stroke="#404041" />
-        <circle cx="170" cy="170" r="110" stroke="#f58411" />
-        <circle cx="170" cy="170" r="85" stroke="#404041" />
+      <svg xmlns="http://www.w3.org/2000/svg" width="135" height="140" viewBox="0 0 135 140" fill="#222c3c">
+        <rect y="9.8795" width="10" height="120.241" rx="6">
+          <animate attributeName="height" begin="0.5s" dur="1s" values="120;110;100;90;80;70;60;50;40;140;120" calcMode="linear" repeatCount="indefinite"/>
+          <animate attributeName="y" begin="0.5s" dur="1s" values="10;15;20;25;30;35;40;45;50;0;10" calcMode="linear" repeatCount="indefinite"/>
+        </rect>
+        <rect x="30" y="22.4398" width="10" height="95.1205" rx="6">
+          <animate attributeName="height" begin="0.25s" dur="1s" values="120;110;100;90;80;70;60;50;40;140;120" calcMode="linear" repeatCount="indefinite"/>
+          <animate attributeName="y" begin="0.25s" dur="1s" values="10;15;20;25;30;35;40;45;50;0;10" calcMode="linear" repeatCount="indefinite"/>
+        </rect>
+        <rect x="60" width="10" height="70.1205" rx="6" y="34.9398">
+          <animate attributeName="height" begin="0s" dur="1s" values="120;110;100;90;80;70;60;50;40;140;120" calcMode="linear" repeatCount="indefinite"/>
+          <animate attributeName="y" begin="0s" dur="1s" values="10;15;20;25;30;35;40;45;50;0;10" calcMode="linear" repeatCount="indefinite"/>
+        </rect>
+        <rect x="90" y="22.4398" width="10" height="95.1205" rx="6">
+          <animate attributeName="height" begin="0.25s" dur="1s" values="120;110;100;90;80;70;60;50;40;140;120" calcMode="linear" repeatCount="indefinite"/>
+          <animate attributeName="y" begin="0.25s" dur="1s" values="10;15;20;25;30;35;40;45;50;0;10" calcMode="linear" repeatCount="indefinite"/>
+        </rect>
+        <rect x="120" y="9.8795" width="10" height="120.241" rx="6">
+          <animate attributeName="height" begin="0.5s" dur="1s" values="120;110;100;90;80;70;60;50;40;140;120" calcMode="linear" repeatCount="indefinite"/>
+          <animate attributeName="y" begin="0.5s" dur="1s" values="10;15;20;25;30;35;40;45;50;0;10" calcMode="linear" repeatCount="indefinite"/>
+        </rect>
       </svg>
+      <p style="font-size: 20px; color: #9a9a9a">Autoryzacja</p>
     </div>
   </div>
 </div>
 
 <!-- Content -->
 <ng-container *ngIf="userAuth">
-<div id="style-panel-contain" class="panel-contain"
-  [ngStyle]="{width: vissibleLeftPanel ? '200px' : '50px',transition: vissibleLeftPanel ? 'unset' : '0.25s linear'}">
-  <div class="menu-item">
-    <div>
-      <i class="fas fa-broadcast-tower icon-panel"></i>
-      <span *ngIf="vissibleLeftPanel"> Admin Panel </span>
+
+  <!-- Panel Blank -->
+  <div class="panel-blank"> 
+    
+    <!-- Blank Scrollbar -->
+    <div class="hide-scroolbar" [style.left]="vissibleLeftPanel ? '194px' : '58px'"
+      [style.transition]="'0.25s linear'">
+    </div>
+
+    <!-- Panel Contain -->
+    <div id="style-panel-contain" class="panel-contain"
+      [ngStyle]="{width: vissibleLeftPanel ? '200px' : '64px',transition: vissibleLeftPanel ? 'unset' : '0.25s linear'}">
+      
+      <!-- Sidebar Main -->
+      <div class="sidebar-main" [style.paddingLeft]="vissibleLeftPanel ? '0px' : '10px'"
+        [style.height]="vissibleLeftPanel ? '180px' : '100px'">
+        <div [style.margin-left]="'5px'">
+          <i class="fas fa-dna" [style.margin-right]="'10px'"></i>
+          <span *ngIf="vissibleLeftPanel">Admin Panel</span>
+        </div>
+
+        <!-- Detail User: Email, Name, Surname -->
+        <div *ngIf="vissibleLeftPanel" class="panel-user-detail">
+          <h6>{{ user.detail ? user.detail.name + ' ' + user.detail.surname : 'Custom User' }}</h6>
+          <p>{{ user.email }}</p>
+        </div>
+
+        <!-- Circle Picture When Vissible Panel -->
+        <div *ngIf="vissibleLeftPanel" class="user-picture">
+          <img [src]="user.detail.imageUrl ? user.detail.imageUrl : '../../assets/images/user-empty.png'" 
+            height=70 width=70 />
+        </div>
+
+        <!-- Picture When Not Vissble Panel -->
+        <div *ngIf="!vissibleLeftPanel" class="user-picture-panel-hide">
+          <img [src]="user.detail.imageUrl ? user.detail.imageUrl : '../../assets/images/user-empty.png'" 
+            height=40 width=40 />
+        </div>
+      </div>
+
+      <!-- Dashboards -->
+      <div class="sidebar-title" [style.paddingLeft]="vissibleLeftPanel ? '30px' : '0px'"
+        [style.margin-top]="'60px'">
+        {{ vissibleLeftPanel ? 'DashBoards' : ''}}
+        <div class="hide-sidebar" *ngIf="!vissibleLeftPanel"></div>
+      </div>
+
+      <!-- Przegląd -->
+      <div class="menu-item" [class.active-menu-item]="url === '/dashboard'" 
+        [style.justify-content]="vissibleLeftPanel ? 'initial' : 'center'" routerLink="/dashboard">
+        <div [class.active]="url === '/dashboard'" class="section-item"></div>
+        <div class="item" [style.paddingLeft]="vissibleLeftPanel ? '15px' : '0px'">
+          <i class="fas fa-home icon-panel"></i>
+          <span *ngIf="vissibleLeftPanel">Przegląd </span>
+        </div>
+      </div>
+
+      <!-- Profil -->
+      <div class="menu-item" [class.active-menu-item]="url === '/my-profile'" routerLink="/my-profile"
+        [style.justify-content]="vissibleLeftPanel ? 'initial' : 'center'">
+        <div [class.active]="url === '/my-profile'" class="section-item"></div>
+        <div class="item" [style.paddingLeft]="vissibleLeftPanel ? '15px' : '0px'">
+          <i class="fas fa-user icon-panel"></i>
+          <span *ngIf="vissibleLeftPanel">Profil</span>
+        </div>
+      </div>
+
+      <!-- Ustawienia -->
+      <div class="menu-item" [class.active-menu-item]="url === '/my-settings'" routerLink="/my-settings"
+        [style.justify-content]="vissibleLeftPanel ? 'initial' : 'center'">
+        <div [class.active]="url === '/my-settings'" class="section-item"></div>
+        <div class="item" [style.paddingLeft]="vissibleLeftPanel ? '15px' : '0px'">
+          <i class="fas fa-cogs icon-panel"></i>
+          <span *ngIf="vissibleLeftPanel">Ustawienia</span>
+        </div>
+      </div>
+
+      <!-- Użytkownicy -->
+      <div class="sidebar-title" [style.paddingLeft]="vissibleLeftPanel ? '30px' : '0px'">
+        {{ vissibleLeftPanel ? 'Użytkownicy' : ''}}
+        <div class="hide-sidebar" *ngIf="!vissibleLeftPanel"></div>
+      </div>
+
+      <!-- Administratorzy -->
+      <div class="menu-item" [class.active-menu-item]="url === '/list-users'" routerLink="/list-users"
+        [style.justify-content]="vissibleLeftPanel ? 'initial' : 'center'">
+        <div [class.active]="url === '/list-users'" class="section-item"></div>
+        <div class="item" [style.paddingLeft]="vissibleLeftPanel ? '15px' : '0px'">
+            <i class="fas fa-users-cog icon-panel"></i>
+          <span *ngIf="vissibleLeftPanel">Administratorzy</span>
+        </div>
+      </div>
+
+      <!-- Klienci -->
+      <div class="menu-item" [class.active-menu-item]="url === '/my-customers'" routerLink="/my-customers"
+        [style.justify-content]="vissibleLeftPanel ? 'initial' : 'center'">
+        <div [class.active]="url === '/my-customers'" class="section-item"></div>
+        <div class="item" [style.paddingLeft]="vissibleLeftPanel ? '15px' : '0px'">
+          <i class="fas fa-users icon-panel"></i>
+          <span *ngIf="vissibleLeftPanel">Klienci</span>
+        </div>
+      </div>
+
+      <!-- Produkty -->
+      <div class="sidebar-title" [style.paddingLeft]="vissibleLeftPanel ? '30px' : '0px'">
+        {{ vissibleLeftPanel ? 'Produkty' : ''}}
+        <div class="hide-sidebar" *ngIf="!vissibleLeftPanel"></div>
+      </div>
+
+      <!-- Nowy Produkt -->
+      <div class="menu-item" [class.active-menu-item]="url === '/add-product'" routerLink="/add-product"
+        [style.justify-content]="vissibleLeftPanel ? 'initial' : 'center'">
+        <div [class.active]="url === '/add-product'" class="section-item"></div>
+        <div class="item" [style.paddingLeft]="vissibleLeftPanel ? '15px' : '0px'">
+          <i class="fas fa-cart-plus icon-panel"></i>
+          <span *ngIf="vissibleLeftPanel">Dodaj Produkt</span>
+        </div>
+      </div>
+
+      <!-- Lista Produktów -->
+      <div class="menu-item" [class.active-menu-item]="url === '/list-products'" routerLink="/list-products"
+      [style.justify-content]="vissibleLeftPanel ? 'initial' : 'center'">
+        <div [class.active]="url === '/list-products'" class="section-item"></div>
+        <div class="item" [style.paddingLeft]="vissibleLeftPanel ? '15px' : '0px'">
+          <i class="fas fa-shopping-bag icon-panel"></i>
+          <span *ngIf="vissibleLeftPanel">Lista Produktów</span>
+        </div>
+      </div>
+
+      <!-- Wiadomości -->
+      <div class="sidebar-title" [style.paddingLeft]="vissibleLeftPanel ? '30px' : '0px'">
+        {{ vissibleLeftPanel ? 'Wiadomości' : ''}}
+        <div class="hide-sidebar" *ngIf="!vissibleLeftPanel"></div>
+      </div>
+
+      <!-- Nowe -->
+      <div class="menu-item" [class.active-menu-item]="url === '/new-messages'" routerLink="/new-messages"
+        [style.justify-content]="vissibleLeftPanel ? 'initial' : 'center'">
+        <div [class.active]="url === '/new-messages'" class="section-item"></div>
+        <div class="item" [style.paddingLeft]="vissibleLeftPanel ? '15px' : '0px'">
+          <i class="fas fa-envelope icon-panel"></i>
+          <span *ngIf="vissibleLeftPanel">Nowe</span>
+        </div>
+      </div>
+
+      <!-- Przeczytane -->
+      <div class="menu-item" [class.active-menu-item]="url === '/received-messages'" routerLink="/received-messages"
+        [style.justify-content]="vissibleLeftPanel ? 'initial' : 'center'">
+        <div [class.active]="url === '/received-messages'" class="section-item"></div>
+        <div class="item" [style.paddingLeft]="vissibleLeftPanel ? '15px' : '0px'">
+          <i class="fas fa-envelope-open-text icon-panel"></i>
+          <span *ngIf="vissibleLeftPanel">Przeczytane</span>
+        </div>
+      </div>
+
+      <!-- Powiadomienia -->
+      <div class="sidebar-title" [style.paddingLeft]="vissibleLeftPanel ? '30px' : '0px'">
+        {{ vissibleLeftPanel ? 'Powiadomienia' : ''}}
+        <div class="hide-sidebar" *ngIf="!vissibleLeftPanel"></div>
+      </div>
+
+      <!-- Oceny -->
+      <div class="menu-item" [class.active-menu-item]="url === '/evaluations'" routerLink="/evaluations"
+        [style.justify-content]="vissibleLeftPanel ? 'initial' : 'center'">
+        <div [class.active]="url === '/evaluations'" class="section-item"></div>
+        <div class="item" [style.paddingLeft]="vissibleLeftPanel ? '15px' : '0px'">
+          <i class="fas fa-star-half-alt icon-panel"></i>
+          <span *ngIf="vissibleLeftPanel">Oceny</span>
+        </div>
+      </div>
+
+      <!-- Komentarze -->  
+      <div class="menu-item" [class.active-menu-item]="url === '/comments'" routerLink="/comments"
+        [style.justify-content]="vissibleLeftPanel ? 'initial' : 'center'">
+        <div [class.active]="url === '/comments'" class="section-item"></div>
+        <div class="item" [style.paddingLeft]="vissibleLeftPanel ? '15px' : '0px'">
+          <i class="fas fa-comments icon-panel"></i>
+          <span *ngIf="vissibleLeftPanel">Komentarze</span>
+        </div>
+      </div>
+
+      <!-- Strona -->
+      <div class="sidebar-title" [style.paddingLeft]="vissibleLeftPanel ? '30px' : '0px'">
+        {{ vissibleLeftPanel ? 'Strona' : ''}}
+        <div class="hide-sidebar" *ngIf="!vissibleLeftPanel"></div>
+      </div>
+
+      <!-- Slider -->
+      <div class="menu-item" [class.active-menu-item]="url === '/slider'" routerLink="/slider"
+        [style.justify-content]="vissibleLeftPanel ? 'initial' : 'center'">
+        <div [class.active]="url === '/slider'" class="section-item"></div>
+        <div class="item" [style.paddingLeft]="vissibleLeftPanel ? '15px' : '0px'">
+          <i class="fab fa-slideshare icon-panel"></i>
+          <span *ngIf="vissibleLeftPanel">Slider</span>
+        </div>
+      </div>
+
+      <!-- Promocje -->
+      <div class="menu-item" [class.active-menu-item]="url === '/promotions'" routerLink="/promotions"
+        [style.justify-content]="vissibleLeftPanel ? 'initial' : 'center'">
+        <div [class.active]="url === '/promotions'" class="section-item"></div>
+        <div class="item" [style.paddingLeft]="vissibleLeftPanel ? '15px' : '0px'">
+          <i class="fas fa-percent icon-panel"></i>
+          <span *ngIf="vissibleLeftPanel">Promocje</span>
+        </div>
+      </div>
+
+      <!-- Baza Danych -->
+      <div class="menu-item" [style.justify-content]="vissibleLeftPanel ? 'initial' : 'center'">
+        <div class="section-item"></div>
+        <a class="item" [style.paddingLeft]="vissibleLeftPanel ? '15px' : '0px'"
+          href="https://console.firebase.google.com/project/shop-stoma/database/shop-stoma/data"
+          target="_blank">
+          <i class="fas fa-database icon-panel"></i>
+          <span *ngIf="vissibleLeftPanel">Database</span>
+        </a>
+      </div>
+
+      <!-- Storage -->
+      <div class="menu-item" [style.justify-content]="vissibleLeftPanel ? 'initial' : 'center'">
+        <div class="section-item"></div>
+        <a class="item" [style.paddingLeft]="vissibleLeftPanel ? '15px' : '0px'"
+          href="https://console.firebase.google.com/project/shop-stoma/storage/shop-stoma.appspot.com/files"
+          target="_blank">
+          <i class="fas fa-hdd icon-panel"></i>
+          <span *ngIf="vissibleLeftPanel">Storage</span>
+        </a>
+      </div>
+      
     </div>
   </div>
 
-  <!-- Start -->
-  <div class="menu-item" (click)="setActiveItemPanel(0)" routerLink="/dashboard">
-    <div class="section-item"></div>
-    <div class="item">
-      <i class="fas fa-home icon-panel"></i>
-      <span *ngIf="vissibleLeftPanel">Start </span>
+  <!-- Nav Panel -->
+  <div class="nav-panel"
+    [ngStyle]="{width: vissibleLeftPanel ? 'calc(100% - 200px)' : 'calc(100% - 64px)'}">
+    
+    <!-- Hamburger Menu -->
+    <div class="nav-menu col-2" (click)="vissibleLeftPanel = !vissibleLeftPanel">
+      <i class="fas fa-bars"></i> <span class="menu-text">Menu</span>
     </div>
+
+    <!-- Logo Shop -->
+    <div class="nav-title col-8">
+      <span class="logo-text"> SHOP </span>
+      <img class="title-image" src="./assets/images/iconfinder_E-Commerce_1016078.png"/>
+      <span class="logo-text"> ADMIN </span>
+    </div>
+
+    <!-- Nav More Information -->
+    <div class="nav-more">
+      <div class="nav-profil" (click)="moreOptionsProfile = !moreOptionsProfile;$event.stopImmediatePropagation()">
+        {{ user ? user.email : "" }}
+      </div>
+      <div class="nav-notification"
+        [ngStyle]="{'background-color': moreOptionsProfile ? 'orange' : 'unset'}"
+        (click)="moreOptionsProfile = !moreOptionsProfile;$event.stopImmediatePropagation()">
+        <i class="far fa-bell"></i>
+      </div>
+    </div>
+
   </div>
 
-  <!-- Moje konto -->
-  <div class="menu-item" (click)="setUrl('/my-profile*', 1); setActiveItemPanel(1)">
-    <div class="section-item"></div>
-    <div class="item">
-      <i class="fas fa-user-alt icon-panel"></i>
-      <span *ngIf="vissibleLeftPanel"> Moje konto </span>
-      <div class="contain-angle" (click)="hideSubMenu(0); $event.stopPropagation()" *ngIf="vissibleLeftPanel">
-        <i [ngClass]="activeSubMenu[0] ? 'fa fa-angle-right rotate' : 'fa fa-angle-right'"></i>
-      </div>
-    </div>
-    <div class="sub-menu" [@fadeInOutTranslate] *ngIf="activeSubMenu[0] && vissibleLeftPanel">
-      <div class="sub-menu-item"(click)="setUrl('/my-profile', 1);$event.stopPropagation();setActiveItemPanel(1)">
-        Profil
-      </div>
-      <div class="sub-menu-item" (click)="setUrl('/my-settings', 1);$event.stopPropagation();setActiveItemPanel(1)">
-        Ustawienia
-      </div>
-      <div class="sub-menu-item" (click)="logout(); $event.stopPropagation()">
-        Wyloguj
-      </div>
-    </div>
+  <!-- Router Contain Section -->
+  <div class="contain-layout" [ngStyle]="{width: vissibleLeftPanel ? 'calc(100% - 200px)' : 'calc(100% - 64px)'}">
+    <router-outlet></router-outlet>
   </div>
 
-  <!-- Użytkownicy -->
-  <div class="menu-item" (click)="setUrl('/list-users*', 2); setActiveItemPanel(2)">
-    <div class="section-item"></div>
-    <div class="item">
-      <i class="fas fa-users icon-panel"></i>
-      <span *ngIf="vissibleLeftPanel"> Użytkownicy </span>
-      <div class="contain-angle" (click)="hideSubMenu(1); $event.stopPropagation()" *ngIf="vissibleLeftPanel">
-        <i [ngClass]="activeSubMenu[1] ? 'fa fa-angle-right rotate' : 'fa fa-angle-right'"></i>
+  <!-- Contain Notification Right Panel Toogle -->
+  <div class="contain-notification" (click)="$event.stopPropagation()" [ngStyle]="{ right: moreOptionsProfile ? '0px' : '-200px' }">
+    <div class="notification">
+      
+      <!-- Empty Notification -->
+      <div class="empty-notifications" *ngIf="!notifications || notifications.length === 0">
+        <p>Brak powiadomień</p>
       </div>
-    </div>
-    <div class="sub-menu" [@fadeInOutTranslate] *ngIf="activeSubMenu[1] && vissibleLeftPanel">
-      <div class="sub-menu-item"
-        (click)="setUrl('/list-users', 2);$event.stopPropagation();setActiveItemPanel(2)">
-        Lista użytkowników
-      </div>
-    </div>
-  </div>
 
-  <!-- Produkty -->
-  <div class="menu-item" (click)="setUrl('/add-product*', 3); setActiveItemPanel(3)">
-    <div class="section-item"></div>
-    <div class="item">
-      <i class="fas fa-shopping-cart icon-panel"></i>
-      <span *ngIf="vissibleLeftPanel"> Produkty </span>
-      <div class="contain-angle" (click)="hideSubMenu(2); $event.stopPropagation()" *ngIf="vissibleLeftPanel">
-        <i [ngClass]="activeSubMenu[2] ? 'fa fa-angle-right rotate' : 'fa fa-angle-right'"></i>
-      </div>
-    </div>
-    <div class="sub-menu" [@fadeInOutTranslate] *ngIf="activeSubMenu[2] && vissibleLeftPanel">
-      <div class="sub-menu-item"
-        (click)="setUrl('/add-product', 3);$event.stopPropagation();setActiveItemPanel(3)">
-        Dodaj produkt
-      </div>
-      <div class="sub-menu-item"
-        (click)="setUrl('/list-products', 3);$event.stopPropagation();setActiveItemPanel(3)">
-        Lista produktów
+      <!-- Notification Contain -->
+      <div class="notification-container" *ngIf="notifications && notifications.length > 0">
+        <div class="notification-detail"
+          *ngFor="let notife of notifications; let i = index">
+          <p>{{ notife.date}}<i class="fas fa-ban" (click)="deleteNotification(i)"></i></p>
+          <p class="notification-description">
+            Nowych wiadomości: {{ notife.messages }}<i class="fas fa-envelope"></i>
+          </p>
+          <p class="notification-description">
+            Nowych komentarzy: {{ notife.evaluations }}<i class="fas fa-comments"></i>
+          </p>
+          <p class="notification-description">
+            Nowych ocen: {{ notife.messages }}<i class="fas fa-star-half-alt"></i>
+          </p>
+        </div>
       </div>
     </div>
   </div>
-
-  <!-- Wiadomości -->
-  <div class="menu-item" (click)="setUrl('/new-messages*', 4); setActiveItemPanel(4)">
-    <div class="section-item"></div>
-    <div class="item">
-      <i class="fas fa-envelope icon-panel"></i>
-      <span *ngIf="vissibleLeftPanel"> Wiadomości </span>
-      <div class="contain-angle" (click)="hideSubMenu(3); $event.stopPropagation()" *ngIf="vissibleLeftPanel">
-        <i [ngClass]="activeSubMenu[3] ? 'fa fa-angle-right rotate' : 'fa fa-angle-right'"></i>
-      </div>
-    </div>
-    <div class="sub-menu" [@fadeInOutTranslate] *ngIf="activeSubMenu[3] && vissibleLeftPanel">
-      <div class="sub-menu-item"
-        (click)="setUrl('/new-messages', 4);$event.stopPropagation();setActiveItemPanel(4)">
-        Nowe
-      </div>
-      <div class="sub-menu-item"
-        (click)="setUrl('/received-messages', 4);$event.stopPropagation();setActiveItemPanel(4)">
-        Odebrane
-      </div>
-    </div>
-  </div>
-
-  <!-- Powiadomienia -->
-  <div class="menu-item" (click)="setUrl('/evaluations*', 5); setActiveItemPanel(5)">
-    <div class="section-item"></div>
-    <div class="item">
-      <i class="fas fa-bell icon-panel"></i>
-      <span *ngIf="vissibleLeftPanel"> Powiadomienia </span>
-      <div class="contain-angle" (click)="hideSubMenu(4); $event.stopPropagation()" *ngIf="vissibleLeftPanel">
-        <i [ngClass]="activeSubMenu[4] ? 'fa fa-angle-right rotate' : 'fa fa-angle-right'"></i>
-      </div>
-    </div>
-    <div class="sub-menu" [@fadeInOutTranslate] *ngIf="activeSubMenu[4] && vissibleLeftPanel">
-      <div class="sub-menu-item"
-        (click)="setUrl('/evaluations', 5);$event.stopPropagation();setActiveItemPanel(5)">
-        Oceny
-      </div>
-      <div class="sub-menu-item"
-        (click)="setUrl('/comments', 5);$event.stopPropagation();setActiveItemPanel(5)">
-        Komentarze
-      </div>
-    </div>
-  </div>
-
-  <!-- Strona -->
-  <div class="menu-item" (click)="setUrl('/slider*', 6); setActiveItemPanel(6)">
-    <div class="section-item"></div>
-    <div class="item">
-      <i class="fas fa-globe icon-panel"></i>
-      <span *ngIf="vissibleLeftPanel"> Strona </span>
-      <div class="contain-angle" (click)="hideSubMenu(5); $event.stopPropagation()" *ngIf="vissibleLeftPanel">
-        <i [ngClass]="activeSubMenu[5] ? 'fa fa-angle-right rotate' : 'fa fa-angle-right'"></i>
-      </div>
-    </div>
-    <div class="sub-menu" [@fadeInOutTranslate] *ngIf="activeSubMenu[5] && vissibleLeftPanel">
-      <div class="sub-menu-item" (click)="setUrl('/slider', 6)">
-        Slajder
-      </div>
-      <div class="sub-menu-item"
-        (click)="setUrl('/promotions', 6);$event.stopPropagation();setActiveItemPanel(6)">
-        Promocje
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Down Panel Section -->
-<div class="down-panel-contain" [ngStyle]="{width: vissibleLeftPanel ? '200px' : '50px',transition: vissibleLeftPanel ? 'unset' : '0.25s linear'}"
-  *ngIf="userAuth">
-  <div class="menu-item">
-    <a class="item link-firebase"
-      href="https://console.firebase.google.com/project/shop-stoma/database/shop-stoma/data"
-      target="_blank">
-      <i class="fas fa-database icon-panel"></i>
-      <span *ngIf="vissibleLeftPanel"> Firebase Database </span>
-    </a>
-  </div>
-  <div class="menu-item">
-    <a class="item link-firebase"
-      href="https://console.firebase.google.com/project/shop-stoma/storage/shop-stoma.appspot.com/files"
-      target="_blank">
-      <i class="fas fa-hdd icon-panel"></i>
-      <span *ngIf="vissibleLeftPanel"> Firebase Storage </span>
-    </a>
-  </div>
-</div>
-
-<!-- Nav Panel -->
-<div class="nav-panel"
-  [ngStyle]="{width: vissibleLeftPanel ? 'calc(100% - 200px)' : 'calc(100% - 50px)'}">
-  <div class="nav-menu col-2" (click)="vissibleLeftPanel = !vissibleLeftPanel">
-    <i class="fas fa-bars"></i> <span class="menu-text">Menu</span>
-  </div>
-  <div class="nav-title col-8">
-    <span class="logo-text"> SHOP </span>
-    <img class="title-image" src="./assets/images/iconfinder_E-Commerce_1016078.png"/>
-    <span class="logo-text"> ADMIN </span>
-  </div>
-  <div class="nav-more">
-    <div class="nav-profil" (click)="moreOptionsProfile = !moreOptionsProfile;$event.stopImmediatePropagation()">
-      {{ user ? user.email : "" }}
-    </div>
-    <div class="nav-notification"
-      [ngStyle]="{'background-color': moreOptionsProfile ? 'orange' : 'unset'}"
-      (click)="moreOptionsProfile = !moreOptionsProfile;$event.stopImmediatePropagation()">
-      <i class="far fa-bell"></i>
-    </div>
-  </div>
-</div>
-
-<!-- Router Contain Section -->
-<div class="contain-layout" [ngStyle]="{width: vissibleLeftPanel ? 'calc(100% - 200px)' : 'calc(100% - 50px)'}">
-  <router-outlet></router-outlet>
-</div>
-
-<!-- Contain Notification Right Panel Toogle -->
-<div class="contain-notification" (click)="$event.stopPropagation()" [ngStyle]="{ right: moreOptionsProfile ? '0px' : '-200px' }">
-  <div class="notification">
-    <div class="empty-notifications" *ngIf="!notifications || notifications.length === 0">
-      <p>Brak powiadomień</p>
-    </div>
-    <div class="notification-contener" *ngIf="notifications && notifications.length > 0">
-      <div class="notification-detail"
-        *ngFor="let notife of notifications; let i = index">
-        <p>{{ notife.date}}<i class="fas fa-ban" (click)="deleteNotification(i)"></i></p>
-        <p class="notification-description">
-          Nowych wiadomości: {{ notife.messages }}<i class="fas fa-envelope"></i>
-        </p>
-        <p class="notification-description">
-          Nowych komentarzy: {{ notife.evaluations }}<i class="fas fa-comments"></i>
-        </p>
-        <p class="notification-description">
-          Nowych ocen: {{ notife.messages }}<i class="fas fa-star-half-alt"></i>
-        </p>
-      </div>
-    </div>
-  </div>
-</div>
 </ng-container>

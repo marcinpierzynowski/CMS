@@ -3,6 +3,14 @@ export interface Admin {
     password: string;
     security: boolean;
     history?: Array<History>;
+    detail?: UserDetail;
+}
+
+export interface UserDetail {
+    name: string;
+    surname: string;
+    imageUrl?: string;
+    imageName?: string;
 }
 
 export interface History {

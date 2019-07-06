@@ -10,16 +10,11 @@ import swal from 'sweetalert2';
 @Component({
   selector: 'app-app-reset-password',
   templateUrl: './app-reset-password.component.html',
-  styleUrls: [
-    './app-reset-password.component.css',
-    '../../../assets/styles-custom/field-input.css',
-    '../../../assets/styles-custom/roller-style.css'
-  ],
+  styleUrls: ['./app-reset-password.component.css'],
   animations: [fadeInOutTranslate, flipInX]
 })
 export class AppResetPasswordComponent implements OnInit {
   public resetPassword: FormGroup;
-  public submitCheck: boolean;
 
   constructor(
     private router: Router,
@@ -34,31 +29,28 @@ export class AppResetPasswordComponent implements OnInit {
     });
   }
 
-  public authorizedLogin() {
+  public authorizedLogin(): void {
     if (localStorage.getItem('shop-admin')) {
       this.router.navigate(['/']);
     }
   }
 
-  public submitResetPassword():void {
+  public submitResetPassword(): void {
     this.activeFormInput();
     if (this.resetPassword.valid) {
-      this.submitCheck = true;
       this.getReferenceAuth()
         .then(resposne => {
           this.continuedResetPassword();
-          this.submitCheck = false;
         })
         .catch(error => {
           this.generateSwalEror(error);
-          this.submitCheck = false;
         });
     } else {
       swal('Resetowanie hasła', 'Wpisz poprawnie email!', 'warning');
     }
   }
 
-  public activeFormInput():void {
+  public activeFormInput(): void {
       // tslint:disable-next-line
     for (let inner in this.resetPassword.controls) {
       this.resetPassword.get(inner).markAsTouched();
@@ -73,7 +65,7 @@ export class AppResetPasswordComponent implements OnInit {
       .sendPasswordResetEmail(this.resetPassword.value.email);
   }
 
-  public continuedResetPassword():void {
+  public continuedResetPassword(): void {
     swal({
       title: 'Rejestracja',
       text: 'Na twój email został wygenerowany link do zresetowania hasła.',
@@ -95,5 +87,30 @@ export class AppResetPasswordComponent implements OnInit {
         'error'
       );
     }
+  }
+
+  public checkValidate(inputControl: string, nameControl: string): boolean {
+      const control = this.resetPassword.controls[inputControl];
+      if (control.errors) {
+        if (control.errors[nameControl] && control.touched) {
+          return true;
+      } else {
+        return false;
+      }
+      }
+      return false;
+  }
+
+  public checkValidateEmail(): boolean {
+    const control = this.resetPassword.controls.email;
+    if (control.errors) {
+      if ((control.errors.required || control.errors.email)
+        && control.touched) {
+          return true;
+      } else {
+        return false;
+      }
+    }
+    return false;
   }
 }
