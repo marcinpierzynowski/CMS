@@ -12,45 +12,17 @@
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$stoma-cms-admin-primary: mat-palette($mat-indigo);
-$stoma-cms-admin-accent: mat-palette($mat-pink, A200, A100, A400);
+$stoma-shop-admin-primary: mat-palette($mat-indigo);
+$stoma-shop-admin-accent: mat-palette($mat-pink, A200, A100, A400);
 
 // The warn palette is optional (defaults to red).
-$stoma-cms-admin-warn: mat-palette($mat-red);
+$stoma-shop-admin-warn: mat-palette($mat-red);
 
 // Create the theme object (a Sass map containing all of the palettes).
-$stoma-cms-admin-theme: mat-light-theme($stoma-cms-admin-primary, $stoma-cms-admin-accent, $stoma-cms-admin-warn);
+$stoma-shop-admin-theme: mat-light-theme($stoma-shop-admin-primary, $stoma-shop-admin-accent, $stoma-shop-admin-warn);
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
-@include angular-material-theme($stoma-cms-admin-theme);
-
-
-// Custom Theming for Angular Material
-// For more information: https://material.angular.io/guide/theming
-@import '~@angular/material/theming';
-// Plus imports for other components in your app.
-
-// Include the common styles for Angular Material. We include this here so that you only
-// have to load a single css file for Angular Material in your app.
-// Be sure that you only ever include this mixin once!
-@include mat-core();
-
-// Define the palettes for your theme using the Material Design palettes available in palette.scss
-// (imported above). For each palette, you can optionally specify a default, lighter, and darker
-// hue. Available color palettes: https://material.io/design/color/
-$stoma-cms-admin-primary: mat-palette($mat-indigo);
-$stoma-cms-admin-accent: mat-palette($mat-pink, A200, A100, A400);
-
-// The warn palette is optional (defaults to red).
-$stoma-cms-admin-warn: mat-palette($mat-red);
-
-// Create the theme object (a Sass map containing all of the palettes).
-$stoma-cms-admin-theme: mat-light-theme($stoma-cms-admin-primary, $stoma-cms-admin-accent, $stoma-cms-admin-warn);
-
-// Include theme styles for core and each component used in your app.
-// Alternatively, you can import and @include the theme mixins for each component
-// that you are using.
-@include angular-material-theme($stoma-cms-admin-theme);
+@include angular-material-theme($stoma-shop-admin-theme);
 
