@@ -59,7 +59,7 @@ export class AppCommentsComponent implements OnInit {
   }
 
   public showComments(message): void {
-    swal({
+    swal.fire({
       type: 'info',
       title: 'Komentarz',
       text: message
@@ -67,7 +67,7 @@ export class AppCommentsComponent implements OnInit {
   }
 
   public deleteComment(id: number): void {
-    swal({
+    swal.fire({
       title: 'Usunięcie Komentarza',
       text: 'Czy jesteś pewny że chcesz usunąć komentarz?',
       type: 'warning',
@@ -80,7 +80,7 @@ export class AppCommentsComponent implements OnInit {
       if (result.value) {
         const coms = this.comments.filter(com => com.id !== id);
         this.firebaseService.getDataBaseRef('comments').set(coms)
-          .then(() => swal('Usunięcie Komentarza', 'Komentarz został usunięty', 'success'));
+          .then(() => swal.fire('Usunięcie Komentarza', 'Komentarz został usunięty', 'success'));
       }
     });
   }

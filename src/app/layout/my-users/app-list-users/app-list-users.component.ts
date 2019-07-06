@@ -42,7 +42,7 @@ export class AppListUsersComponent implements OnInit {
 
   /* Section delete user */
   public checkSureDelete(index): void {
-    swal({
+    swal.fire({
       title: 'Usunięcie użytkownika',
       text: 'Czy jesteś pewny że chcesz usunąć użytkownika?',
       type: 'warning',
@@ -96,12 +96,12 @@ export class AppListUsersComponent implements OnInit {
     this.firebaseService.getDataBaseRef('admins').set(ad)
       .then(() => {
         swal.close();
-        swal('Usuwanie użytkownika', 'Użytkownik został usunięty pomyślnie!', 'success');
+        swal.fire('Usuwanie użytkownika', 'Użytkownik został usunięty pomyślnie!', 'success');
       });
   }
 
   public generateSwalWaitingFromRequest(type, title, text): void {
-    swal({
+    swal.fire({
       type: type,
       title: title,
       text: text,

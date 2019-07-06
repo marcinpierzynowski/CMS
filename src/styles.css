@@ -1,21 +1,5 @@
+
 /* You can add global styles to this file, and also import other style files */
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
-@import "./assets/styles-custom/style-manage.css";
-/*=================
-  GLOBAL STYLE BODY
-=================*/
 
-html,
-body {
-  height: 100%;
-}
-body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-}
-
-.mark-target {
-    background-color: rgb(255, 229, 100);
-    padding-top: 5px;
-    padding-bottom: 5px;
-}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

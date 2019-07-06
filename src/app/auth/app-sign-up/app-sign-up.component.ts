@@ -93,13 +93,13 @@ export class AppSignUpComponent implements OnInit {
         })
         .catch(error => {
           if (error.code === 'auth/email-already-in-use') {
-            swal('Rejestracja', 'Profil o takim emailu już istnieje!', 'error');
+            swal.fire('Rejestracja', 'Profil o takim emailu już istnieje!', 'error');
           } else {
-            swal('Rejestracja', error.code, 'error');
+            swal.fire('Rejestracja', error.code, 'error');
           }
         });
     } else {
-      swal(
+      swal.fire(
         'Rejestracja',
         'Wypełnij prawidłowo formularz rejestracji!',
         'warning'

@@ -12,19 +12,19 @@
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$muszelka-shop-admin-primary: mat-palette($mat-indigo);
-$muszelka-shop-admin-accent: mat-palette($mat-pink, A200, A100, A400);
+$stoma-cms-admin-primary: mat-palette($mat-indigo);
+$stoma-cms-admin-accent: mat-palette($mat-pink, A200, A100, A400);
 
 // The warn palette is optional (defaults to red).
-$muszelka-shop-admin-warn: mat-palette($mat-red);
+$stoma-cms-admin-warn: mat-palette($mat-red);
 
 // Create the theme object (a Sass map containing all of the palettes).
-$muszelka-shop-admin-theme: mat-light-theme($muszelka-shop-admin-primary, $muszelka-shop-admin-accent, $muszelka-shop-admin-warn);
+$stoma-cms-admin-theme: mat-light-theme($stoma-cms-admin-primary, $stoma-cms-admin-accent, $stoma-cms-admin-warn);
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
-@include angular-material-theme($muszelka-shop-admin-theme);
+@include angular-material-theme($stoma-cms-admin-theme);
 
 
 // Custom Theming for Angular Material
@@ -40,20 +40,17 @@ $muszelka-shop-admin-theme: mat-light-theme($muszelka-shop-admin-primary, $musze
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$muszelka-shop-admin-primary: mat-palette($mat-indigo);
-$muszelka-shop-admin-accent: mat-palette($mat-pink, A200, A100, A400);
+$stoma-cms-admin-primary: mat-palette($mat-indigo);
+$stoma-cms-admin-accent: mat-palette($mat-pink, A200, A100, A400);
 
 // The warn palette is optional (defaults to red).
-$muszelka-shop-admin-warn: mat-palette($mat-red);
+$stoma-cms-admin-warn: mat-palette($mat-red);
 
 // Create the theme object (a Sass map containing all of the palettes).
-$muszelka-shop-admin-theme: mat-light-theme($muszelka-shop-admin-primary, $muszelka-shop-admin-accent, $muszelka-shop-admin-warn);
+$stoma-cms-admin-theme: mat-light-theme($stoma-cms-admin-primary, $stoma-cms-admin-accent, $stoma-cms-admin-warn);
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
-@include angular-material-theme($muszelka-shop-admin-theme);
+@include angular-material-theme($stoma-cms-admin-theme);
 
-
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

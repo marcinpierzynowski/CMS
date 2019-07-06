@@ -44,7 +44,7 @@ export class AppListProductsComponent implements OnInit {
   }
 
   deleteProduct(ref) {
-    swal({
+    swal.fire({
       title: 'Usunięcie Produktu',
       text: 'Czy jesteś pewny że chcesz usunąć produkt?',
       type: 'warning',
@@ -67,7 +67,7 @@ export class AppListProductsComponent implements OnInit {
   }
 
   generateSwalWaitingFromRequest(type, title, text) {
-    swal({
+    swal.fire({
       type: type,
       title: title,
       text: text,
@@ -85,7 +85,7 @@ export class AppListProductsComponent implements OnInit {
         const filPrs = this.products.filter(prs => prs.ref !== this.productDelete.ref);
         this.firebaseService.getDataBaseRef('products').set(filPrs)
           .then(() => {
-            swal('Usunięcie produktu', 'Produkt usunięto pomyślnie.', 'success');
+            swal.fire('Usunięcie produktu', 'Produkt usunięto pomyślnie.', 'success');
             this.title = '';
             this.ref = '';
           });

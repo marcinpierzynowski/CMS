@@ -85,11 +85,11 @@ export class AppPromotionComponent implements OnInit {
     const { ref, title } = product;
     promotions.push({ ref, title });
     this.firebaseService.getDataBaseRef('promotions').set(promotions)
-      .then(() => swal('Dodanie produktu do promocji', 'Produkt został dodany pomyślnie', 'success'));
+      .then(() => swal.fire('Dodanie produktu do promocji', 'Produkt został dodany pomyślnie', 'success'));
   }
 
   public deletePromotions(index): void {
-    swal({
+    swal.fire({
       title: 'Usunięcie produktu z promocji',
       text:
         'Czy jesteś pewny że chcesz usunąć produkt z promocji?',
@@ -104,7 +104,7 @@ export class AppPromotionComponent implements OnInit {
         const promotions = this.promotions.slice();
         promotions.splice(index, 1);
         this.firebaseService.getDataBaseRef('promotions').set(promotions)
-          .then(() => swal('Usunięcie produktu z promocji', 'Produkt został usunięty pomyślnie', 'success'));
+          .then(() => swal.fire('Usunięcie produktu z promocji', 'Produkt został usunięty pomyślnie', 'success'));
       }
     });
   }

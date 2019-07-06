@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { UploadEvent, UploadFile, FileSystemFileEntry, FileSystemDirectoryEntry } from 'ngx-file-drop';
+import { UploadEvent, FileSystemFileEntry, FileSystemDirectoryEntry } from 'ngx-file-drop';
 // tslint:disable-next-line: max-line-length
 import { fadeInOutTranslate, fadeOutTranslate, fadeInOutTranslateInOpacity, fadeOutTranslateInOpacity } from '../../../../shared/animations/animation';
 import { FirebaseService } from '../../../services/firebase.service';
@@ -100,7 +100,7 @@ export class AppSliderComponent implements OnInit {
   }
 
   generateSwalWaitingFromRequest(type, title, text) {
-    swal({
+    swal.fire({
       type: type,
       title: title,
       text: text,
@@ -118,7 +118,7 @@ export class AppSliderComponent implements OnInit {
         this.sliders.push( { imageUrl, name } );
         this.firebaseService.getDataBaseRef('sliders').set(this.sliders).then(() => {
           swal.close();
-          swal({
+          swal.fire({
             type: 'success',
             title: 'Dodanie nowego zdjęcia do slajdera',
             text: 'Zdjęcie dodano pomyślnie.'
@@ -132,7 +132,7 @@ export class AppSliderComponent implements OnInit {
   }
 
   deleteImage(name, index) {
-    swal({
+    swal.fire({
       title: 'Usunięcie zdjęcia',
       text:
         'Czy jesteś pewny że usunąć zdjęcie ze slajdera?',
@@ -152,7 +152,7 @@ export class AppSliderComponent implements OnInit {
             .then(() => {
               swal.close();
               // tslint:disable-next-line: max-line-length
-              swal({ type: 'success', title: 'Usunięcie zdjęcia ze slidera', text: 'Usuwanie zdjęcia ze slidera zakończyło się pomyślnie' });
+              swal.fire({ type: 'success', title: 'Usunięcie zdjęcia ze slidera', text: 'Usuwanie zdjęcia ze slidera zakończyło się pomyślnie' });
             });
         });
       }});

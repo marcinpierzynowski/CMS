@@ -38,7 +38,7 @@ export class AppReceivedMessagesComponent implements OnInit {
   }
 
   public deleteMessage(index) {
-    swal({
+    swal.fire({
       title: 'Usunięcie Wiadomości',
       text: 'Czy jesteś pewny że chcesz usunąć wiadomość?',
       type: 'warning',
@@ -51,7 +51,7 @@ export class AppReceivedMessagesComponent implements OnInit {
       if (result.value) {
        this.messages.splice(index, 1);
        this.firebaseService.getDataBaseRef('messages').set(this.messages)
-        .then(() => swal('Usunięcie wiadomości', 'Wiadomość została usunięta!', 'success'));
+        .then(() => swal.fire('Usunięcie wiadomości', 'Wiadomość została usunięta!', 'success'));
       }
     });
   }

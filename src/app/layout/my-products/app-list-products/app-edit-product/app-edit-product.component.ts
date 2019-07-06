@@ -51,7 +51,7 @@ export class AppEditProductComponent implements OnInit {
     const communicate = this.checkValidate();
 
     if (communicate.length > 0) {
-      swal({ type: 'warning', title: 'Przejście do następnego kroku', html: communicate });
+      swal.fire({ type: 'warning', title: 'Przejście do następnego kroku', html: communicate });
     } else {
       const { title, price, promotion, desc } = this.productForm.value;
       this.product = {...this.product, title, price, promotion, desc};
@@ -81,7 +81,7 @@ export class AppEditProductComponent implements OnInit {
   public updateProduct(products: Array<Product>): void {
     this.firebaseService.getDataBaseRef('products').set(products)
       .then(() => {
-        swal('Edycja produktu', 'produkt został zaaktualizowany', 'success')
+        swal.fire('Edycja produktu', 'produkt został zaaktualizowany', 'success')
           .then(() => {
             this.router.navigate(['/list-products']);
           });

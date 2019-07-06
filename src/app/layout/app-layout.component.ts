@@ -148,7 +148,7 @@ export class AppLayoutComponent implements OnInit {
   }
 
   public deleteNotification(index): void {
-    swal({
+    swal.fire({
       title: 'Usunięcie powiadomienia',
       text: 'Czy jesteś pewny że chcesz usunąć powiadomienie?',
       type: 'warning',
@@ -162,7 +162,7 @@ export class AppLayoutComponent implements OnInit {
         this.notifications.splice(index, 1);
         this.firebaseService.getDataBaseRef('notifications').set(this.notifications)
           .then(() => {
-            swal('Usunięcie powiadomienia', 'Powiadomienie zostało usunięte', 'success');
+            swal.fire('Usunięcie powiadomienia', 'Powiadomienie zostało usunięte', 'success');
           });
       }
     });

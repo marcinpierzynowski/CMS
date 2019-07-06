@@ -76,7 +76,7 @@ export class AppSignInComponent implements OnInit {
           this.generateErrorSwal(error);
         });
     } else {
-      swal('Logowanie', 'Wypełnij prawidłowo formularz logowania!', 'warning');
+      swal.fire('Logowanie', 'Wypełnij prawidłowo formularz logowania!', 'warning');
     }
   }
 
@@ -113,13 +113,13 @@ export class AppSignInComponent implements OnInit {
       error.code === 'auth/wrong-password' ||
       error.code === 'auth/invalid-email'
     ) {
-      swal('Logowanie', 'Hasło lub email jest niepoprawne!', 'error');
+      swal.fire('Logowanie', 'Hasło lub email jest niepoprawne!', 'error');
     } else if (error.code === 'auth/user-not-found') {
-      swal('Logowanie', 'Użytkownik z takim emailem nie istnieje!', 'error');
+      swal.fire('Logowanie', 'Użytkownik z takim emailem nie istnieje!', 'error');
     } else if (error.code === 'auth/operation-not-allowed') {
-      swal('Logowanie', 'Logowanie i rejestracja zostały zablokowane!', 'error');
+      swal.fire('Logowanie', 'Logowanie i rejestracja zostały zablokowane!', 'error');
     } else {
-      swal('Logowanie', error.code, 'error');
+      swal.fire('Logowanie', error.code, 'error');
     }
   }
 

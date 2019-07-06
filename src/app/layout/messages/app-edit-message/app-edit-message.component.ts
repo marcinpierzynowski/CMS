@@ -45,7 +45,7 @@ export class AppEditMessageComponent implements OnInit {
   }
 
   public deleteMessage(): void {
-    swal({
+    swal.fire({
       title: 'Usunięcie Wiadomości',
       text: 'Czy jesteś pewny że chcesz usunąć wiadomość?',
       type: 'warning',
@@ -59,7 +59,7 @@ export class AppEditMessageComponent implements OnInit {
        const msgs = this.messageManageService.messageData.getValue().filter(msg => msg.id !== this.id);
        this.firebaseService.getDataBaseRef('messages').set(msgs)
         .then(() => {
-          swal('Usunięcie wiadomości', 'Wiadomość została usunięta!', 'success')
+          swal.fire('Usunięcie wiadomości', 'Wiadomość została usunięta!', 'success')
             .then(() => this.router.navigate(['../']));
         });
       }

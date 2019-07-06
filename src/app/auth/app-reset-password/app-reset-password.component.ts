@@ -46,7 +46,7 @@ export class AppResetPasswordComponent implements OnInit {
           this.generateSwalEror(error);
         });
     } else {
-      swal('Resetowanie hasła', 'Wpisz poprawnie email!', 'warning');
+      swal.fire('Resetowanie hasła', 'Wpisz poprawnie email!', 'warning');
     }
   }
 
@@ -66,7 +66,7 @@ export class AppResetPasswordComponent implements OnInit {
   }
 
   public continuedResetPassword(): void {
-    swal({
+    swal.fire({
       title: 'Rejestracja',
       text: 'Na twój email został wygenerowany link do zresetowania hasła.',
       type: 'success',
@@ -79,9 +79,9 @@ export class AppResetPasswordComponent implements OnInit {
 
   public generateSwalEror(error): void {
     if (error.code === 'auth/user-not-found') {
-      swal('Resetowanie hasła', 'Podany email nie istnieje!', 'error');
+      swal.fire('Resetowanie hasła', 'Podany email nie istnieje!', 'error');
     } else if (error.code === 'auth/too-many-requests') {
-      swal(
+      swal.fire(
         'Resetowanie hasła',
         'Resetowanie hasła na podany email zostało zablokowane z powodu dużej ilości prób, spróbuj ponownie później!',
         'error'

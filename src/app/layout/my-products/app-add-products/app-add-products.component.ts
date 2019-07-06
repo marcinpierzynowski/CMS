@@ -77,7 +77,7 @@ export class AppAddProductsComponent implements OnInit {
   public statusAddProduct(response: AddProduct): void {
     if (response.status === StatusProduct.Complete) {
       swal.close();
-      swal('Dodanie produktu', 'Produkt został dodany pomyślnie', 'success');
+      swal.fire('Dodanie produktu', 'Produkt został dodany pomyślnie', 'success');
       this.initForm();
       this.stepperSection = 1;
       this.lengthUploadPicture = 0;
@@ -90,7 +90,7 @@ export class AppAddProductsComponent implements OnInit {
 
   public submitAddProduct(): void {
     if (this.stepperSection === 4) {
-      swal({
+      swal.fire({
         type: 'warning',
         title: 'Czekaj na dodanie produktu!',
         html: this.productsManageService.templateProgress,
@@ -138,7 +138,7 @@ export class AppAddProductsComponent implements OnInit {
 
   public checkStepperFirst(nbStep: number): void {
     if (this.productForm.value.images.length === 0) {
-        swal('Przejście do następnego kroku', 'Musisz dodać co najmniej jedno zdjęcie! *wymagane', 'warning');
+        swal.fire('Przejście do następnego kroku', 'Musisz dodać co najmniej jedno zdjęcie! *wymagane', 'warning');
         return;
     } else if (nbStep > 2) {
       this.checkStepperSecond(3);
@@ -159,7 +159,7 @@ export class AppAddProductsComponent implements OnInit {
     } else if (nbStep > 2) {
       const communicate = this.checkValidateStepperTwo();
       if (communicate.length > 0) {
-        swal({ type: 'warning', title: 'Przejście do następnego kroku', html: communicate });
+        swal.fire({ type: 'warning', title: 'Przejście do następnego kroku', html: communicate });
         return;
       }
     }
@@ -344,7 +344,7 @@ export class AppAddProductsComponent implements OnInit {
       uniqueID = this.categories[this.categories.length - 1].id + 1;
     }
 
-    swal({
+    swal.fire({
       title: 'Podaj nazwę nowej kategorii',
       input: 'text',
       inputAttributes: {
@@ -361,11 +361,11 @@ export class AppAddProductsComponent implements OnInit {
   public createCategory(name: string, id: number): void {
     this.categories.push({name, id});
     this.firebaseService.getDataBaseRef('categories').set(this.categories)
-      .then(() => { swal('Dodanie nowej kategorii.', 'Dodano nową kategorię', 'success'); });
+      .then(() => { swal.fire('Dodanie nowej kategorii.', 'Dodano nową kategorię', 'success'); });
   }
 
   public showModalDeleteCategory(id: number): void {
-    swal({
+    swal.fire({
       title: 'Usunięcie powiązania',
       text:
         'Czy jesteś pewny że chcesz usunąć kategorie?  Wszystkie produkty powiązane z tą kategorią zostana bez kategorii!',
@@ -386,6 +386,6 @@ export class AppAddProductsComponent implements OnInit {
     if (id === this.catID) { this.catID = null; }
     this.categories = this.categories.filter(cat => cat.id !== id);
     this.firebaseService.getDataBaseRef('categories').set(this.categories)
-      .then(() =>  swal('Usunięcie kategorii', 'Kategoria została pomyślnie usunięta', 'success'));
+      .then(() =>  swal.fire('Usunięcie kategorii', 'Kategoria została pomyślnie usunięta', 'success'));
   }
 }

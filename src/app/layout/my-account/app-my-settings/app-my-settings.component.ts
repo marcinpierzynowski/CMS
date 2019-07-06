@@ -59,7 +59,7 @@ export class AppMySettingsComponent implements OnInit {
 
   public submitChangePassword(): void {
     if (this.oldPassword !== this.user.password) {
-      swal({ type: 'error', title: 'Zmiana hasła', text: 'Stare hasło jest niepoprawne!'});
+      swal.fire({ type: 'error', title: 'Zmiana hasła', text: 'Stare hasło jest niepoprawne!'});
       return;
     }
 
@@ -70,13 +70,13 @@ export class AppMySettingsComponent implements OnInit {
         .then(() => { this.changePasswordInAdmins(this.changePassword.value.password); })
         .catch(err => {
           swal.close();
-          swal({ type: 'error', title: 'Zmiana hasła', text: err });
+          swal.fire({ type: 'error', title: 'Zmiana hasła', text: err });
         });
     }
   }
 
  public generateSwalWaitingFromRequest(type, title, text): void {
-    swal({
+    swal.fire({
       type: type,
       title: title,
       text: text,
@@ -95,11 +95,11 @@ export class AppMySettingsComponent implements OnInit {
         this.clearInputs();
         this.setLocalStorage(this.user.email, password);
         swal.close();
-        swal('Zmiana hasła', 'Hasło zostało zmienione!', 'success');
+        swal.fire('Zmiana hasła', 'Hasło zostało zmienione!', 'success');
       })
       .catch(err => {
         swal.close();
-        swal('Zmiana hasła', err, 'error');
+        swal.fire('Zmiana hasła', err, 'error');
       });
   }
 
@@ -133,7 +133,7 @@ export class AppMySettingsComponent implements OnInit {
   public setSecurity(): void {
     this.firebaseService.getDataBaseRef('admins').child(this.indexUser).child('security').set(!this.user.security)
       .then(() => {
-        swal('Zmiana wyświetlania powiadomienia o bezpieczeństwie', 'Zmiana została zaktualizowana!', 'success');
+        swal.fire('Zmiana wyświetlania powiadomienia o bezpieczeństwie', 'Zmiana została zaktualizowana!', 'success');
       });
   }
 }
