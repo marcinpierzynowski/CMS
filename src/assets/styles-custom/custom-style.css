@@ -1,7 +1,12 @@
-/*===================
-  AUTH SET BACKGROUND
+/*====================
+  CUSTOM GLOBAL STYLES
+
+  remember about of flag: "global"
 ====================*/
 
+/*
+* Auth Background
+*/
 section.animate-background {
     height: 100vh;
     width: 100%;
@@ -10,4 +15,37 @@ section.animate-background {
     -webkit-animation: GradientBackground 21s ease infinite;
     -moz-animation: GradientBackground 21s ease infinite;
     animation: GradientBackground 21s ease infinite;
+}
+
+/*
+* Title Beetwen Section After Login
+*/
+.title-section-global {
+  font-family: Source Sans Pro,sans-serif;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  background-color: transparent;
+  font-size: .75rem;
+  font-weight: 400;
+  text-align: center;
+  text-transform: uppercase;
+  padding: 0px 15px;
+  color: #7f8fa4;
+  margin-top: 20px;
+}
+
+.title-section-global::before,
+.title-section-global::after {
+  position: relative;
+  height: 1px;
+  width: 42%;
+  height: 1px;
+  background-color: #dfe3e9;
+  content: "";
+  width: 42%;
 }

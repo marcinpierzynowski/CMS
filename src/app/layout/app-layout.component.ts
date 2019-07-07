@@ -15,7 +15,11 @@ import { OrdersManageService } from '../services/orders-manage.service';
   selector: 'app-layout',
   templateUrl: './app-layout.component.html',
   styleUrls: ['./app-layout.component.css'],
-  animations: [fadeInOutTranslate, fadeOutTranslate, zoomOut]
+  animations: [
+    fadeInOutTranslate,
+    fadeOutTranslate,
+    zoomOut
+  ]
 })
 export class AppLayoutComponent implements OnInit {
   public activeSubMenu = [false, false, false, false, false, false, false];

@@ -14,7 +14,6 @@ import { Message } from 'src/app/models/model';
     './app-received-messages.component.css',
     '../../../../assets/styles-custom/spinner2-style.css'
   ],
-  providers: [MessagesManageService],
   animations: [fadeInOutTranslate]
 })
 export class AppReceivedMessagesComponent implements OnInit {
@@ -57,6 +56,7 @@ export class AppReceivedMessagesComponent implements OnInit {
   }
 
   public filterData(): void {
+    // tslint:disable-next-line:one-variable-per-declaration
     const e = this.email, d = this.date;
     const inpVal = [e, d];
     const keys = ['email', 'date'];

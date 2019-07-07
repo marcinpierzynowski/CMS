@@ -1,0 +1,179 @@
+<div [@fadeInOutTranslate]>
+    <section class="title-section-global">Statystyki Zamówień</section>
+    
+    <!-- Statistics -->
+    <section class="card">
+
+        <!-- Current Month Earnings -->
+        <div>
+            <div class="static-description">
+                <h3>Aktualne Dochody</h3>
+                <p>Wykaz od 2018-05-01 do 2018-05-31</p>
+                <h4><sup>PLN</sup>2150</h4>
+                <p>Największy zysk w miesiącu 3500 zł.</p>
+            </div>
+
+            <!-- Chart -->
+            <canvas #chartFirst class="chart"></canvas>
+        </div>
+
+        <!-- Current Year Earnings  -->
+        <div>
+            <div class="static-description">
+                <h3>Roczny Dochód</h3>
+                <p>Wykaz od 2018-01-01 do 2018-12-31</p>
+                <h4><sup>PLN</sup>36520</h4>
+                <p>Największy zysk w roku 48500 zł.</p>
+            </div>
+
+            <!-- Chart -->
+            <canvas #chartSecond class="chart"></canvas>
+        </div>
+
+        <!-- Active Orders -->
+        <div>
+            <div class="static-description">
+                <h3>Aktywność Zamówień</h3>
+                <p>Wykaz 4 poprzednich tygodni w roku</p>
+                <h4><sup>ZAMÓWIEŃ</sup>21</h4>
+                <p>Ilość zrealizowanych zamówień 2650</p>
+            </div>
+            
+            <!-- Chart -->
+            <div class="chart">
+                <div class="chart-weeks">
+                    <p>31 tydzień</p>
+                    <div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+                <div class="chart-weeks">
+                    <p>30 tydzień</p>
+                    <div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+                <div class="chart-weeks">
+                    <p>29 tydzień</p>
+                    <div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+                <div class="chart-weeks">
+                    <p>28 tydzień</p>
+                    <div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+                <div class="list-weeks">
+                    <p data="success">Zrealizowane</p>
+                    <p data="waiting">Oczekujące</p>
+                    <p data="error">Odrzucone</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="title-section-global">Aktywność Na Stronie</section>
+
+    <!-- Activity Pages -->
+    <section class="activity-pages">
+        
+        <!-- New Admins -->
+        <div class="acitvity-description">
+            <div>
+                <img class="img-fluid" src="../../../assets/images/new-admin.jpg">
+            </div>
+            <div>
+                <h4>Nowy Administrator</h4>
+                <p>Do zespołu dołączył nowy użytkownik.</p>
+            </div>
+            <div>
+                <p>{{ getNewAdmin().email }}</p>
+                <p>{{ getNewAdmin().created_at }}</p>
+                <p>Nowy / Administrator</p>
+                <p>{{ getDaysCreated(getNewAdmin().created_at) }} dni temu</p>
+            </div>
+        </div>
+
+        <!-- New Products -->
+        <div class="acitvity-description">
+            <div>
+                <img class="img-fluid" src="../../../assets/images/new-product.jpg">
+            </div>
+            <div>
+                <h4>Nowy Produkt</h4>
+                <p>W sklepie dodano nowy produkt.</p>
+            </div>
+            <div>
+                <p>{{ getNewProduct()?.ref }}</p>
+                <p>{{ getNewProduct()?.date }}</p>
+                <p>Nowy / Produkt</p>
+                <p>{{ getDaysCreated(getNewProduct()?.date) }} dni temu</p>
+            </div>
+        </div>
+
+        <!-- New Orders -->
+        <div class="acitvity-description">
+            <div>
+                <img class="img-fluid" src="../../../assets/images/new-order.jpg">
+            </div>
+            <div>
+                <h4>Nowe Zamówienie</h4>
+                <p>Dodano nowe zamówienie.</p>
+            </div>
+            <div>
+                <p>ref: 152sd58</p>
+                <p>2019-05-12</p>
+                <p>Nowe / Zamówienie</p>
+                <p>10 dni temu</p>
+            </div>
+        </div>
+
+        <!-- New Messages -->
+        <div class="acitvity-description">
+            <div>
+                <img class="img-fluid" src="../../../assets/images/new-message.jpg">
+            </div>
+            <div>
+                <h4>Nowa Wiadomość</h4>
+                <p>Ostatnia nowa wiadomość.</p>
+            </div>
+            <div>
+                <p>{{ getNewMessage()?.email }}</p>
+                <p>{{ getNewAdmin().created_at }}</p>
+                <p>Nowe / Zamówienie</p>
+                <p>{{ getDaysCreated(getNewMessage()?.date) }} dni temu</p>
+            </div>
+        </div>
+    </section>
+    <section class="title-section-global">Więcej Opcji</section>
+
+    <!-- More Details -->
+    <section class="more-details">
+        <div class="tasks-card">
+            <div>
+                <h5>Zadania</h5>
+                <p (click)="executeAllTask()">Zaznacz wszystkie zadania</p>
+            </div>
+            <div class="task" *ngFor="let task of tasks; let i = index">
+                <span (click)="executeTask(i)" class="task-execute">
+                    <i *ngIf="task.execute" class="fas fa-check-circle"></i>
+                </span>
+                <p (click)="executeTask(i)" class="task-desc" 
+                    [style.text-decoration]="task.execute ? 'line-through' : 'none'"
+                    [style.opacity]="task.execute ? '0.5' : '1'">
+                    {{ task.name }}
+                </p>
+                <a [routerLink]="task.url">Zobacz</a>
+            </div>
+        </div>
+    </section>
+</div>

@@ -21,9 +21,24 @@ export class CurrentPageService {
         '/slider': 'fab fa-slideshare',
         '/promotions': 'fas fa-percent'
     };
+    private namePages = {
+        '/dashboard': '/ Przegląd',
+        '/my-profile': '/ Profil',
+        '/my-settings': '/ Ustawienia',
+        '/list-users': '/ Administratorzy',
+        '/list-customers': '/ Klienci',
+        '/add-product': '/ Dodaj Produkt',
+        '/list-products': '/ Lista Produktów',
+        '/new-messages': '/ Nowe Wiadomości',
+        '/received-messages': '/ Przeczytane Wiadomości',
+        '/evaluations': '/ Oceny',
+        '/comments': '/ Komentarze',
+        '/slider': '/ Slajder',
+        '/promotions': '/ Promocje'
+    };
 
     public update(urlText: string): void {
         this.iconClass.next(this.urlsClass[urlText]);
-        this.urlText.next(urlText);
+        this.urlText.next(this.namePages[urlText]);
     }
 }

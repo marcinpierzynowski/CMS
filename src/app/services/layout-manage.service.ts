@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 import { FirebaseService } from './firebase.service';
-import { Admin, Notificactions, GroupNotification } from '../models/model';
+import { Admin, Notificactions, GroupNotification, Task } from '../models/model';
 
 @Injectable()
 export class LayoutManageService {
@@ -11,6 +11,7 @@ export class LayoutManageService {
     public groupNotificationsData: BehaviorSubject<Array<GroupNotification>> = new BehaviorSubject(null);
     public notificationsData: BehaviorSubject<Array<Notificactions>> = new BehaviorSubject(null);
     public emailData: BehaviorSubject<string> = new BehaviorSubject(null);
+    public tasksData: BehaviorSubject<Array<Task>> = new BehaviorSubject([]);
 
     constructor(private firebaseService: FirebaseService) {
         this.init();
@@ -19,7 +20,8 @@ export class LayoutManageService {
     public init(): void {
         this.firebaseService.getDataBaseRef('admins').on('value', this.admins.bind(this), this.catchError);
         this.firebaseService.getDataBaseRef('new_notifications').on('value', this.groupNotifications.bind(this), this.catchError);
-        this.firebaseService.getDataBaseRef('notifications').on('value', this.Notifications.bind(this), this.catchError);
+        this.firebaseService.getDataBaseRef('notifications').on('value', this.notifications.bind(this), this.catchError);
+        this.firebaseService.getDataBaseRef('tasks').on('value', this.tasks.bind(this), this.catchError);
     }
 
     public admins(response): void {
@@ -48,7 +50,7 @@ export class LayoutManageService {
         this.groupNotificationsData.next(notifications);
     }
 
-    public Notifications(response): void {
+    public notifications(response): void {
         const data = response.val();
 
         if (data === null) {
@@ -58,6 +60,33 @@ export class LayoutManageService {
 
         const notifications = this.prepareData(data);
         this.notificationsData.next(notifications);
+    }
+
+    public tasks(response): void {
+        const data = response.val();
+
+        if (data === null) {
+            this.tasksData.next([]);
+            return;
+        }
+
+        const tasks = this.prepareData(data);
+        this.tasksData.next(tasks);
+    }
+
+    public updateTask(index: number): void {
+        const tasks = this.tasksData.getValue();
+        tasks[index].execute = !tasks[index].execute;
+        this.tasksData.next(tasks);
+    }
+
+    public updateAllTasks(): void {
+        const tasks = this.tasksData.getValue();
+        // tslint:disable-next-line:prefer-for-of
+        for (let i = 0; i < tasks.length; i++) {
+            tasks[i].execute = true;
+        }
+        this.tasksData.next(tasks);
     }
 
     public prepareData(data) {
@@ -78,6 +107,8 @@ export class LayoutManageService {
     public addReadyStatus() {
         this.readyData.next(true);
     }
+
+
 
     set email(email: string) { this.emailData.next(email); }
 }

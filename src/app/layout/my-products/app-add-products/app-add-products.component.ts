@@ -8,6 +8,7 @@ import { Product, Category, AddProduct, StatusProduct } from 'src/app/models/mod
 
 import { fadeInOutTranslate } from '../../../../shared/animations/animation';
 import swal from 'sweetalert2';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-app-add-products',
@@ -16,8 +17,7 @@ import swal from 'sweetalert2';
     './app-add-products.component.css',
     '../../../../assets/styles-custom/spinner2-style.css'
   ],
-  animations: [fadeInOutTranslate],
-  providers: [ProductsManageService]
+  animations: [fadeInOutTranslate]
 })
 export class AppAddProductsComponent implements OnInit {
   public products: Array<Product>;
@@ -36,7 +36,8 @@ export class AppAddProductsComponent implements OnInit {
 
   constructor(
     private firebaseService: FirebaseService,
-    private productsManageService: ProductsManageService
+    private productsManageService: ProductsManageService,
+    private datePipe: DatePipe
     ) {}
 
   ngOnInit(): void {
@@ -105,7 +106,8 @@ export class AppAddProductsComponent implements OnInit {
   prepareDataNewProduct(): Product {
     const { title, price, promotion, ref, desc, categoryID } = this.productForm.value;
     const params = [...this.productForm.value.params].map((gr) => gr.value);
-    return { title, price, promotion, ref, desc, params, categoryID};
+    const date = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
+    return { title, price, promotion, ref, desc, params, categoryID, date };
   }
 
   public prevOrNextNumber(value: number): void {
@@ -177,6 +179,7 @@ export class AppAddProductsComponent implements OnInit {
     communicate.push(...this.checkRefNumber());
 
     if (communicate.length > 0) {
+      // tslint:disable-next-line:prefer-for-of
       for (let i = 0; i < communicate.length; i++) { text += '<p>' + communicate[i] + '</p>'; }
     }
     return text;
@@ -201,6 +204,7 @@ export class AppAddProductsComponent implements OnInit {
   }
 
   public generateRandomNumber(): string {
+    // tslint:disable-next-line:one-variable-per-declaration
     let ref, isUnique;
 
     if (this.products.length > 0) {
@@ -215,9 +219,9 @@ export class AppAddProductsComponent implements OnInit {
   }
 
   public getRandomNumber(): string {
-    let number = '';
-    for (let i = 0; i < 9; i++) { number += (Math.floor(Math.random() * 9) + 1).toString(); }
-    return number;
+    let value = '';
+    for (let i = 0; i < 9; i++) { value += (Math.floor(Math.random() * 9) + 1).toString(); }
+    return value;
   }
 
   public checkStepperThirst(nbStep: number): void {
@@ -255,6 +259,7 @@ export class AppAddProductsComponent implements OnInit {
     if (!this.reader) {
       this.reader = new FileReader();
       this.reader.onload = function(e: Event) {
+        // tslint:disable-next-line:no-string-literal
         document.getElementsByClassName('image-upload')[this.lengthUploadPicture]['src'] = e.target['result'];
         this.lengthUploadPicture++;
         if (this.lengthUploadPicture < urlIm.length) {
@@ -274,6 +279,7 @@ export class AppAddProductsComponent implements OnInit {
       if (!this.reader) {
         this.reader = new FileReader();
         this.reader.onload = function(e: Event) {
+          // tslint:disable-next-line:no-string-literal
           document.getElementsByClassName('image-upload')[this.lengthUploadPicture]['src'] = e.target['result'];
           this.lengthUploadPicture++;
 
@@ -286,6 +292,7 @@ export class AppAddProductsComponent implements OnInit {
       if (droppedFile.fileEntry.isFile) {
         const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
         fileEntry.file((file: File) => {
+          // tslint:disable-next-line:object-literal-shorthand
           urlIm.push({file: file, urlName: file.name, urlSize: file.size});
           setTimeout(() => {
             this.reader.readAsDataURL(urlIm[urlIm.length - 1].file);
@@ -310,9 +317,9 @@ export class AppAddProductsComponent implements OnInit {
     return size;
   }
 
-  public roundValue(number, accuracy): number {
+  public roundValue(value, accuracy): number {
     const factor = Math.pow(10, accuracy);
-    return Math.round(number * factor) / factor;
+    return Math.round(value * factor) / factor;
   }
 
   public cancelImage(index): void {

@@ -5,7 +5,9 @@
   2. LEFT PANEL CONTAIN
   3. NAV TOP PANEL
   4. ROUTER CONTAIN
-  5. USER OPTIONS
+  5. USER OPTIONS ORDERS
+  6. USER OPTIONS NOTIFICATIONS
+  7. USER OPTIONS NAV PROFIL
 
   AUTHOR: MARCIN PIERZYNOWSKI
   ================*/
@@ -401,7 +403,7 @@ a.item {
 
   .nav-more {
     justify-content: space-between;
-    width: 180px;
+    width: 200px;
   }
 
   .nav-orders {
@@ -439,7 +441,7 @@ a.item {
 ==========================*/
 
 .contain-layout {
-  background-color: #f5f5f5;
+  background-color: #eff3f6;
   position: fixed;
   top: 121px;
   right: 0;

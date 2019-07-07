@@ -13,8 +13,7 @@ import { fadeInOutTranslate } from 'src/shared/animations/animation';
   selector: 'app-app-edit-product',
   templateUrl: './app-edit-product.component.html',
   styleUrls: ['./app-edit-product.component.css'],
-  animations: [fadeInOutTranslate],
-  providers: [ProductsManageService]
+  animations: [fadeInOutTranslate]
 })
 export class AppEditProductComponent implements OnInit {
   ref: string;

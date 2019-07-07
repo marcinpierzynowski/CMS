@@ -11,8 +11,7 @@ import { fadeInOutTranslate } from '../../../../shared/animations/animation';
   selector: 'app-app-edit-message',
   templateUrl: './app-edit-message.component.html',
   styleUrls: ['./app-edit-message.component.css'],
-  animations: [fadeInOutTranslate],
-  providers: [MessagesManageService]
+  animations: [fadeInOutTranslate]
 })
 export class AppEditMessageComponent implements OnInit {
   public message: Message;

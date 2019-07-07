@@ -222,13 +222,13 @@
         <div class="hide-sidebar" *ngIf="!vissibleLeftPanel"></div>
       </div>
 
-      <!-- Slider -->
+      <!-- Slajder -->
       <div class="menu-item" [class.active-menu-item]="url === '/slider'" routerLink="/slider"
         [style.justify-content]="vissibleLeftPanel ? 'initial' : 'center'">
         <div [class.active]="url === '/slider'" class="section-item"></div>
         <div class="item" [style.paddingLeft]="vissibleLeftPanel ? '15px' : '0px'">
           <i class="fab fa-slideshare icon-panel"></i>
-          <span *ngIf="vissibleLeftPanel">Slider</span>
+          <span *ngIf="vissibleLeftPanel">Slajder</span>
         </div>
       </div>
 

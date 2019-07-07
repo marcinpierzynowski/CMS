@@ -14,8 +14,7 @@ import { Product, Image } from 'src/app/models/model';
     './app-list-products.component.css',
     '../../../../assets/styles-custom/spinner2-style.css'
   ],
-  animations: [fadeInOutTranslate],
-  providers: [ProductsManageService]
+  animations: [fadeInOutTranslate]
 })
 export class AppListProductsComponent implements OnInit {
   public products: Array<Product>;

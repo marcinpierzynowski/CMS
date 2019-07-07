@@ -22,6 +22,8 @@ import { AppEditMessageComponent } from './messages/app-edit-message/app-edit-me
 import { CurrentPageComponent } from 'src/shared/components/current-page/current-page.component';
 import { CurrentPageService } from '../services/current-page.service';
 import { OrdersManageService } from '../services/orders-manage.service';
+import { ProductsManageService } from '../services/products-manage.service';
+import { MessagesManageService } from '../services/messages-manage.service';
 
 @NgModule({
     declarations: [
@@ -50,7 +52,9 @@ import { OrdersManageService } from '../services/orders-manage.service';
     providers: [
       DatePipe,
       CurrentPageService,
-      OrdersManageService
+      OrdersManageService,
+      ProductsManageService,
+      MessagesManageService
     ]
 })
 export class AppLayoutModule {}

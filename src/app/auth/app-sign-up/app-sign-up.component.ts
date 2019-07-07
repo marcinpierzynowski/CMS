@@ -9,6 +9,7 @@ import { fadeInOutTranslate, flipInX } from '../../../shared/animations/animatio
 import swal from 'sweetalert2';
 import { LayoutManageService } from 'src/app/services/layout-manage.service';
 import { Admin } from 'src/app/models/model';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-app-sign-up',
@@ -38,7 +39,8 @@ export class AppSignUpComponent implements OnInit {
   constructor(
     private router: Router,
     private firebaseService: FirebaseService,
-    private layoutManageService: LayoutManageService
+    private layoutManageService: LayoutManageService,
+    private datePipe: DatePipe
     ) { }
 
   ngOnInit(): void {
@@ -63,9 +65,9 @@ export class AppSignUpComponent implements OnInit {
       CustomValidators.equalTo(password)
     ]);
     this.newDataAccount = new FormGroup({
-      email: email,
-      password: password,
-      repeatPassword: repeatPassword
+      email,
+      password,
+      repeatPassword
     });
   }
 
@@ -115,11 +117,14 @@ export class AppSignUpComponent implements OnInit {
   }
 
   public prepareAdmin(): Admin {
+    const date = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
     return {
       email: this.newDataAccount.value.email,
       password: this.newDataAccount.value.password,
       security: true,
-      history: []
+      history: [],
+      // tslint:disable-next-line:object-literal-shorthand
+      date: date
     };
   }
 

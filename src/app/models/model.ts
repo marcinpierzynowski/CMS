@@ -4,6 +4,7 @@ export interface Admin {
     security: boolean;
     history?: Array<History>;
     detail?: UserDetail;
+    date: Date | string;
 }
 
 export interface UserDetail {
@@ -64,6 +65,7 @@ export interface Product {
     params: Array<ParamsProduct>;
     images?: Array<number>;
     categoryID: number;
+    date: Date | string;
 }
 
 export interface ParamsProduct {
@@ -112,4 +114,11 @@ export interface Order {
     address: string;
     url: string;
     price: string;
+    executed: boolean;
+}
+
+export interface Task {
+    name: string;
+    execute: boolean;
+    url: string;
 }
