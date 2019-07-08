@@ -149,13 +149,13 @@ export class AppLayoutComponent implements OnInit {
   }
 
   public setNewDataLogin(): void {
-    fetch('https://api.ipify.org?format=json')
-      .then(response => response.json())
-      .then(data => {
-        const history = { name: 'Logowanie', ip: data.ip, data: this.getFullData(), time: this.getFullTime() };
-        this.user.history ? this.user.history.push(history) : this.user.history = [history];
-        this.firebaseService.getDataBaseRef('admins').set(this.admins);
-      });
+    // fetch('https://api.ipify.org?format=json')
+    //   .then(response => response.json())
+    //   .then(data => {
+    //     const history = { name: 'Logowanie', ip: data.ip, data: this.getFullData(), time: this.getFullTime() };
+    //     this.user.history ? this.user.history.push(history) : this.user.history = [history];
+    //     this.firebaseService.getDataBaseRef('admins').set(this.admins);
+    //   });
   }
 
   public deleteNotification(index): void {

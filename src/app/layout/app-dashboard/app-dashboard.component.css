@@ -265,16 +265,48 @@ canvas {
     margin-top: 20px;
 }
 
+@media screen and (min-width: 768px) {
+    .more-details {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/*
+* Messages Card & Task Card
+*/
+.more-details .messages-card, 
 .more-details .tasks-card {
-    min-height: 500px;
+    min-height: 1px;
     background-color: #fff;
-    margin-bottom: 15px;
     border: 1px solid #e6eaee;
     border-radius: 4px;
     margin: 0 15px 15px 15px;
     align-items: center;
 }
 
+.more-details .messages-card {
+    overflow-x: overlay;
+    min-width: calc(100% - 30px);
+    max-width: calc(100% - 30px);
+    flex-direction: column;
+}
+
+.more-details .messages-card::-webkit-scrollbar-track {
+    background-color: #ffffff;
+}
+  
+.more-details .messages-card::-webkit-scrollbar {
+    height: 8px;
+    background-color: #ffffff;
+}
+  
+.more-details .messages-card::-webkit-scrollbar-thumb {
+    background-color: rgba(114, 115, 118);
+    border: 2px solid rgba(114, 115, 118);
+    border-radius: 1.5px;
+}
+
+.messages-card > div:nth-child(1),
 .tasks-card > div:nth-child(1) {
     display: flex;
     padding: 25px 30px;
@@ -283,17 +315,25 @@ canvas {
     border-bottom: 1px solid #e6eaee;
 }
 
+.messages-card > div:nth-child(1) {
+    border-bottom: unset;
+}
+
+.messages-card > div:nth-child(1) p,
+.messages-card > div:nth-child(1) h5,
 .tasks-card > div:nth-child(1) p,
 .tasks-card > div:nth-child(1) h5 {
     margin: 0;
 }
 
+.messages-card > div:nth-child(1) h5,
 .tasks-card > div:nth-child(1) h5 {
     color: #354052;
     font-weight: 300;
     font-size: 18px;
 }
 
+.messages-card > div:nth-child(1) p,
 .tasks-card > div:nth-child(1) p {
     font-size: 12px;
     color: #7f8fa4;
@@ -302,10 +342,94 @@ canvas {
     text-align: center;
 }
 
+.messages-card > div:nth-child(1) p:hover,
 .tasks-card > div:nth-child(1) p:hover {
     cursor: pointer;
 }
 
+/*
+* Messages Default Styles
+*/
+
+ .empty-messages {
+    display: grid;
+    border-top: 1px solid #e6eaee;
+    grid-template-columns:  25% 75%;
+ }
+
+ .text-empty-messages {
+    padding: 10px 0;
+    text-align: left;
+ }
+  
+ .text-empty-messages h6 {
+    color: #354052;
+    font-weight: 500;
+    font-size: 16px;
+  }
+  
+ .text-empty-messages p {
+    margin-bottom: 0;
+    color: #7f8fa4;
+    font-size: 14px;
+  }
+
+.img-messages {
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.img-messages img {
+    width: 60px;
+    height: 60px;
+}
+
+.list-new-messages {
+    border-top: 1px solid #e6eaee;
+    padding: 25px 30px;
+    display: grid;
+    text-align: center;
+    align-items: center;
+    grid-template-columns: 10% minmax(40px, 20%) minmax(150px, 25%) minmax(150px, 25%) minmax(100px, 20%);   
+}
+
+.list-new-messages p {
+    margin: 0;
+    color: #7f8fa4;
+    font-size: .875rem;
+    font-weight: 500;
+}
+
+.list-new-messages .img-user img {
+    height: 40px;
+    width: 40px;
+    border: #c9c9c9 0.5px solid;
+    border-radius: 50%;
+}
+
+.mark-message button {
+    margin-left: auto;
+    width: 60px;
+    border: unset;
+    font-size: 12px;
+    color: #fff;
+    background-color: #5599f9;
+    height: 25px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mark-message button:hover {
+    cursor: pointer;
+}
+
+/*
+* Task Default Styles
+*/
 .task {
     padding: 20px 30px;
     display: grid;
@@ -350,7 +474,7 @@ canvas {
 
 .task a {
     margin-left: auto;
-    width: 70px;
+    width: 60px;
     font-size: 12px;
     color: #000;
     background-color: orange;

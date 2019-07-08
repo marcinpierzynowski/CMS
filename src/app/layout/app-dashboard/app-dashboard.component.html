@@ -158,6 +158,50 @@
 
     <!-- More Details -->
     <section class="more-details">
+        
+        <!-- Messages Card -->
+        <div class="messages-card">
+            <div>
+                <h5>Nowe wiadomości</h5>
+                <p (click)="markLastFiveMessage()">Oznacz wszystkie jako odczytane</p>
+            </div>
+
+            <!-- Empty Messages -->
+            <div *ngIf="getNewMessages().length === 0" class="empty-messages">
+                <div class="img-messages">
+                    <img src="../../assets/images/user-empty.png"/>
+                </div>
+                <div class="text-empty-messages">
+                    <h6>Brak nowych wiadomości</h6>
+                    <p>Oczekuj na nowe wiadomości</p> 
+                </div> 
+            </div>
+
+            <!-- List Messages -->
+            <table *ngIf="messages && getNewMessages().length > 0" [style.width]="'100%'">
+                <tbody>
+                    <tr *ngFor="let message of getNewMessages(); let i = index" class="list-new-messages">
+                        <td>
+                            <p>No. {{ message.id }}</p>
+                        </td>
+                        <td class="img-user">
+                            <img src="../../../assets/images/user-empty.png">
+                        </td>
+                        <td>
+                            <p>{{ message.date }}</p>
+                        </td>
+                        <td>
+                            <p>{{ message.email }}</p>
+                        </td>
+                        <td class="mark-message">
+                            <button (click)="markMessage(message.id)">Oznacz</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Task Card -->
         <div class="tasks-card">
             <div>
                 <h5>Zadania</h5>

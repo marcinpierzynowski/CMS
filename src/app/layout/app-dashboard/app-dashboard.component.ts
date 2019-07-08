@@ -7,6 +7,8 @@ import { Chart } from 'chart.js';
 import { fadeInOutTranslate } from '../../../shared/animations/animation';
 import { ProductsManageService } from 'src/app/services/products-manage.service';
 import { MessagesManageService } from 'src/app/services/messages-manage.service';
+import { FirebaseService } from 'src/app/services/firebase.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-app-dashboard',
@@ -31,6 +33,7 @@ export class AppDashboardComponent implements OnInit {
   private messages: Array<Message>;
 
   constructor(
+    private firebaseService: FirebaseService,
     private layoutManageService: LayoutManageService,
     private productManageService: ProductsManageService,
     private messagesManageService: MessagesManageService
@@ -45,6 +48,7 @@ export class AppDashboardComponent implements OnInit {
     this.productManageService.productsData.subscribe(pr => this.products = pr);
     this.messagesManageService.messageData.subscribe(m => this.messages = m);
     this.user = admins.find(admin => admin.email === email);
+    
 
     this.createFirstChart();
     this.createSecondChart();
@@ -176,5 +180,55 @@ export class AppDashboardComponent implements OnInit {
 
     public executeAllTask(): void {
       this.layoutManageService.updateAllTasks();
+    }
+
+    public getNewMessages(): Array<Message> {
+      if (this.messages && this.messages.length > 0) {
+        const messages = this.messages.filter(m => m.read === false);
+        const reverseMessage = [];
+
+        if (messages.length === 0) {
+          return [];
+        }
+        let increment = 0;
+        for (let i = messages.length - 1; i >= 0; i--) {
+          reverseMessage.push(messages[i]);
+
+          if (++increment === 5) {
+            break;
+          }
+        }
+        return reverseMessage;
+      }
+      return [];
+    }
+
+    public markMessage(id: number): void {
+      const index = this.messages.findIndex(m => m.id === id).toString();
+      this.firebaseService.getDataBaseRef('messages')
+        .child(index).child('read').set(true)
+          .then(() => Swal.fire('Oznaczenie wiadomości', 'Wiadomość została oznaczona jako przeczytana.', 'success'));
+    }
+
+    public markLastFiveMessage(): void {
+      if (this.messages.length > 0) {
+        const messages = this.messages.filter(m => m.read === false);
+        if (messages.length === 0) {
+          Swal.fire('Oznaczenie wszystkich wiadomości', 'Brak wiadomości do oznaczenia', 'error');
+          return;
+        }
+
+        const reverseMsgs = messages.reverse();
+        let increment = 0;
+        // tslint:disable-next-line:prefer-for-of
+        for (let i = 0; i < reverseMsgs.length; i++) {
+          reverseMsgs[i].read = true;
+          if (++increment === 5) { break; }
+        }
+        this.firebaseService.getDataBaseRef('messages').set(this.messages)
+          .then(() => Swal.fire('Oznaczenie wiadomości', 'Wiadomości zostały oznaczone jako przeczytana.', 'success'));
+      } else {
+        Swal.fire('Oznaczenie wszystkich wiadomości', 'Brak wiadomości do oznaczenia', 'error');
+      }
     }
 }
