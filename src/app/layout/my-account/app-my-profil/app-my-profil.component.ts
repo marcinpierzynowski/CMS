@@ -34,9 +34,12 @@ export class AppMyProfilComponent implements OnInit {
     ) {}
 
   ngOnInit(): void {
-    const admins = this.layoutManageService.adminsData.getValue();
     const email = this.layoutManageService.emailData.getValue();
-    this.user = admins.find(ad => ad.email === email);
+    this.layoutManageService.adminsData.subscribe(ad => {
+      if (ad.length > 0) {
+        this.user = ad.find(admin => admin.email === email);
+      }
+    });
     this.prepareScores();
   }
 
@@ -51,6 +54,7 @@ export class AppMyProfilComponent implements OnInit {
   }
 
   public filterData(): void {
+    // tslint:disable-next-line:one-variable-per-declaration
     const n = this.name, t = this.time, d = this.date;
     const inpVal = [n, t, d];
     const keys = ['name', 'time', 'data'];
@@ -99,38 +103,7 @@ export class AppMyProfilComponent implements OnInit {
     ]);
   }
 
-  public copy(tab, text): void {
-    this.tabCopy = tab;
-    this.textCopy = text;
-    this.visibleClipboardCopy = true;
-    if (this.timeClipboard) {
-      clearTimeout(this.timeClipboard);
-    }
-    this.timeClipboard = setTimeout(() => {
-      this.visibleClipboardCopy = false;
-    }, 3000);
-  }
-
-  public highlight(value, valueFilter): string {
-    if (!valueFilter) { return value; }
-    const indexFilterValue = value.toLowerCase().search(valueFilter.toLowerCase());
-    const lengthTextFilter = valueFilter.length;
-    let template = '';
-
-    for (let i = 0; i < value.length; i++) {
-      if (i === indexFilterValue) {
-        template += '<span class="mark-target">' + value.substr(indexFilterValue, valueFilter.length);
-        if (i + lengthTextFilter === value.length) {
-          template += '</span>';
-        }
-      } else if (i > indexFilterValue + lengthTextFilter - 1 || i < indexFilterValue) {
-        if (i === indexFilterValue + lengthTextFilter) {
-          template += '</span>' + value.charAt(i);
-        } else {
-          template += value.charAt(i);
-        }
-      }
-    }
-    return template;
+  scrollToHistory(ref) {
+    ref.scrollIntoView({ behavior: 'smooth' });
   }
 }

@@ -48,7 +48,6 @@ export class AppDashboardComponent implements OnInit {
     this.productManageService.productsData.subscribe(pr => this.products = pr);
     this.messagesManageService.messageData.subscribe(m => this.messages = m);
     this.user = admins.find(admin => admin.email === email);
-    
 
     this.createFirstChart();
     this.createSecondChart();
@@ -213,22 +212,19 @@ export class AppDashboardComponent implements OnInit {
     public markLastFiveMessage(): void {
       if (this.messages.length > 0) {
         const messages = this.messages.filter(m => m.read === false);
-        if (messages.length === 0) {
-          Swal.fire('Oznaczenie wszystkich wiadomości', 'Brak wiadomości do oznaczenia', 'error');
-          return;
-        }
-
-        const reverseMsgs = messages.reverse();
-        let increment = 0;
+        if (messages.length > 0) {
+          const reverseMsgs = messages.reverse();
+          let increment = 0;
         // tslint:disable-next-line:prefer-for-of
-        for (let i = 0; i < reverseMsgs.length; i++) {
+          for (let i = 0; i < reverseMsgs.length; i++) {
           reverseMsgs[i].read = true;
           if (++increment === 5) { break; }
         }
-        this.firebaseService.getDataBaseRef('messages').set(this.messages)
+          this.firebaseService.getDataBaseRef('messages').set(this.messages)
           .then(() => Swal.fire('Oznaczenie wiadomości', 'Wiadomości zostały oznaczone jako przeczytana.', 'success'));
-      } else {
-        Swal.fire('Oznaczenie wszystkich wiadomości', 'Brak wiadomości do oznaczenia', 'error');
+          return;
+        }
       }
+      Swal.fire('Oznaczenie wszystkich wiadomości', 'Brak wiadomości do oznaczenia', 'error');
     }
 }

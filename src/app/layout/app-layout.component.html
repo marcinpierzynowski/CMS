@@ -58,7 +58,7 @@
 
         <!-- Detail User: Email, Name, Surname -->
         <div *ngIf="vissibleLeftPanel" class="panel-user-detail">
-          <h6>{{ user.detail ? user.detail.name + ' ' + user.detail.surname : 'Custom User' }}</h6>
+          <h6>{{ user.detail.name && user.detail.surname ? user.detail.name + ' ' + user.detail.surname : '' }}</h6>
           <p>{{ user.email }}</p>
         </div>
 

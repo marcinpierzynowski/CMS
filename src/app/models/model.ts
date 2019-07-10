@@ -1,17 +1,30 @@
+
+/**
+ * Admin
+ */
 export interface Admin {
     email: string;
     password: string;
     security: boolean;
     history?: Array<History>;
-    detail?: UserDetail;
+    detail: UserDetail;
     date: Date | string;
+    media?: SocialMedia;
 }
 
 export interface UserDetail {
-    name: string;
-    surname: string;
-    imageUrl?: string;
+    name?: string;
+    surname?: string;
+    imageUrl: string;
     imageName?: string;
+    city?: string;
+    country?: string;
+}
+
+export interface SocialMedia {
+    facebook: string;
+    twitter: string;
+    linkedIn: string;
 }
 
 export interface History {
@@ -20,6 +33,10 @@ export interface History {
     name: string;
     time: string;
 }
+
+/*
+* Notification
+*/
 
 export interface GroupNotification {
     name: string;

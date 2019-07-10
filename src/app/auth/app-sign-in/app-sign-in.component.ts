@@ -49,8 +49,8 @@ export class AppSignInComponent implements OnInit {
     const password = new FormControl('', [Validators.required, Validators.minLength(5)]);
 
     this.loginAccountForm = new FormGroup({
-      email: email,
-      password: password
+      email,
+      password
     });
   }
 

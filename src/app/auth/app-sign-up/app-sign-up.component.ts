@@ -123,6 +123,9 @@ export class AppSignUpComponent implements OnInit {
       password: this.newDataAccount.value.password,
       security: true,
       history: [],
+      detail: {
+        imageUrl: 'assets/images/user-empty.png'
+      },
       // tslint:disable-next-line:object-literal-shorthand
       date: date
     };

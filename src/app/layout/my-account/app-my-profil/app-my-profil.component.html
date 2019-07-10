@@ -1,121 +1,45 @@
-
-<!-- Fixed contain clipboard -->
-<div class="copy-clipboard" [@fadeInDown] [@fadeOutUp] *ngIf="visibleClipboardCopy">
-  <i class="fas fa-check-circle" style="margin-right:10px;"></i> 
-  Skopiowano do schowka ({{ textCopy }}) z {{ tabCopy }}
-</div>
-
-<!-- Main Card -->
-<div class="card" [@fadeInOutTranslate]>
-
-  <!-- Title -->
-  <div class="title-section">Przegląd konta</div>
-
-  <!-- Card Counters -->
-  <div class="profil-information-contain">
+<div [@fadeInOutTranslate]>
+  <section class="title-section-global">Przegląd profilu</section>
+  
+  <!-- Cards -->
+  <section class="cards">
     
-    <!-- Amount Logins-->
-    <div class="profil-information">
-      <div class="information-text">Liczba logowań</div>
-      <div class="information-value">{{ amountLogins }}</div>
-    </div>
-
-    <!-- Amount Add Products -->
-    <div class="profil-information">
-      <div class="information-text">Dodanych produktów</div>
-      <div class="information-value">{{ amountProducts }}</div>
-    </div>
-  </div>
-
-  <!-- History Table & Card Filters -->
-  <div class="history-section">
-    
-    <!-- Table History-->
-    <div class="history-table">
-
-      <!-- Header Table -->
-      <div class="history-information">
-        <div class="text-history-id" style="float:left;width:12.5%;">No.</div>
-        <div class="text-history-id" style="float:left;width:12.5%;">Nazwa</div>
-        <div class="text-history-id" style="float:left;width:25%;">Data</div>
-        <div class="text-history-id" style="float:left;width:25%;">Czas</div>
-        <div class="text-history-id" style="float:left;width:25%;">Ip</div>
-      </div>
-
-      <div class="underline"></div>
-
-      <!-- Table Body -->
-      <div class="history-data">
-        <div style="float:left; width:100%;" *ngFor="let his of history.reverse(); let i = index">
-          <ng-container *ngIf="i < 100">
-            <!-- No. -->
-            <div class="text-history-id" style="float:left;width:12.5%;height: 50px;line-height: 50px;">
-              {{ i + 1 }}
-            </div>
-
-            <!-- Name -->
-            <div class="text-history" style="float:left;width:12.5%;height: 50px;line-height: 50px;" ngxClipboard
-              [cbContent]="his.name" (click)="copy(' nazwy.', his.name)" [innerHTML]="highlight(his.name, name)">
-            </div>
-
-            <!-- Date -->
-            <div class="text-history" style="float:left;width:25%;height: 50px;line-height: 50px;" ngxClipboard
-              [cbContent]="his.data" (click)="copy(' daty.', his.data)" [innerHTML]="highlight(his.data, date)">
-            </div>
-
-            <!-- Time -->
-            <div class="text-history" style="float:left;width:25%;height: 50px;line-height: 50px;" ngxClipboard
-              [cbContent]="his.time" (click)="copy(' czasu.', his.time)" [innerHTML]="highlight(his.time, time)">
-            </div>
-
-            <!-- IP -->
-            <div class="text-history" style="float:left;width:25%;height: 50px;line-height: 50px;" ngxClipboard
-              [cbContent]="his.ip" (click)="copy(' ip.', his.ip)">
-              {{ his.ip }}
-            </div>
-          </ng-container>
+    <!-- Profile -->
+    <div class="my-profile">
+      
+      <!-- Basic Data -->
+      <div class="basic-data">
+        <div class="profile-image">
+          <img [src]="user.detail.imageUrl">
         </div>
-      </div>
-    </div>
-
-    <!-- Contain Filter-->
-    <div class="history-filter">
-
-      <!-- Title-->
-      <div class="filter-title">Filtruj:</div>
-      <div class="underline" style="margin-bottom:10px;"></div>
-
-      <!-- Field Name -->
-      <div class="filter-input">
-        <span class="input-description">Podaj nazwę:</span>
-        <input class="input-profile" placeholder="Nazwa" [(ngModel)]="name" (input)="filterData()"/>
+        <p class="user-name">
+          {{ user.detail.name && user.detail.surname ? user.detail.name + ' ' + user.detail.surname : '' }}
+        </p>
+        <p class="user-role">
+          Administator strony sklepu
+        </p>
+        <p class="user-location">
+          {{ user.detail.city && user.detail.country ? user.detail.country + ', ' + user.detail.city : '' }}
+        </p>
       </div>
 
-      <!-- Field Date -->
-      <div class="filter-input">
-        <span class="input-description">Podaj datę:</span>
-        <input class="input-profile" placeholder="Data" [(ngModel)]="date" (input)="filterData()"/>
-      </div>
-
-      <!-- Field Time -->
-      <div class="filter-input">
-        <span class="input-description">Podaj czas:</span>
-        <input class="input-profile" placeholder="Czas" [(ngModel)]="time" (input)="filterData()"/>
-      </div>
-
-      <!-- Field Exclude IP -->
-      <div class="filter-input">
-        <span class="input-description">Wyklucz ip:</span>
-        <input class="input-profile" placeholder="Ip" [(ngModel)]="IP" (input)="filterData()"/>
-      </div>
-
-      <!-- Modal Show Your IP -->
-      <div style="float:left; width: 100%;text-align:center;">
-        <button mat-raised-button style="background-color:#255190;color: white" (click)="showMeIp()">
-          Pokaż moje Ip
-        </button>
+      <!-- Options Profile -->
+      <div class="options-profile">
+        <a routerLink="/my-settings">
+          Edytuj Profil
+        </a>
+        <a (click)="scrollToHistory(history)">
+          Przegląd Historii
+        </a>
       </div>
 
     </div>
-  </div>
+
+    <!-- History -->
+    <div class="my-history" #history>
+  
+    </div>
+
+  </section>
+  
 </div>
