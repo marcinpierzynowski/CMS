@@ -33,6 +33,94 @@
         </a>
       </div>
 
+      <!-- Statistic Profile -->
+      <div>
+        <table class="statistic-profile">
+          <thead>
+            <tr>
+              <th>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+              </th>
+              <th>
+                <p>38</p>
+              </th>
+              <th>
+                <p>128</p>
+              </th>
+              <th>
+                <p>15</p>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>
+                <p>Ranking</p>
+              </th>
+              <th>
+                <p>Logowań</p>
+              </th>
+              <th>
+                <p>Produktów</p>
+              </th>
+              <th>
+                <p>Zamówień</p>
+              </th>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <!-- Social Media -->
+      <div *ngIf="user.media" class="media-profile">
+        <p>
+          <i class="fas fa-share-alt"></i> 
+          Media społecznościowe
+        </p>
+        <div class="media-detail">
+
+          <!-- Facebook -->
+          <div data="media" *ngIf="user.media.facebook">
+            <div class="media-contain">
+              <i data="facebook" class="fab fa-facebook-f"></i>
+            </div>
+            <div class="media-desc">
+              <p>Facebook</p>
+              <a target="_blank" [href]="user.media.facebook">{{ user.media.facebook }}</a>
+            </div>
+          </div>
+          
+          <!-- Twitter -->
+          <div data="media" *ngIf="user.media.twitter">
+            <div class="media-contain">
+              <i data="twitter" class="fab fa-twitter"></i>
+            </div>
+            <div class="media-desc">
+              <p>Twitter</p>
+              <a target="_blank" [href]="user.media.twitter">{{ user.media.twitter }}</a>
+            </div>
+          </div>
+
+          <!-- LinkedIn -->
+          <div data="media" *ngIf="user.media.linkedIn">
+            <div class="media-contain">
+              <i data="linkedIn" class="fab fa-linkedin-in"></i>
+            </div>
+            <div class="media-desc">
+              <p>LinkedIn</p>
+              <a target="_blank" [href]="user.media.linkedIn">{{ user.media.linkedIn }}</a>
+            </div>
+          </div>
+
+          <!-- Lines -->
+          <div data="line-first" class="line-media"></div>
+          <div data="line-second" class="line-media"></div>
+        </div>
+      </div>
     </div>
 
     <!-- History -->
