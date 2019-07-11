@@ -125,7 +125,92 @@
 
     <!-- History -->
     <div class="my-history" #history>
-  
+      
+      <!-- Nav Panel -->
+      <nav>
+        <div (click)="onSelectHistory(0)">
+          <p [class.active-history]="selected === 0">
+            Logowania
+          </p>
+        </div>
+        <div (click)="onSelectHistory(1)">
+          <p [class.active-history]="selected === 1">
+            Produkty
+          </p>
+        </div>
+        <div (click)="onSelectHistory(2)">
+          <p [class.active-history]="selected === 2">
+            Zamówienia
+          </p>
+        </div>
+        <div (click)="onSelectHistory(3)">
+          <p [class.active-history]="selected === 3">
+            Szukaj
+          </p>
+        </div>
+      </nav>
+
+      <!-- List History -->
+      <div class="list-history">
+        
+        <div class="history-detail" *ngFor="let history of dataHistory; let i = index">
+          <ng-container *ngIf="i <= nextDay">
+
+            <!-- Date -->
+            <p class="history-data">{{ i === 0 ? 'Dzisiaj' : history.date | date: 'yyyy-MM-dd' }}</p>
+            
+            <!-- Details -->
+            <div class="history-overview" *ngFor="let data of history.data; let j = index"
+              [class.overview-outside-start]="j === 0" [class.overview-outside-end]="j === history.data.length - 1">
+              
+              <!-- Line -->
+              <div class="line-history" *ngIf="j < history.data.length - 1 && history.data.length > 1"></div>
+              
+              <!-- Logins -->
+              <p class="history-name"  *ngIf="selected === 0">
+                Logowanie użytkownika na stronie
+              </p>
+
+              <!-- Add Products -->
+              <p class="history-name"  *ngIf="selected === 1">
+                  Dodanie produktu na stronie
+              </p>
+
+              <!-- Execute Orders -->
+              <p class="history-name"  *ngIf="selected === 2">
+                  Wykonanie zamówienia na stronie
+              </p>
+
+              <!-- Kind -->
+              <div class="history-kind" *ngIf="selected === 0">
+                {{ data.ip }}
+              </div>
+
+              <div class="history-kind" *ngIf="selected === 1 || selected === 2">
+                {{ data.ref }}
+              </div>
+
+              <p class="history-time">Godzina: {{ data.time }}</p>
+            </div>
+            
+            <!-- Next Date -->
+            <div class="title-section-global" *ngIf="i === nextDay && dataHistory.length - 1 > nextDay">
+                <button class="show-more" (click)="nextDay = nextDay + 1">
+                    <i class="fas fa-arrow-down"></i>
+                </button>
+            </div>
+            
+          </ng-container>
+        </div>
+        <div *ngIf="dataHistory.length === 0">
+            <p class="history-data">Brak danych</p>
+            <div class="history-overview">
+              <p class="history-name">
+                Brak Danych do wyświetlenia
+              </p>
+            </div>
+        </div>
+      </div>
     </div>
 
   </section>

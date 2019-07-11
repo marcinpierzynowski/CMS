@@ -17,3 +17,8 @@
     50%{background-position:58% 100%}
     100%{background-position:43% 0%}
 }
+
+@keyframes FadeIn {
+    0%{opacity: 0;}
+    100%{opacity: 1;}
+}

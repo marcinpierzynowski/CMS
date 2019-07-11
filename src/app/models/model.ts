@@ -6,7 +6,9 @@ export interface Admin {
     email: string;
     password: string;
     security: boolean;
-    history?: Array<History>;
+    addProducts?: Array<CreatedProduct>;
+    logins?: Array<Login>;
+    realizedOrder?: Array<RealizedOrder>;
     detail: UserDetail;
     date: Date | string;
     media?: SocialMedia;
@@ -27,17 +29,27 @@ export interface SocialMedia {
     linkedIn: string;
 }
 
-export interface History {
+export interface Login {
     data: Date | string;
-    ip: string;
-    name: string;
     time: string;
+    ip: string;
+}
+
+export interface CreatedProduct {
+    data: Date | string;
+    time: string;
+    ref: string;
+}
+
+export interface RealizedOrder {
+    data: Date | string;
+    time: string;
+    ref: string;
 }
 
 /*
 * Notification
 */
-
 export interface GroupNotification {
     name: string;
 }

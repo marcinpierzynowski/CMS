@@ -122,7 +122,6 @@ export class AppSignUpComponent implements OnInit {
       email: this.newDataAccount.value.email,
       password: this.newDataAccount.value.password,
       security: true,
-      history: [],
       detail: {
         imageUrl: 'assets/images/user-empty.png'
       },

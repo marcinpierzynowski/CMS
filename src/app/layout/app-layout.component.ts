@@ -5,7 +5,7 @@ import { FirebaseService } from '../services/firebase.service';
 
 import { fadeInOutTranslate, fadeOutTranslate, zoomOut } from '../../shared/animations/animation';
 import swal from 'sweetalert2';
-import { Admin, Notificactions, Order } from '../models/model';
+import { Admin, Notificactions, Order, Login } from '../models/model';
 import { LayoutManageService } from '../services/layout-manage.service';
 import { DatePipe } from '@angular/common';
 import { CurrentPageService } from '../services/current-page.service';
@@ -36,7 +36,7 @@ export class AppLayoutComponent implements OnInit {
 
   @HostListener('window:resize')
   public onResize(): void {
-    if (window.innerWidth < 540 && this.vissibleLeftPanel) { this.vissibleLeftPanel = false; }
+    if (window.innerWidth < 768 && this.vissibleLeftPanel) { this.vissibleLeftPanel = false; }
     if (window.innerWidth < 540) { this.vissibleOptions = [false, false, false]; }
   }
 
@@ -80,7 +80,7 @@ export class AppLayoutComponent implements OnInit {
   }
 
   public checkPanel(): void {
-    if (window.innerWidth < 540) {
+    if (window.innerWidth < 768) {
       this.vissibleLeftPanel = false;
     } else {
       this.vissibleLeftPanel = true;
@@ -152,8 +152,8 @@ export class AppLayoutComponent implements OnInit {
     // fetch('https://api.ipify.org?format=json')
     //   .then(response => response.json())
     //   .then(data => {
-    //     const history = { name: 'Logowanie', ip: data.ip, data: this.getFullData(), time: this.getFullTime() };
-    //     this.user.history ? this.user.history.push(history) : this.user.history = [history];
+    //     const login: Login = { ip: data.ip, data: this.getFullData(), time: this.getFullTime() };
+    //     this.user.logins ? this.user.logins.push(login) : this.user.logins = [login];
     //     this.firebaseService.getDataBaseRef('admins').set(this.admins);
     //   });
   }
@@ -179,11 +179,11 @@ export class AppLayoutComponent implements OnInit {
     });
   }
 
-  getFullData() {
+  public getFullData(): string {
     return this.datePipe.transform(new Date(), 'yyyy-MM-dd');
   }
 
-  getFullTime() {
+  public getFullTime(): string {
     return this.datePipe.transform(new Date(), 'HH:mm:ss');
   }
 

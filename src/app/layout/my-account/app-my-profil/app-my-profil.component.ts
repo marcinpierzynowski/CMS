@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { LayoutManageService } from 'src/app/services/layout-manage.service';
-import { Admin, History } from 'src/app/models/model';
+import { Admin, CreatedProduct, Login, RealizedOrder } from 'src/app/models/model';
 
 import { fadeInOutTranslate, fadeInDown, fadeOutUp } from '../../../../shared/animations/animation';
 import Swal from 'sweetalert2';
@@ -13,10 +13,7 @@ import Swal from 'sweetalert2';
   animations: [fadeInOutTranslate, fadeInDown, fadeOutUp]
 })
 export class AppMyProfilComponent implements OnInit {
-  checkFromUid: any;
-
   public user: Admin;
-  public history: Array<History>;
   public amountLogins = 0;
   public amountProducts = 0;
   public name = '';
@@ -26,8 +23,10 @@ export class AppMyProfilComponent implements OnInit {
   public textCopy: any;
   public tabCopy: any;
   public visibleClipboardCopy: boolean;
-
-  private timeClipboard;
+  public selectHistory = ['logins', 'addProducts', 'realizedOrder', 'search'];
+  public selected = 0;
+  public dataHistory = [];
+  public nextDay = 0;
 
   constructor(
     private layoutManageService: LayoutManageService
@@ -38,46 +37,9 @@ export class AppMyProfilComponent implements OnInit {
     this.layoutManageService.adminsData.subscribe(ad => {
       if (ad.length > 0) {
         this.user = ad.find(admin => admin.email === email);
+        this.prepareHistory();
       }
     });
-    this.prepareScores();
-  }
-
-  public prepareScores(): void {
-    const user = this.user;
-    if (user.history) {
-      this.history = this.user.history.slice();
-      this.amountLogins = this.history.filter(scr => scr.name === 'Logowanie').length;
-      this.amountProducts = this.history.filter(scr => scr.name === 'Produkt').length;
-    }
-    this.filterData();
-  }
-
-  public filterData(): void {
-    // tslint:disable-next-line:one-variable-per-declaration
-    const n = this.name, t = this.time, d = this.date;
-    const inpVal = [n, t, d];
-    const keys = ['name', 'time', 'data'];
-
-    this.history = this.user.history.filter((his) => {
-      // tslint:disable-next-line:no-shadowed-variable
-      for (let i = 0; i < inpVal.length; i++) {
-        if (inpVal[i] !== '' && his[keys[i]].toLowerCase().includes(inpVal[i].toLowerCase()) === false) {
-         return false;
-        }
-      }
-      return true;
-    });
-
-    // exclude Ip
-    if (this.IP !== '') {
-      this.history = this.history.filter((his) => his.ip !== this.IP);
-    }
-
-    // if all inputs empty
-    if (!inpVal.find(el => el !== '') && this.IP === '') {
-      this.history = this.user.history;
-    }
   }
 
   public showMeIp(): void {
@@ -105,5 +67,51 @@ export class AppMyProfilComponent implements OnInit {
 
   scrollToHistory(ref) {
     ref.scrollIntoView({ behavior: 'smooth' });
+    this.onSelectHistory(3);
+  }
+
+  public onSelectHistory(index: number): void {
+    this.selected = index;
+    this.nextDay = 0;
+    this.prepareHistory();
+  }
+
+  public prepareHistory(): void {
+    const name = this.selectHistory[this.selected];
+    const data: Array<Login | CreatedProduct | RealizedOrder> = this.user[name];
+    if (!data) {
+      this.dataHistory = [];
+      return;
+    }
+    const reverseHistory = [];
+    const history = [{
+        date: new Date(data[0].data),
+        data: []
+    }];
+    let index = 0;
+
+    data.forEach((d, i ) => {
+      const date = new Date(d.data);
+
+      if (history[index].date.getTime() === date.getTime()) {
+        history[index].data.push(d);
+      } else {
+        history[index].data = history[index].data.reverse();
+        index++;
+        history.push({
+          date: new Date(d.data),
+          data: [d]
+        });
+      }
+
+      if (i === data.length - 1) {
+        history[index].data = history[index].data.reverse();
+      }
+    });
+
+    for (let i = history.length - 1; i >= 0; i--) {
+      reverseHistory.push(history[i]);
+    }
+    this.dataHistory = reverseHistory;
   }
 }

@@ -4,11 +4,12 @@ import { FormGroup, FormControl } from '@angular/forms';
 
 import { ProductsManageService } from 'src/app/services/products-manage.service';
 import { FirebaseService } from '../../../services/firebase.service';
-import { Product, Category, AddProduct, StatusProduct } from 'src/app/models/model';
+import { Product, Category, AddProduct, StatusProduct, Admin, CreatedProduct } from 'src/app/models/model';
 
 import { fadeInOutTranslate } from '../../../../shared/animations/animation';
 import swal from 'sweetalert2';
 import { DatePipe } from '@angular/common';
+import { LayoutManageService } from 'src/app/services/layout-manage.service';
 
 @Component({
   selector: 'app-app-add-products',
@@ -29,6 +30,8 @@ export class AppAddProductsComponent implements OnInit {
   public file: UploadFile[] = [];
   public urlName = '';
   public urlSize: number;
+  public user: Admin;
+  public admins: Array<Admin>;
 
   private reader;
   private areaDropTime;
@@ -37,10 +40,19 @@ export class AppAddProductsComponent implements OnInit {
   constructor(
     private firebaseService: FirebaseService,
     private productsManageService: ProductsManageService,
+    private layoutManageService: LayoutManageService,
     private datePipe: DatePipe
     ) {}
 
   ngOnInit(): void {
+    const email = this.layoutManageService.emailData.getValue();
+    this.layoutManageService.adminsData.subscribe(ad => {
+      if (ad.length > 0) {
+        this.admins = ad;
+        this.user = ad.find(admin => admin.email === email);
+      }
+    });
+
     this.productsManageService.productsData.subscribe(prs => this.products = prs);
     this.productsManageService.categoryData.subscribe(cat => this.categories = cat);
     this.productsManageService.addProductData.subscribe(this.statusAddProduct.bind(this));
@@ -79,6 +91,7 @@ export class AppAddProductsComponent implements OnInit {
     if (response.status === StatusProduct.Complete) {
       swal.close();
       swal.fire('Dodanie produktu', 'Produkt został dodany pomyślnie', 'success');
+      this.addHistoryFromUser();
       this.initForm();
       this.stepperSection = 1;
       this.lengthUploadPicture = 0;
@@ -87,6 +100,28 @@ export class AppAddProductsComponent implements OnInit {
       }
       this.prepareDropArea();
     }
+  }
+
+  public addHistoryFromUser(): void {
+    const data: CreatedProduct = {
+      data: this.getFullData(),
+      ref: this.productForm.value.ref,
+      time: this.getFullTime()
+    };
+    let addProducts = this.user.addProducts;
+
+    addProducts ? addProducts.push(data) : addProducts = [data];
+
+    this.user.addProducts = addProducts;
+    this.firebaseService.getDataBaseRef('admins').set(this.admins);
+  }
+
+  public getFullData(): string {
+    return this.datePipe.transform(new Date(), 'yyyy-MM-dd');
+  }
+
+  public getFullTime(): string {
+    return this.datePipe.transform(new Date(), 'HH:mm:ss');
   }
 
   public submitAddProduct(): void {
