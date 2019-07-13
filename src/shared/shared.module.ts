@@ -21,7 +21,7 @@ import { ClipboardModule } from 'ngx-clipboard';
     MatSlideToggleModule,
     MatSelectModule,
     MatCheckboxModule,
-    MatInputModule,
+    MatInputModule
   ]
 })
 export class SharedModule { }

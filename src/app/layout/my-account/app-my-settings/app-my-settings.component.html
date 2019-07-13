@@ -1,97 +1,150 @@
-<div class="card" [@fadeInOutTranslate]>
+<div [@fadeInOutTranslate]>
+    <section class="title-section-global">Ustawienia Konta</section>
+    <main>
+      <!-- Select Card -->
+      <ul>
+        <li (click)="setCard(1)" [class.not-active]="activeCard === 2">
+          Profil
+        </li>
+        <li (click)="setCard(2)" [class.not-active]="activeCard === 1">
+          Hasło
+        </li>
+      </ul>
 
-  <!-- Title -->
-  <div class="title-section">Ustawienia konta</div>
+      <!-- Card View -->
+      <div class="card">
+        
+        <!-- Profile Settings -->
+        <section [@fadeInOutTranslate] *ngIf="activeCard === 1">
+              
+            <div class="profile-settings">
 
-  <!-- Main Card -->
-  <div class="settings-card">
+              <!-- Avatar Image -->
+              <div class="avatar">
+                
+                <!-- Image -->
+                <div>
+                  <img [src]="user.detail.imageUrl"/>
+                </div>
 
-    <!-- Password Section -->
-    <div class="password-section">
+                <!-- Input -->
+                <a (click)="getFile(image)">
+                  Edytuj Zdjęcie
+                </a>
+                <input type="file" #image [style.display]="'none'"  
+                  (change)="uploadImage($event.target)" accept="image/x-png,image/gif,image/jpeg"/>
+              </div>
+              
+              <!-- Basic Data User -->
+              <div class="basic-info">
+                <form autocomplete="off" [formGroup]="profileForm" 
+                (submit)="updateProfile()">
 
-      <!-- Title Password -->
-      <div class="title">Zmiana Hasła</div>
+                    <!-- Name -->
+                    <div>
+                        <label for="profile-name" basic-form>Imię:</label>
+                        <input id="profile-name" basic-form placeholder="Imię"
+                          formControlName="name"/>
+                    </div>
 
-      <div class="underline"></div>
+                    <!-- Surname -->
+                    <div>
+                        <label for="profile-surname" basic-form>Nazwisko:</label>
+                        <input id="profile-surname" basic-form placeholder="Nazwisko"
+                          formControlName="surname"/>
+                    </div>
 
-      <!-- Input Old Password -->
-      <div class="form-contener">
-        <div class="form-center">
-          <mat-form-field class="example-full-width">
-            <input matInput class="input" placeholder="Stare Hasło" [(ngModel)]="oldPassword" type="password"/>
-          </mat-form-field>
-          <span class="logo-input"><i class="fa fa-key"></i></span>
-        </div>
+                    <!-- Email -->
+                    <div>
+                        <label for="profile-email" basic-form>E-mail:</label>
+                        <input id="profile-email" basic-form placeholder="E-mail"
+                          formControlName="email" disabled/>
+                    </div>
+                </form>
+              </div>
+
+              <!-- Additional Data User -->
+              <div class="additional-info">
+                  <form autocomplete="off" [formGroup]="profileForm" 
+                  (submit)="updateProfile()">
+    
+                      <!-- Country -->
+                      <div>
+                          <label for="profile-country" basic-form>Kraj:</label>
+                          <input id="profile-country" basic-form placeholder="Kraj"
+                            formControlName="country"/>
+                      </div>
+    
+                      <!-- City -->
+                      <div>
+                          <label for="profile-city" basic-form>Miasto:</label>
+                          <input id="profile-city" basic-form placeholder="Miasto"
+                            formControlName="city"/>
+                      </div>
+    
+                      <!-- Faceboook -->
+                      <div>
+                          <label for="profile-fb" basic-form>
+                            Facebook:
+                            <span class="fb-profile" icon-form reverse (click)="showNotification()"
+                              ngxClipboard [cbContent]="user.media.facebook">
+                                <i class="fab fa-facebook-f"></i>
+                            </span>
+                          </label>
+                          <input id="profile-fb" basic-form reverse placeholder="Facebook"
+                            formControlName="facebook"/>
+                      </div>
+
+                        <!-- Twitter -->
+                        <div>
+                            <label for="profile-twitter" basic-form>
+                                Twitter:
+                                <span class="tw-profile" icon-form reverse (click)="showNotification()"
+                                  ngxClipboard [cbContent]="user.media.twitter">
+                                    <i class="fab fa-twitter"></i>
+                                </span>
+                              </label>
+                            <input id="profile-twitter" basic-form reverse placeholder="Twitter"
+                              formControlName="twitter"/>
+                        </div>
+
+                          <!-- LinkedIn -->
+                      <div>
+                          <label for="profile-linked" basic-form>
+                              LinkedIn:
+                              <span class="ln-profile" icon-form reverse (click)="showNotification()"
+                                ngxClipboard [cbContent]="user.media.linkedIn">
+                                  <i class="fab fa-linkedin-in"></i>
+                              </span>
+                            </label>
+                          <input id="profile-linked" basic-form reverse placeholder="LinkedIn"
+                            formControlName="linkedIn"/>
+                      </div>
+                  </form>
+              </div>
+            </div>
+
+              <hr/>
+              <!-- Submit Profile-->
+              <div class="submit-profile">
+                  <button info-form (click)="updateProfile()">
+                    Aktualizuj
+                  </button>
+                  <button danger-form (click)="deleteAccount()">
+                    <i class="fas fa-trash-alt"></i>
+                    Usuń Konto
+                  </button>
+              </div>
+        </section>
+
+        <!-- Password Settings -->
+        <section [@fadeInOutTranslate] 
+          class="password-settings" *ngIf="activeCard === 2">
+
+        </section>
+
       </div>
 
-      <!-- Form Change Password -->
-      <form (ngSubmit)="submitChangePassword()" [formGroup]="changePassword" novalidate="true">
-        
-        <!-- New Password -->
-        <div class="form-contener">
-          <div class="form-center">
-            <mat-form-field class="example-full-width">
-              <input matInput class="input" placeholder="Hasło" formControlName="password" type="password"/>
-            </mat-form-field>
-            <span class="logo-input"><i class="fa fa-key"></i></span>
-          </div>
-
-           <!-- Alert Validate -->
-          <div class="text-danger" *ngIf="changePassword.controls.password.errors?.required && changePassword.controls.password.touched"
-            [@fadeInOutTranslate]>
-            Pole nie może być puste!
-          </div>
-          <div class="text-danger" *ngIf="changePassword.controls.password.errors?.pattern && changePassword.controls.password.touched"
-            [@fadeInOutTranslate]>
-            Minimum 8 znaków, przynajmniej jedna litera,
-          </div>
-          <div class="text-danger" *ngIf="changePassword.controls.password.errors?.pattern &&changePassword.controls.password.touched"
-            [@fadeInOutTranslate]>
-            jedna cyfra i jeden znak specjalny
-          </div>
-        </div>
-
-        <!-- Repeat New Password -->
-        <div class="form-contener">
-          <div class="form-center">
-            <mat-form-field class="example-full-width">
-              <input matInput class="input" placeholder="Powtórz Hasło" formControlName="repeatPassword" type="password"/>
-            </mat-form-field>
-            <span class="logo-input"><i class="fa fa-key"></i></span>
-          </div>
-
-          <!-- Alert Validate -->
-          <div class="text-danger" *ngIf="changePassword.controls.repeatPassword.errors?.required &&changePassword.controls.repeatPassword.touched"
-            [@fadeInOutTranslate]>
-            Pole nie może być puste!
-          </div>
-          <div class="text-danger" *ngIf="changePassword.controls.repeatPassword.errors?.equalTo && changePassword.controls.repeatPassword.touched"
-            [@fadeInOutTranslate]>
-            Hasła muszą się zgadzać!
-          </div>
-        </div>
-
-        <!-- Submit New Password -->
-        <div class="form-submit">
-          <button type="submit" mat-raised-button style="background-color:#6c757d; width: 120px;margin-top: 20px;color:white;">
-            Zmień
-          </button>
-        </div>
-
-      </form>
-    </div>
-
-    <!-- Notification Section -->
-    <div class="notification-security-contener">
-      <h6>
-        <b>
-          Ustawienia wyświetlania powiadomienia o bezpieczeństwie strony panelu zarządzającego sklepem:
-        </b>
-      </h6>
-      <mat-slide-toggle class="example-margin" [color]="'primary'" [(ngModel)]="activeNotificationSecurity" (change)="setSecurity()">
-        {{ activeNotificationSecurity ? "Aktywne" : "Nieaktywne" }}
-      </mat-slide-toggle>
-    </div>
-
-  </div>
+    </main>
+    
 </div>

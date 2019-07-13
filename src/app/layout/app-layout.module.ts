@@ -24,6 +24,9 @@ import { CurrentPageService } from '../services/current-page.service';
 import { OrdersManageService } from '../services/orders-manage.service';
 import { ProductsManageService } from '../services/products-manage.service';
 import { MessagesManageService } from '../services/messages-manage.service';
+import { DatepickerRangeComponent } from 'src/shared/components/datepicker-range/datepicker-range.component';
+import { MultipleComponent } from 'src/shared/components/multiple/multiple.component';
+import { NotificationComponent } from 'src/shared/components/notification/notification.component';
 
 @NgModule({
     declarations: [
@@ -42,7 +45,10 @@ import { MessagesManageService } from '../services/messages-manage.service';
       AppEvaluationComponent,
       AppSliderComponent,
       AppPromotionComponent,
-      CurrentPageComponent
+      CurrentPageComponent,
+      DatepickerRangeComponent,
+      MultipleComponent,
+      NotificationComponent
     ],
     imports: [
       CommonModule,

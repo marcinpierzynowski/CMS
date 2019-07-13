@@ -1,0 +1,212 @@
+/*================
+  GLOBAL STYLES FORMS
+
+  1. INPUTS
+  2. LABELS
+  3. BUTTONS
+  4. OTHERS
+
+  AUTHOR: MARCIN PIERZYNOWSKI
+  ================*/
+
+/*==========================
+  1. INPUTS
+===========================*/
+
+/*
+* Global Input
+*/
+input:disabled {
+    border-color: #dfe3e9 !important;
+    background-color: #e6eaee !important;
+    color: rgba(53,64,82,.5) !important;
+    cursor: not-allowed !important;
+}
+
+/*
+* Basic Input
+*/
+input[basic-form] {
+    display: block;
+    width: 100%;
+    margin: 0;
+    padding: 8px 35px 8px 10px;
+    transition: all .3s;
+    border: 1px solid #dfe3e9;
+    border-radius: 4px;
+    background-color: #fff;
+    color: #354052;
+    font-size: .875rem;
+    font-weight: 400;
+    resize: none;
+    height: 40px;
+}
+
+input[reverse] {
+    padding: 8px 10px 8px 40px;
+}
+
+input[basic-form]:focus {
+    border-color: #2ea1f8;
+    outline: none;
+}
+
+input[basic-form]::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color: #cccfd4;
+}
+
+input[basic-form]::-moz-placeholder { /* Firefox 19+ */
+    color: #cccfd4;
+}
+
+input[basic-form]:-moz-placeholder { /* Firefox 18- */
+    color: #cccfd4;
+}
+
+input[basic-form]:focus::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    opacity: 0.5;
+}
+
+input[basic-form]:focus::-moz-placeholder { /* Firefox 19+ */
+    opacity: 0.5;
+}
+
+input[basic-form]:focus:-moz-placeholder { /* Firefox 18- */
+    opacity: 0.5;
+}
+
+/*==========================
+  2. LABELS
+===========================*/
+
+/*
+* Basic Label
+*/
+label[basic-form] {
+    position: relative;
+    display: block;
+    -ms-flex-preferred-size: 100%;
+    flex-basis: 100%;
+    margin: 0 0 5px 10px; 
+    color: #7f8fa4;
+    font-size: .875rem;
+    font-weight: 400;
+}
+
+label[basic-form] span[icon-form] {
+    position: absolute;
+    top: 26px;
+    font-size: 18px;
+    right: 0px;
+    height: 40px;
+    display: flex;
+    width: 35px;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(180deg,#fff,#f2f4f7);
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    border: 1px solid #dfe3e9;
+}
+
+label[basic-form] span[reverse] {
+    left: -10px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+label[basic-form] span[icon-form]:hover {
+    cursor: pointer;
+}
+
+/*===================================
+    3.BUTTONS
+===================================*/
+
+/*
+* Global
+*/
+button[info-form],
+button[secondary-form], 
+button[primary-form],
+button[danger-form] {
+    transition: all .15s ease-in-out;
+    border: 1px solid;
+    border-radius: 4px;
+    margin: 0;
+    padding: .5rem 1.25rem;
+    font-size: .875rem;
+    font-weight: 400;
+}
+
+button[info-form],
+button[secondary-form]:hover,
+button[primary-form]:hover,
+button[danger-form]:hover {
+    outline: 0;
+    cursor: pointer;
+}
+
+/*
+* Info
+*/
+button[info-form] {
+    background: linear-gradient(180deg,#1a98f7,#1485db);
+    border-color: #1a91eb;
+    color: #fff;
+}
+
+button[info-form]:hover {
+    background: linear-gradient(180deg,#1a98f7,#0e79ca);;
+}
+
+/*
+* Secondary
+*/
+button[secondary-form] {
+    background: linear-gradient(180deg,#fff,#f2f4f7);
+    border-color: #dfe3e9;
+    color: #354052;
+}
+
+button[secondary-form]:hover {
+    background: linear-gradient(180deg,#fcfcfc,#eceff3);
+}
+
+/*
+* Primary
+*/
+button[primary-form] {
+    background: linear-gradient(180deg,#475364,#273142);
+    color: #fff;
+}
+
+button[primary-form]:hover {
+    background: linear-gradient(180deg,#3f4958,#151b24);
+}
+
+/*
+* Danger
+*/
+button[danger-form] {
+    background: linear-gradient(180deg,#f95359,#d35847);
+    color: #fff;
+    border-color: #d35847;
+}
+
+button[danger-form]:hover {
+    background: linear-gradient(180deg,#f83f46,#cf4937);
+}
+
+/*===================================
+    4.OTHER
+===================================*/
+
+/*
+* Basic Small Text
+*/
+span[small-text-form] {
+    font-size: 11px;
+}

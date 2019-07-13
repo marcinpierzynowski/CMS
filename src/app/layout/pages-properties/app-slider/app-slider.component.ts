@@ -101,9 +101,9 @@ export class AppSliderComponent implements OnInit {
 
   generateSwalWaitingFromRequest(type, title, text) {
     swal.fire({
-      type: type,
-      title: title,
-      text: text,
+      type,
+      title,
+      text,
       allowOutsideClick: false,
       onBeforeOpen: () => {
         const content = swal.getContent();

@@ -112,6 +112,9 @@
 
 .spinner-pos {
   z-index: 1;
+  margin: 0;
+  top: 0;
+  right: 0%;
 }
 
 .eye-password:hover {
@@ -171,8 +174,7 @@
     width: 400px;
   }
 
-  .eye-password,
-  .spinner-pos {
+  .eye-password {
     right: 20%;
   }
 }
@@ -202,8 +204,7 @@
     font-size: 12px;
   }
 
-  .eye-password,
-  .spinner-pos {
+  .eye-password {
     right: 5%;
   }
 

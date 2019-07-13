@@ -98,6 +98,8 @@
 
 .spinner-pos {
   z-index: 1;
+  right: 0%;
+  margin: 0;
 }
 
 .eye-password:hover {

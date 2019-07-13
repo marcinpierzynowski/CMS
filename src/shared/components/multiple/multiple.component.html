@@ -1,0 +1,27 @@
+<main>
+
+    <section tabindex="0" #sel (focus)="show()" (focusout)="hide()">
+  
+        <!-- Placeholder -->
+        <p *ngIf="vissibleText">{{ text }}</p>
+        
+        <!-- List -->
+        <ul *ngIf="vissible && list" class="contain-options">
+          <li *ngFor="let el of list; let i = index" [class.selected]="el.selected"
+           (click)="select(i)">
+          {{ el.name }}
+        </li>
+        </ul>
+      
+      </section>
+      
+      <div class="list-selected" *ngIf="listSelected.length > 0">
+        <!-- List Selected -->
+        <span (click)="active(sel)" *ngFor="let list of listSelected;">
+          {{ list.name }}
+          <i class="fas fa-times" (click)="select(list.id); $event.stopPropagation()"></i>
+        </span>
+      </div>
+
+</main>
+

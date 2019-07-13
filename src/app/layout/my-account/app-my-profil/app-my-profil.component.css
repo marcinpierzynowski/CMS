@@ -19,7 +19,7 @@
 
 @media screen and (min-width: 1200px) {
   .cards {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 50% 50%;
   }
 }
 
@@ -386,7 +386,6 @@
   border-radius: 2.5px;
 }
 
-
 .history-data {
   color: #7f8fa4;
   font-size: 14px;
@@ -477,4 +476,51 @@
 .show-more:hover {
   transition: all .45s ease-in-out;
   background: linear-gradient(180deg,#1a98f7,#0960a3);
+}
+
+/*
+* Advanced History
+*/
+
+.advanced-history > h4 {
+  font-size: 22px;
+  margin-top: 15px;
+  text-align: left;
+  color: #354052;
+  font-weight: 300;
+}
+
+.advanced-history form {
+  margin-top: 40px;
+}
+
+.advanced-history form > div {
+  margin: 20px 0;
+}
+
+/*
+* Records
+*/
+.records > h4 {
+  font-size: 22px;
+  margin-top: 15px;
+  text-align: left;
+  color: #1990ea;
+  display: flex;
+  align-items: center;
+  font-weight: 300;
+  margin-bottom: 40px;
+}
+
+.records > h4 {
+  cursor: pointer;
+}
+
+.records > h4 > i {
+  font-size: 14px;
+  margin-right: 5px;
+}
+
+.filter-name {
+  font-size: 18px;
 }

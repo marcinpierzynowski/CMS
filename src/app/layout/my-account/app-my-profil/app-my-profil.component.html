@@ -153,11 +153,11 @@
       <!-- List History -->
       <div class="list-history">
         
-        <div class="history-detail" *ngFor="let history of dataHistory; let i = index">
+        <div [@fadeInOutTranslate] class="history-detail" *ngFor="let history of dataHistory; let i = index">
           <ng-container *ngIf="i <= nextDay">
 
             <!-- Date -->
-            <p class="history-data">{{ i === 0 ? 'Dzisiaj' : history.date | date: 'yyyy-MM-dd' }}</p>
+            <p class="history-data">{{ history.date | date: 'yyyy-MM-dd' }}</p>
             
             <!-- Details -->
             <div class="history-overview" *ngFor="let data of history.data; let j = index"
@@ -202,13 +202,142 @@
             
           </ng-container>
         </div>
-        <div *ngIf="dataHistory.length === 0">
+
+        <!-- Empty Data -->
+        <div [@fadeInOutTranslate] *ngIf="dataHistory.length === 0 && selected < 3">
             <p class="history-data">Brak danych</p>
             <div class="history-overview">
               <p class="history-name">
                 Brak Danych do wyświetlenia
               </p>
             </div>
+        </div>
+
+        <div class="advanced-history" *ngIf="selected === 3">
+          
+          <!-- Title -->
+          <h4 [@fadeInOutTranslate] *ngIf="!showRecords">Szukanie Zaawansowane</h4>
+          
+          <form [@fadeInOutTranslate] autocomplete="off" [formGroup]="form" 
+            (submit)="search()" *ngIf="!showRecords">
+            
+            <!-- Input Search Date -->
+            <div>
+                <label for="ip-login" basic-form>
+                  Data:
+                  <span icon-form>
+                      <i class="far fa-calendar-alt"></i>
+                  </span>
+                </label>
+                <input id="ip-login" basic-form placeholder="Data" readonly
+                  [value]="form.value.from + (form.value.to ? ' - ' + form.value.to : '')"
+                  (click)="toggleCalendar($event)"/>
+                  <app-datepicker-range *ngIf="calendarVissible" (clearCalendar)="clearCalendar()"
+                    (toggleCalendar)="toggleCalendar($event)" (setDate)="setDate($event[0],$event[1])"
+                    [curDateFrom]="dateFrom" [curDateTo]="dateTo">
+                  </app-datepicker-range>
+            </div>
+
+            <!-- Input Multiple -->
+            <div>
+                <label for="options" basic-form>Opcje Szukania:</label>
+                <app-multiple [list]="listMultiple" id="options"></app-multiple>
+            </div>
+
+             <!-- Input Excluded IP -->
+             <div *ngIf="listMultiple[0].selected">
+              <label for="ip-login" basic-form>
+                Wykluczone IP:
+                <span small-text-form>(Logowania)</span>
+              </label>
+              <input id="ip-login" basic-form placeholder="Wykluczone IP"
+                formControlName="excludeIp"/>
+              </div>
+
+            <!-- Input Search Ref Products -->
+            <div *ngIf="listMultiple[1].selected">
+                <label for="ip-login" basic-form>
+                  Numer produktu:
+                  <span small-text-form>(Produkty)</span>
+                </label>
+                <input id="ip-login" basic-form placeholder="Numer referencyjny"
+                  formControlName="refProduct"/>
+            </div>
+
+            <!-- Input Search Ref Products -->
+            <div *ngIf="listMultiple[2].selected">
+                <label for="ip-login" basic-form>
+                  Numer zamówienia:
+                  <span small-text-form>(Zamówienia)</span>
+                </label>
+                <input id="ip-login" basic-form placeholder="Numer referencyjny"
+                  formControlName="refOrder"/>
+            </div>
+
+            <!-- Input Search Time -->
+            <div>
+                <label for="ip-login" basic-form>Godzina:</label>
+                <input id="ip-login" basic-form placeholder="00:00:00"
+                  formControlName="time"/>
+            </div>
+
+            <!-- Submit Form -->
+            <div>
+              <button type="submit" secondary-form>Szukaj</button>
+              <button [style.margin-left]="'10px'" type="button" (click)="showMeIp()" primary-form>Moje IP</button>
+            </div>
+
+          </form>
+
+          <div class="records" [@fadeInOutTranslate] *ngIf="showRecords">
+            
+            <!-- Return To Form -->
+            <h4 (click)="showRecords = false" >
+              <i class="fas fa-undo-alt"></i> 
+              Powrót
+            </h4>
+
+            <!-- Filter History -->
+            <div [@fadeInOutTranslate] class="history-detail" *ngFor="let rec of records; let i = index">
+              <!-- Date -->
+              <p class="history-data filter-name" *ngIf="rec.data.length > 0">{{ rec.name }}</p>
+              
+              <!-- Details -->
+              <div class="history-overview" *ngFor="let data of rec.data; let j = index"
+                [class.overview-outside-start]="j === 0" [class.overview-outside-end]="j === rec.data.length - 1">
+                
+                <!-- Line -->
+                <div class="line-history" *ngIf="j < rec.data.length - 1 && rec.data.length > 1"></div>
+                
+                <!-- Data -->
+                <p class="history-name">
+                  {{ data.data }}
+                </p>
+  
+                <!-- Kind -->
+                <div class="history-kind" *ngIf="rec.dataKey === 'ip'">
+                  {{ data.ip }}
+                </div>
+  
+                <div class="history-kind" *ngIf="rec.dataKey === 'ref'">
+                  {{ data.ref }}
+                </div>
+  
+                <p class="history-time">Godzina: {{ data.time }}</p>
+              </div>
+            </div>
+
+            <!-- Empty Data -->
+            <div [@fadeInOutTranslate] *ngIf="records.length === 0">
+              <p class="history-data">Brak danych</p>
+              <div class="history-overview">
+                <p class="history-name">
+                  Brak Danych do wyświetlenia
+                </p>
+              </div>
+            </div>
+          </div>
+          
         </div>
       </div>
     </div>

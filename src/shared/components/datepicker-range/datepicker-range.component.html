@@ -1,0 +1,86 @@
+<nav class="date-picker-range" (click)="$event.stopImmediatePropagation()">
+
+  <!-- Headers -->
+  <header>
+    <i class="fas fa-chevron-left" (click)="onClickPrevMonth()"></i>
+    <h4>
+      {{ leftCalDate | date:'MMMM' + ' - ' }}{{ leftCalYear }}
+    </h4>
+
+    <!-- Desktop -->
+    <h4 data="desktop">
+      {{ rightCalDate | date:'MMMM' + ' - ' }}{{ rightCalYear }}
+    </h4>
+
+    <i class="fas fa-chevron-right" (click)="onClickNextMonth()"></i>
+  </header>
+
+  <!-- Calendar Contain -->
+  <main>
+
+    <!-- Prev Month Left Calendar -->
+    <section class="days">
+        <table>
+            <tr>
+              <th *ngFor="let day of allDaysWeek">{{ day }}</th>
+            </tr>
+            <tr *ngFor="let week of leftCalWeeks">
+              <td (click)="choseDayCal(day, 'left')"*ngFor="let day of week.week"
+                 [ngClass]="{currently: day.current}">
+                {{ day.date | date:'dd' }}
+                <div class="prev choosen" *ngIf="day.dateFrom">
+                  {{ day.date | date:'dd' }}
+                </div>
+                <div class="next choosen" *ngIf="day.dateTo">
+                  {{ day.date | date:'dd' }}
+                </div>
+                 <div class="between-range" *ngIf="day.betweenPrevNext && !day.dateFrom && !day.dateTo">
+                  {{ day.date | date:'dd' }}
+                </div>
+              </td>
+            </tr>
+          </table>
+    </section>
+
+    <!-- Desktop Divider Left & Right Calendar -->
+    <div data="desktop" class="divider"></div>
+
+    <!-- Desktop Right Calendar Next Month -->
+    <section class="days" data="desktop">
+        <table>
+            <tr>
+              <th *ngFor="let day of allDaysWeek">{{ day }}</th>
+            </tr>
+            <tr *ngFor="let week of rightCalWeeks">
+              <td (click)="choseDayCal(day, 'right')"*ngFor="let day of week.week"
+                 [ngClass]="{currently: day.current}">
+                {{ day.date | date:'dd' }}
+                 <div class="between-range" *ngIf="day.betweenPrevNext">
+                  {{ day.date | date:'dd' }}
+                </div>
+                <div class="prev choosen" *ngIf="day.dateFrom">
+                  {{ day.date | date:'dd' }}
+                </div>
+                <div class="next choosen" *ngIf="day.dateTo">
+                  {{ day.date | date:'dd' }}
+                </div>
+              </td>
+            </tr>
+          </table>
+    </section>
+  </main>
+
+  <hr/>
+
+  <!-- Footer Data & Options -->
+  <footer>
+    <p>
+      {{ dateFrom | date: 'dd-MM-yyyy' }}
+      {{ dateTo ? ' - ' : '' }}
+      {{ dateTo | date: 'dd-MM-yyyy' }}
+    </p>
+    <button data="reset" (click)="onClickCancel()">Clear & Close</button>
+    <button data="apply" (click)="onClickSubmit()">Apply</button>
+  </footer>
+
+</nav>

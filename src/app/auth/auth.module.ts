@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 
 import { AuthRoutes } from './auth.routing';
 import { SharedModule } from 'src/shared/shared.module';
@@ -19,6 +19,7 @@ import { AppResetPasswordComponent } from './app-reset-password/app-reset-passwo
       CommonModule,
       SharedModule,
       AuthRoutes
-    ]
+    ],
+    providers: [DatePipe]
 })
 export class AuthModule {}

@@ -1,0 +1,240 @@
+nav.date-picker-range {
+    position: absolute;
+    background-color: #fff;
+    right: 46px;
+    width: 300px;
+    font-family: 'oxygen';
+    font-size: 12px;
+    box-shadow: 3px 3px 5px 6px #ccc;
+    padding-bottom: 10px;
+    z-index: 1;
+    border-radius: 2px;
+    font-family: Source Sans Pro,sans-serif;
+  }
+
+  nav.date-picker-range header {
+    position: relative;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+  }
+
+  nav.date-picker-range header h4 {
+    color: #354052;
+    margin: 0;
+    font-size: 16px;
+  }
+
+  nav.date-picker-range header h4[data="desktop"] {
+    display: none;
+  }
+
+  nav.date-picker-range header i {
+    color: #354052;
+  }
+
+  nav.date-picker-range header i:hover {
+    cursor: pointer;
+  }
+
+  nav.date-picker-range main {
+    width: 280px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  nav.date-picker-range main section.days table {
+    width: 100%;
+  }
+
+  nav.date-picker-range main section.days table tr {
+    height: 35px;
+    align-items: center;
+  }
+
+  nav.date-picker-range main section.days table tr th {
+    padding: 5px;
+    width: 40px;
+  }
+
+  nav.date-picker-range main section.days table tr td {
+    position: relative;
+    width: 40px;
+    text-align: center;
+  }
+
+  nav.date-picker-range main section.days table tr td span {
+    font-size: 12px;
+  }
+
+  nav.date-picker-range main section.days table tr td .choosen {
+    background: linear-gradient(180deg,#2ea1f8,#1990ea);
+    padding: 8px;
+    height: 36px;
+    width: 42px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+    color: #fff;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  nav.date-picker-range main section.days table tr td .prev {
+    border-top-left-radius: 25%;
+    border-bottom-left-radius: 25%;
+  }
+
+  nav.date-picker-range main section.days table tr td .next {
+    border-top-right-radius: 25%;
+    border-bottom-right-radius: 25%;
+  }
+
+  nav.date-picker-range main section.days table tr td .between-range {
+    background-color: #eff3f6;
+    padding: 8px;
+    height: 36px;
+    width: 42px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  nav.date-picker-range main section.days table tr td:not(.currently) {
+    color: #ababab;
+  }
+
+  nav.date-picker-range main section.days table tr td.currently {
+    color: #727272;
+  }
+
+  nav.date-picker-range main section.days table tr td:hover {
+    cursor: pointer;
+  }
+
+  nav.date-picker-range main .divider {
+    position: absolute;
+    height: 200px;
+    background-color: #eee;
+    width: 1px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  nav.date-picker-range main *[data="desktop"] {
+    display: none;
+  }
+  
+  nav.date-picker-range hr {
+    margin: 15px 0 10px 0;
+  }
+
+  nav.date-picker-range footer {
+    display: grid;
+    justify-content: center;
+    grid-gap: 0 50px;
+    grid-template-areas: "date date" "reset apply";
+  }
+
+  nav.date-picker-range footer p {
+    text-align: center;
+    margin-top: 5px;
+    grid-area: date;
+    color: #5d5d5d;
+  }
+
+  nav.date-picker-range footer button {
+    color: #fff;
+    font-size: 12px;
+    padding: 5px;
+    border-radius: 1px;
+    width: 100px;
+  }
+
+  nav.date-picker-range footer button[data="reset"] {
+    background: linear-gradient(180deg, #fff, #f2f4f7);
+    border: 1px solid #dfe3e9;
+    grid-area: reset;
+    color: #354052;
+    border-radius: 2px;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+
+  nav.date-picker-range footer button[data="apply"] {
+    background: linear-gradient(180deg,#2ea1f8,#1990ea);
+    grid-area: apply;
+    border: 1px solid #1a91eb;
+    border-radius: 2px;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+
+  button:hover {
+    cursor: pointer;
+  }
+
+  @media screen and (min-width: 768px) {
+    nav.date-picker-range {
+      width: 640px;
+    }
+
+    nav.date-picker-range header i {
+      position: absolute;
+    }
+
+    nav.date-picker-range header i:nth-child(1) {
+      left: 20px;
+    }
+
+    nav.date-picker-range header i:nth-last-child(1) {
+      right: 20px;
+    }
+    
+    nav.date-picker-range header h4[data="desktop"] {
+      display: initial;
+    }
+
+    nav.date-picker-range main {
+      width: calc(280px * 2);
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-gap: 0 40px;
+    }
+    
+    nav.date-picker-range main *[data="desktop"] {
+      display: initial;
+    }
+    
+    nav.date-picker-range footer {
+      display: grid;
+      justify-content: right;
+      grid-gap: 10px;
+      align-items: center;
+      padding: 0 10px;
+      grid-template-areas: "date reset apply";
+    }
+
+    nav.date-picker-range footer p {
+      margin: 0;
+      margin-right: 10px;
+    }
+    
+    nav.date-picker-range footer button {
+      width: 120px;
+    }
+  }
+  

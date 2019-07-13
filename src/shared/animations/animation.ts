@@ -65,6 +65,19 @@ export const fadeInDown = trigger('fadeInDown', [
   )
 ]);
 
+export const fadeInUp = trigger('fadeInUp', [
+  transition(
+    ':enter',
+    animate(
+      '400ms ease-in',
+      keyframes([
+        style({ transform: 'translate3d(0, 100%, 0)', opacity: 0 }),
+        style({ transform: 'translate3d(0, 0, 0)', opacity: 1 })
+      ])
+    )
+  )
+]);
+
 export const fadeOutUp = trigger('fadeOutUp', [
   transition(
     ':leave',
@@ -73,6 +86,19 @@ export const fadeOutUp = trigger('fadeOutUp', [
       keyframes([
         style({ opacity: 1 }),
         style({ transform: 'translate3d(0, -100%, 0)', opacity: 0 })
+      ])
+    )
+  )
+]);
+
+export const fadeOutDown = trigger('fadeOutDown', [
+  transition(
+    ':leave',
+    animate(
+      '400ms ease-in',
+      keyframes([
+        style({ opacity: 1 }),
+        style({ transform: 'translate3d(0, 100%, 0)', opacity: 0 })
       ])
     )
   )

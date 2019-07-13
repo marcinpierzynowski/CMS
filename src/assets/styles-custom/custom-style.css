@@ -49,3 +49,10 @@ section.animate-background {
   content: "";
   width: 42%;
 }
+
+hr {
+  background:#dfdcdc;
+  border: 0;
+  height: 1px;
+  margin: 22px 0;
+}

@@ -25,7 +25,7 @@ export class AppResetPasswordComponent implements OnInit {
     this.authorizedLogin();
     const email: FormControl = new FormControl('', [Validators.required, Validators.email]);
     this.resetPassword = new FormGroup({
-      email: email
+      email
     });
   }
 

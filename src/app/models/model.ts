@@ -5,7 +5,6 @@
 export interface Admin {
     email: string;
     password: string;
-    security: boolean;
     addProducts?: Array<CreatedProduct>;
     logins?: Array<Login>;
     realizedOrder?: Array<RealizedOrder>;

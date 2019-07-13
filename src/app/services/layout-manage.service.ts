@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 import { FirebaseService } from './firebase.service';
@@ -12,6 +12,7 @@ export class LayoutManageService {
     public notificationsData: BehaviorSubject<Array<Notificactions>> = new BehaviorSubject(null);
     public emailData: BehaviorSubject<string> = new BehaviorSubject(null);
     public tasksData: BehaviorSubject<Array<Task>> = new BehaviorSubject([]);
+    public notification: EventEmitter<any> = new EventEmitter();
 
     constructor(private firebaseService: FirebaseService) {
         this.init();
@@ -108,7 +109,9 @@ export class LayoutManageService {
         this.readyData.next(true);
     }
 
-
+    public showNotification() {
+        this.notification.emit();
+    }
 
     set email(email: string) { this.emailData.next(email); }
 }
