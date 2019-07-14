@@ -221,6 +221,7 @@ export class AppLayoutComponent implements OnInit {
   }
 
   public get sumNotification(): number {
+    if (!this.notifications) { return 0; }
     const not = this.notifications[this.notifications.length - 1];
     return not.messages + not.evaluations + not.comments;
   }
