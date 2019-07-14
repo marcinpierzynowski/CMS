@@ -4,12 +4,13 @@ import { FormGroup, FormControl } from '@angular/forms';
 
 import { ProductsManageService } from 'src/app/services/products-manage.service';
 import { FirebaseService } from '../../../services/firebase.service';
-import { Product, Category, AddProduct, StatusProduct, Admin, CreatedProduct } from 'src/app/models/model';
 
 import { fadeInOutTranslate } from '../../../../shared/animations/animation';
 import swal from 'sweetalert2';
 import { DatePipe } from '@angular/common';
 import { LayoutManageService } from 'src/app/services/layout-manage.service';
+import { Admin, CreatedProduct } from 'src/app/models/admin.model';
+import { Product, Category, AddProduct, StatusProduct } from 'src/app/models/product.model';
 
 @Component({
   selector: 'app-app-add-products',

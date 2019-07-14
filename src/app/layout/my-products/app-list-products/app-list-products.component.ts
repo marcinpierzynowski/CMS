@@ -5,7 +5,7 @@ import { FirebaseService } from '../../../services/firebase.service';
 
 import swal from 'sweetalert2';
 import { ProductsManageService } from 'src/app/services/products-manage.service';
-import { Product, Image } from 'src/app/models/model';
+import { Product, Image } from 'src/app/models/product.model';
 
 @Component({
   selector: 'app-app-list-products',

@@ -83,7 +83,7 @@
                 <label for="profile-fb" basic-form>
                   Facebook:
                   <span class="fb-profile" icon-form reverse (click)="showNotification()" ngxClipboard
-                    [cbContent]="user.media.facebook">
+                    [cbContent]="user.media?.facebook">
                     <i class="fab fa-facebook-f"></i>
                   </span>
                 </label>
@@ -95,7 +95,7 @@
                 <label for="profile-twitter" basic-form>
                   Twitter:
                   <span class="tw-profile" icon-form reverse (click)="showNotification()" ngxClipboard
-                    [cbContent]="user.media.twitter">
+                    [cbContent]="user.media?.twitter">
                     <i class="fab fa-twitter"></i>
                   </span>
                 </label>
@@ -107,7 +107,7 @@
                 <label for="profile-linked" basic-form>
                   LinkedIn:
                   <span class="ln-profile" icon-form reverse (click)="showNotification()" ngxClipboard
-                    [cbContent]="user.media.linkedIn">
+                    [cbContent]="user.media?.linkedIn">
                     <i class="fab fa-linkedin-in"></i>
                   </span>
                 </label>

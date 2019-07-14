@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 
 import { MessagesManageService } from 'src/app/services/messages-manage.service';
 import { FirebaseService } from '../../../services/firebase.service';
-import { Message } from 'src/app/models/model';
 
 import swal from 'sweetalert2';
 import { fadeInOutTranslate } from '../../../../shared/animations/animation';
+import { Message } from 'src/app/models/message.model';
 
 @Component({
   selector: 'app-app-new-messages',

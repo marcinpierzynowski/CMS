@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 import { FirebaseService } from './firebase.service';
-import { Comment, Evaluation } from '../models/model';
+import { Evaluation, Comment } from '../models/notification.model';
 
 @Injectable()
 export class NotificationsManageService {

@@ -5,7 +5,7 @@ import { FirebaseService } from '../../../services/firebase.service';
 
 import swal from 'sweetalert2';
 import { MessagesManageService } from 'src/app/services/messages-manage.service';
-import { Message } from 'src/app/models/model';
+import { Message } from 'src/app/models/message.model';
 
 @Component({
   selector: 'app-app-received-messages',

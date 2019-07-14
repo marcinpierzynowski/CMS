@@ -1,17 +1,20 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { LayoutManageService } from 'src/app/services/layout-manage.service';
-import { Admin, Product, Message, Task } from 'src/app/models/model';
+import { Task } from 'src/app/models/model';
 import { Chart } from 'chart.js';
+import { Admin } from 'src/app/models/admin.model';
 
 import { fadeInOutTranslate } from '../../../shared/animations/animation';
 import { ProductsManageService } from 'src/app/services/products-manage.service';
 import { MessagesManageService } from 'src/app/services/messages-manage.service';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import Swal from 'sweetalert2';
+import { Product } from 'src/app/models/product.model';
+import { Message } from 'src/app/models/message.model';
 
 @Component({
-  selector: 'app-app-dashboard',
+  selector: 'app-dashboard',
   templateUrl: './app-dashboard.component.html',
   styleUrls: ['./app-dashboard.component.css'],
   animations: [fadeInOutTranslate]

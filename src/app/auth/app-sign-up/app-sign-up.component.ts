@@ -8,8 +8,8 @@ import { FirebaseService } from '../../services/firebase.service';
 import { fadeInOutTranslate, flipInX } from '../../../shared/animations/animation';
 import swal from 'sweetalert2';
 import { LayoutManageService } from 'src/app/services/layout-manage.service';
-import { Admin } from 'src/app/models/model';
 import { DatePipe } from '@angular/common';
+import { Admin } from 'src/app/models/admin.model';
 
 @Component({
   selector: 'app-app-sign-up',
@@ -110,6 +110,7 @@ export class AppSignUpComponent implements OnInit {
   }
 
   public continuedRegistration(): void {
+    this.layoutManageService.email = this.newDataAccount.value.email;
     this.admins.push(this.prepareAdmin());
     this.firebaseService.getDataBaseRef('admins').set(this.admins);
     this.saveToStorage();
@@ -126,7 +127,7 @@ export class AppSignUpComponent implements OnInit {
         imageName: this.newDataAccount.value.email
       },
       // tslint:disable-next-line:object-literal-shorthand
-      date: date
+      created_at: date
     };
   }
 

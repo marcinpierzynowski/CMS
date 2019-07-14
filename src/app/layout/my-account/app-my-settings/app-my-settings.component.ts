@@ -5,11 +5,11 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CustomValidators } from 'ng2-validation';
 import swal from 'sweetalert2';
 import { LayoutManageService } from 'src/app/services/layout-manage.service';
-import { Admin } from 'src/app/models/model';
 import { Router } from '@angular/router';
+import { Admin } from 'src/app/models/admin.model';
 
 @Component({
-  selector: 'app-app-my-settings',
+  selector: 'app-my-settings',
   templateUrl: './app-my-settings.component.html',
   styleUrls: ['./app-my-settings.component.css'],
   animations: [fadeInOutTranslate]

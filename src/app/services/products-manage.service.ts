@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 import { FirebaseService } from './firebase.service';
-import { Product, Category, AddProduct, StatusProduct, Image } from '../models/model';
+import { Product, Category, Image, AddProduct, StatusProduct } from '../models/product.model';
 
 @Injectable()
 export class ProductsManageService {
@@ -72,6 +72,7 @@ export class ProductsManageService {
         const keys = Object.keys(data);
         const preData = [];
 
+        // tslint:disable-next-line:prefer-for-of
         for (let i = 0; i < keys.length; i++) {
             preData.push(data[keys[i]]);
         }

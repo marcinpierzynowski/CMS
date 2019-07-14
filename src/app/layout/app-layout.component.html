@@ -121,7 +121,7 @@
       </div>
 
       <!-- Administratorzy -->
-      <div class="menu-item" [class.active-menu-item]="url === '/list-users'" routerLink="/list-users"
+      <div class="menu-item" [class.active-menu-item]="url === '/list-admins'" routerLink="/list-admins"
         [style.justify-content]="vissibleLeftPanel ? 'initial' : 'center'">
         <div [class.active]="url === '/list-users'" class="section-item"></div>
         <div class="item" [style.paddingLeft]="vissibleLeftPanel ? '15px' : '0px'">
@@ -131,7 +131,7 @@
       </div>
 
       <!-- Klienci -->
-      <div class="menu-item" [class.active-menu-item]="url === '/list-customers'" routerLink="/my-customers"
+      <div class="menu-item" [class.active-menu-item]="url === '/list-customers'" routerLink="/list-customers"
         [style.justify-content]="vissibleLeftPanel ? 'initial' : 'center'">
         <div [class.active]="url === '/my-customers'" class="section-item"></div>
         <div class="item" [style.paddingLeft]="vissibleLeftPanel ? '15px' : '0px'">

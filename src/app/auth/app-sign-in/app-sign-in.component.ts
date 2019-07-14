@@ -7,7 +7,7 @@ import { FirebaseService } from '../../services/firebase.service';
 import { fadeInOutTranslate, flipInX } from '../../../shared/animations/animation';
 import swal from 'sweetalert2';
 import { LayoutManageService } from 'src/app/services/layout-manage.service';
-import { Admin } from 'src/app/models/model';
+import { Admin } from 'src/app/models/admin.model';
 
 @Component({
   selector: 'app-app-sign-in',

@@ -2,12 +2,16 @@ import { Injectable, EventEmitter } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 import { FirebaseService } from './firebase.service';
-import { Admin, Notificactions, GroupNotification, Task } from '../models/model';
+import { Task } from '../models/model';
+import { Admin } from '../models/admin.model';
+import { GroupNotification, Notificactions } from '../models/notification.model';
+import { Customer } from '../models/customer.model';
 
 @Injectable()
 export class LayoutManageService {
     public readyData: BehaviorSubject<boolean> = new BehaviorSubject(false);
     public adminsData: BehaviorSubject<Array<Admin>> = new BehaviorSubject(null);
+    public customersData: BehaviorSubject<Array<Customer>> = new BehaviorSubject(null);
     public groupNotificationsData: BehaviorSubject<Array<GroupNotification>> = new BehaviorSubject(null);
     public notificationsData: BehaviorSubject<Array<Notificactions>> = new BehaviorSubject(null);
     public emailData: BehaviorSubject<string> = new BehaviorSubject(null);
@@ -20,6 +24,7 @@ export class LayoutManageService {
 
     public init(): void {
         this.firebaseService.getDataBaseRef('admins').on('value', this.admins.bind(this), this.catchError);
+        this.firebaseService.getDataBaseRef('customers').on('value', this.customers.bind(this), this.catchError);
         this.firebaseService.getDataBaseRef('new_notifications').on('value', this.groupNotifications.bind(this), this.catchError);
         this.firebaseService.getDataBaseRef('notifications').on('value', this.notifications.bind(this), this.catchError);
         this.firebaseService.getDataBaseRef('tasks').on('value', this.tasks.bind(this), this.catchError);
@@ -37,6 +42,18 @@ export class LayoutManageService {
         const admins = this.prepareData(data);
         this.adminsData.next(admins);
         this.addReadyStatus();
+    }
+
+    public customers(response): void {
+        const data = response.val();
+
+        if (data === null) {
+            this.customersData.next([]);
+            return;
+        }
+
+        const customers = this.prepareData(data);
+        this.customersData.next(customers);
     }
 
     public groupNotifications(response): void {

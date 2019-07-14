@@ -6,7 +6,6 @@ import { SharedModule } from 'src/shared/shared.module';
 
 import { AppDashboardComponent } from './app-dashboard/app-dashboard.component';
 import { AppLayoutComponent } from './app-layout.component';
-import { AppListUsersComponent } from './my-users/app-list-users/app-list-users.component';
 import { AppMyProfilComponent } from './my-account/app-my-profil/app-my-profil.component';
 import { AppMySettingsComponent } from './my-account/app-my-settings/app-my-settings.component';
 import { AppAddProductsComponent } from './my-products/app-add-products/app-add-products.component';
@@ -27,6 +26,8 @@ import { MessagesManageService } from '../services/messages-manage.service';
 import { DatepickerRangeComponent } from 'src/shared/components/datepicker-range/datepicker-range.component';
 import { MultipleComponent } from 'src/shared/components/multiple/multiple.component';
 import { NotificationComponent } from 'src/shared/components/notification/notification.component';
+import { AppListAdminsComponent } from './my-users/app-list-admins/app-list-admins.component';
+import { AppListCustomersComponent } from './my-users/app-list-customers/app-list-customers.component';
 
 @NgModule({
     declarations: [
@@ -34,7 +35,8 @@ import { NotificationComponent } from 'src/shared/components/notification/notifi
       AppDashboardComponent,
       AppMyProfilComponent,
       AppMySettingsComponent,
-      AppListUsersComponent,
+      AppListAdminsComponent,
+      AppListCustomersComponent,
       AppAddProductsComponent,
       AppListProductsComponent,
       AppEditProductComponent,

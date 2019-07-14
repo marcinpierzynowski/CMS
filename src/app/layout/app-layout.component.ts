@@ -5,11 +5,13 @@ import { FirebaseService } from '../services/firebase.service';
 
 import { fadeInOutTranslate, fadeOutTranslate, zoomOut } from '../../shared/animations/animation';
 import swal from 'sweetalert2';
-import { Admin, Notificactions, Order, Login } from '../models/model';
 import { LayoutManageService } from '../services/layout-manage.service';
 import { DatePipe } from '@angular/common';
 import { CurrentPageService } from '../services/current-page.service';
 import { OrdersManageService } from '../services/orders-manage.service';
+import { Admin } from '../models/admin.model';
+import { Notificactions } from '../models/notification.model';
+import { Order } from '../models/page.model';
 
 @Component({
   selector: 'app-layout',
@@ -94,9 +96,10 @@ export class AppLayoutComponent implements OnInit {
   public checkAuth(): void {
     if (this.firebaseService.authorization) {
       this.userAuth = true;
-
+      const email = this.layoutManageService.emailData.getValue().toLowerCase();
+      console.log(email);
       this.user = this.admins.find(
-        ad => ad.email.toLocaleLowerCase() === this.layoutManageService.emailData.getValue().toLocaleLowerCase()
+        ad => ad.email.toLocaleLowerCase() === email
       );
       this.getNotifications();
       this.setNewDataLogin();

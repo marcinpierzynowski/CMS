@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { fadeInOutTranslate } from '../../../../shared/animations/animation';
 
 import { NotificationsManageService } from 'src/app/services/notifications-manage.service';
-import { Evaluation } from 'src/app/models/model';
+import { Evaluation } from 'src/app/models/notification.model';
 
 @Component({
   selector: 'app-app-evaluation',

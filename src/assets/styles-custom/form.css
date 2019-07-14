@@ -193,13 +193,20 @@ button[warning-form] {
     font-weight: 400;
 }
 
-button[info-form],
+button[info-form]:hover,
 button[secondary-form]:hover,
 button[primary-form]:hover,
 button[danger-form]:hover,
 button[warning-form]:hover {
-    outline: 0;
     cursor: pointer;
+}
+
+button[info-form]:focus,
+button[secondary-form]:focus,
+button[primary-form]:focus,
+button[danger-form]:focus,
+button[warning-form]:focus {
+    outline: 0;
 }
 
 /*

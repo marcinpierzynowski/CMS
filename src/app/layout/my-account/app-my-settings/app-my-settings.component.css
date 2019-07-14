@@ -175,6 +175,6 @@ li.not-active {
 
 @media screen and (min-width: 992px) {
   .password-settings {
-    grid-template-columns: 25% 1fr;
+    grid-template-columns: 25% repeat(2, 1fr);
   }
 }

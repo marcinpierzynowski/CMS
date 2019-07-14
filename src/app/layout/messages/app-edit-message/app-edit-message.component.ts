@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { MessagesManageService } from 'src/app/services/messages-manage.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Message } from 'src/app/models/model';
 
 import swal from 'sweetalert2';
 import { fadeInOutTranslate } from '../../../../shared/animations/animation';
+import { Message } from 'src/app/models/message.model';
 
 @Component({
   selector: 'app-app-edit-message',

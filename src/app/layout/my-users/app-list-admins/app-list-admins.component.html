@@ -1,0 +1,47 @@
+<div [@fadeInOutTranslate]>
+  <section class="title-section-global">Lista Administratorów</section>
+
+  <!-- List ADmins -->
+  <main *ngIf="admins && admins.length > 0" class="list-admins">
+    
+    <!-- Card Admin -->
+    <section class="card-admin" *ngFor="let admin of admins; let i = index">
+      <div class="contain-admin">
+        
+        <!-- Random Image -->
+        <div class="random-image">
+          <img class="img-fluid" 
+            [src]="'/assets/images/random-pictures/' + image[i] + '.jpg'"/>
+        </div>
+
+        <!-- Detail User -->
+        <div class="detail-user">
+          
+          <!-- Image User -->
+          <div class="user-image">
+            <img [src]="admin.detail.imageUrl"/>
+          </div>
+          
+          <div class="user-data">
+            <p>{{ admin.email }}</p>
+            <p>
+              <i class="fas fa-map-marker-alt"></i>
+              {{ admin.detail.country && admin.detail.city ? admin.detail.country + ' / ' + admin.detail.city : 'brak' }}
+            </p>
+          </div>
+        </div>
+
+        <hr [style.margin-top]="'0px'"/>
+    
+        <p class="user-date">Konto utworzone od: {{ admin.created_at }}</p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Empty List Admins -->
+  <section *ngIf="admins && admins.length === 0" class="empty-list">
+    <i class="fas fa-users-cog"></i>
+    <h4>Brak Administratorów</h4>
+  </section>
+</div>

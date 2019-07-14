@@ -6,10 +6,11 @@ import { fadeInOutTranslate } from '../../../../shared/animations/animation';
 import swal from 'sweetalert2';
 import { PagesManageService } from 'src/app/services/pages-manage.service';
 import { ProductsManageService } from 'src/app/services/products-manage.service';
-import { Product, Promotion } from 'src/app/models/model';
+import { Product } from 'src/app/models/product.model';
+import { Promotion } from 'src/app/models/page.model';
 
 @Component({
-  selector: 'app-app-promotion',
+  selector: 'app-promotion',
   templateUrl: './app-promotion.component.html',
   styleUrls: [
     './app-promotion.component.css',
@@ -60,6 +61,7 @@ export class AppPromotionComponent implements OnInit {
   }
 
   public filterData(): void {
+    // tslint:disable-next-line:one-variable-per-declaration
     const t = this.title, r = this.ref;
     const inpVal = [t, r];
     const keys = ['title', 'ref'];

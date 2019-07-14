@@ -5,7 +5,7 @@ import { FirebaseService } from '../../../services/firebase.service';
 
 import swal from 'sweetalert2';
 import { NotificationsManageService } from 'src/app/services/notifications-manage.service';
-import { Comment } from 'src/app/models/model';
+import { Comment } from 'src/app/models/notification.model';
 
 @Component({
   selector: 'app-app-comments',

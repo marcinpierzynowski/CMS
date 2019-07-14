@@ -1,0 +1,128 @@
+<div [@fadeInOutTranslate]>
+  <section class="title-section-global">Lista Klientów</section>
+
+  <!-- Customers -->
+  <main *ngIf="customers && customers.length > 0" class="list-customers">
+
+    <!-- Card Customers -->
+    <section [@fadeInOutTranslate] class="card-customers">
+
+      <!-- List Customers -->
+      <section>
+
+        <!-- Nav List -->
+        <nav class="desc-list">
+          <h5>Klienci</h5>
+          <span (click)="showAll()">Pokaż Wszystkich</span>
+        </nav>
+
+        <table>
+
+          <!-- Header List -->
+          <thead>
+            <tr class="list-header">
+              <!-- Number List -->
+              <th [style.padding-left]="'30px'">
+                No.
+              </th>
+
+              <!-- Filter Email -->
+              <th>
+                <input id="email-customer" basic-form placeholder="E-mail" />
+              </th>
+
+              <!-- Filter Name -->
+              <th>
+                <input id="email-customer" basic-form placeholder="Imię" />
+              </th>
+
+              <!-- Filter Surname -->
+              <th>
+                <input id="email-customer" basic-form placeholder="Nazwisko" />
+              </th>
+
+              <!-- Filter Address -->
+              <th>
+                <input id="email-customer" basic-form placeholder="Adres" />
+              </th>
+
+              <!-- Filter Contact -->
+              <th>
+                <input id="email-customer" basic-form placeholder="Telefon" />
+              </th>
+
+              <!-- Send Message -->
+              <th>Wiadomość</th>
+
+              <!-- Delete -->
+              <th>Usuń</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr class="list-body" *ngFor="let customer of customers; let i = index">
+
+              <!-- No -->
+              <th>
+                <p>{{ i + 1 }}</p>
+              </th>
+
+              <!-- Basic -->
+              <th>
+                <div class="basic-info">
+                  <img [src]="customer.imageUrl" />
+                  <p>{{ customer.email }}</p>
+                </div>
+              </th>
+
+              <!-- Name -->
+              <th>
+                <p>{{ customer.name }}</p>
+              </th>
+
+              <!-- Surname -->
+              <th>
+                <p>{{ customer.surname }}</p>
+              </th>
+
+              <!-- Address -->
+              <th>
+                <p class="address">
+                  {{ customer.address }}
+                </p>
+              </th>
+
+              <!-- Contact -->
+              <th>
+                <p>{{ customer.contact }}</p>
+              </th>
+
+              <!-- Message -->
+              <th>
+                <i class="fas fa-paper-plane send-message"></i>
+              </th>
+
+              <!-- Delete -->
+              <th>
+                <i class="far fa-trash-alt delete-customer"></i>
+              </th>
+            </tr>
+          </tbody>
+        </table>
+
+      </section>
+
+      <!-- Advanced Search Customer -->
+      <section *ngIf="activeCard === 2">
+
+      </section>
+
+    </section>
+  </main>
+
+  <!-- Empty List Customers -->
+  <section *ngIf="customers && customers.length === 0" class="empty-list">
+    <i class="fas fa-users"></i>
+    <h4>Brak Klientów</h4>
+  </section>
+</div>

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 import { FirebaseService } from './firebase.service';
-import { Slider, Promotion } from '../models/model';
+import { Slider, Promotion } from '../models/page.model';
 
 @Injectable()
 export class PagesManageService {

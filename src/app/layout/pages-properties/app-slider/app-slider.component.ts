@@ -7,7 +7,7 @@ import { FirebaseService } from '../../../services/firebase.service';
 
 import swal from 'sweetalert2';
 import { PagesManageService } from 'src/app/services/pages-manage.service';
-import { Slider } from 'src/app/models/model';
+import { Slider } from 'src/app/models/page.model';
 
 @Component({
   selector: 'app-app-slider',

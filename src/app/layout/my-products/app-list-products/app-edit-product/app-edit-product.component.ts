@@ -4,10 +4,10 @@ import { FormGroup, FormControl } from '@angular/forms';
 
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { ProductsManageService } from 'src/app/services/products-manage.service';
-import { Product } from 'src/app/models/model';
 
 import swal from 'sweetalert2';
 import { fadeInOutTranslate } from 'src/shared/animations/animation';
+import { Product } from 'src/app/models/product.model';
 
 @Component({
   selector: 'app-app-edit-product',
@@ -28,6 +28,7 @@ export class AppEditProductComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    // tslint:disable-next-line:no-string-literal
     this.ref = this.route.snapshot.params['id'];
     this.productsManageService.productsData.subscribe(prs => {
       if (prs) {
@@ -72,6 +73,7 @@ export class AppEditProductComponent implements OnInit {
     if (formParams.desc.length < 10) { communicate.push('Opis musi mieć minimum 10 znaków!'); }
 
     if (communicate.length > 0) {
+      // tslint:disable-next-line:prefer-for-of
       for (let i = 0; i < communicate.length; i++) { text += '<p>' + communicate[i] + '</p>'; }
     }
     return text;

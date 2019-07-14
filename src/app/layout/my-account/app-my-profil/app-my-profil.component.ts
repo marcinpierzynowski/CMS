@@ -1,14 +1,14 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 
 import { LayoutManageService } from 'src/app/services/layout-manage.service';
-import { Admin, CreatedProduct, Login, RealizedOrder } from 'src/app/models/model';
 
 import { fadeInOutTranslate, fadeInDown, fadeOutUp } from '../../../../shared/animations/animation';
 import Swal from 'sweetalert2';
 import { FormGroup, FormControl } from '@angular/forms';
+import { Admin, Login, CreatedProduct, RealizedOrder } from 'src/app/models/admin.model';
 
 @Component({
-  selector: 'app-app-my-profil',
+  selector: 'app-my-profil',
   templateUrl: './app-my-profil.component.html',
   styleUrls: ['./app-my-profil.component.css'],
   animations: [fadeInOutTranslate, fadeInDown, fadeOutUp]
@@ -25,7 +25,7 @@ export class AppMyProfilComponent implements OnInit {
   public tabCopy: any;
   public visibleClipboardCopy: boolean;
   public selectHistory = ['logins', 'addProducts', 'realizedOrder', 'search'];
-  public selected = 3; // todo zmienic
+  public selected = 0;
   public dataHistory = [];
   public nextDay = 0;
   public calendarVissible = false;
