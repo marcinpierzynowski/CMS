@@ -1,150 +1,254 @@
 <div [@fadeInOutTranslate]>
-    <section class="title-section-global">Ustawienia Konta</section>
-    <main>
-      <!-- Select Card -->
-      <ul>
-        <li (click)="setCard(1)" [class.not-active]="activeCard === 2">
-          Profil
-        </li>
-        <li (click)="setCard(2)" [class.not-active]="activeCard === 1">
-          Hasło
-        </li>
-      </ul>
+  <section class="title-section-global">Ustawienia Konta</section>
+  <main>
+    <!-- Select Card -->
+    <ul>
+      <li (click)="setCard(1)" [class.not-active]="activeCard === 2">
+        Profil
+      </li>
+      <li (click)="setCard(2)" [class.not-active]="activeCard === 1">
+        Hasło
+      </li>
+    </ul>
 
-      <!-- Card View -->
-      <div class="card">
-        
-        <!-- Profile Settings -->
-        <section [@fadeInOutTranslate] *ngIf="activeCard === 1">
-              
-            <div class="profile-settings">
+    <!-- Card View -->
+    <div class="card">
 
-              <!-- Avatar Image -->
-              <div class="avatar">
-                
-                <!-- Image -->
-                <div>
-                  <img [src]="user.detail.imageUrl"/>
-                </div>
+      <!-- Profile Settings -->
+      <section [@fadeInOutTranslate] *ngIf="activeCard === 1">
 
-                <!-- Input -->
-                <a (click)="getFile(image)">
-                  Edytuj Zdjęcie
-                </a>
-                <input type="file" #image [style.display]="'none'"  
-                  (change)="uploadImage($event.target)" accept="image/x-png,image/gif,image/jpeg"/>
-              </div>
-              
-              <!-- Basic Data User -->
-              <div class="basic-info">
-                <form autocomplete="off" [formGroup]="profileForm" 
-                (submit)="updateProfile()">
+        <div class="profile-settings">
 
-                    <!-- Name -->
-                    <div>
-                        <label for="profile-name" basic-form>Imię:</label>
-                        <input id="profile-name" basic-form placeholder="Imię"
-                          formControlName="name"/>
-                    </div>
+          <!-- Avatar Image -->
+          <div class="avatar">
 
-                    <!-- Surname -->
-                    <div>
-                        <label for="profile-surname" basic-form>Nazwisko:</label>
-                        <input id="profile-surname" basic-form placeholder="Nazwisko"
-                          formControlName="surname"/>
-                    </div>
-
-                    <!-- Email -->
-                    <div>
-                        <label for="profile-email" basic-form>E-mail:</label>
-                        <input id="profile-email" basic-form placeholder="E-mail"
-                          formControlName="email" disabled/>
-                    </div>
-                </form>
-              </div>
-
-              <!-- Additional Data User -->
-              <div class="additional-info">
-                  <form autocomplete="off" [formGroup]="profileForm" 
-                  (submit)="updateProfile()">
-    
-                      <!-- Country -->
-                      <div>
-                          <label for="profile-country" basic-form>Kraj:</label>
-                          <input id="profile-country" basic-form placeholder="Kraj"
-                            formControlName="country"/>
-                      </div>
-    
-                      <!-- City -->
-                      <div>
-                          <label for="profile-city" basic-form>Miasto:</label>
-                          <input id="profile-city" basic-form placeholder="Miasto"
-                            formControlName="city"/>
-                      </div>
-    
-                      <!-- Faceboook -->
-                      <div>
-                          <label for="profile-fb" basic-form>
-                            Facebook:
-                            <span class="fb-profile" icon-form reverse (click)="showNotification()"
-                              ngxClipboard [cbContent]="user.media.facebook">
-                                <i class="fab fa-facebook-f"></i>
-                            </span>
-                          </label>
-                          <input id="profile-fb" basic-form reverse placeholder="Facebook"
-                            formControlName="facebook"/>
-                      </div>
-
-                        <!-- Twitter -->
-                        <div>
-                            <label for="profile-twitter" basic-form>
-                                Twitter:
-                                <span class="tw-profile" icon-form reverse (click)="showNotification()"
-                                  ngxClipboard [cbContent]="user.media.twitter">
-                                    <i class="fab fa-twitter"></i>
-                                </span>
-                              </label>
-                            <input id="profile-twitter" basic-form reverse placeholder="Twitter"
-                              formControlName="twitter"/>
-                        </div>
-
-                          <!-- LinkedIn -->
-                      <div>
-                          <label for="profile-linked" basic-form>
-                              LinkedIn:
-                              <span class="ln-profile" icon-form reverse (click)="showNotification()"
-                                ngxClipboard [cbContent]="user.media.linkedIn">
-                                  <i class="fab fa-linkedin-in"></i>
-                              </span>
-                            </label>
-                          <input id="profile-linked" basic-form reverse placeholder="LinkedIn"
-                            formControlName="linkedIn"/>
-                      </div>
-                  </form>
-              </div>
+            <!-- Image -->
+            <div>
+              <img [src]="user.detail.imageUrl" />
             </div>
 
-              <hr/>
-              <!-- Submit Profile-->
-              <div class="submit-profile">
-                  <button info-form (click)="updateProfile()">
-                    Aktualizuj
-                  </button>
-                  <button danger-form (click)="deleteAccount()">
-                    <i class="fas fa-trash-alt"></i>
-                    Usuń Konto
-                  </button>
+            <!-- Input -->
+            <a (click)="getFile(image)">
+              Edytuj Zdjęcie
+            </a>
+            <input type="file" #image [style.display]="'none'" (change)="uploadImage($event.target)"
+              accept="image/x-png,image/gif,image/jpeg" />
+          </div>
+
+          <!-- Basic Data User -->
+          <div class="basic-info">
+            <form autocomplete="off" [formGroup]="profileForm" (ngSubmit)="updateProfile()">
+
+              <!-- Name -->
+              <div>
+                <label for="profile-name" basic-form>Imię:</label>
+                <input id="profile-name" basic-form placeholder="Imię" formControlName="name" />
               </div>
-        </section>
 
-        <!-- Password Settings -->
-        <section [@fadeInOutTranslate] 
-          class="password-settings" *ngIf="activeCard === 2">
+              <!-- Surname -->
+              <div>
+                <label for="profile-surname" basic-form>Nazwisko:</label>
+                <input id="profile-surname" basic-form placeholder="Nazwisko" formControlName="surname" />
+              </div>
 
-        </section>
+              <!-- Email -->
+              <div>
+                <label for="profile-email" basic-form>E-mail:</label>
+                <input id="profile-email" basic-form placeholder="E-mail" formControlName="email" [attr.disabled]="true" />
+              </div>
 
-      </div>
+              <!-- Country -->
+              <div>
+                <label for="profile-country" basic-form>Kraj:</label>
+                <input id="profile-country" basic-form placeholder="Kraj" formControlName="country" />
+              </div>
 
-    </main>
-    
+              <!-- City -->
+              <div>
+                <label for="profile-city" basic-form>Miasto:</label>
+                <input id="profile-city" basic-form placeholder="Miasto" formControlName="city" />
+              </div>
+
+              <!-- Empty Button Required To Work Correct -->
+              <button type="submit" style="display: none"></button>
+            </form>
+          </div>
+
+          <!-- Additional Data User -->
+          <div class="additional-info">
+            <form autocomplete="off" [formGroup]="profileForm" (ngSubmit)="updateProfile()">
+
+              <!-- Faceboook -->
+              <div>
+                <label for="profile-fb" basic-form>
+                  Facebook:
+                  <span class="fb-profile" icon-form reverse (click)="showNotification()" ngxClipboard
+                    [cbContent]="user.media.facebook">
+                    <i class="fab fa-facebook-f"></i>
+                  </span>
+                </label>
+                <input id="profile-fb" basic-form reverse placeholder="Facebook" formControlName="facebook" />
+              </div>
+
+              <!-- Twitter -->
+              <div>
+                <label for="profile-twitter" basic-form>
+                  Twitter:
+                  <span class="tw-profile" icon-form reverse (click)="showNotification()" ngxClipboard
+                    [cbContent]="user.media.twitter">
+                    <i class="fab fa-twitter"></i>
+                  </span>
+                </label>
+                <input id="profile-twitter" basic-form reverse placeholder="Twitter" formControlName="twitter" />
+              </div>
+
+              <!-- LinkedIn -->
+              <div>
+                <label for="profile-linked" basic-form>
+                  LinkedIn:
+                  <span class="ln-profile" icon-form reverse (click)="showNotification()" ngxClipboard
+                    [cbContent]="user.media.linkedIn">
+                    <i class="fab fa-linkedin-in"></i>
+                  </span>
+                </label>
+                <input id="profile-linked" basic-form reverse placeholder="LinkedIn" formControlName="linkedIn" />
+              </div>
+
+              <!-- Empty Button Required To Work Correct -->
+              <button type="submit" style="display: none"></button>
+            </form>
+          </div>
+        </div>
+
+        <hr />
+        <!-- Submit Profile-->
+        <div class="submit-profile">
+          <button info-form (click)="updateProfile()">
+            Aktualizuj
+          </button>
+          <button danger-form (click)="deleteAccount()">
+            <i class="fas fa-trash-alt"></i>
+            Usuń Konto
+          </button>
+        </div>
+      </section>
+
+      <!-- Password Settings -->
+      <section [@fadeInOutTranslate] *ngIf="activeCard === 2">
+
+        <div class="password-settings">
+
+          <!-- Avatar Image -->
+          <div class="avatar">
+
+            <!-- Image -->
+            <div>
+              <img [src]="user.detail.imageUrl" />
+            </div>
+
+            <!-- Input -->
+            <a (click)="getFile(image)">
+              Edytuj Zdjęcie
+            </a>
+            <input type="file" #image [style.display]="'none'" (change)="uploadImage($event.target)"
+              accept="image/x-png,image/gif,image/jpeg" />
+          </div>
+
+          <div>
+
+            <form autocomplete="off" [formGroup]="changePassword" (ngSubmit)="submitChangePassword()" novalidate="true">
+
+              <!-- Old Password -->
+              <div class="old-password">
+                <label for="old-password" basic-form>
+                  Stare Hasło:
+                  <span icon-form class="password-input">
+                    <i class="fas fa-times" valid="error"
+                    [style.display]="checkValidError('oldPassword') ? 'block' : 'none'"></i>
+                    <i class="fas fa-check" valid="success"
+                    [style.display]="checkValisSuccess('oldPassword') ? 'block' : 'none'"></i>
+                  </span>
+                </label>
+                <input id="old-password" basic-form valid-input
+                  placeholder="Stare Hasło" formControlName="oldPassword" />
+
+                <!-- Alert Validate-->
+                <p class="text-danger" *ngIf="checkValidate('oldPassword', 'required')" [@fadeInOutTranslate] text-form-danger>
+                  Pole nie może być puste!
+                </p>
+              </div>
+
+              <!-- New Password -->
+              <div>
+                <label for="new-password" basic-form>
+                  Nowe Hasło:
+                  <span icon-form class="password-input">
+                    <i class="fas fa-times" valid="error"
+                      [style.display]="checkValidError('password') ? 'block' : 'none'"></i>
+                    <i class="fas fa-check" valid="success"
+                      [style.display]="checkValisSuccess('password') ? 'block' : 'none'"></i>
+                  </span>
+                </label>
+                <input id="new-password" basic-form valid-input placeholder="Nowe Hasło" formControlName="password" />
+
+                <!-- Alert Validate-->
+                <p class="text-danger" *ngIf="checkValidate('password', 'required')" [@fadeInOutTranslate]
+                  text-form-danger>
+                  Pole nie może być puste!
+                </p>
+                <p class="text-danger" *ngIf="checkValidate('password', 'pattern')" [@fadeInOutTranslate]
+                  text-form-danger>
+                  Minimum 8 znaków, przynajmniej jedna litera, jedna cyfra i jeden
+                  znak specjalny
+                </p>
+              </div>
+
+              <!-- Repeat Password -->
+              <div>
+                <label for="repeat-password" basic-form>
+                  Powtórz Hasło:
+                  <span icon-form class="password-input">
+                    <i class="fas fa-times" valid="error"
+                      [style.display]="checkValidError('repeatPassword') ? 'block' : 'none'"></i>
+                    <i class="fas fa-check" valid="success"
+                      [style.display]="checkValisSuccess('repeatPassword') ? 'block' : 'none'"></i>
+                  </span>
+                </label>
+                <input id="repeat-password" basic-form valid-input placeholder="Powtórz Hasło"
+                  formControlName="repeatPassword" />
+
+                <!-- Alert Validate-->
+                <p class="text-danger" *ngIf="checkValidate('repeatPassword', 'required')" [@fadeInOutTranslate]
+                  text-form-danger>
+                  Pole nie może być puste!
+                </p>
+                <p class="text-danger" *ngIf="checkValidate('repeatPassword', 'equalTo')" [@fadeInOutTranslate]
+                  text-form-danger>
+                  Hasła muszą się zgadzać!
+                </p>
+              </div>
+              
+              <!-- Empty Button Required To Work Correct -->
+              <button type="submit" style="display: none"></button>
+            </form>
+          </div>
+        </div>
+        <hr />
+
+        <!-- Submit Change Password-->
+        <div class="submit-profile">
+          <button secondary-form (click)="submitChangePassword()">
+            Zmień Hasło
+          </button>
+          <button type="button" warning-form (click)="initFormPassword()">
+            Wyczyść
+          </button>
+        </div>
+
+      </section>
+
+    </div>
+
+  </main>
+
 </div>

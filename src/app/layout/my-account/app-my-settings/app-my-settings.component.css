@@ -3,6 +3,7 @@
 
   1. CARD SETTINGS
   2. BASIC DATA SETTINGS
+  3. PASSWORD SETTINGS
 
   AUTHOR: MARCIN PIERZYNOWSKI
   ================*/
@@ -62,7 +63,7 @@ li.not-active {
   border-bottom-right-radius: 4px;
   background-color: #fff;
   color: #354052;
-  min-height: 500px;
+  min-height: 1px;
 }
 
 /*====================
@@ -124,18 +125,56 @@ li.not-active {
 .submit-profile {
   padding: 0 20px;
   margin-top: 20px;
+  display: grid;
+  grid-template-columns: 1fr;
 }
 
 .submit-profile button:nth-child(2) {
-  margin: 0 20px;
+ margin-top: 10px;
 }
 
 .submit-profile button i {
   margin-right: 10px;
 }
 
+@media screen and (min-width: 576px) {
+  .submit-profile {
+    display: block;
+  }
+  
+  .submit-profile button:nth-child(2) {
+   margin-left: 20px;
+   margin-top: 0px;
+  }
+}
+
 @media screen and (min-width: 992px) {
   .profile-settings {
     grid-template-columns: 25% repeat(2, 1fr);
+  }
+}
+
+/*====================
+  3. PASSWORD SETTINGS
+=====================*/
+
+.password-settings {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.password-settings .old-password,
+.password-settings form > div {
+  margin: 20px 10px;
+}
+
+.password-input {
+  background: unset !important;
+  border: unset !important;
+}
+
+@media screen and (min-width: 992px) {
+  .password-settings {
+    grid-template-columns: 25% 1fr;
   }
 }

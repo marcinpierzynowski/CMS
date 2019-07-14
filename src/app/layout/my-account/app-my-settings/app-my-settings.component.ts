@@ -18,7 +18,6 @@ export class AppMySettingsComponent implements OnInit {
   public changePassword: FormGroup;
   public profileForm: FormGroup;
   public activeCard = 1;
-  public oldPassword = '';
 
   private user: Admin;
   private refStorage;
@@ -60,6 +59,10 @@ export class AppMySettingsComponent implements OnInit {
   }
 
   public initFormPassword(): void {
+    const oldPassword = new FormControl('', [
+      Validators.required
+    ]);
+
     const password = new FormControl('', [
       Validators.required,
       Validators.minLength(5),
@@ -73,14 +76,19 @@ export class AppMySettingsComponent implements OnInit {
     ]);
 
     this.changePassword = new FormGroup({
+      oldPassword,
       password,
       repeatPassword
     });
   }
 
   public submitChangePassword(): void {
-
     this.activeInputs();
+    if (this.changePassword.value.oldPassword !== this.user.password) {
+      swal.fire('Zmiana Hasła', 'Stare hasło jest błędne', 'error');
+      return null;
+    }
+
     if (this.changePassword.valid) {
       this.generateSwalWaitingFromRequest('warning', 'Zmiana hasła', 'Czekaj na zmianę hasła');
       this.firebaseService.firebase.auth().currentUser.updatePassword(this.changePassword.value.password)
@@ -106,14 +114,6 @@ export class AppMySettingsComponent implements OnInit {
       });
   }
 
-  public activeInputs(): void {
-    // tslint:disable-next-line:forin
-    for (const inner in this.changePassword.controls) {
-      this.changePassword.get(inner).markAsTouched();
-      this.changePassword.get(inner).updateValueAndValidity();
-    }
-  }
-
   public setLocalStorage(email, password): void {
     const dataStorage = localStorage.getItem('shop-admin');
     if (dataStorage) {
@@ -126,9 +126,8 @@ export class AppMySettingsComponent implements OnInit {
 
   public setCard(index: number) {
     if (index === this.activeCard) { return; }
-    if (index === 2) {
-      this.initFormPassword();
-    }
+    this.initFormProfile();
+    this.initFormPassword();
     this.activeCard = index;
   }
 
@@ -268,7 +267,45 @@ export class AppMySettingsComponent implements OnInit {
     });
   }
 
-  public showNotification(): void {
+  public showNotification() {
     this.layoutManageService.showNotification();
+  }
+
+  public checkValisSuccess(name: string) {
+    const control = this.changePassword.controls[name];
+    if (!control.errors && control.touched) {
+        return true;
+    } else {
+      return false;
+    }
+  }
+
+  public checkValidError(name: string) {
+    const control = this.changePassword.controls[name];
+    if (control.errors && control.touched) {
+        return true;
+    } else {
+      return false;
+    }
+  }
+
+  public checkValidate(inputControl: string, nameControl: string): boolean {
+    const control = this.changePassword.controls[inputControl];
+    if (control.errors) {
+      if (control.errors[nameControl] && control.touched) {
+        return true;
+    } else {
+        return false;
+      }
+    }
+    return false;
+  }
+
+  public activeInputs(): void {
+    // tslint:disable-next-line:forin
+    for (const inner in this.changePassword.controls) {
+      this.changePassword.get(inner).markAsTouched();
+      this.changePassword.get(inner).updateValueAndValidity();
+    }
   }
 }

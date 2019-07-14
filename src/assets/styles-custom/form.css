@@ -60,7 +60,7 @@ input[basic-form]::-moz-placeholder { /* Firefox 19+ */
 }
 
 input[basic-form]:-moz-placeholder { /* Firefox 18- */
-    color: #cccfd4;
+    color: #d4ccd1;
 }
 
 input[basic-form]:focus::-webkit-input-placeholder { /* Chrome/Opera/Safari */
@@ -73,6 +73,47 @@ input[basic-form]:focus::-moz-placeholder { /* Firefox 19+ */
 
 input[basic-form]:focus:-moz-placeholder { /* Firefox 18- */
     opacity: 0.5;
+}
+
+/*
+* Valid Error
+*/
+input[valid-input].ng-invalid.ng-touched {
+    border-color: #ed1c24;
+    color: #ed1c24;
+}
+
+input[valid-input].ng-invalid.ng-touched::-webkit-input-placeholder {
+    color: #ed1c24;
+}
+
+input[valid-input].ng-invalid.ng-touched::-moz-placeholder {
+    color: #ed1c24;
+}
+
+input[valid-input].ng-invalid.ng-touched:-moz-placeholder {
+    color: #ed1c24;
+}
+
+/*
+* Valid Success
+*/
+
+input[valid-input].ng-valid.ng-touched {
+    border-color: #1bb934;
+    color: #354052;
+}
+
+input[valid-input].ng-valid.ng-touched::-webkit-input-placeholder {
+    color: #1bb934;
+}
+
+input[valid-input].ng-valid.ng-touched::-moz-placeholder {
+    color: #1bb934;
+}
+
+input[valid-input].ng-valid.ng-touched:-moz-placeholder {
+    color: #1bb934;
 }
 
 /*==========================
@@ -121,6 +162,16 @@ label[basic-form] span[icon-form]:hover {
     cursor: pointer;
 }
 
+label[basic-form] i[valid="error"] {
+    color: #ed1c24 !important;
+    display: none;
+}
+
+label[basic-form] i[valid="success"] {
+    color: #1bb934 !important;
+    display: none;
+}
+
 /*===================================
     3.BUTTONS
 ===================================*/
@@ -131,7 +182,8 @@ label[basic-form] span[icon-form]:hover {
 button[info-form],
 button[secondary-form], 
 button[primary-form],
-button[danger-form] {
+button[danger-form],
+button[warning-form] {
     transition: all .15s ease-in-out;
     border: 1px solid;
     border-radius: 4px;
@@ -144,7 +196,8 @@ button[danger-form] {
 button[info-form],
 button[secondary-form]:hover,
 button[primary-form]:hover,
-button[danger-form]:hover {
+button[danger-form]:hover,
+button[warning-form]:hover {
     outline: 0;
     cursor: pointer;
 }
@@ -200,6 +253,19 @@ button[danger-form]:hover {
     background: linear-gradient(180deg,#f83f46,#cf4937);
 }
 
+/*
+* Warning
+*/
+button[warning-form] {
+    background: linear-gradient(180deg,#fd9a18,#f16911);;
+    color: #fff;
+    border-color: #f16911;
+}
+
+button[warning-form]:hover {
+    background: linear-gradient(180deg,#fd9104,#e0600d);
+}
+
 /*===================================
     4.OTHER
 ===================================*/
@@ -209,4 +275,14 @@ button[danger-form]:hover {
 */
 span[small-text-form] {
     font-size: 11px;
+}
+
+/*
+* Text Form Danger
+*/
+p[text-form-danger] {
+    font-size: 12px;
+    color: #ed1c24 !important;
+    margin-left: 5px;
+    margin: 0;
 }

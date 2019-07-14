@@ -74,6 +74,10 @@ export class AppLayoutComponent implements OnInit {
 
     this.layoutManageService.adminsData.subscribe(admins =>  {
       this.admins = admins;
+      if (this.userAuth) {
+        const email = this.layoutManageService.emailData.getValue();
+        this.user = admins.find(a => a.email === email);
+      }
     });
 
     this.ordersManageService.ordersData.subscribe(orders => this.orders = orders);
