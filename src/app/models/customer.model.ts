@@ -8,7 +8,7 @@ export interface Customer {
     orders?: Array<OrderCustomer>;
     imageName: string;
     imageUrl: string;
-    message?: Array<Message>;
+    messages?: Array<Message>;
 }
 
 export interface OrderCustomer {
@@ -20,6 +20,6 @@ export interface OrderCustomer {
 export interface Message {
     date: Date | string;
     admin: string;
-    description: string;
-    title: string;
+    subject?: string;
+    message: string;
 }

@@ -108,7 +108,7 @@ export const zoomOut = trigger('zoomOut', [
   transition(
     ':leave',
     animate(
-      '1000ms ease-in',
+      '1000ms ease-in-out',
       keyframes([
         style({ opacity: 1 }),
         style({ transform: 'scale3d(0.3, 0.3, 0.3)', opacity: 0 }),

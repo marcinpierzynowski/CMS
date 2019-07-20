@@ -32,6 +32,7 @@ export class MessagesManageService {
         const keys = Object.keys(data);
         const preData = [];
 
+        // tslint:disable-next-line:prefer-for-of
         for (let i = 0; i < keys.length; i++) {
             preData.push(data[keys[i]]);
         }

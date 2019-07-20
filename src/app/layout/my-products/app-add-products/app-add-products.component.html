@@ -1,283 +1,243 @@
-<div class="card" [@fadeInOutTranslate]>
-
-  <!-- Title Section -->
-  <div class="title-section">Dodaj Produkt</div>
+<div [@fadeInOutTranslate]>
+  <section class="title-section-global">{{ editMode ? 'Edycja Produktu' : 'Dodanie produktu' }}</section>
 
   <!-- Product Card -->
-  <div class="settings-card">
-    <div class="product-section">
-      <div class="product-form" [@fadeInOutTranslate]>
-        <div class="stepper-contain">
+  <main class="product-card">
 
-          <!-- Stepper -->
+    <form autocomplete="off" [formGroup]="productForm" (ngSubmit)="submitAddProduct()" novalidate="true">
+      <!-- About Product -->
+      <header>
+        <h4>
+          <i class="fas fa-list-ul"></i>
+          O produkcie
+        </h4>
+      </header>
+      <hr />
 
-          <!-- First Stepper -->
-          <div (click)="setStepper(-1)" class="stepper-description">
-            <span [ngStyle]="{ backgroundColor: stepperSection === 1 ? 'rgba(63, 81, 181, 1)' : 'gray' }">{{ getStepperNumber(-1) }}</span>
-            <span [ngStyle]="{ fontWeight: stepperSection === 1 ? '800' : '500' }">
-                &nbsp;&nbsp; {{ getStepperName(-1) }}
+      <section class="about-product">
+
+        <!-- Name Product -->
+        <div>
+          <label for="name-product" basic-form>
+            Nazwa:
+            <span icon-form [style.background]="'none'" [style.border]="'none'">
+              <i class="fas fa-signature"></i>
             </span>
-          </div>
+          </label>
+          <input id="name-product" basic-form valid-input placeholder="Produktu" formControlName="name" />
 
-          <!-- Break Line Stepper -->
-          <div class="stepper-line"><div></div></div>
-
-          <!-- Second Stepper -->
-          <div (click)="setStepper(0)" class="stepper-description">
-            <span [ngStyle]="{ backgroundColor: stepperSection === 2 || stepperSection === 3 ? 'rgba(63, 81, 181, 1)' : 'gray' }">{{ getStepperNumber(0) }}</span>
-            <span [ngStyle]="{ fontWeight: stepperSection === 2 || stepperSection === 3 ? '800': '500' }">
-                &nbsp;&nbsp; {{ getStepperName(0) }}
-            </span>
-          </div>
-
-          <!-- Break Line Stepper -->
-          <div class="stepper-line"><div></div></div>
-
-            <!-- Third Stepper -->
-          <div (click)="setStepper(1)" class="stepper-description">
-            <span [ngStyle]="{ backgroundColor: stepperSection === 4 ? 'rgba(63, 81, 181, 1)' : 'gray' }">{{ getStepperNumber(1) }}</span>
-            <span [ngStyle]="{ fontWeight: stepperSection === 4 ? '800' : '500' }">
-              &nbsp;&nbsp; {{ getStepperName(1) }}
-            </span>
-          </div>
-
+          <!-- Alert Validate-->
+          <p class="text-danger" *ngIf="checkValidate('name', 'required')" [@fadeInOutTranslate] text-form-danger>
+            Pole nie może być puste!
+          </p>
         </div>
 
-        <!-- Form Add New Product -->
-        <div class="stepper">
+        <!-- Subject Product -->
+        <div>
+          <label for="subject-product" basic-form>
+            Tematyka:
+            <span icon-form [style.background]="'none'" [style.border]="'none'">
+              <i class="fas fa-book-open"></i>
+            </span>
+          </label>
+          <input id="subject-product" basic-form valid-input placeholder="Tematyka" formControlName="subject" />
 
-          <form (ngSubmit)="submitAddProduct()" [formGroup]="productForm" novalidate="true">
-            <!-- Upload Images -->
-            <div *ngIf="stepperSection === 1" [@fadeInOutTranslate]>
-              <div class="area-picture">
-                <div class="picture-drop">
-                  <img class="image-drop" src="./assets/images/cloud-drop.png" />
-                </div>
-
-                <!-- Step:1 Drag File Drop Area -->
-                <file-drop (onFileDrop)="dropped($event)">
-                  <div class="drop-title">
-                    <p class="text-drop">Przeciągnij i upuść plik.</p>
-                    <p class="text-drop">lub</p>
-                    <input #dropInput type="file" style="display:none;" multiple
-                      (change)="uploadImage($event.target)" accept="image/x-png,image/gif,image/jpeg"/>
-                    <button mat-raised-button style="background-color:#f29700; width: 120px;" (click)="getFile(dropInput)">
-                      Wybierz plik
-                    </button>
-                  </div>
-                </file-drop>
-
-              </div>
-
-              <!-- Images View -->
-              <div class="image-drop-contain" *ngFor="let image of this.productForm.value.images; let i = index"
-                [@fadeInOutTranslate]>
-                <div class="contain-image"><img class="image-upload" /></div>
-                <div class="image-information-contain">
-                  <p class="image-information name-image">{{ image.urlName }}</p>
-                  <p class="image-information size-image">
-                    {{ countSizeImage(image.urlSize) }}
-                  </p>
-                </div>
-                <div class="cancel-image-contain">
-                  <button mat-fab class="cancel-image" (click)="cancelImage(i)">
-                    <i class="fas fa-times icon-cancel-image"></i>
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <!-- Step:2 Detail Products -->
-            <div *ngIf="stepperSection === 2" [@fadeInOutTranslate]>
-              <div class="title-second-section"><p>Dane o produkcie</p></div>
-              <div class="underline"></div>
-              
-              <!-- Title Product -->
-              <div class="form-contain">
-                <mat-form-field style="text-align:center;position: relative;" class="second-form-input">
-                  <div class="form-help">
-                    <i class="fas fa-info-circle tooltip-info"
-                      matTooltip="Tytuł produktu używany jako tag wyszukiwania w wyszukiwarce produktów">
-                    </i>
-                  </div>
-                  <input style="text-align:center;" matInput placeholder="Tytuł" formControlName="title" type="text" id="title-product"/>
-                </mat-form-field>
-              </div>
-
-              <!-- Input Price -->
-              <div class="form-contain">
-                <mat-form-field style="text-align:center;position: relative;"class="second-form-input">
-                  <input style="text-align:center;" matInput placeholder="Cena" type="number" formControlName="price"/>
-                </mat-form-field>
-              </div>
-
-              <!-- Promotion Price -->
-              <div class="form-contain">
-                <mat-form-field style="text-align:center;position: relative;" class="second-form-input">
-                  <div class="form-help">
-                    <i class="fas fa-info-circle tooltip-info" 
-                      matTooltip="Podaj wartość procentową obniżenia, względem głównej ceny. *symbol procenta nie jest potrzebny i nie jest dozwolony!">
-                    </i>
-                  </div>
-                  <input style="text-align:center;" matInput placeholder="Promocja" formControlName="promotion" type="number"/>
-                </mat-form-field>
-              </div>
-
-              <!-- Number Reference Product -->
-              <div class="form-contain">
-                <mat-form-field style="text-align:center;position: relative;" class="second-form-input">
-                  <div class="form-help">
-                    <i class="fas fa-info-circle tooltip-info"
-                      matTooltip="Nr referencyjny indentyfikujacy produkt widoczny dla klienta minimum 9 znaków i musi być unikatowy. Jeśli nie podasz, numer zostanie automatycznie wygenerowany">
-                    </i>
-                  </div>
-                  <input style="text-align:center;" matInput placeholder="Nr. referencyjny" type="number" formControlName="ref"/>
-                </mat-form-field>
-              </div>
-
-              <!-- Description Product -->
-              <div class="form-contain">
-                <mat-form-field style="text-align:center;position: relative;" class="example-full-width" class="second-form-input">
-                  <div class="form-help">
-                    <i class="fas fa-info-circle tooltip-info"
-                      matTooltip="Główny opis produktu widoczny dla klienta">
-                    </i>
-                  </div>
-                  <textarea matInput style="text-align:center;" matInput placeholder="Opis produktu" formControlName="desc"></textarea>
-                </mat-form-field>
-              </div>
-            </div>
-
-            <!-- Step:3 Product Params -->
-            <div *ngIf="stepperSection === 3" [@fadeInOutTranslate]>
-              <div class="title-second-section">
-                <p>
-                  Parametry
-                  <span style="font-size: 14px;font-weight: 400;">*opcjonalnie</span>
-                </p>
-              </div>
-              <div class="underline"></div>
-              <div class="form-contain">
-
-                <!-- Params List -->
-                <div class="parametrs-list" *ngFor="let param of productForm.value.params; let i = index" [formGroup]="param">
-                  <mat-form-field class="parametrs-field">
-                    <input matInput placeholder="Nazwa" type="text" formControlName="name"/>
-                  </mat-form-field>
-                  <mat-form-field class="parametrs-field">
-                    <input matInput placeholder="War./Jedn." type="text" formControlName="value"/>
-                  </mat-form-field>
-                  <span class="option-parametr" (click)="deleteParam(i)">
-                    <span class="remove-parametr">
-                      <i class="fas fa-times"></i>
-                    </span>
-                  </span>
-                </div>
-
-                <!-- Add New Params -->
-                <div style="float:left;width:100%;margin-top: 10px;">
-                  <button mat-raised-button style="background-color:#888888;color:white;width: 120px;margin-bottom: 20px;"
-                    (click)="addParam()">
-                    Dodaj 
-                    <i class="fas fa-plus"></i>
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <!-- 4 Kategorie -->
-            <div *ngIf="stepperSection === 4" [@fadeInOutTranslate]>
-                
-              <!-- Title-->
-              <div class="title-second-section">
-                <p>
-                  Kategorie
-                  <span style="font-size: 14px;font-weight: 400;">*opcjonalnie</span>
-                </p>
-              </div>
-              <div class="underline"></div>
-              
-              <!-- Form Category -->
-              <div class="form-contain">
-                <div>
-
-                  <!-- List Empty Category -->
-                  <p *ngIf="categories && categories.length === 0" class="text-category">
-                    Brak kategorii! *dodaj nową aby przypisać
-                  </p>
-
-                  <!-- List Category -->
-                  <div class="category-list">
-                    <table *ngIf="categories && categories.length > 0" class="table table-borderless">
-                        
-                      <!-- List Hedaer -->
-                      <thead>
-                        <tr>
-                          <th scope="col">Numer</th>
-                          <th scope="col">Kategoria</th>
-                          <th scope="col">Opcje</th>
-                        </tr>
-                      </thead>
-
-                      <!-- List Body -->
-                      <tbody>
-                        <tr [style.backgroundColor]="catID === category.id ? 'lightgray' : 'unset'"        
-                          *ngFor="let category of categories; let i = index">
-                            
-                          <!-- No -->
-                          <td>{{ i + 1 }}</td>
-
-                          <!-- Name -->
-                          <td>{{ category.name }}</td>
-
-                          <!-- Options -->
-                          <td>
-                            <select matNativeControl class="mat-select" placeholder="Opcje">
-                                
-                              <!-- Assign Category -->
-                              <option (click)="catID = category.id" *ngIf="catID !== category.id">
-                                Przypisz
-                              </option>
-
-                              <!-- Unassign Category -->
-                              <option (click)="catID = null" *ngIf="catID === category.id">
-                                Odpisz
-                              </option>
-
-                              <!-- Delete Category -->
-                              <option (click)="showModalDeleteCategory(category.id)">
-                                Usuń
-                              </option>
-                            </select>
-                          </td>
-                        </tr>
-                      </tbody>
-
-                    </table>
-                  </div>
-
-                  <!-- Submit Create A New Category -->
-                  <div class="category-form">
-                    <button type="button" mat-button (click)="showModalAddCategory()">Stwórz</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="step-next-submit">
-              <button type="button" mat-button class="prev-step" (click)="prevOrNextNumber(-1)" *ngIf="stepperSection > 1">
-                 Wróć
-              </button>
-              <button type="button" mat-button class="next-step" (click)="prevOrNextNumber(1)" *ngIf="stepperSection < 4">
-                 Dalej
-              </button>
-              <button type="submit" mat-button class="next-step" *ngIf="stepperSection === 4">
-                 Stwórz
-              </button>
-            </div>
-          </form>
+          <!-- Alert Validate-->
+          <p class="text-danger" *ngIf="checkValidate('subject', 'required')" [@fadeInOutTranslate] text-form-danger>
+            Pole nie może być puste!
+          </p>
         </div>
+
+        <!-- Price Product -->
+        <div>
+          <label for="price-product" basic-form>
+            Cena:
+            <span icon-form [style.background]="'none'" [style.border]="'none'">
+              <i class="fas fa-dollar-sign"></i>
+            </span>
+          </label>
+          <input type="number" min="0" id="price-product" basic-form valid-input placeholder="Cena"
+            formControlName="price" />
+
+          <!-- Alert Validate-->
+          <p class="text-danger" *ngIf="checkValidate('price', 'min')" [@fadeInOutTranslate] text-form-danger>
+            Cena nie może być równa oraz mniejsza niż '0'!
+          </p>
+        </div>
+
+        <!-- Promotion Product -->
+        <div>
+          <label for="promotion-product" basic-form>
+            Promocja:
+            <span icon-form [style.background]="'none'" [style.border]="'none'">
+              <i class="fas fa-percent"></i>
+            </span>
+          </label>
+          <input type="number" id="promotion-product" basic-form valid-input placeholder="Promocja"
+            formControlName="promotion" />
+
+          <!-- Alert Validate-->
+          <p class="text-danger" *ngIf="checkValidate('promotion', 'min')" [@fadeInOutTranslate] text-form-danger>
+            Promocja nie może być mniejsza niż '0'!
+          </p>
+          <p class="text-danger" *ngIf="checkValidate('promotion', 'max')" [@fadeInOutTranslate] text-form-danger>
+            Promocja nie może być większa niż '100'!
+          </p>
+        </div>
+
+        <!-- Category  Product -->
+        <div [style.position]="'relative'">
+          <label for="category-product" basic-form>
+            Kategoria:
+            <span icon-form [style.background]="'none'" [style.border]="'none'">
+              <i class="fas fa-project-diagram"></i>
+            </span>
+          </label>
+          <input type="text" id="category-product" basic-form valid-input placeholder="Kategoria"
+            formControlName="categoryID" readonly (click)="toggleSelect(); $event.stopPropagation()" />
+          <app-select-filter *ngIf="vissibleSelect" (click)="$event.stopPropagation()"
+            (setCategory)="setCategory($event[0],$event[1])" (clear)="clearCategory($event[0],$event[1])">
+          </app-select-filter>
+          <!-- Alert Validate-->
+          <p class="text-danger" *ngIf="checkValidate('categoryID', 'required')" [@fadeInOutTranslate] text-form-danger>
+            Pole nie może być puste!
+          </p>
+        </div>
+
+      </section>
+
+      <!-- About Product -->
+      <header [style.padding-top]="'30px'">
+        <h4>
+          <i class="far fa-comment-alt"></i>
+          Opis Produktu
+        </h4>
+      </header>
+      <hr />
+
+      <section class="description-product">
+
+        <!-- Description Product -->
+        <div>
+          <label for="desc-product" basic-form>
+            Opis:
+          </label>
+          <textarea type="text" id="desc-product" rows="5" basic-form valid-textarea placeholder="Opis"
+            formControlName="desc"></textarea>
+
+          <!-- Alert Validate-->
+          <p class="text-danger" *ngIf="checkValidate('desc', 'required')" [@fadeInOutTranslate] text-form-danger>
+            Pole nie może być puste
+          </p>
+        </div>
+
+        <!-- Meta Title -->
+        <div>
+          <label for="metaTitle-product" basic-form>
+            Tytuł:
+            <span icon-form [style.background]="'none'" [style.border]="'none'">
+              <i class="far fa-edit"></i>
+            </span>
+          </label>
+          <input id="metaTitle-product" basic-form valid-input placeholder="Tytuł" formControlName="metaTitle" />
+
+          <!-- Alert Validate-->
+          <p class="text-danger" *ngIf="checkValidate('metaTitle', 'required')" [@fadeInOutTranslate] text-form-danger>
+            Pole nie może być puste!
+          </p>
+        </div>
+
+        <!-- Meta Keyword -->
+        <div>
+          <label for="metaKeyword-product" basic-form>
+            Słowo Klucz:
+            <span icon-form [style.background]="'none'" [style.border]="'none'">
+              <i class="fas fa-key"></i>
+            </span>
+          </label>
+          <input id="metaKeyword-product" basic-form valid-input placeholder="Słowo klucz"
+            formControlName="metaKeyword" />
+
+          <!-- Alert Validate-->
+          <p class="text-danger" *ngIf="checkValidate('metaKeyword', 'required')" [@fadeInOutTranslate]
+            text-form-danger>
+            Pole nie może być puste!
+          </p>
+        </div>
+
+      </section>
+
+      <!-- Image Product -->
+      <header [style.padding-top]="'30px'">
+        <h4>
+          <i class="far fa-file-image"></i>
+          Zdjęcie Produktu
+        </h4>
+      </header>
+      <hr />
+
+      <div class="drop-area">
+        <img class="image-select" />
+
+        <!-- Drop Area -->
+        <file-drop #el (onFileDrop)="dropped($event)">
+          <section *ngIf="!FLAG_IS_PICTURE">
+            <div class="drop-desc">
+              <h6>Przesyłanie Zdjęcia</h6>
+              <p>Przeciągnij & Puść lub kliknij w przycisk dodaj</p>
+            </div>
+            <div class="upload-icon">
+              <i class="fas fa-cloud-upload-alt"></i>
+            </div>
+          </section>
+        </file-drop>
+
+        <!-- Alert Validate-->
+        <p [style.text-align]="'center'" [style.margin-top]="'10px'" class="text-danger" *ngIf="checkValidate('image', 'required')" [@fadeInOutTranslate] text-form-danger>
+          Zdjęcie nie może być puste!
+        </p>
+
+        <!-- Button Upload Image -->
+        <div (click)="getFile(dropInput)" class="button-upload">
+          <div class="area-set">
+            <i class="fa fa-upload"></i>
+            <p>Dodaj Zdjęcie</p>
+          </div>
+        </div>
+        <input #dropInput type="file" [style.display]="'none'" (change)="uploadImage($event.target)"
+          accept="image/x-png,image/gif,image/jpeg" />
       </div>
-    </div>
-  </div>
-</div>
 
+      <!-- Additional Information -->
+      <header [style.padding-top]="'30px'">
+        <h4>
+          <i class="fas fa-book"></i>
+          Dodatkowe Informacje
+          <span [style.font-size]="'13px'" [style.margin-left]="'5px'"> (*opcjonalnie)</span>
+        </h4>
+      </header>
+      <hr />
+
+      <!-- Params List -->
+      <div class="parametrs-list" *ngFor="let param of productForm.value.params; let i = index" [formGroup]="param">
+        <input basic-form placeholder="Nazwa" formControlName="name" />
+        <input basic-form placeholder="Wartość" formControlName="value" />
+        <i class="fas fa-trash-alt" (click)="deleteParam(i)" [style.color]="'#ed1c24'"></i>
+      </div>
+
+      <button [style.margin-top]="'15px'" type="button" (click)="addParam()" secondary-form>
+        <i class="fas fa-plus"></i>
+        Dodaj Informacje
+      </button>
+      <hr />
+
+      <!-- Submit -->
+      <div class="submit">
+        <button *ngIf="!editMode" type="submit" info-form>Stwórz</button>
+        <button *ngIf="editMode" type="submit" warning-form>Zapisz</button>
+      </div>
+    </form>
+
+  </main>
+
+</div>

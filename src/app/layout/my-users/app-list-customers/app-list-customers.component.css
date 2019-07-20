@@ -1,5 +1,5 @@
 /*================
-  GLOBAL STYLES
+  LIST STYLES
 
   1. LIST CUSTOMERS
   2. EMPTY LIST
@@ -156,31 +156,6 @@ table {
 .send-message:hover,
 .delete-customer:hover {
   cursor: pointer;
-}
-
-.show-more {
-  background: linear-gradient(180deg,#1a98f7,#1485db);
-  outline: 0;
-  color: #fff;
-  text-decoration: none;
-  border-color: #1a91eb;
-  transition: all .45s ease-in-out;
-  border: 1px solid;
-  border-radius: 50%;
-  border-color: #1a91eb;
-  color: #fff;
-  font-size: .875rem;
-  font-weight: 400;
-  line-height: 1.5;
-  text-align: center;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  cursor: pointer;
-  overflow: hidden;
-  vertical-align: middle;
-  height: 35px;
-  width: 35px;
-  padding: 2px;
 }
 
 @media screen and (min-width: 992px) {

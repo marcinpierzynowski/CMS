@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { fadeInOutTranslate } from '../../../../shared/animations/animation';
+import { FormGroup, FormControl } from '@angular/forms';
 
 import { FirebaseService } from '../../../services/firebase.service';
 import { LayoutManageService } from 'src/app/services/layout-manage.service';
+import { ModalManageService } from 'src/app/services/modal-manage.service';
+import { Customer } from 'src/app/models/customer.model';
 
 import swal from 'sweetalert2';
-import { Customer } from 'src/app/models/customer.model';
-import { FormGroup, FormControl } from '@angular/forms';
-import { IfStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-app-list-customers',
@@ -19,21 +19,22 @@ export class AppListCustomersComponent implements OnInit {
   public customers: Array<Customer>;
   public copyCustomers: Array<Customer>;
   public image = [];
-  public limit = 5; // TODO zmienic
+  public limit = 5;
   public filter: FormGroup;
 
   private time = null;
 
   constructor(
     private firebaseService: FirebaseService,
-    private layoutManageService: LayoutManageService
+    private layoutManageService: LayoutManageService,
+    private modalManageService: ModalManageService
   ) { }
 
   ngOnInit(): void {
     this.layoutManageService.customersData.subscribe(c => {
       this.customers = c;
       if (c) {
-        this.copyCustomers = c.filter((cp, i) => i < this.limit);
+        this.copyCustomers = c.slice();
         this.initForm();
       }
     });
@@ -51,12 +52,10 @@ export class AppListCustomersComponent implements OnInit {
 
   public showAll(): void {
     this.limit = this.customers.length;
-    this.copyCustomers = [...this.customers];
   }
 
   public setLimit(): void {
     this.limit += 5;
-    this.copyCustomers = this.customers.filter((c, i) => i < this.limit);
   }
 
   public filterData(): void {
@@ -69,6 +68,7 @@ export class AppListCustomersComponent implements OnInit {
     }
 
     this.time = setTimeout(() => {
+      this.limit = 5;
       this.copyCustomers = this.customers.filter(c => {
         // tslint:disable-next-line: prefer-for-of
         for (let i = 0; i < keys.length; i++) {
@@ -81,6 +81,35 @@ export class AppListCustomersComponent implements OnInit {
       });
       this.time = null;
     }, 500);
+  }
+
+  public deleteUser(email: string): void {
+    swal.fire({
+      title: 'Usunięcie klienta',
+      text: 'Czy jesteś pewny że chcesz usunąć użytkownika?',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Tak',
+      cancelButtonText: 'Nie'
+    }).then(result => {
+      if (result.value) {
+        const customers = this.customers.filter(c => c.email !== email);
+        this.firebaseService.getDataBaseRef('customers').set(customers)
+          .then(() => swal.fire('Usunięcie klienta', 'Klient został pomyślnie usunięty', 'success'));
+      }
+    });
+  }
+
+  public showModalMessage(em: string) {
+    const admin = this.layoutManageService.emailData.getValue();
+    const customer: Customer = this.customers.find(c => c.email === em);
+    const { imageUrl, email, name, surname, address, contact } = customer;
+    const data = {
+      vissible: true, imageUrl, email, name, surname, address, contact, admin
+    };
+    this.modalManageService.update(0, data);
   }
 
 }

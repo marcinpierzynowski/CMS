@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { fadeInOutTranslate } from '../../../../shared/animations/animation';
-import { FirebaseService } from '../../../services/firebase.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CustomValidators } from 'ng2-validation';
-import swal from 'sweetalert2';
-import { LayoutManageService } from 'src/app/services/layout-manage.service';
 import { Router } from '@angular/router';
+
+import { FirebaseService } from '../../../services/firebase.service';
+import { LayoutManageService } from 'src/app/services/layout-manage.service';
 import { Admin } from 'src/app/models/admin.model';
+
+import swal from 'sweetalert2';
+import { fadeInOutTranslate } from '../../../../shared/animations/animation';
 
 @Component({
   selector: 'app-my-settings',
@@ -18,8 +20,8 @@ export class AppMySettingsComponent implements OnInit {
   public changePassword: FormGroup;
   public profileForm: FormGroup;
   public activeCard = 1;
+  public user: Admin;
 
-  private user: Admin;
   private refStorage;
   private indexUser: string;
 
@@ -142,7 +144,7 @@ export class AppMySettingsComponent implements OnInit {
 
   public uploadToStorageImage(value): void {
     const name = this.user.detail.imageName;
-    const storageRef = this.refStorage.ref(name);
+    const storageRef = this.refStorage.ref('ADMINS/' + name);
     this.generateSwalWaitingFromRequest('warning', 'Dodanie zdjęcia do slajdera', 'Czekaj na dodanie zdjęcia!');
 
     const task = storageRef.put(value);
@@ -157,7 +159,7 @@ export class AppMySettingsComponent implements OnInit {
   }
 
   public updateUrl(name): void {
-    this.refStorage.ref().child(name).getDownloadURL().then(imageUrl => {
+    this.refStorage.ref().child('ADMINS/' + name).getDownloadURL().then(imageUrl => {
         this.user.detail.imageUrl = imageUrl;
         this.firebaseService.getDataBaseRef('admins').child(this.indexUser)
           .child('detail').child('imageUrl').set(imageUrl).then(() => {
@@ -271,7 +273,7 @@ export class AppMySettingsComponent implements OnInit {
     this.layoutManageService.showNotification();
   }
 
-  public checkValisSuccess(name: string) {
+  public checkValidateSuccess(name: string) {
     const control = this.changePassword.controls[name];
     if (!control.errors && control.touched) {
         return true;

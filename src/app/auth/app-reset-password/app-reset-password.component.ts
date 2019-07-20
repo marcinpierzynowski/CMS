@@ -51,7 +51,7 @@ export class AppResetPasswordComponent implements OnInit {
   }
 
   public activeFormInput(): void {
-      // tslint:disable-next-line
+    // tslint:disable-next-line
     for (let inner in this.resetPassword.controls) {
       this.resetPassword.get(inner).markAsTouched();
       this.resetPassword.get(inner).updateValueAndValidity();
@@ -90,15 +90,15 @@ export class AppResetPasswordComponent implements OnInit {
   }
 
   public checkValidate(inputControl: string, nameControl: string): boolean {
-      const control = this.resetPassword.controls[inputControl];
-      if (control.errors) {
-        if (control.errors[nameControl] && control.touched) {
-          return true;
+    const control = this.resetPassword.controls[inputControl];
+    if (control.errors) {
+      if (control.errors[nameControl] && control.touched) {
+        return true;
       } else {
         return false;
       }
-      }
-      return false;
+    }
+    return false;
   }
 
   public checkValidateEmail(): boolean {
@@ -106,7 +106,7 @@ export class AppResetPasswordComponent implements OnInit {
     if (control.errors) {
       if ((control.errors.required || control.errors.email)
         && control.touched) {
-          return true;
+        return true;
       } else {
         return false;
       }

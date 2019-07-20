@@ -28,32 +28,27 @@
 
               <!-- Filter Email -->
               <th>
-                <input id="email-customer" basic-form placeholder="E-mail" 
-                formControlName="email" (input)="filterData()"/>
+                <input basic-form placeholder="E-mail" formControlName="email" (input)="filterData()" />
               </th>
 
               <!-- Filter Name -->
               <th>
-                <input id="email-customer" basic-form placeholder="Imię" 
-                  formControlName="name" (input)="filterData()"/>
+                <input basic-form placeholder="Imię" formControlName="name" (input)="filterData()" />
               </th>
 
               <!-- Filter Surname -->
               <th>
-                <input id="email-customer" basic-form placeholder="Nazwisko" 
-                  formControlName="surname" (input)="filterData()"/>
+                <input basic-form placeholder="Nazwisko" formControlName="surname" (input)="filterData()" />
               </th>
 
               <!-- Filter Address -->
               <th>
-                <input id="email-customer" basic-form placeholder="Adres" 
-                  formControlName="address" (input)="filterData()"/>
+                <input basic-form placeholder="Adres" formControlName="address" (input)="filterData()" />
               </th>
 
               <!-- Filter Contact -->
               <th>
-                <input id="email-customer" basic-form placeholder="Telefon" 
-                  formControlName="contact" (input)="filterData()"/>
+                <input basic-form placeholder="Telefon" formControlName="contact" (input)="filterData()" />
               </th>
 
               <!-- Send Message -->
@@ -65,7 +60,7 @@
           </thead>
 
           <tbody>
-            <tr class="list-body" *ngFor="let customer of copyCustomers; let i = index">
+            <tr class="list-body" *ngFor="let customer of copyCustomers.slice(0, limit); let i = index">
               <!-- No -->
               <th>
                 <p>{{ i + 1 }}</p>
@@ -103,19 +98,20 @@
 
               <!-- Message -->
               <th>
-                <i class="fas fa-paper-plane send-message"></i>
+                <i (click)="showModalMessage(customer.email)" class="fas fa-paper-plane send-message"></i>
               </th>
 
               <!-- Delete -->
               <th>
-                <i class="far fa-trash-alt delete-customer"></i>
+                <i (click)="deleteUser(customer.email)" class="far fa-trash-alt delete-customer"></i>
               </th>
             </tr>
           </tbody>
-          
+
           <!-- Next Five Customers -->
-          <div class="title-section-global" [style.margin-bottom]="'25px'" *ngIf="customers.length > limit">
-            <button class="show-more" (click)="setLimit()">
+          <div class="title-section-global" [style.margin-bottom]="'25px'"
+            *ngIf="copyCustomers.length > limit">
+            <button class="show-more-global" (click)="setLimit()">
               <i class="fas fa-arrow-down"></i>
             </button>
           </div>

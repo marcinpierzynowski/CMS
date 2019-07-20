@@ -21,6 +21,7 @@
             "aot": false,
             "assets": [
               "src/favicon.ico",
+              "src/favicon-tooth.ico",
               "src/assets"
             ],
             "styles": [

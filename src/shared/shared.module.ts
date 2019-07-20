@@ -6,8 +6,12 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { FileDropModule } from 'ngx-file-drop';
 import { ClipboardModule } from 'ngx-clipboard';
+import { LogoBackgroundComponent } from './components/logo-background/logo-background.component';
 
 @NgModule({
+  declarations: [
+    LogoBackgroundComponent
+  ],
   exports: [
     CommonModule,
     FormsModule,
@@ -15,7 +19,8 @@ import { ClipboardModule } from 'ngx-clipboard';
     ClipboardModule,
     FileDropModule,
     MatFormFieldModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    LogoBackgroundComponent
   ]
 })
 export class SharedModule { }

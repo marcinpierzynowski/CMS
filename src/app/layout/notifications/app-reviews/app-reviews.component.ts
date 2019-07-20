@@ -5,21 +5,18 @@ import { FirebaseService } from '../../../services/firebase.service';
 
 import swal from 'sweetalert2';
 import { NotificationsManageService } from 'src/app/services/notifications-manage.service';
-import { Comment } from 'src/app/models/notification.model';
+import { Reviews } from 'src/app/models/notification.model';
 
 @Component({
-  selector: 'app-app-comments',
-  templateUrl: './app-comments.component.html',
-  styleUrls: [
-    './app-comments.component.css',
-    '../../../../assets/styles-custom/spinner2-style.css'
-  ],
+  selector: 'app-reviews',
+  templateUrl: './app-reviews.component.html',
+  styleUrls: ['./app-reviews.component.css'],
   providers: [NotificationsManageService],
   animations: [fadeInOutTranslate]
 })
-export class AppCommentsComponent implements OnInit {
-  public comments: Array<Comment>;
-  public cpComments: Array<Comment>;
+export class AppReviewsComponent implements OnInit {
+  public reviews: Array<Reviews>;
+  public cpReviews: Array<Reviews>;
   public rate = '';
   public date = '';
 
@@ -29,20 +26,21 @@ export class AppCommentsComponent implements OnInit {
     ) {}
 
   ngOnInit(): void {
-    this.notificationsManageService.commentsData.subscribe(coms => {
-      this.comments = coms;
+    this.notificationsManageService.reviewsData.subscribe(coms => {
+      this.reviews = coms;
       if (coms) {
-        this.cpComments = coms.slice();
+        this.cpReviews = coms.slice();
       }
     });
   }
 
   public filterData(): void {
+    // tslint:disable-next-line:one-variable-per-declaration
     const r = this.rate, d = this.date;
     const inpVal = [r, d];
     const keys = ['rate', 'date'];
 
-    this.cpComments = this.comments.filter((com) => {
+    this.cpReviews = this.reviews.filter((com) => {
       // tslint:disable-next-line:no-shadowed-variable
       for (let i = 0; i < inpVal.length; i++) {
         if (inpVal[i] !== '' && com[keys[i]].toLowerCase().includes(inpVal[i].toLowerCase()) === false) {
@@ -54,22 +52,22 @@ export class AppCommentsComponent implements OnInit {
 
     // if all inputs empty
     if (!inpVal.find(el => el !== '')) {
-      this.cpComments = this.comments.slice();
+      this.cpReviews = this.reviews.slice();
     }
   }
 
-  public showComments(message): void {
+  public showReview(message): void {
     swal.fire({
       type: 'info',
-      title: 'Komentarz',
+      title: 'Opinia',
       text: message
     });
   }
 
   public deleteComment(id: number): void {
     swal.fire({
-      title: 'Usunięcie Komentarza',
-      text: 'Czy jesteś pewny że chcesz usunąć komentarz?',
+      title: 'Usunięcie Opinię',
+      text: 'Czy jesteś pewny że chcesz usunąć opinię?',
       type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -78,9 +76,9 @@ export class AppCommentsComponent implements OnInit {
       cancelButtonText: 'Nie'
     }).then(result => {
       if (result.value) {
-        const coms = this.comments.filter(com => com.id !== id);
-        this.firebaseService.getDataBaseRef('comments').set(coms)
-          .then(() => swal.fire('Usunięcie Komentarza', 'Komentarz został usunięty', 'success'));
+        const coms: Array<Reviews> = this.reviews.filter(com => com.id !== id);
+        this.firebaseService.getDataBaseRef('reviews').set(coms)
+          .then(() => swal.fire('Usunięcie Opinii', 'Opinia została usunięta', 'success'));
       }
     });
   }

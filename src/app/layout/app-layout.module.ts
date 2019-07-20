@@ -10,14 +10,10 @@ import { AppMyProfilComponent } from './my-account/app-my-profil/app-my-profil.c
 import { AppMySettingsComponent } from './my-account/app-my-settings/app-my-settings.component';
 import { AppAddProductsComponent } from './my-products/app-add-products/app-add-products.component';
 import { AppListProductsComponent } from './my-products/app-list-products/app-list-products.component';
-import { AppEditProductComponent } from './my-products/app-list-products/app-edit-product/app-edit-product.component';
 import { AppNewMessagesComponent } from './messages/app-new-messages/app-new-messages.component';
 import { AppReceivedMessagesComponent } from './messages/app-received-messages/app-received-messages.component';
-import { AppCommentsComponent } from './notifications/app-comments/app-comments.component';
+import { AppReviewsComponent } from './notifications/app-reviews/app-reviews.component';
 import { AppEvaluationComponent } from './notifications/app-evaluation/app-evaluation.component';
-import { AppSliderComponent } from './pages-properties/app-slider/app-slider.component';
-import { AppPromotionComponent } from './pages-properties/app-promotion/app-promotion.component';
-import { AppEditMessageComponent } from './messages/app-edit-message/app-edit-message.component';
 import { CurrentPageComponent } from 'src/shared/components/current-page/current-page.component';
 import { CurrentPageService } from '../services/current-page.service';
 import { OrdersManageService } from '../services/orders-manage.service';
@@ -28,41 +24,45 @@ import { MultipleComponent } from 'src/shared/components/multiple/multiple.compo
 import { NotificationComponent } from 'src/shared/components/notification/notification.component';
 import { AppListAdminsComponent } from './my-users/app-list-admins/app-list-admins.component';
 import { AppListCustomersComponent } from './my-users/app-list-customers/app-list-customers.component';
+import { ModalMessageComponent } from 'src/shared/components/modal-message/modal-message.component';
+import { ModalManageService } from '../services/modal-manage.service';
+import { SelectFilterComponent } from 'src/shared/components/select-filter/select-filter.component';
+import { AppDetailsProductComponent } from './my-products/app-list-products/app-details-product/app-details-product.component';
 
 @NgModule({
-    declarations: [
-      AppLayoutComponent,
-      AppDashboardComponent,
-      AppMyProfilComponent,
-      AppMySettingsComponent,
-      AppListAdminsComponent,
-      AppListCustomersComponent,
-      AppAddProductsComponent,
-      AppListProductsComponent,
-      AppEditProductComponent,
-      AppNewMessagesComponent,
-      AppReceivedMessagesComponent,
-      AppEditMessageComponent,
-      AppCommentsComponent,
-      AppEvaluationComponent,
-      AppSliderComponent,
-      AppPromotionComponent,
-      CurrentPageComponent,
-      DatepickerRangeComponent,
-      MultipleComponent,
-      NotificationComponent
-    ],
-    imports: [
-      CommonModule,
-      SharedModule,
-      PageRoutes
-    ],
-    providers: [
-      DatePipe,
-      CurrentPageService,
-      OrdersManageService,
-      ProductsManageService,
-      MessagesManageService
-    ]
+  declarations: [
+    AppLayoutComponent,
+    AppDashboardComponent,
+    AppMyProfilComponent,
+    AppMySettingsComponent,
+    AppListAdminsComponent,
+    AppListCustomersComponent,
+    AppAddProductsComponent,
+    AppListProductsComponent,
+    AppDetailsProductComponent,
+    AppNewMessagesComponent,
+    AppReceivedMessagesComponent,
+    AppReviewsComponent,
+    AppEvaluationComponent,
+    CurrentPageComponent,
+    DatepickerRangeComponent,
+    MultipleComponent,
+    NotificationComponent,
+    ModalMessageComponent,
+    SelectFilterComponent
+  ],
+  imports: [
+    CommonModule,
+    SharedModule,
+    PageRoutes
+  ],
+  providers: [
+    DatePipe,
+    CurrentPageService,
+    OrdersManageService,
+    ProductsManageService,
+    MessagesManageService,
+    ModalManageService
+  ]
 })
-export class AppLayoutModule {}
+export class AppLayoutModule { }

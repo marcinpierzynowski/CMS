@@ -244,6 +244,13 @@ canvas {
     color: #ed1c24;
 }
 
+.empty-info {
+    color: #7f8fa4;
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+}
+
 @media screen and (min-width: 576px) {
     .activity-pages {
       grid-template-columns: repeat(2, 1fr);

@@ -96,23 +96,48 @@ input[valid-input].ng-invalid.ng-touched:-moz-placeholder {
 }
 
 /*
+* Valid Warning
+*/
+
+input[valid-warning-input].ng-invalid.ng-touched {
+    border-color: #fd9a18;
+    color: #354052;
+}
+
+input[valid-warning-input].ng-invalid.ng-touched::-webkit-input-placeholder {
+    color: #fd9a18;
+}
+
+input[valid-warning-input].ng-invalid.ng-touched::-moz-placeholder {
+    color: #fd9a18;
+}
+
+input[valid-warning-input].ng-invalid.ng-touched:-moz-placeholder {
+    color: #fd9a18;
+}
+
+/*
 * Valid Success
 */
 
-input[valid-input].ng-valid.ng-touched {
+input[valid-input].ng-valid.ng-touched,
+input[valid-warning-input].ng-valid.ng-touched {
     border-color: #1bb934;
     color: #354052;
 }
 
-input[valid-input].ng-valid.ng-touched::-webkit-input-placeholder {
+input[valid-input].ng-valid.ng-touched::-webkit-input-placeholder,
+input[valid-warning-input].ng-valid.ng-touched::-webkit-input-placeholder {
     color: #1bb934;
 }
 
-input[valid-input].ng-valid.ng-touched::-moz-placeholder {
+input[valid-input].ng-valid.ng-touched::-moz-placeholder,
+input[valid-warning-input].ng-valid.ng-touched::-moz-placeholder {
     color: #1bb934;
 }
 
-input[valid-input].ng-valid.ng-touched:-moz-placeholder {
+input[valid-input].ng-valid.ng-touched:-moz-placeholder,
+input[valid-warning-input].ng-valid.ng-touched:-moz-placeholder {
     color: #1bb934;
 }
 
@@ -167,6 +192,11 @@ label[basic-form] i[valid="error"] {
     display: none;
 }
 
+label[basic-form] i[valid="warning"] {
+    color: #fd9a18 !important;
+    display: none;
+}
+
 label[basic-form] i[valid="success"] {
     color: #1bb934 !important;
     display: none;
@@ -183,7 +213,8 @@ button[info-form],
 button[secondary-form], 
 button[primary-form],
 button[danger-form],
-button[warning-form] {
+button[warning-form],
+button[fancy-form] {
     transition: all .15s ease-in-out;
     border: 1px solid;
     border-radius: 4px;
@@ -197,7 +228,8 @@ button[info-form]:hover,
 button[secondary-form]:hover,
 button[primary-form]:hover,
 button[danger-form]:hover,
-button[warning-form]:hover {
+button[warning-form]:hover,
+button[fancy-form]:hover {
     cursor: pointer;
 }
 
@@ -205,7 +237,8 @@ button[info-form]:focus,
 button[secondary-form]:focus,
 button[primary-form]:focus,
 button[danger-form]:focus,
-button[warning-form]:focus {
+button[warning-form]:focus,
+button[fancy-form]:focus {
     outline: 0;
 }
 
@@ -241,10 +274,12 @@ button[secondary-form]:hover {
 button[primary-form] {
     background: linear-gradient(180deg,#475364,#273142);
     color: #fff;
+    border-color: #354052;
 }
 
 button[primary-form]:hover {
     background: linear-gradient(180deg,#3f4958,#151b24);
+    border-color: #354052;
 }
 
 /*
@@ -264,7 +299,7 @@ button[danger-form]:hover {
 * Warning
 */
 button[warning-form] {
-    background: linear-gradient(180deg,#fd9a18,#f16911);;
+    background: linear-gradient(180deg,#fd9a18,#f16911);
     color: #fff;
     border-color: #f16911;
 }
@@ -273,8 +308,81 @@ button[warning-form]:hover {
     background: linear-gradient(180deg,#fd9104,#e0600d);
 }
 
+/*
+* Fancy
+*/
+button[fancy-form] {
+    background: linear-gradient(180deg,#886ce6,#7d5be2);
+    color: #fff;
+    border-color: #7d5be2;
+}
+
+button[fancy-form]:hover {
+    background: linear-gradient(180deg,#7a5be3,#6f4adf)
+}
+
 /*===================================
-    4.OTHER
+    4. TEXTAREA
+===================================*/
+textarea[basic-form] {
+    display: block;
+    width: 100%;
+    margin: 0;
+    padding: .59375rem .9375rem;
+    transition: all .3s;
+    border: 1px solid #dfe3e9;
+    border-radius: 4px;
+    background-color: #fff;
+    color: #354052;
+    font-size: .875rem;
+    font-weight: 400;
+    resize: none;
+}
+
+/*
+* Valid Error
+*/
+textarea[valid-textarea].ng-invalid.ng-touched {
+    border-color: #ed1c24;
+    color: #ed1c24;
+}
+
+textarea[valid-textarea].ng-invalid.ng-touched::-webkit-input-placeholder {
+    color: #ed1c24;
+}
+
+textarea[valid-textarea].ng-invalid.ng-touched::-moz-placeholder {
+    color: #ed1c24;
+}
+
+textarea[valid-textarea].ng-invalid.ng-touched:-moz-placeholder {
+    color: #ed1c24;
+}
+
+/*
+* Valid Success
+*/
+
+textarea[valid-textarea].ng-valid.ng-touched {
+    border-color: #1bb934;
+    color: #354052;
+}
+
+textarea[valid-textarea].ng-valid.ng-touched::-webkit-input-placeholder {
+    color: #1bb934;
+}
+
+textarea[valid-textarea].ng-valid.ng-touched::-moz-placeholder {
+    color: #1bb934;
+}
+
+textarea[valid-textarea].ng-valid.ng-touched:-moz-placeholder {
+    color: #1bb934;
+}
+
+
+/*===================================
+    5.OTHER
 ===================================*/
 
 /*

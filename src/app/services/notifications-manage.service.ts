@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 import { FirebaseService } from './firebase.service';
-import { Evaluation, Comment } from '../models/notification.model';
+import { Evaluation, Reviews } from '../models/notification.model';
 
 @Injectable()
 export class NotificationsManageService {
-    public commentsData: BehaviorSubject<Array<Comment>> =  new BehaviorSubject(null);
+    public reviewsData: BehaviorSubject<Array<Reviews>> =  new BehaviorSubject(null);
     public evaluationsData: BehaviorSubject<Array<Evaluation>> =  new BehaviorSubject(null);
 
     constructor(private firebaseService: FirebaseService) {
@@ -14,20 +14,20 @@ export class NotificationsManageService {
     }
 
     public init(): void {
-        this.firebaseService.getDataBaseRef('comments').on('value', this.comments.bind(this), this.catchError);
+        this.firebaseService.getDataBaseRef('reviews').on('value', this.reviews.bind(this), this.catchError);
         this.firebaseService.getDataBaseRef('evaluations').on('value', this.evaluations.bind(this), this.catchError);
     }
 
-    public comments(response): void {
+    public reviews(response): void {
         const data = response.val();
 
         if (data === null) {
-            this.commentsData.next([]);
+            this.reviewsData.next([]);
             return;
         }
 
         const messages = this.prepareData(data);
-        this.commentsData.next(messages);
+        this.reviewsData.next(messages);
     }
 
     public evaluations(response): void {
@@ -46,6 +46,7 @@ export class NotificationsManageService {
         const keys = Object.keys(data);
         const preData = [];
 
+        // tslint:disable-next-line:prefer-for-of
         for (let i = 0; i < keys.length; i++) {
             preData.push(data[keys[i]]);
         }

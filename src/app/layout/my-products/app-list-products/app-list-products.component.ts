@@ -1,19 +1,17 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
 
-import { fadeInOutTranslate } from '../../../../shared/animations/animation';
 import { FirebaseService } from '../../../services/firebase.service';
-
-import swal from 'sweetalert2';
 import { ProductsManageService } from 'src/app/services/products-manage.service';
 import { Product, Image } from 'src/app/models/product.model';
 
+import swal from 'sweetalert2';
+import { fadeInOutTranslate } from '../../../../shared/animations/animation';
+
 @Component({
-  selector: 'app-app-list-products',
+  selector: 'app-list-products',
   templateUrl: './app-list-products.component.html',
-  styleUrls: [
-    './app-list-products.component.css',
-    '../../../../assets/styles-custom/spinner2-style.css'
-  ],
+  styleUrls: ['./app-list-products.component.css'],
   animations: [fadeInOutTranslate]
 })
 export class AppListProductsComponent implements OnInit {
@@ -22,24 +20,106 @@ export class AppListProductsComponent implements OnInit {
   public images: Array<Image>;
   public title = '';
   public ref = '';
+  public filter: FormGroup;
+  public limit = 5;
+  public sortState = 0;
 
   private productDelete: Product;
   private refStorage = null;
+  private time;
 
   constructor(
     private firebaseService: FirebaseService,
     private productManageService: ProductsManageService
-    ) {}
+  ) { }
 
   ngOnInit(): void {
     this.productManageService.productsData.subscribe(prs => {
-      this.products = prs;
       if (prs) {
+        this.products = prs.slice();
         this.cpProducts = prs.slice();
       }
     });
+
     this.productManageService.imagesData.subscribe(imgs => this.images = imgs);
     this.refStorage = this.firebaseService.firebase.storage();
+    this.initForm();
+  }
+
+  public initForm(): void {
+    this.filter = new FormGroup({
+      name: new FormControl(''),
+      categoryName: new FormControl(''),
+      ref: new FormControl(''),
+      date: new FormControl(''),
+    });
+  }
+
+  public showAll(): void {
+    this.limit = this.products.length;
+  }
+
+  public setLimit(): void {
+    this.limit += 5;
+  }
+
+  public setSortState(): void {
+    this.sortState = this.sortState < 2 ? this.sortState + 1 : 0;
+    this.filterData();
+  }
+
+  public filterData(): void {
+    const inputs = this.filter.value;
+    const keys = ['name', 'categoryName', 'ref', 'date'];
+
+    if (this.time) {
+      clearTimeout(this.time);
+      this.time = null;
+    }
+
+    this.time = setTimeout(() => {
+      this.limit = 10;
+      const productsManage = this.productManageService.productsData.getValue().slice();
+      if (this.sortState === 1) {
+        this.products = productsManage.sort(this.sortAscending);
+      } else if (this.sortState === 2) {
+        this.products = productsManage.sort(this.sortDescending);
+      } else {
+        this.products = this.productManageService.productsData.getValue();
+      }
+
+      this.cpProducts = this.products.filter(c => {
+        // tslint:disable-next-line: prefer-for-of
+        for (let i = 0; i < keys.length; i++) {
+          if (inputs[keys[i]] !== '' && c[keys[i]].toLowerCase()
+            .includes(inputs[keys[i]].toLowerCase()) === false) {
+            return false;
+          }
+        }
+        return true;
+      });
+      this.time = null;
+    }, 500);
+  }
+
+  public sortAscending(a: Product, b: Product): number {
+    if (a.price < b.price) {
+      return -1;
+    } else if (a.price > b.price) {
+      return 1;
+    } else {
+      return 0;
+    }
+  }
+
+  public sortDescending(a: Product, b: Product): number {
+    if (a.price > b.price) {
+      return -1;
+    } else if (a.price < b.price) {
+      return 1;
+    } else {
+      return 0;
+    }
   }
 
   deleteProduct(ref) {
@@ -60,16 +140,16 @@ export class AppListProductsComponent implements OnInit {
           'Czekaj na usunięcie produktu!'
         );
         this.productDelete = this.cpProducts.find(prs => prs.ref === ref);
-        this.deleteAllImages(0);
+        this.deleteImages();
       }
     });
   }
 
   generateSwalWaitingFromRequest(type, title, text) {
     swal.fire({
-      type: type,
-      title: title,
-      text: text,
+      type,
+      title,
+      text,
       allowOutsideClick: false,
       onBeforeOpen: () => {
         const content = swal.getContent();
@@ -79,46 +159,16 @@ export class AppListProductsComponent implements OnInit {
     });
   }
 
-  deleteAllImages(index: number) {
-      if (index === this.productDelete.images.length) {
-        const filPrs = this.products.filter(prs => prs.ref !== this.productDelete.ref);
-        this.firebaseService.getDataBaseRef('products').set(filPrs)
-          .then(() => {
-            swal.fire('Usunięcie produktu', 'Produkt usunięto pomyślnie.', 'success');
-            this.title = '';
-            this.ref = '';
-          });
-        return;
-      }
-
-      const idImage = this.productDelete.images[index];
+  public async deleteImages(): Promise<any> {
+      const idImage = this.productDelete.image.id;
       const delImage = this.images.find(imgs => imgs.id === idImage);
       const filImages = this.images.filter(imgs => imgs.id !== idImage);
-      this.refStorage.ref(delImage.name).delete()
-        .then(() => {
-          this.firebaseService.getDataBaseRef('images').set(filImages)
-            .then(() => this.deleteAllImages(index + 1));
-        });
-  }
+      const filPrs = this.products.filter(pr => pr.ref !== this.productDelete.ref);
 
-  public filterData(): void {
-    const t = this.title, r = this.ref;
-    const inpVal = [t, r];
-    const keys = ['title', 'ref'];
+      await this.refStorage.ref(delImage.name).delete();
+      await this.firebaseService.getDataBaseRef('images').set(filImages);
+      await this.firebaseService.getDataBaseRef('products').set(filPrs);
 
-    this.cpProducts = this.products.filter((prd) => {
-      // tslint:disable-next-line:no-shadowed-variable
-      for (let i = 0; i < inpVal.length; i++) {
-        if (inpVal[i] !== '' && prd[keys[i]].toLowerCase().includes(inpVal[i].toLowerCase()) === false) {
-         return false;
-        }
-      }
-      return true;
-    });
-
-    // if all inputs empty
-    if (!inpVal.find(el => el !== '')) {
-      this.cpProducts = this.products;
-    }
+      swal.fire('Usunięcie produktu', 'Produkt usunięto pomyślnie.', 'success');
   }
 }

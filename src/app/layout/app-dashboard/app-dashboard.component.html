@@ -1,6 +1,6 @@
 <div [@fadeInOutTranslate]>
     <section class="title-section-global">Statystyki Zamówień</section>
-    
+
     <!-- Statistics -->
     <section class="card">
 
@@ -38,7 +38,7 @@
                 <h4><sup>ZAMÓWIEŃ</sup>21</h4>
                 <p>Ilość zrealizowanych zamówień 2650</p>
             </div>
-            
+
             <!-- Chart -->
             <div class="chart">
                 <div class="chart-weeks">
@@ -85,7 +85,7 @@
 
     <!-- Activity Pages -->
     <section class="activity-pages">
-        
+
         <!-- New Admins -->
         <div class="acitvity-description">
             <div>
@@ -95,12 +95,18 @@
                 <h4>Nowy Administrator</h4>
                 <p>Do zespołu dołączył nowy użytkownik.</p>
             </div>
-            <div>
+            <div *ngIf="admins && admins.length > 0; else emptyAdmins">
                 <p>{{ getNewAdmin().email }}</p>
                 <p>{{ getNewAdmin().created_at }}</p>
                 <p>Nowy / Administrator</p>
-                <p>{{ getDaysCreated(getNewAdmin().created_at) }} dni temu</p>
+                <p>{{ getDaysCreated(getNewAdmin().created_at) ? getDaysCreated(getNewAdmin().created_at) + ' dni temu' : 'Dzisiaj' }}
+                </p>
             </div>
+
+            <!-- Empty -->
+            <ng-template #emptyAdmins>
+                <p class="empty-info">Brak nowych</p>
+            </ng-template>
         </div>
 
         <!-- New Products -->
@@ -112,12 +118,18 @@
                 <h4>Nowy Produkt</h4>
                 <p>W sklepie dodano nowy produkt.</p>
             </div>
-            <div>
+            <div *ngIf="products && products.length > 0; else emptyProducts">
                 <p>{{ getNewProduct()?.ref }}</p>
                 <p>{{ getNewProduct()?.date }}</p>
                 <p>Nowy / Produkt</p>
-                <p>{{ getDaysCreated(getNewProduct()?.date) }} dni temu</p>
+                <p>{{ getDaysCreated(getNewProduct()?.date) ? getDaysCreated(getNewProduct()?.date) + ' dni temu' : 'Dzisiaj' }}
+                </p>
             </div>
+
+            <!-- Empty -->
+            <ng-template #emptyProducts>
+                <p class="empty-info">Brak nowych</p>
+            </ng-template>
         </div>
 
         <!-- New Orders -->
@@ -146,19 +158,25 @@
                 <h4>Nowa Wiadomość</h4>
                 <p>Ostatnia nowa wiadomość.</p>
             </div>
-            <div>
+            <div *ngIf="messages && messages.length > 0; else emptyMessages">
                 <p>{{ getNewMessage()?.email }}</p>
-                <p>{{ getNewAdmin().created_at }}</p>
-                <p>Nowe / Zamówienie</p>
-                <p>{{ getDaysCreated(getNewMessage()?.date) }} dni temu</p>
+                <p>{{ getNewMessage()?.date }}</p>
+                <p>Nowe / Wiadomości</p>
+                <p>{{ getDaysCreated(getNewMessage()?.date) ? getDaysCreated(getNewMessage()?.date) + ' dni temu' : 'Dzisiaj' }}
+                </p>
             </div>
+
+            <!-- Empty -->
+            <ng-template #emptyMessages>
+                <p class="empty-info">Brak nowych</p>
+            </ng-template>
         </div>
     </section>
     <section class="title-section-global">Więcej Opcji</section>
 
     <!-- More Details -->
     <section class="more-details">
-        
+
         <!-- Messages Card -->
         <div class="messages-card">
             <div>
@@ -169,12 +187,12 @@
             <!-- Empty Messages -->
             <div *ngIf="getNewMessages().length === 0" class="empty-messages">
                 <div class="img-messages">
-                    <img src="../../assets/images/user-empty.png"/>
+                    <img src="../../assets/images/user-empty.png" />
                 </div>
                 <div class="text-empty-messages">
                     <h6>Brak nowych wiadomości</h6>
-                    <p>Oczekuj na nowe wiadomości</p> 
-                </div> 
+                    <p>Oczekuj na nowe wiadomości</p>
+                </div>
             </div>
 
             <!-- List Messages -->
@@ -211,7 +229,7 @@
                 <span (click)="executeTask(i)" class="task-execute">
                     <i *ngIf="task.execute" class="fas fa-check-circle"></i>
                 </span>
-                <p (click)="executeTask(i)" class="task-desc" 
+                <p (click)="executeTask(i)" class="task-desc"
                     [style.text-decoration]="task.execute ? 'line-through' : 'none'"
                     [style.opacity]="task.execute ? '0.5' : '1'">
                     {{ task.name }}

@@ -10,10 +10,7 @@ import { Message } from 'src/app/models/message.model';
 @Component({
   selector: 'app-app-received-messages',
   templateUrl: './app-received-messages.component.html',
-  styleUrls: [
-    './app-received-messages.component.css',
-    '../../../../assets/styles-custom/spinner2-style.css'
-  ],
+  styleUrls: ['./app-received-messages.component.css'],
   animations: [fadeInOutTranslate]
 })
 export class AppReceivedMessagesComponent implements OnInit {

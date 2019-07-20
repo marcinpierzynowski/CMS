@@ -1,0 +1,254 @@
+/*================
+  GLOBAL STYLES
+
+  1. DETAILS PRODUCT
+  2. PARAMS LIST
+
+  AUTHOR: MARCIN PIERZYNOWSKI
+  ================*/
+
+/*================
+  1. DETAILS PRODUCT
+=================*/
+
+main.details-product {
+    padding: 15px;
+    background-color: #eff3f6;
+    font-family: Source Sans Pro, sans-serif;
+}
+
+.card-product {
+    min-height: 1px;
+    padding: 15px;
+    position: relative;
+    border: 1px solid #dfe3e9;
+    border-radius: 4px;
+    background-color: #fff;
+}
+
+.basic-info {
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.basic-info img {
+    margin: 0 auto;
+    max-height: 350px;
+}
+
+.basic-info > div {
+    padding-left: 15px;
+}
+
+.eval-product {
+    margin-top: 20px;
+}
+
+.star-eval {
+    color: #fd9a18;
+}
+
+.amount-customers {
+    margin-left: 5px;
+    color: #7f8fa4;
+    font-size: 12px;
+}
+
+.basic-info h3 {
+    margin-top: 10px;
+    color: #354052;
+    font-weight: 400;
+}
+
+.product-price {
+    color: #2ea1f8;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.product-promotion {
+    color: #ed1c24;
+    font-size: 20px;
+}
+
+.product-desc {
+    margin-top: 50px;
+    color: #7f8fa4;
+}
+
+@media screen and (min-width: 992px) {
+    .basic-info {
+        grid-template-columns: 5fr 7fr;
+    }
+    .eval-product {
+        margin-top: 0;
+    }
+}
+
+/*====================
+   2. PARAMS LIST
+=====================*/
+
+nav {
+    padding: 20px;
+    display: grid;
+    align-items: center;
+    grid-template-columns: minmax(100px, 15%) minmax(100px, 15%);
+    border-bottom: 1px solid #dfe3e985;
+}
+
+nav > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+nav > div:hover {
+    cursor: pointer;
+}
+
+nav > div > p {
+    margin: 0;
+    color: #7f8fa4;
+    font-size: 16px;
+    position: relative;
+}
+
+nav > div > p.active-history::after {
+    content: "";
+    background-color: #2ea1f8;
+    position: absolute;
+    height: 2px;
+    width: 100%;
+    left: 0;
+    bottom: -20px;
+    animation: FadeIn 500ms linear;
+}
+
+.params {
+    padding: 10px 5px;
+}
+
+.params-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(100px, 20%));
+    padding: 10px 0;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+}
+
+.params-list p {
+    padding: 0 10px;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+}
+
+.params-list:first-child {
+    border-top: none;
+}
+
+.params-list p:first-child {
+    text-transform: uppercase;
+    color: #354052;
+}
+
+.params-list p:last-child {
+    color: #7f8fa4;
+}
+
+.empty-params {
+    padding: 15px;
+    color: #7f8fa4;
+    margin-top: 15px;
+}
+
+.empty-params > div {
+    text-align: center;
+}
+
+.empty-params i {
+    font-size: 45px;
+}
+
+.empty-params p {
+    margin-top: 10px;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+/*======================
+    3. REVIEWS
+======================*/
+
+.reviews {
+    padding: 15px;
+}
+
+.review {
+    display: grid;
+    padding: 10px 0;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    grid-template-columns: 1fr;
+    align-items: center;
+}
+
+.review:first-child {
+    border-top: 0;
+}
+
+.review > div {
+    display: flex;
+    margin-bottom: 15px;
+}
+
+.review img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
+
+.review > div > div {
+    margin-left: 15px;
+}
+
+.date,
+.email {
+    margin: 0;
+}
+
+.date {
+    color: #7f8fa4;
+}
+
+.email {
+    color: #354052;
+}
+
+.review > p {
+    display: flex;
+    align-items: center;
+    color: #29303b;
+    padding: 10px 0;
+    font-size: 14px;
+}
+
+.empty-reviews {
+    padding: 15px;
+    color: #7f8fa4;
+    margin-top: 15px;
+}
+
+.empty-reviews > div {
+    text-align: center;
+}
+
+.empty-reviews i {
+    font-size: 45px;
+}
+
+@media screen and (min-width: 992px) {
+    .review {
+        grid-template-columns: minmax(200px, 10%) minmax(300px, 40%);
+    }
+}

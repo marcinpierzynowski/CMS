@@ -1,0 +1,33 @@
+<section class="card-select">
+
+  <!-- Nav Category -->
+  <nav>
+    <label for="new-category-product" basic-form>
+      Szukaj lub dodaj nową kategorię:
+      <span [style.right]="'10px'" (click)="submit()" icon-form
+        [style.background]="'linear-gradient(180deg,#39b54a,#34aa44)'">
+        <i [style.color]="'#ffffff'" class="fas fa-plus"></i>
+      </span>
+    </label>
+    <form autocomplete="off" [formGroup]="newCategory" (ngSubmit)="submit()" novalidate="true">
+      <input (input)="filter()" type="text" id="new-category-product" basic-form placeholder="Kategoria" formControlName="name" />
+      <button type="submit" [style.display]="'none'"></button>
+    </form>
+  </nav>
+
+  <!-- List Category -->
+  <section class="list-category" *ngIf="copyCategory && copyCategory.length > 0">
+    <p (click)="select(cat.name, cat.id)" *ngFor="let cat of copyCategory">
+      {{ cat.name }}
+      <i (click)="deleteCategory(cat.name, cat.id); $event.stopPropagation()" class="fas fa-trash-alt"></i>
+    </p>
+  </section>
+
+  <!-- Empty Category -->
+  <section class="empty-category" *ngIf="category && category.length === 0">
+    <div>
+      <i class="far fa-folder-open"></i>
+    </div>
+    <p>Brak kategorii</p>
+  </section>
+</section>

@@ -1,0 +1,52 @@
+<main [@zoomOut] (click)="close()" *ngIf="modalData.vissible" class="modal-message">
+  <section (click)="$event.stopPropagation()" class="modal-contain">
+    <nav>
+      <h5>Nowa wiadomość</h5>
+      <i (click)="close()" class="fas fa-times"></i>
+    </nav>
+    
+    <hr [style.margin]="'0'"/>
+
+    <div class="image">
+      <img [src]="modalData.imageUrl">
+      <div>
+        <p>{{ modalData.name + ' ' + modalData.surname }}</p>
+        <p>{{ modalData.address }}</p>
+        <p>{{ modalData.contact }}</p>
+      </div>
+
+    </div>
+
+    <div class="data-message">
+      <p>Do: {{ modalData.email }}</p>
+    </div>
+
+    <form [formGroup]="message" (ngSubmit)="send()">
+      
+      <!-- Subject -->
+      <label for="subject" basic-form>
+          <span icon-form class="password-input" [style.top]="'5px'" 
+            [style.background]="'unset'" [style.border]="'none'">
+            
+            <i class="fas fa-exclamation-triangle" valid="warning"
+              [style.display]="checkValidError('subject') ? 'block' : 'none'"></i>
+            <i class="fas fa-check" valid="success"
+              [style.display]="checkValidateSuccess('subject') ? 'block' : 'none'"></i>
+          </span>
+        </label>
+      <input id="subject" formControlName="subject" valid-warning-input basic-form placeholder="Temat"/>
+      
+      <!-- Message -->
+      <textarea valid-textarea basic-form rows="3" formControlName="message"></textarea>
+      <p *ngIf="checkValidate('message', 'required')" [@fadeInOutTranslate] text-form-danger>
+          Pole nie może być puste!
+      </p>
+
+      <hr />
+      <div>
+        <button type="submit" info-form>Wyślij</button>
+        <button type="button" warning-form (click)="close()">Anuluj</button>
+      </div>
+    </form>
+  </section>
+</main>

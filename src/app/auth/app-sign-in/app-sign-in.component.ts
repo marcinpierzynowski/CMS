@@ -12,25 +12,15 @@ import { Admin } from 'src/app/models/admin.model';
 @Component({
   selector: 'app-app-sign-in',
   templateUrl: './app-sign-in.component.html',
-  styleUrls: [
-    './app-sign-in.component.css',
-    '../../../assets/styles-custom/field-input.css',
-    '../../../assets/styles-custom/spinner-style.css',
-    '../../../assets/styles-custom/roller-style.css'
-  ],
+  styleUrls: ['./app-sign-in.component.css'],
   animations: [fadeInOutTranslate, flipInX]
 })
 export class AppSignInComponent implements OnInit {
-  public displayAnimate: string;
   public loginAccountForm: FormGroup;
   public vissiblePassword: boolean;
   public savePassword: boolean;
 
   private admins: Array<Admin>;
-  private readonly handles = {
-    timeFirst$: null,
-    timeSecond$: null
-  };
 
   constructor(
     private router: Router,
@@ -39,7 +29,6 @@ export class AppSignInComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.displayAnimate = 'none';
     this.authorizedLogin();
     this.initForms();
   }
@@ -128,22 +117,8 @@ export class AppSignInComponent implements OnInit {
   }
 
   public setVisiblePassword(refPassword): void {
-    const { timeFirst$, timeSecond$ } = this.handles;
-    if (timeFirst$ || timeSecond$) { return; }
-
-    if (!this.vissiblePassword) { this.displayAnimate = 'block'; }
-
-    this.handles.timeFirst$ = setTimeout(() => {
-      refPassword.focus();
       this.vissiblePassword = !this.vissiblePassword;
       this.vissiblePassword ? refPassword.type = 'text' : refPassword.type = 'password';
-      this.handles.timeFirst$ = null;
-    }, 100);
-
-    this.handles.timeSecond$ = setTimeout(() => {
-      this.displayAnimate = 'none';
-      this.handles.timeSecond$ = null;
-    }, 1000);
   }
 
   public activeInputs(): void {

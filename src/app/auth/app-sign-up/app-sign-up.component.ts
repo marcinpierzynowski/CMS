@@ -14,27 +14,15 @@ import { Admin } from 'src/app/models/admin.model';
 @Component({
   selector: 'app-app-sign-up',
   templateUrl: './app-sign-up.component.html',
-  styleUrls: [
-    './app-sign-up.component.css',
-    '../../../assets/styles-custom/field-input.css',
-    '../../../assets/styles-custom/spinner-style.css',
-    '../../../assets/styles-custom/roller-style.css'
-  ],
+  styleUrls: ['./app-sign-up.component.css'],
   animations: [fadeInOutTranslate, flipInX]
 })
 export class AppSignUpComponent implements OnInit {
-  public displayAnimate: string;
-  public displayAnimateRepeatPassword: string;
   public vissiblePassword: boolean;
   public vissibleRepeatPassword: boolean;
   public newDataAccount: FormGroup;
 
   private admins: Array<Admin>;
-
-  private readonly handles = {
-    timeFirst$: null,
-    timeSecond$: null
-  };
 
   constructor(
     private router: Router,
@@ -44,8 +32,6 @@ export class AppSignUpComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    this.displayAnimate = 'none';
-    this.displayAnimateRepeatPassword = 'none';
     this.initForms();
   }
 
@@ -142,39 +128,13 @@ export class AppSignUpComponent implements OnInit {
   }
 
   public setVisiblePassword(refPassword): void {
-    const { timeFirst$, timeSecond$ } = this.handles;
-    if (timeFirst$ || timeSecond$) { return; }
-
-    if (!this.vissiblePassword) { this.displayAnimate = 'block'; }
-    this.handles.timeFirst$ = setTimeout(() => {
-      refPassword.focus();
-      this.handles.timeFirst$ = null;
       this.vissiblePassword = !this.vissiblePassword;
       this.vissiblePassword ? (refPassword.type = 'text') : (refPassword.type = 'password');
-    }, 100);
-
-    this.handles.timeSecond$ = setTimeout(() => {
-      this.displayAnimate = 'none';
-      this.handles.timeSecond$ = null;
-    }, 1000);
   }
 
   public setVisibleRepeatPassword(refRepeatPassword): void {
-    const { timeFirst$, timeSecond$ } = this.handles;
-    if (timeFirst$ || timeSecond$) { return; }
-
-    if (!this.vissibleRepeatPassword) { this.displayAnimateRepeatPassword = 'block'; }
-    this.handles.timeFirst$ = setTimeout(() => {
-      refRepeatPassword.focus();
-      this.handles.timeFirst$ = null;
       this.vissibleRepeatPassword = !this.vissibleRepeatPassword;
       this.vissibleRepeatPassword ? (refRepeatPassword.type = 'text') : (refRepeatPassword.type = 'password');
-    }, 100);
-
-    this.handles.timeSecond$ = setTimeout(() => {
-      this.displayAnimateRepeatPassword = 'none';
-      this.handles.timeSecond$ = null;
-    }, 1000);
   }
 
   public activeInputs(): void {

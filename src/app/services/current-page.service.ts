@@ -17,10 +17,13 @@ export class CurrentPageService {
         '/new-messages': 'fas fa-envelope',
         '/received-messages': 'fas fa-envelope-open-text',
         '/evaluations': 'fas fa-star-half-alt',
-        '/comments': 'fas fa-comments',
+        '/reviews': 'fas fa-comments',
         '/slider': 'fab fa-slideshare',
-        '/promotions': 'fas fa-percent'
+        '/promotions': 'fas fa-percent',
+        '/edit-product': 'fas fa-edit',
+        '/details-product': 'fas fa-glasses'
     };
+
     private namePages = {
         '/dashboard': '/ Przegląd',
         '/my-profile': '/ Profil',
@@ -32,13 +35,35 @@ export class CurrentPageService {
         '/new-messages': '/ Nowe Wiadomości',
         '/received-messages': '/ Przeczytane Wiadomości',
         '/evaluations': '/ Oceny',
-        '/comments': '/ Komentarze',
+        '/reviews': '/ Opinie',
         '/slider': '/ Slajder',
-        '/promotions': '/ Promocje'
+        '/promotions': '/ Promocje',
+        '/edit-product': '/ Edycja Produktu / ',
+        '/details-product': '/ Szczegóły Produktu / '
     };
 
     public update(urlText: string): void {
         this.iconClass.next(this.urlsClass[urlText]);
         this.urlText.next(this.namePages[urlText]);
+        this.checkNotMatchinUrl(urlText);
+    }
+
+    public checkNotMatchinUrl(urlText: string): void {
+        const texts = urlText.split('/');
+        let iconClass = '';
+        let namePages = '';
+        if (texts.length === 3) {
+            if (texts[1] === 'add-product') {
+                iconClass = this.urlsClass['/edit-product'];
+                namePages = this.namePages['/edit-product'] + texts[2];
+            }
+
+            if (texts[1] === 'details-product') {
+                iconClass = this.urlsClass['/details-product'];
+                namePages = this.namePages['/details-product'] + texts[2];
+            }
+            this.iconClass.next(iconClass);
+            this.urlText.next(namePages);
+        }
     }
 }

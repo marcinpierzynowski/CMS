@@ -1,127 +1,96 @@
-<section class="animate-background">
-  <div class="card-sign-up">
-    <div class="form-sign-up" [@flipInX]>
-      
-      <!-- Link To Sign In -->
-      <div class="contain-link-login">
-        <span style="opacity: 0.7;"> Masz już konto? </span>
-        <a routerLink="/auth/sign-in"> Zaloguj </a>
-      </div>
+<div class="card-sign-up">
+  <div class="form-sign-up" [@flipInX]>
 
-      <!-- Title -->
-      <div class="contain-title">
-        SHOP
-        <img class="title-image" src="./assets/images/iconfinder_E-Commerce_1016078.png"/>
-        ADMIN
-      </div>
+    <!-- Link To Sign In -->
+    <div class="contain-link-login">
+      <span style="opacity: 0.7;"> Masz już konto? </span>
+      <a routerLink="/auth/sign-in"> Zaloguj </a>
+    </div>
 
-      <p class="text-center welcome-register-text">Rejestracja</p>
-      <div class="contain-control-register">
-        
-        <!-- Form Register -->
-        <form (ngSubmit)="submitRegister()" [formGroup]="newDataAccount" novalidate="true">
-          
-          <!-- Input Login -->
-          <div class="control-register">
-            <label [ngClass]="checkValidateEmail() ? 'field-resize field_danger b-field b-field_b1 page__field' : 'field-resize field a-field a-field_a1 page__field'">
-              <input type="email" placeholder="Email"
-                [ngClass]="checkValidateEmail() ? 'field_danger__input b-field__input' : 'field__input a-field__input'"
-                formControlName="email"/>
-              <span [ngClass]="checkValidateEmail() ? 'b-field__label-wrap' : 'a-field__label-wrap'">
-                <span [ngClass]="checkValidateEmail() ? 'b-field__label' : 'a-field__label'">
-                  Email
-                </span>
-              </span>
-            </label>
+    <!-- Title -->
+    <div class="contain-title">
+      SHOP
+      <img class="title-image" src="./assets/images/home-welcome.png" />
+      ADMIN
+    </div>
 
-            <!-- Alert Validate-->
-            <div class="text-danger" *ngIf="checkValidate('email', 'required')"
-              [@fadeInOutTranslate]>
-              Pole nie może być puste!
-            </div>
-            <div class="text-danger" *ngIf="checkValidate('email', 'email')" [@fadeInOutTranslate]>
-              Zły format emaila!
-            </div>
+    <p class="text-center welcome-register-text">Rejestracja</p>
+    <div class="contain-control-register">
+
+      <!-- Form Register -->
+      <form (ngSubmit)="submitRegister()" [formGroup]="newDataAccount" novalidate="true">
+
+        <!-- Input Email -->
+        <div class="control-register">
+          <label for="register-email" basic-form>Email:</label>
+          <input id="register-email" basic-form placeholder="Email" formControlName="email" />
+
+          <!-- Alert Validate-->
+          <div class="text-danger" *ngIf="checkValidate('email', 'required')" [@fadeInOutTranslate]>
+            Pole nie może być puste!
           </div>
-
-          <!-- Input Register -->
-          <div class="control-register">
-            <label [ngClass]="checkValidatePassword() ? 'field-resize field_danger b-field b-field_b1 page__field' : 'field-resize field a-field a-field_a1 page__field'">
-              <input #password type="password"
-                [ngClass]="checkValidatePassword() ? 'field_danger__input b-field__input' : 'field__input a-field__input'"
-                placeholder="Hasło"formControlName="password"/>
-              <span [ngClass]="checkValidatePassword() ? 'b-field__label-wrap' : 'a-field__label-wrap'">
-                <span [ngClass]="checkValidatePassword() ? 'b-field__label' : 'a-field__label'">
-                  Hasło
-                </span>
-              </span>
-            </label>
-
-            <!-- Alert Validate-->
-            <div class="text-danger" *ngIf="checkValidate('password', 'required')"
-              [@fadeInOutTranslate]>
-              Pole nie może być puste!
-            </div>
-            <div class="text-danger" *ngIf="checkValidate('password', 'pattern')"
-              [@fadeInOutTranslate]>
-              Minimum 8 znaków, przynajmniej jedna litera, jedna cyfra i jeden
-              znak specjalny
-            </div>
-
-            <!-- Vissible Password -->
-            <div class="eye-password" (click)="setVisiblePassword(password)">
-              <img *ngIf="vissiblePassword" height="40" width="40"
-                src="./assets/images/iconfinder_icon-22-eye_315220.png" [@fadeInOutTranslate]/>
-              <img *ngIf="!vissiblePassword" height="40" width="40"
-                src="./assets/images/iconfinder_icon-21-eye-hidden_315219.png" [@fadeInOutTranslate]/>
-            </div>
-            <div class="spinner spinner-pos" [ngStyle]="{ display: displayAnimate }"></div>
+          <div class="text-danger" *ngIf="checkValidate('email', 'email')" [@fadeInOutTranslate]>
+            Zły format emaila!
           </div>
+        </div>
 
-          <!-- Input Repeat Register -->
-          <div class="control-register">
-            <label [ngClass]="checkValidateRepeatPassword() ? 'field-resize field_danger b-field b-field_b1 page__field' : 'field-resize field a-field a-field_a1 page__field'">
-              <input #Repeatpassword type="password"
-                [ngClass]="checkValidateRepeatPassword() ? 'field_danger__input b-field__input' : 'field__input a-field__input'"
-                placeholder="Powtórz Hasło" formControlName="repeatPassword"/>
-              <span [ngClass]="checkValidateRepeatPassword() ? 'b-field__label-wrap' : 'a-field__label-wrap'">
-                <span [ngClass]="checkValidateRepeatPassword() ? 'b-field__label' : 'a-field__label'">
-                  Powtórz Hasło
-                </span>
-              </span>
-            </label>
+        <!-- Input Register -->
+        <div class="control-register">
+          <label for="register-password" basic-form>
+            Hasło:
+            <span [style.border]="'unset'" [style.background]="'none'" icon-form>
+              <i class="fas fa-eye" *ngIf="vissiblePassword" (click)="setVisiblePassword(password)"></i>
+              <i class="fas fa-eye-slash" *ngIf="!vissiblePassword" (click)="setVisiblePassword(password)"></i>
+            </span>
+          </label>
+          <input #password id="register-password" type="password" basic-form placeholder="Hasło"
+            formControlName="password" />
 
-            <!-- Alert Validate-->
-            <div class="text-danger" *ngIf="checkValidate('repeatPassword', 'required')"
-              [@fadeInOutTranslate]>
-              Pole nie może być puste!
-            </div>
-            <div class="text-danger"
-              *ngIf="checkValidate('repeatPassword', 'equalTo')"
-              [@fadeInOutTranslate]>
-              Hasła muszą się zgadzać!
-            </div>
-            <div class="eye-password"(click)="setVisibleRepeatPassword(Repeatpassword)">
-              <img *ngIf="vissibleRepeatPassword" height="40" width="40"
-                src="./assets/images/iconfinder_icon-22-eye_315220.png" [@fadeInOutTranslate]/>
-              <img *ngIf="!vissibleRepeatPassword" height="40" width="40"
-                src="./assets/images/iconfinder_icon-21-eye-hidden_315219.png"[@fadeInOutTranslate]/>
-            </div>
-            <div class="spinner spinner-pos" [ngStyle]="{ display: displayAnimateRepeatPassword }"></div>
+          <!-- Alert Validate-->
+          <div class="text-danger" *ngIf="checkValidate('password', 'required')" [@fadeInOutTranslate]>
+            Pole nie może być puste!
           </div>
-
-          <!-- Submit Register -->
-          <div class="submit-register">
-            <button type="submit" class="button-submit">
-              Zarejestruj
-            </button>
+          <div class="text-danger" *ngIf="checkValidate('password', 'pattern')" [@fadeInOutTranslate]>
+            Minimum 8 znaków, przynajmniej jedna litera, jedna cyfra i jeden
+            znak specjalny
           </div>
-        </form>
-      </div>
+        </div>
+
+        <!-- Input Repeat Register -->
+        <div class="control-register">
+          <label for="register-repeatPassword" basic-form>
+            Powtórz Hasło:
+            <span [style.border]="'unset'" [style.background]="'none'" icon-form>
+              <i class="fas fa-eye" *ngIf="vissibleRepeatPassword"
+                (click)="setVisibleRepeatPassword(repeatPassword)"></i>
+              <i class="fas fa-eye-slash" *ngIf="!vissibleRepeatPassword"
+                (click)="setVisibleRepeatPassword(repeatPassword)"></i>
+            </span>
+          </label>
+          <input #repeatPassword id="register-repeatPassword" type="password" basic-form placeholder="Powtórz Hasło"
+            formControlName="repeatPassword" />
+
+          <!-- Alert Validate-->
+          <div class="text-danger" *ngIf="checkValidate('repeatPassword', 'required')" [@fadeInOutTranslate]>
+            Pole nie może być puste!
+          </div>
+          <div class="text-danger" *ngIf="checkValidate('repeatPassword', 'equalTo')" [@fadeInOutTranslate]>
+            Hasła muszą się zgadzać!
+          </div>
+        </div>
+
+        <!-- Submit Register -->
+        <div class="submit-register">
+          <button primary-form [style.width]="'150px'">
+            Zarejestruj
+          </button>
+        </div>
+      </form>
     </div>
   </div>
+</div>
 
-  <!-- Card Picture Right Section -->
-  <div class="card-announcement"></div>
-</section>
-  
+<!-- Card Picture Right Section -->
+<div class="card-announcement">
+  <app-logo-background></app-logo-background>
+</div>

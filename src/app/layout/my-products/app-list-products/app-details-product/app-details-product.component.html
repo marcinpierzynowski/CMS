@@ -1,0 +1,116 @@
+<div [@fadeInOutTranslate]>
+  <section class="title-section-global">Szczegóły Produktu</section>
+
+  <main class="details-product" *ngIf="product">
+
+    <!-- Card Product -->
+    <section [@fadeInOutTranslate] class="card-product">
+      <div class="basic-info">
+        <img class="img-fluid" [src]="product.image.url" />
+        <div>
+          <!-- Star Product -->
+          <div class="eval-product">
+            <span class="star-eval" *ngFor="let star of stars; let i = index">
+              <i [class]="star">
+              </i>
+            </span>
+            <span *ngIf="evalAmount > 0" class="amount-customers">({{ evalAmount }} klientów oceniało)</span>
+          </div>
+
+          <!-- Title Product -->
+          <h3>{{ product.name }}</h3>
+
+          <!-- Price Product -->
+          <p class="product-price">
+            {{ product.price }}PLN
+          </p>
+
+          <!-- Promtion Product -->
+          <p class="product-promotion">
+            Promocja: {{ product.promotion }}%
+          </p>
+          <!-- Description Product -->
+          <p class="product-desc">{{ product.desc }}</p>
+        </div>
+      </div>
+    </section>
+
+
+  </main>
+
+  <section [style.margin-top]="'0'" class="title-section-global">Dodatkowe Informacje</section>
+
+  <main class="details-product" *ngIf="product">
+
+    <!-- More Info -->
+    <section [@fadeInOutTranslate] class="card-product">
+      <nav>
+        <div>
+          <p [class.active-history]="selected === 0" (click)="selected = 0">
+            Parametry
+          </p>
+        </div>
+        <div>
+          <p [class.active-history]="selected === 1" (click)="selected = 1">
+            Opinie {{ amountReviews ? '(' + amountReviews + ')' : '(0)' }}
+          </p>
+        </div>
+      </nav>
+
+      <section [@fadeInOutTranslate] *ngIf="selected === 0">
+
+        <!-- Params List -->
+        <div class="params" *ngIf="product.params">
+          <div class="params-list" *ngFor="let param of product.params">
+            <p>{{ param.name }}</p>
+            <p>{{ param.value }}</p>
+          </div>
+        </div>
+
+        <!-- Empty Params List -->
+        <div class="empty-params" *ngIf="!product.params">
+          <div>
+            <i class="fas fa-info-circle"></i>
+            <p>Produkt nie posiada dodatkowych parametrów</p>
+          </div>
+        </div>
+      </section>
+
+      <section [@fadeInOutTranslate] *ngIf="selected === 1">
+
+        <!-- Reviews List -->
+        <div class="reviews" *ngIf="descriptions">
+          <div class="review" *ngFor="let description of descriptions.slice(0, limit)">
+            <div>
+              <img [src]="description.url ? description.url : '../../../../../assets/images/user-empty.png'">
+              <div>
+                <p class="date">
+                  {{ getDaysCreated(description.date) === 0 ? 'Dzisiaj' : getDaysCreated(description.date) + ' dni temu' }}
+                </p>
+                <p class="email">{{ description.email }}</p>
+              </div>
+            </div>
+            <p>{{ description.desc }}</p>
+          </div>
+
+          <!-- Next Five Review -->
+          <div class="title-section-global" *ngIf="descriptions.slice(0, limit).length >= limit">
+            <button class="show-more-global" (click)="setLimit()">
+              <i class="fas fa-arrow-down"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Empty Reviews -->
+        <div class="empty-reviews" *ngIf="!descriptions">
+          <div>
+            <i class="fas fa-address-card"></i>
+            <p>Produkt nie posiada nowych opinii</p>
+          </div>
+        </div>
+
+      </section>
+    </section>
+  </main>
+
+</div>

@@ -1,0 +1,97 @@
+@keyframes AuthAnimatePath1 {
+    0% {
+        transform-origin: 0px 0px 0px;
+        transform: matrix3d(0.737631, -0.675204, 0, 0, 0.675204, 0.737631, 0, 0, 0, 0, 1, 0, 134.08, 1172.07, 0, 1);
+    }
+    50% {
+        transform-origin: -30px 51px 21px;
+        background-position: 58% 100%;
+    }
+    100% {
+        transform-origin: 0px 0px 0px;
+        transform: matrix3d(0.737631, -0.675204, 0, 0, 0.675204, 0.737631, 0, 0, 0, 0, 1, 0, 134.08, 1172.07, 0, 1);
+    }
+}
+
+@keyframes AuthAnimatePath2 {
+    0% {
+        transform-origin: 0px 0px 0px;
+        transform: matrix3d(0.737631, -0.675204, 0, 0, 0.675204, 0.737631, 0, 0, 0, 0, 1, 0, 134.08, 1172.07, 0, 1);
+    }
+    50% {
+        transform-origin: 21px 11px 11px;
+        background-position: 58% 100%;
+    }
+    100% {
+        transform-origin: 0px 0px 0px;
+        transform: matrix3d(0.737631, -0.675204, 0, 0, 0.675204, 0.737631, 0, 0, 0, 0, 1, 0, 134.08, 1172.07, 0, 1);
+    }
+}
+
+@keyframes AuthAnimatePath3 {
+    0% {
+        transform-origin: 0px 0px 0px;
+        transform: matrix3d(0.737631, -0.675204, 0, 0, 0.675204, 0.737631, 0, 0, 0, 0, 1, 0, 134.08, 1172.07, 0, 1);
+    }
+    25% {
+        transform-origin: 21px 11px 0px;
+        background-position: 58% 100%;
+    }
+    50% {
+        transform-origin: 21px -11px 0px;
+        background-position: 58% 100%;
+    }
+    75% {
+        transform-origin: -31px -0px 0px;
+        background-position: 58% 100%;
+    }
+    100% {
+        transform-origin: 0px 0px 0px;
+        transform: matrix3d(0.737631, -0.675204, 0, 0, 0.675204, 0.737631, 0, 0, 0, 0, 1, 0, 134.08, 1172.07, 0, 1);
+    }
+}
+
+@keyframes AuthAnimatePath4 {
+    0% {
+        transform-origin: 210px 0px 0px;
+        transform: rotate(5deg) matrix3d(0.737631, -0.675204, 0, 0, 0.675204, 0.737631, 0, 0, 0, 0, 1, 0, 134.08, 1172.07, 0, 1);
+    }
+    25% {
+        transform-origin: 210px 11px 0px;
+        background-position: 58% 100%;
+        transform: rotate(20deg);
+    }
+    50% {
+        transform-origin: 210px -11px 0px;
+        background-position: 58% 100%;
+        transform: rotate(10deg);
+    }
+    75% {
+        transform-origin: 210px -0px 0px;
+        background-position: 58% 100%;
+        transform: rotate(30deg);
+    }
+    100% {
+        transform-origin: 210px 0px 0px;
+        transform: rotate(5deg) matrix3d(0.737631, -0.675204, 0, 0, 0.675204, 0.737631, 0, 0, 0, 0, 1, 0, 134.08, 1172.07, 0, 1);
+    }
+}
+
+svg {
+    width: 400px;
+    position: absolute;
+    height: 700px;
+    left: 5%;
+    bottom: 5%;
+}
+
+@media screen and (min-width: 768px) {
+    svg {
+        width: 700px;
+        height: 700px;
+        left: unset;
+        top: 10%;
+        bottom: unset;
+    }
+}
+

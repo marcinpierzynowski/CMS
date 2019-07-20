@@ -27,13 +27,13 @@ export class AppDashboardComponent implements OnInit {
   public user: Admin;
   public visibleNotificationSecurity = true;
   public tasks: Array<Task>;
+  public messages: Array<Message>;
+  public products: Array<Product>;
+  public admins: Array<Admin>;
 
   private chartFirst: any;
   private chartSecond: any;
   private scaleX = { display: true, gridLines: { display: false}};
-  private admins: Array<Admin>;
-  private products: Array<Product>;
-  private messages: Array<Message>;
 
   constructor(
     private firebaseService: FirebaseService,
@@ -168,11 +168,11 @@ export class AppDashboardComponent implements OnInit {
       return message;
     }
 
-    public getDaysCreated(date: string): number {
+    public getDaysCreated(date: string): number | string {
       const current = new Date();
       const prev = new Date(date);
       const time = current.getTime() - prev.getTime();
-      if (time === null) {return 0; }
+      if (time === null) {return 'Brak'; }
       return Math.floor(time / 86400000);
     }
 

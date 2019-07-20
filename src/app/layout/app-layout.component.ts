@@ -10,7 +10,7 @@ import { DatePipe } from '@angular/common';
 import { CurrentPageService } from '../services/current-page.service';
 import { OrdersManageService } from '../services/orders-manage.service';
 import { Admin } from '../models/admin.model';
-import { Notificactions } from '../models/notification.model';
+import { Notificaction } from '../models/notification.model';
 import { Order } from '../models/page.model';
 
 @Component({
@@ -28,7 +28,7 @@ export class AppLayoutComponent implements OnInit {
   public userAuth = false;
   public vissibleLeftPanel: boolean;
   public user: Admin;
-  public notifications: Array<Notificactions>;
+  public notification: Notificaction;
   public url;
   public vissibleOptions = [false, false, false];
   public orders: Array<Order>;
@@ -97,7 +97,6 @@ export class AppLayoutComponent implements OnInit {
     if (this.firebaseService.authorization) {
       this.userAuth = true;
       const email = this.layoutManageService.emailData.getValue().toLowerCase();
-      console.log(email);
       this.user = this.admins.find(
         ad => ad.email.toLocaleLowerCase() === email
       );
@@ -128,31 +127,9 @@ export class AppLayoutComponent implements OnInit {
   }
 
   public getNotifications() {
-    this.layoutManageService.notificationsData.subscribe(data => {
-      this.notifications = data;
+    this.layoutManageService.notificationData.subscribe(data => {
+      this.notification = data;
     });
-    this.layoutManageService.groupNotificationsData.subscribe(data => {
-      this.prepareNewNotification(data);
-    });
-  }
-
-  public prepareNewNotification(data): void {
-    if (data.length === 0) { return; }
-    const notification = {
-      date: this.getFullData() + ' ' + this.getFullTime(),
-      comments: data.filter(el => el.name === 'comment').length,
-      evaluations: data.filter(el => el.name === 'evaluation').length,
-      messages: data.filter(el => el.name === 'message').length
-    };
-    this.notifications.push(notification);
-    this.updateNotifications();
-  }
-
-  public updateNotifications(): void {
-    this.firebaseService.getDataBaseRef('new_notifications').set(null)
-      .then(() => {
-        this.firebaseService.getDataBaseRef('notifications').set(this.notifications);
-      });
   }
 
   public setNewDataLogin(): void {
@@ -177,11 +154,6 @@ export class AppLayoutComponent implements OnInit {
       cancelButtonText: 'Nie'
     }).then(result => {
       if (result.value) {
-        this.notifications.splice(index, 1);
-        this.firebaseService.getDataBaseRef('notifications').set(this.notifications)
-          .then(() => {
-            swal.fire('Usunięcie powiadomienia', 'Powiadomienie zostało usunięte', 'success');
-          });
       }
     });
   }
@@ -221,8 +193,21 @@ export class AppLayoutComponent implements OnInit {
   }
 
   public get sumNotification(): number {
-    if (!this.notifications) { return 0; }
-    const not = this.notifications[this.notifications.length - 1];
-    return not.messages + not.evaluations + not.comments;
+    if (!this.notification) { return 0; }
+    const notif = this.notification;
+    return (notif.messages || 0) + (notif.evaluations || 0) + (notif.reviews || 0);
+  }
+
+  public resetNotification(key, url): void {
+    this.vissibleOptions[1] = false;
+    this.notification[key] = 0;
+    const notif = this.notification;
+    if (!notif.evaluations && !notif.messages && !notif.reviews) {
+      this.notification = null;
+    }
+    this.firebaseService.getDataBaseRef('notification').set(this.notification)
+      .then(() => {
+        this.router.navigate([url]);
+      });
   }
 }

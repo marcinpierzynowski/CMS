@@ -1,292 +1,211 @@
-.card {
-  float: left;
-  width: 95%;
-  padding: 20px 10px 20px 10px;
-  margin-left: 2.5%;
-  margin-right: 2.5%;
-  background-color: #f5f5f5;
-  border: unset;
-  font-family: "Lato", sans-serif;
+/*================
+  GLOBAL STYLES
+
+  1. LIST PRODUCTS
+  2. EMPTY LIST
+
+  AUTHOR: MARCIN PIERZYNOWSKI
+  ================*/
+
+/*================
+  1. LIST PRODUCTS
+=================*/
+
+main.list-products {
+  padding: 15px;
+  background-color: #eff3f6;
 }
 
-.title-section {
-  font-size: 25px;
-  font-weight: 600;
-  font-style: italic;
-  color: #011b66;
-  float: left;
-  width: 100%;
-}
-
-.settings-card {
-  width: 100%;
-  float: left;
-  font-family: "Lato", sans-serif;
-}
-
-.list-product-section {
-  float: left;
-  width: 100%;
-  box-shadow: 0 1px 2px 0 rgba(117, 117, 117, 0.2);
-  background-color: #fff;
-  min-height: 50px;
-  margin-bottom: 20px;
-}
-
-.img-error {
-  float: left;
-  width: 100%;
-  text-align: center;
-}
-
-.text-category {
-  float: left;
-  text-align: center;
-  width: 100%;
-  font-size: 18px;
-  font-weight: 500;
-  margin: 10px 0px 10px 0px;
-}
-
-.list-products {
-  max-height: 400px;
-  overflow-y: auto;
-}
-
-.list-products::-webkit-scrollbar-track {
-  border-radius: 4px;
-}
-
-.list-products::-webkit-scrollbar {
-  width: 8px;
-}
-
-.list-products::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-  background-color: #b3b3b3;
-}
-
-.filter-contain {
-  text-align: center;
-  float: left;
-  width: 100%;
-  box-shadow: 0 1px 2px 0 rgba(117, 117, 117, 0.2);
-  background-color: #fff;
-  margin-top: 10px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-}
-
-.filter-contain input {
-  margin-left: 5px;
-  text-align: center;
-  width: 150px;
-}
-
-.filter-contain p {
-  font-size: 18px;
-  font-weight: 550;
-  color: #011b66;
-}
-
-.logo-form {
-  padding: 5.5px 7px 5.5px 7px;
-  margin-left: -2px;
-  border-bottom-right-radius: 3px;
-  border-top-right-radius: 3px;
-  background-color: #255190;
-  color: #fff;
-}
-
-.edit-product-section {
-  margin-top: 20px;
-  float: left;
-  width: 100%;
-  box-shadow: 0 1px 2px 0 rgba(117, 117, 117, 0.2);
-  background-color: #fff;
-  min-height: 50px;
-  margin-bottom: 20px;
-}
-
-.title-second-section {
-  float: left;
-  width: 100%;
-  font-size: 15px;
-  text-align: center;
-  opacity: 0.7;
-  margin-top: 20px;
-  margin-bottom: 10px;
-}
-
-.title-second-section p {
-  margin: 0px;
-  font-size: 18px;
-  font-weight: 600;
-}
-
-.underline {
-  float: left;
-  width: 90%;
-  margin-left: 5%;
-  margin-right: 5%;
-  height: 1px;
-  background-color: black;
-  margin-bottom: 10px;
-}
-
-.form-contain {
-  text-align: center;
+.card-products {
+  min-height: 1px;
   position: relative;
-  float: left;
-  width: 100%;
-}
-
-.second-form-input {
-  text-align: center;
-}
-
-.form-help {
-  position: absolute;
-  right: -20px;
-}
-
-.tooltip-info:hover {
-  cursor: pointer;
-}
-
-.submit-section {
-  float: left;
-  width: 100%;
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.exit-edit {
-  margin: 5px;
-  background-color: #5f6368;
-  color: white;
-  width: 120px;
-  margin-top: 15px;
-}
-
-.save-submit {
-  background-color: #255190;
-  color: white;
-  width: 120px;
-  margin-top: 15px;
-}
-
-.products-suggestion {
-  position: absolute;
-  max-height: 250px;
-  overflow-y: auto;
+  border: 1px solid #dfe3e9;
+  border-radius: 4px;
   background-color: #fff;
-  border-radius: 5px;
-  bottom: 50px;
-  width: 182px;
-  left: 50%;
-  transform: translate(-50%, 0);
-  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14),
-    0 1px 10px 0 rgba(0, 0, 0, 0.12);
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
-.products-suggestion::-webkit-scrollbar-track {
-  display: none;
+.card-products::-webkit-scrollbar-track {
+  background-color: #ffffff;
 }
 
-.products-suggestion::-webkit-scrollbar {
-  display: none;
+.card-products::-webkit-scrollbar {
+  height: 8px;
+  background-color: #ffffff;
 }
 
-.products-suggestion::-webkit-scrollbar-thumb {
-  display: none;
+.card-products::-webkit-scrollbar-thumb {
+  background-color: rgba(114, 115, 118);
+  border: 2px solid rgba(114, 115, 118);
+  border-radius: 1.5px;
 }
 
-.products-suggestion div {
-  height: 40px;
-  float: left;
-  width: 100%;
-  padding-left: 10px;
-  line-height: 40px;
+.card-products:hover {
+  overflow-x: overlay;
+}
+
+/*
+* List Products
+*/
+
+.desc-list {
+  padding: 25px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.desc-list>h5 {
+  color: #354052;
   font-size: 18px;
-  text-align: left;
-  transition: 0.25s linear;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
+  font-weight: 400;
+  margin: 0;
 }
 
-.products-suggestion div:hover {
-  background-color: #f5f5f5;
-  transition: 0.25s linear;
-  cursor: pointer;
-}
-
-.list-necesary-product {
-  width: 180px;
-  margin-left: auto;
-  margin-right: auto;
-  height: 30px;
-  line-height: 30px;
+.desc-list span {
+  color: #2ea1f8;
   font-size: 12px;
-  box-shadow: 0 1px 2px 0 rgba(99, 98, 98, 0.2);
-  margin-bottom: 10px;
 }
 
-.list-necesary-product p {
-  text-align: left;
-  padding-left: 10px;
-  float: left;
-  width: 80%;
-  text-overflow: ellipsis;
+.desc-list span:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+table {
+  width: 100%;
+}
+
+.list-header {
+  background-color: #f5f8fa;
+  border: 1px solid #e6eaee;
+  height: 62px;
+  max-height: 62px;
+  align-items: center;
   white-space: nowrap;
+  display: grid;
+  grid-template-columns: 
+    minmax(80px, 5%) minmax(200px, 20%) minmax(200px, 15%) minmax(200px, 15%)
+    minmax(200px, 20%) minmax(150px, 15%) minmax(125px, 5%) minmax(100px, 5%)
+    minmax(100px, 5%);
+}
+
+.list-header th {
+  color: #7f8fa4;
+  font-weight: 400;
+  font-size: 14px;
   overflow: hidden;
-  margin: 0px;
+  white-space: nowrap;
+  width: 100%;
+  text-overflow: ellipsis;
+  padding: 10px 0px 10px 10px;
 }
 
-.list-necesary-product span {
-  float: right;
-  padding-right: 10px;
-}
-
-.list-necesary-product span:hover {
+.sort-price:hover {
   cursor: pointer;
 }
 
-@media only screen and (min-width: 540px) {
-  .underline {
-    width: 80%;
-    margin-left: 10%;
-    margin-right: 10%;
+.sort-price i {
+  margin-left: 5px;
+  transition: 0.25s linear;
+}
+
+.list-body {
+  border-bottom: 1px solid #e6eaee;
+  display: grid;
+  align-items: center;
+  grid-template-columns: 
+    minmax(80px, 5%) minmax(200px, 20%) minmax(200px, 15%) minmax(200px, 15%)
+    minmax(200px, 20%) minmax(150px, 15%) minmax(125px, 5%) minmax(100px, 5%)
+    minmax(100px, 5%);
+}
+
+.list-body th {
+  color: #354052;
+  font-weight: 400;
+  font-size: 14px;
+  overflow: hidden;
+  width: 100%;
+  text-overflow: ellipsis;
+  padding: 10px 0px 10px 30px;
+}
+
+.list-body p {
+  margin: 0;
+}
+
+.basic-info {
+  display: flex;
+  align-items: center;
+}
+
+.basic-info img {
+  height: 100px;
+  width: 100px;
+}
+
+.basic-info p {
+  align-self: flex-start;
+  margin-left: 5px;
+  color: #354052;
+  font-size: 12px;
+  margin-top: 20px;
+  max-height: 80px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.address {
+  color: #7f8fa4;
+}
+
+.edit-product {
+  color: #2ea1f8;
+  font-size: 20px;
+}
+
+.edit-product:hover {
+  text-decoration: unset;
+}
+
+.show-detail-product {
+  color: #354052;
+  font-size: 20px;
+}
+
+.show-detail-product:hover {
+  text-decoration: unset;
+}
+
+.delete-product {
+  color: #ed1c24;
+  font-size: 20px;
+}
+
+.edit-product:hover,
+.show-detail-product:hover,
+.delete-product:hover {
+  cursor: pointer;
+}
+
+@media screen and (min-width: 992px) {
+  main.list-products {
+    padding: 30px 10%;
   }
 }
 
-@media only screen and (min-width: 720px) {
-  .title-section {
-    font-size: 35px;
-  }
+/*================
+    2. EMPTY LIST
+  =================*/
+
+.empty-list {
+  text-align: center;
+  margin-top: 30px;
+  color: #7f8fa4;
+  position: relative;
 }
 
-@media only screen and (min-width: 960px) {
-  .second-form-input {
-    width: 300px;
-  }
-
-  .products-suggestion {
-    width: 300px;
-  }
-
-  .list-necesary-product {
-    width: 300px;
-    font-size: 15px;
-  }
+.empty-list i {
+  font-size: 200px;
 }
-
-@media only screen and (min-width: 1140px) {
-  .underline {
-    width: 70%;
-    margin-left: 15%;
-    margin-right: 15%;
-  }
-}
-

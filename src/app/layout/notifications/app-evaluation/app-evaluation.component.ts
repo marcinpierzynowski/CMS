@@ -8,10 +8,7 @@ import { Evaluation } from 'src/app/models/notification.model';
 @Component({
   selector: 'app-app-evaluation',
   templateUrl: './app-evaluation.component.html',
-  styleUrls: [
-    './app-evaluation.component.css',
-    '../../../../assets/styles-custom/spinner2-style.css'
-  ],
+  styleUrls: ['./app-evaluation.component.css'],
   providers: [NotificationsManageService],
   animations: [fadeInOutTranslate]
 })

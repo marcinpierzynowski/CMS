@@ -19,12 +19,12 @@ export class ProductsManageService {
     private refStorage: any;
     private progress: number;
     private proportion: number;
-    private urlImg: Array<Image> = [];
+    private urlImg: Image = null;
 
     constructor(private firebaseService: FirebaseService) {
         this.refStorage = firebaseService.firebase.storage();
         firebaseService.getDataBaseRef('products').on('value', this.products.bind(this), this.catchError);
-        firebaseService.getDataBaseRef('categories').on('value', this.category.bind(this), this.catchError);
+        firebaseService.getDataBaseRef('category').on('value', this.category.bind(this), this.catchError);
         firebaseService.getDataBaseRef('images').on('value', this.images.bind(this), this.catchError);
     }
 
@@ -71,7 +71,6 @@ export class ProductsManageService {
     public prepareData(data) {
         const keys = Object.keys(data);
         const preData = [];
-
         // tslint:disable-next-line:prefer-for-of
         for (let i = 0; i < keys.length; i++) {
             preData.push(data[keys[i]]);
@@ -83,21 +82,21 @@ export class ProductsManageService {
         console.error(error);
     }
 
-    public addProduct(product: Product, images): void {
+    public addProduct(product: Product, image): void {
         this.progress = 0;
-        this.proportion = 100 / (1 + images.length);
+        this.proportion = 100 / (2);
         const products = this.productsData.getValue();
         products.push(product);
 
         this.firebaseService.getDataBaseRef('products').set(products)
-            .then(() => this.updateStatus(product.ref, images));
+            .then(() => this.updateStatus(product.ref, image));
     }
 
-    public updateStatus(ref: string, imgs): void {
+    public updateStatus(ref: string, image): void {
         const sel = document.getElementById('add-product');
         this.progress += this.proportion;
         sel.style.width = this.progress + '%';
-        this.uploadToStorageImage(0, imgs, ref, this.getUniqueIDName());
+        this.uploadToStorageImage(image, ref, this.getUniqueIDName());
     }
 
     public getUniqueIDName(): {id: number, name: string} {
@@ -107,57 +106,48 @@ export class ProductsManageService {
         return { id: uniqueID, name: uniqueID + '-img'};
     }
 
-    public uploadToStorageImage(index: number, images, ref, info: {id: number , name: string}): void {
-        if (index === images.length) {
-            this.addRefImages(0);
-            return;
-        }
+    public uploadToStorageImage(image, ref, info: {id: number , name: string}): void {
         const { id, name } = info;
         const sel = document.getElementById('add-product');
-        const storageRef = this.refStorage.ref(name);
-        const task = storageRef.put(images[index].file);
+        const storageRef = this.refStorage.ref('PRODUCTS/' + name);
+        const task = storageRef.put(image);
 
         task.on('state_changed',
           snapshot => {
-            const value = ((snapshot.bytesTransferred / snapshot.totalBytes) * 100) / (1 + images.length);
+            const value = ((snapshot.bytesTransferred / snapshot.totalBytes) * 100) / (2);
             const percentage = ((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
             sel.style.width = (this.progress + value) + '%';
             if (percentage === 100) {
-                this.progress += this.proportion;
-                const prod = this.productsData.getValue().find(prds => prds.ref === ref);
-                if (prod.images) {
-                    prod.images.push(id);
-                } else { prod.images = [id]; }
-
-                this.urlImg.push({ id: info.id, name });
-                this.firebaseService.getDataBaseRef('products').set(this.productsData.getValue());
-                this.uploadToStorageImage(index + 1, images, ref, {id: id + 1, name: (id + 1) + '-img'});
+                this.urlImg = { id, name };
+                this.addRefImages();
             }
           },
           error => {
-            this.uploadToStorageImage(index, images, ref, info);
+            this.uploadToStorageImage(image, ref, info);
           }
         );
     }
 
-    public addRefImages(index: number) {
-        if (index === this.urlImg.length) {
-            let images = this.imagesData.getValue();
-            images = [...images, ...this.urlImg];
-            this.firebaseService.getDataBaseRef('images').set(images)
-                .then(() => {
-                    this.addProductData.next({status: StatusProduct.Complete});
-                    this.urlImg = [];
-                });
-            return;
-        }
-        const ref = this.refStorage.ref().child(this.urlImg[index].name).getDownloadURL()
-            .then(url => {
-                this.urlImg[index].url = url;
-                this.addRefImages(index + 1);
-            })
-            .catch(() => {
-                this.addRefImages(index);
-            });
+    public async addRefImages(): Promise<any> {
+        this.refStorage.ref().child('PRODUCTS/' + this.urlImg.name).getDownloadURL()
+        .then(url => {
+            const products = this.productsData.getValue();
+            const prod = products[products.length - 1];
+            const { id, name } = this.urlImg;
+            prod.image = { id, url, name };
+            this.firebaseService.getDataBaseRef('products').set(this.productsData.getValue());
+        })
+        .catch(() => {
+            this.addRefImages();
+        });
+
+        let images = this.imagesData.getValue();
+        images = [...images, this.urlImg];
+        this.firebaseService.getDataBaseRef('images').set(images)
+            .then(() => this.addProductData.next({status: StatusProduct.Complete}));
+    }
+
+    public completeProduct() {
+        this.addProductData.next({status: StatusProduct.Idle});
     }
 }

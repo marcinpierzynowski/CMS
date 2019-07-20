@@ -8,7 +8,6 @@ import { AppSignInComponent } from './app-sign-in/app-sign-in.component';
 import { AppSignUpComponent } from './app-sign-up/app-sign-up.component';
 import { AppResetPasswordComponent } from './app-reset-password/app-reset-password.component';
 
-
 @NgModule({
     declarations: [
       AppSignInComponent,

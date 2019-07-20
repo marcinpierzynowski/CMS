@@ -166,7 +166,7 @@
                     <i class="fas fa-times" valid="error"
                     [style.display]="checkValidError('oldPassword') ? 'block' : 'none'"></i>
                     <i class="fas fa-check" valid="success"
-                    [style.display]="checkValisSuccess('oldPassword') ? 'block' : 'none'"></i>
+                    [style.display]="checkValidateSuccess('oldPassword') ? 'block' : 'none'"></i>
                   </span>
                 </label>
                 <input id="old-password" basic-form valid-input
@@ -186,7 +186,7 @@
                     <i class="fas fa-times" valid="error"
                       [style.display]="checkValidError('password') ? 'block' : 'none'"></i>
                     <i class="fas fa-check" valid="success"
-                      [style.display]="checkValisSuccess('password') ? 'block' : 'none'"></i>
+                      [style.display]="checkValidateSuccess('password') ? 'block' : 'none'"></i>
                   </span>
                 </label>
                 <input id="new-password" basic-form valid-input placeholder="Nowe Hasło" formControlName="password" />
@@ -211,7 +211,7 @@
                     <i class="fas fa-times" valid="error"
                       [style.display]="checkValidError('repeatPassword') ? 'block' : 'none'"></i>
                     <i class="fas fa-check" valid="success"
-                      [style.display]="checkValisSuccess('repeatPassword') ? 'block' : 'none'"></i>
+                      [style.display]="checkValidateSuccess('repeatPassword') ? 'block' : 'none'"></i>
                   </span>
                 </label>
                 <input id="repeat-password" basic-form valid-input placeholder="Powtórz Hasło"

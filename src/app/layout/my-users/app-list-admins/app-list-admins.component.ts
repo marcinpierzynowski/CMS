@@ -3,7 +3,6 @@ import { fadeInOutTranslate } from '../../../../shared/animations/animation';
 
 import { LayoutManageService } from 'src/app/services/layout-manage.service';
 
-import swal from 'sweetalert2';
 import { Admin } from 'src/app/models/admin.model';
 
 @Component({
@@ -29,20 +28,6 @@ export class AppListAdminsComponent implements OnInit {
       this.user = admins.find(admin => admin.email === this.email);
       this.prepareRandomImage();
     }));
-  }
-
-  public generateSwalWaitingFromRequest(type, title, text): void {
-    swal.fire({
-      type,
-      title,
-      text,
-      allowOutsideClick: false,
-      onBeforeOpen: () => {
-        const content = swal.getContent();
-        const $ = content.querySelector.bind(content);
-        swal.showLoading();
-      }
-    });
   }
 
   public prepareRandomImage(): void {

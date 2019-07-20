@@ -8,15 +8,20 @@ export interface AddProduct {
 }
 
 export interface Product {
-    title: string;
+    name: string;
+    subject: string;
+    categoryID?: number;
+    categoryName: string;
     price: number;
     promotion: number;
-    ref: string;
     desc: string;
-    params: Array<ParamsProduct>;
-    images?: Array<number>;
-    categoryID: number;
+    metaTitle: string;
+    metaKeyword: string;
+    ref: string;
+    params?: Array<ParamsProduct>;
+    image?: Image;
     date: Date | string;
+    reviewsCustomer?: ReviewsCustomers;
 }
 
 export interface ParamsProduct {
@@ -33,4 +38,26 @@ export interface Image {
     id: number;
     name: string;
     url?: string;
+}
+
+export interface ReviewsCustomers {
+    evaluations?: Evaluation;
+    reviews?: Reviews;
+}
+
+export interface Evaluation {
+    evaluation: number;
+    prevEvaluations: Array<number>;
+}
+
+export interface Reviews {
+    amount: number;
+    desc: Array<ReviewData>;
+}
+
+export interface ReviewData {
+    email: string;
+    date: Date | string;
+    desc: string;
+    url: string;
 }

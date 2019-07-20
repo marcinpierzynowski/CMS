@@ -4,7 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 import { FirebaseService } from './firebase.service';
 import { Task } from '../models/model';
 import { Admin } from '../models/admin.model';
-import { GroupNotification, Notificactions } from '../models/notification.model';
+import { Notificaction } from '../models/notification.model';
 import { Customer } from '../models/customer.model';
 
 @Injectable()
@@ -12,8 +12,7 @@ export class LayoutManageService {
     public readyData: BehaviorSubject<boolean> = new BehaviorSubject(false);
     public adminsData: BehaviorSubject<Array<Admin>> = new BehaviorSubject(null);
     public customersData: BehaviorSubject<Array<Customer>> = new BehaviorSubject(null);
-    public groupNotificationsData: BehaviorSubject<Array<GroupNotification>> = new BehaviorSubject(null);
-    public notificationsData: BehaviorSubject<Array<Notificactions>> = new BehaviorSubject(null);
+    public notificationData: BehaviorSubject<Notificaction> = new BehaviorSubject(null);
     public emailData: BehaviorSubject<string> = new BehaviorSubject(null);
     public tasksData: BehaviorSubject<Array<Task>> = new BehaviorSubject([]);
     public notification: EventEmitter<any> = new EventEmitter();
@@ -25,8 +24,7 @@ export class LayoutManageService {
     public init(): void {
         this.firebaseService.getDataBaseRef('admins').on('value', this.admins.bind(this), this.catchError);
         this.firebaseService.getDataBaseRef('customers').on('value', this.customers.bind(this), this.catchError);
-        this.firebaseService.getDataBaseRef('new_notifications').on('value', this.groupNotifications.bind(this), this.catchError);
-        this.firebaseService.getDataBaseRef('notifications').on('value', this.notifications.bind(this), this.catchError);
+        this.firebaseService.getDataBaseRef('notification').on('value', this.notifications.bind(this), this.catchError);
         this.firebaseService.getDataBaseRef('tasks').on('value', this.tasks.bind(this), this.catchError);
     }
 
@@ -56,28 +54,15 @@ export class LayoutManageService {
         this.customersData.next(customers);
     }
 
-    public groupNotifications(response): void {
-        const data = response.val();
-
-        if (data === null) {
-            this.groupNotificationsData.next([]);
-            return;
-        }
-
-        const notifications = this.prepareData(data);
-        this.groupNotificationsData.next(notifications);
-    }
-
     public notifications(response): void {
         const data = response.val();
 
         if (data === null) {
-            this.notificationsData.next([]);
+            this.notificationData.next(null);
             return;
         }
 
-        const notifications = this.prepareData(data);
-        this.notificationsData.next(notifications);
+        this.notificationData.next(data);
     }
 
     public tasks(response): void {
