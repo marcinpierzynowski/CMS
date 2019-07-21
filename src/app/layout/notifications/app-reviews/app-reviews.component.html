@@ -1,0 +1,122 @@
+<div [@fadeInOutTranslate]>
+    <section class="title-section-global">Opinie Klientów</section>
+
+    <!-- Review -->
+    <main *ngIf="reviews && reviews.length > 0" class="list-review">
+
+        <!-- Card Review -->
+        <section [@fadeInOutTranslate] class="card-review">
+
+            <!-- List Review -->
+            <section>
+
+                <!-- Nav List -->
+                <nav class="desc-list">
+                    <h5>Opinie</h5>
+                    <span (click)="showAll()">Pokaż Wszystkie</span>
+                </nav>
+
+                <table>
+
+                    <!-- Header List -->
+                    <thead>
+                        <tr [formGroup]="filter" class="list-header">
+
+                            <!-- Number List -->
+                            <th [style.padding-left]="'30px'">
+                                No.
+                            </th>
+
+                            <!-- Filter Email -->
+                            <th>
+                                <input basic-form placeholder="E-mail" formControlName="email" (input)="filterData()" />
+                            </th>
+
+                            <!-- Filter Ref Products -->
+                            <th>
+                                <input basic-form placeholder="Numer referencyjny" formControlName="ref"
+                                    (input)="filterData()" />
+                            </th>
+
+                            <!-- Filter Date -->
+                            <th>
+                                <input basic-form placeholder="Data" formControlName="date" (input)="filterData()" />
+                            </th>
+
+                            <!-- Details -->
+                            <th>
+                                Opinia
+                            </th>
+
+                            <!-- Review -->
+                            <th>
+                                Usuń
+                            </th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr class="list-body" *ngFor="let review of cpReviews.slice(0, limit); let i = index">
+                            <!-- No -->
+                            <th>
+                                <p>{{ i + 1 }}</p>
+                            </th>
+
+                            <!-- Customer -->
+                            <th>
+                                <div class="basic-info">
+                                    <div>
+                                        <img [src]="review.urlCustomer" />
+                                    </div>
+                                    <p>{{ review.email }}</p>
+                                </div>
+                            </th>
+
+                            <!-- Product -->
+                            <th>
+                                <div class="basic-info">
+                                    <div>
+                                        <img [src]="review.urlProduct" />
+                                    </div>
+                                    <p>{{ review.ref }}</p>
+                                </div>
+                            </th>
+
+                            <!-- Date -->
+                            <th>
+                                <p class="date">
+                                    {{ review.date }}
+                                </p>
+                            </th>
+
+                            <!-- Details -->
+                            <th>
+                                <i (click)="showReview(review.desc)" class="fas fa-eye detail-review"></i>
+                            </th>
+
+                            <!-- Delete -->
+                            <th>
+                                <i (click)="deleteReview(review.id)" class="far fa-trash-alt delete-review"></i>
+                            </th>
+                        </tr>
+                    </tbody>
+
+                    <!-- Next Five Reviews -->
+                    <div class="title-section-global" [style.margin-bottom]="'25px'" *ngIf="cpReviews.length > limit">
+                        <button class="show-more-global" (click)="setLimit()">
+                            <i class="fas fa-arrow-down"></i>
+                        </button>
+                    </div>
+                </table>
+
+            </section>
+
+        </section>
+    </main>
+
+    <!-- Empty List Reviews -->
+    <section *ngIf="reviews && reviews.length === 0" class="empty-list">
+        <i class="fas fa-users"></i>
+        <h4 [style.margin-top]="'10px'">Brak Opinii</h4>
+    </section>
+</div>

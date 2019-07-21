@@ -6,6 +6,7 @@ import { FirebaseService } from '../../../services/firebase.service';
 import swal from 'sweetalert2';
 import { NotificationsManageService } from 'src/app/services/notifications-manage.service';
 import { Reviews } from 'src/app/models/notification.model';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-reviews',
@@ -19,41 +20,32 @@ export class AppReviewsComponent implements OnInit {
   public cpReviews: Array<Reviews>;
   public rate = '';
   public date = '';
+  public limit = 5;
+  public filter: FormGroup;
+
+  private time;
 
   constructor(
     private firebaseService: FirebaseService,
     private notificationsManageService: NotificationsManageService
-    ) {}
+  ) { }
 
   ngOnInit(): void {
+    this.initForm();
     this.notificationsManageService.reviewsData.subscribe(coms => {
-      this.reviews = coms;
       if (coms) {
-        this.cpReviews = coms.slice();
+        this.reviews = coms.slice().reverse();
+        this.cpReviews = coms.slice().reverse();
       }
     });
   }
 
-  public filterData(): void {
-    // tslint:disable-next-line:one-variable-per-declaration
-    const r = this.rate, d = this.date;
-    const inpVal = [r, d];
-    const keys = ['rate', 'date'];
-
-    this.cpReviews = this.reviews.filter((com) => {
-      // tslint:disable-next-line:no-shadowed-variable
-      for (let i = 0; i < inpVal.length; i++) {
-        if (inpVal[i] !== '' && com[keys[i]].toLowerCase().includes(inpVal[i].toLowerCase()) === false) {
-         return false;
-        }
-      }
-      return true;
+  public initForm(): void {
+    this.filter = new FormGroup({
+      email: new FormControl(''),
+      ref: new FormControl(''),
+      date: new FormControl('')
     });
-
-    // if all inputs empty
-    if (!inpVal.find(el => el !== '')) {
-      this.cpReviews = this.reviews.slice();
-    }
   }
 
   public showReview(message): void {
@@ -64,9 +56,9 @@ export class AppReviewsComponent implements OnInit {
     });
   }
 
-  public deleteComment(id: number): void {
+  public deleteReview(id: number): void {
     swal.fire({
-      title: 'Usunięcie Opinię',
+      title: 'Usunięcie Opinii',
       text: 'Czy jesteś pewny że chcesz usunąć opinię?',
       type: 'warning',
       showCancelButton: true,
@@ -79,7 +71,42 @@ export class AppReviewsComponent implements OnInit {
         const coms: Array<Reviews> = this.reviews.filter(com => com.id !== id);
         this.firebaseService.getDataBaseRef('reviews').set(coms)
           .then(() => swal.fire('Usunięcie Opinii', 'Opinia została usunięta', 'success'));
+      } else {
+        swal.fire('Usunięcie Opinii', 'Opinia nadal jest.', 'info');
       }
     });
+  }
+
+  public showAll(): void {
+    this.limit = this.cpReviews.length;
+  }
+
+  public setLimit(): void {
+    this.limit += 5;
+  }
+
+  public filterData(): void {
+    const inputs = this.filter.value;
+    const keys = ['email', 'ref', 'date'];
+
+    if (this.time) {
+      clearTimeout(this.time);
+      this.time = null;
+    }
+
+    this.time = setTimeout(() => {
+      this.limit = 5;
+      this.cpReviews = this.reviews.filter(c => {
+        // tslint:disable-next-line: prefer-for-of
+        for (let i = 0; i < keys.length; i++) {
+          if (inputs[keys[i]] !== '' && c[keys[i]].toLowerCase()
+            .includes(inputs[keys[i]].toLowerCase()) === false) {
+            return false;
+          }
+        }
+        return true;
+      });
+      this.time = null;
+    }, 500);
   }
 }

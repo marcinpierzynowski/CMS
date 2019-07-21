@@ -33,7 +33,7 @@ export class ModalMessageComponent implements OnInit {
 
   ngOnInit() {
     this.modalManageService.activeModalsData.subscribe((
-      m => this.modalData = m[0]
+      m => this.modalData = (m[0] as ModalMessage)
     ));
     this.initForm();
   }

@@ -1,0 +1,46 @@
+<main [@zoomOut] (click)="close()" *ngIf="modalData.vissible" class="modal-message">
+  <section (click)="$event.stopPropagation()" class="modal-contain">
+    <nav>
+      <h5>Wiadomość</h5>
+      <i (click)="close()" class="fas fa-times"></i>
+    </nav>
+
+    <hr [style.margin]="'0'" />
+
+    <section class="message-contain">
+      <div class="image">
+        <img [src]="modalData.url">
+        <div>
+          <p>{{ modalData.name + ' ' + modalData.surname }} <span class="date">{{ modalData.date }}</span></p>
+          <p>{{ modalData.email }}</p>
+          <p>{{ modalData.desc }}</p>
+        </div>
+
+      </div>
+
+      <hr *ngIf="modalData.answer" />
+
+      <div *ngIf="modalData.answer" class="image">
+        <img [src]="modalData.answer.url">
+        <div>
+          <p>{{ modalData.answer.email }}</p>
+          <p>{{ modalData.answer.date }}</p>
+          <p>{{ modalData.answer.desc }}</p>
+        </div>
+
+      </div>
+    </section>
+
+    <form [formGroup]="message" (ngSubmit)="send()">
+
+      <!-- Message -->
+      <label for="input-message-modal" basic-form>
+        <span [style.opacity]="modalData.answer ? '0.5' : '1'" (click)="send()" [style.top]="'0px'" icon-form>
+          <i class="far fa-paper-plane"></i>
+        </span>
+      </label>
+      <input id="input-message-modal" basic-form placeholder="Wiadomość" formControlName="desc" />
+      <button type="submit" info-form [style.display]="'none'"></button>
+    </form>
+  </section>
+</main>

@@ -29,7 +29,7 @@
         <!-- Input Email -->
         <div class="control-login">
           <label for="login-email" basic-form>Email:</label>
-          <input id="login-email" basic-form placeholder="Email" formControlName="email" />
+          <input id="login-email" basic-form placeholder="Email" formControlName="email" valid-input />
 
           <!-- Alert Validate-->
           <div class="text-danger" *ngIf="checkValidate('email', 'required')" [@fadeInOutTranslate]>
@@ -49,8 +49,8 @@
               <i class="fas fa-eye-slash" *ngIf="!vissiblePassword" (click)="setVisiblePassword(password)"></i>
             </span>
           </label>
-          <input #password id="login-password" type="password" basic-form placeholder="Hasło"
-            formControlName="password" />
+          <input #password id="login-password" type="password" basic-form placeholder="Hasło" formControlName="password"
+            valid-input />
 
           <!-- Alert Validate-->
           <div class="text-danger" *ngIf="checkValidate('password', 'required')" [@fadeInOutTranslate]>

@@ -87,7 +87,7 @@
     <section class="activity-pages">
 
         <!-- New Admins -->
-        <div class="acitvity-description">
+        <div id="test" class="acitvity-description">
             <div>
                 <img class="img-fluid" src="../../../assets/images/new-admin.jpg">
             </div>
@@ -200,7 +200,7 @@
                 <tbody>
                     <tr *ngFor="let message of getNewMessages(); let i = index" class="list-new-messages">
                         <td>
-                            <p>No. {{ message.id }}</p>
+                            <p>No. {{ i + 1 }}</p>
                         </td>
                         <td class="img-user">
                             <img src="../../../assets/images/user-empty.png">

@@ -1,17 +1,19 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
+import { DatePipe } from '@angular/common';
 
 import { FirebaseService } from '../services/firebase.service';
 
-import { fadeInOutTranslate, fadeOutTranslate, zoomOut } from '../../shared/animations/animation';
-import swal from 'sweetalert2';
 import { LayoutManageService } from '../services/layout-manage.service';
-import { DatePipe } from '@angular/common';
 import { CurrentPageService } from '../services/current-page.service';
 import { OrdersManageService } from '../services/orders-manage.service';
 import { Admin } from '../models/admin.model';
 import { Notificaction } from '../models/notification.model';
 import { Order } from '../models/page.model';
+import ManageData from './app-manage-data';
+
+import { fadeInOutTranslate, fadeOutTranslate, zoomOut } from '../../shared/animations/animation';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-layout',
@@ -53,10 +55,22 @@ export class AppLayoutComponent implements OnInit {
     private layoutManageService: LayoutManageService,
     private datePipe: DatePipe,
     private currentPageService: CurrentPageService,
-    private ordersManageService: OrdersManageService
+    private ordersManageService: OrdersManageService,
+    private manageData: ManageData
   ) { }
 
   ngOnInit(): void {
+    // import * as jsPDF from 'jspdf';
+    // import html2canvas from 'html2canvas';
+    // setTimeout(() => {
+    //   const filename  = 'ThisIsYourPDFFilename.pdf';
+
+    //   html2canvas(document.querySelector('#test'), {scale: 10}).then(canvas => {
+    //     let pdf = new jsPDF('p', 'px', 'a4');
+    //     pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 100, 0, 239, 337);
+    //     pdf.save(filename);
+    //   });
+    // }, 5000)
     this.router.events.subscribe(() => {
       this.url = this.router.url;
       this.currentPageService.update(this.url);
@@ -74,7 +88,7 @@ export class AppLayoutComponent implements OnInit {
       }
     });
 
-    this.layoutManageService.adminsData.subscribe(admins =>  {
+    this.layoutManageService.adminsData.subscribe(admins => {
       this.admins = admins;
       if (this.userAuth) {
         const email = this.layoutManageService.emailData.getValue();
@@ -111,7 +125,7 @@ export class AppLayoutComponent implements OnInit {
   }
 
   public tryLogin() {
-    const {email, password} = (JSON.parse(localStorage.getItem('shop-admin')) as Admin);
+    const { email, password } = (JSON.parse(localStorage.getItem('shop-admin')) as Admin);
     this.firebaseService.firebase.auth().signInWithEmailAndPassword(email, password)
       .then(() => {
         this.userAuth = true;

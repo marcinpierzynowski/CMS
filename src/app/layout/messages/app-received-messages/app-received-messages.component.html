@@ -1,69 +1,125 @@
-<div class="card" [@fadeInOutTranslate]>
-    <div class="title-section">Przeczytane wiadomości</div>
-    <div class="settings-card">
-  
-      <!-- Filter Message -->
-      <div [@fadeInOutTranslate] *ngIf="messages && messages.length > 0" class="filter-contain" style="margin-bottom: 50px;">
-        <p>Filtruj:</p>
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-6" style="margin-bottom: 10px;">
-                Email:&nbsp;&nbsp;&nbsp;&nbsp;
-                <input [(ngModel)]="email" (input)="filterData()" placeholder="Email"/>
-                <span class="logo-form"><i class="fas fa-search"></i></span>
-              </div>
-              <div class="col-12 col-md-6" style="margin-bottom: 10px;">
-                Data:
-                <input [(ngModel)]="date" (input)="filterData()" placeholder="Data: dd-mm-yyyy"/>
-                <span class="logo-form"><i class="fas fa-search"></i></span>
-            </div>
+<div [@fadeInOutTranslate]>
+  <section class="title-section-global">Wiadomości Przeczytane</section>
+
+  <!-- Messages -->
+  <main *ngIf="messages && messages.length > 0" class="list-messages">
+
+    <!-- Card Messages -->
+    <section [@fadeInOutTranslate] class="card-messages">
+
+      <!-- List Messages -->
+      <section>
+
+        <!-- Nav List -->
+        <nav class="desc-list">
+          <h5>Wiadomości</h5>
+          <span (click)="showAll()">Pokaż Wszystkie</span>
+        </nav>
+
+        <table>
+
+          <!-- Header List -->
+          <thead>
+            <tr [formGroup]="filter" class="list-header">
+
+              <!-- Number List -->
+              <th [style.padding-left]="'30px'">
+                No.
+              </th>
+
+              <!-- Filter Email -->
+              <th>
+                <input basic-form placeholder="E-mail" formControlName="email" (input)="filterData()" />
+              </th>
+
+              <!-- Filter Name & Surname -->
+              <th>
+                <input basic-form placeholder="Imię / Nazwisko" formControlName="name_surname" (input)="filterData()" />
+              </th>
+
+              <!-- Filter Date -->
+              <th>
+                <input basic-form placeholder="Data" formControlName="date" (input)="filterData()" />
+              </th>
+
+              <!--Is Answer -->
+              <th>
+                <span [style.margin-right]="'10px'">Bez odpowiedzi</span>
+                <mat-checkbox color="primary" (change)="answerFilter($event.checked)"></mat-checkbox>
+              </th>
+
+              <!-- Details -->
+              <th>Szczegóły</th>
+
+              <!-- Delete -->
+              <th>Usuń</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr class="list-body" *ngFor="let message of cpMessages.slice(0, limit); let i = index">
+              <!-- No -->
+              <th>
+                <p>{{ i + 1 }}</p>
+              </th>
+
+              <!-- Basic -->
+              <th>
+                <div class="basic-info">
+                  <div>
+                    <img [src]="message.url" />
+                  </div>
+                  <p>{{ message.email }}</p>
+                </div>
+              </th>
+
+              <!-- Name & Surname -->
+              <th>
+                <p class="date">
+                  {{ message.name + ' ' + message.surname }}
+                </p>
+              </th>
+
+              <!-- Date -->
+              <th>
+                <p class="date">
+                  {{ message.date }}
+                </p>
+              </th>
+
+              <th class="check-answer">
+                <i [style.color]="'#1bb934'" *ngIf="message.answer" class="fas fa-check-circle"></i>
+                <i [style.color]="'#ed1c24'" *ngIf="!message.answer" class="fas fa-times"></i>
+              </th>
+
+              <!-- Details -->
+              <th>
+                <i (click)="showModalMessage(message)" class="far fa-edit detail-message"></i>
+              </th>
+
+              <!-- Delete -->
+              <th>
+                <i (click)="deleteMessage(message.id)" class="far fa-trash-alt delete-message"></i>
+              </th>
+            </tr>
+          </tbody>
+
+          <!-- Next Five Messages -->
+          <div class="title-section-global" [style.margin-bottom]="'25px'" *ngIf="cpMessages.length > limit">
+            <button class="show-more-global" (click)="setLimit()">
+              <i class="fas fa-arrow-down"></i>
+            </button>
           </div>
-        </div>
-      </div>
-  
-      <div [@fadeInOutTranslate] class="list-messages-section">
-        <div class="list-products">
-          
-          <!-- Empty Products -->
-          <div class="img-error" *ngIf="messages && messages.length === 0">
-            <img class="img-fluid" height="350" width="262" src="./assets/images/error.svg"/>
-            <p style="float: left;width: 100%;font-weight: 500;font-size: 18px;margin-bottom: 20px;">
-              Brak nowych wiadomości!
-            </p>
-          </div>
-  
-          <!-- List New Messages -->
-          <table *ngIf="messages && messages.length > 0" class="table">
-            
-            <!-- List Header -->
-            <thead style="background-color: #255190;color: #fff;">
-              <tr>
-                <th scope="col">Email</th>
-                <th scope="col">Data</th>
-                <th scope="col">Opcje</th>
-              </tr>
-            </thead>
-  
-            <!-- List Body -->
-            <tbody>
-              <tr *ngFor="let message of cpMessages; let i = index">
-                <td>{{ message.email }}</td>
-                <td>{{ message.date }}</td>
-                <td>
-                  <select matNativeControl  class="mat-select" placeholder="Opcje">
-                    <option> 
-                      <a style="text-decoration: unset; color: unset" [routerLink]="['../', 'edit-message', message.id]">
-                      Szczegóły
-                      </a>
-                    </option>
-                    <option (click)="deleteMessage(i)">Usuń</option>
-                  </select>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </div>
-  
+        </table>
+
+      </section>
+
+    </section>
+  </main>
+
+  <!-- Empty List Messages -->
+  <section *ngIf="messages && messages.length === 0" class="empty-list">
+    <i class="fas fa-envelope-open-text"></i>
+    <h4 [style.margin-top]="'10px'">Brak Wiadomości</h4>
+  </section>
+</div>

@@ -28,6 +28,8 @@ import { ModalMessageComponent } from 'src/shared/components/modal-message/modal
 import { ModalManageService } from '../services/modal-manage.service';
 import { SelectFilterComponent } from 'src/shared/components/select-filter/select-filter.component';
 import { AppDetailsProductComponent } from './my-products/app-list-products/app-details-product/app-details-product.component';
+import ManageData from './app-manage-data';
+import { ReceivedMessageModalComponent } from 'src/shared/components/received-message-modal/received-message-modal.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +51,7 @@ import { AppDetailsProductComponent } from './my-products/app-list-products/app-
     MultipleComponent,
     NotificationComponent,
     ModalMessageComponent,
+    ReceivedMessageModalComponent,
     SelectFilterComponent
   ],
   imports: [
@@ -62,7 +65,8 @@ import { AppDetailsProductComponent } from './my-products/app-list-products/app-
     OrdersManageService,
     ProductsManageService,
     MessagesManageService,
-    ModalManageService
+    ModalManageService,
+    ManageData
   ]
 })
 export class AppLayoutModule { }

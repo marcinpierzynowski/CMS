@@ -36,8 +36,8 @@ export class AppListProductsComponent implements OnInit {
   ngOnInit(): void {
     this.productManageService.productsData.subscribe(prs => {
       if (prs) {
-        this.products = prs.slice();
-        this.cpProducts = prs.slice();
+        this.products = prs.slice().reverse();
+        this.cpProducts = prs.slice().reverse();
       }
     });
 

@@ -24,9 +24,11 @@ export class AppListAdminsComponent implements OnInit {
     this.email = this.layoutManageService.emailData.getValue();
 
     this.layoutManageService.adminsData.subscribe((admins => {
-      this.admins = admins.filter(admin => admin.email !== this.email);
-      this.user = admins.find(admin => admin.email === this.email);
-      this.prepareRandomImage();
+      if (admins) {
+        this.admins = admins.filter(admin => admin.email !== this.email).reverse();
+        this.user = admins.find(admin => admin.email === this.email);
+        this.prepareRandomImage();
+      }
     }));
   }
 

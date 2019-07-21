@@ -1,13 +1,22 @@
-
 /* You can add global styles to this file, and also import other style files */
+
 @import "./assets/styles-custom/style-manage.css";
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+html, body {
+    height: 100%;
+}
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 
 .mark-target {
     background-color: rgb(255, 229, 100);
     padding-top: 5px;
     padding-bottom: 5px;
+}
+
+label.mat-checkbox-layout {
+    margin-bottom: 0 !important;
 }

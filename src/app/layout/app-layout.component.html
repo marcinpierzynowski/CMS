@@ -1,6 +1,9 @@
 <!-- Modal Message -->
 <app-modal-message></app-modal-message>
 
+<!-- Modal Message Received -->
+<app-received-message-modal></app-received-message-modal>
+
 <!-- Notifiaction -->
 <app-notification></app-notification>
 
@@ -330,7 +333,7 @@
         <i [style.margin-left]="'10px'" [style.color]="'#7f8fa4'" class="fas fa-chevron-down"></i>
         <div (click)="$event.stopPropagation()" class="more-options-user" *ngIf="vissibleOptions[2]"
           [@fadeInOutTranslate]>
-          <a routerLink="/my-profile" (click)="vissibleOptions[2] = false; $event.stopPropagation()">Edytuj Profil</a>
+          <a routerLink="/my-profile" (click)="vissibleOptions[2] = false; $event.stopPropagation()">Profil</a>
           <a routerLink="/my-settings" (click)="vissibleOptions[2] = false; $event.stopPropagation()">Ustawienia
             Konta</a>
           <a (click)="logout()">Wyloguj</a>

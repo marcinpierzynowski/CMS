@@ -1,169 +1,191 @@
-.card {
-  float: left;
-  width: 95%;
-  padding: 20px 10px 20px 10px;
-  margin-left: 2.5%;
-  margin-right: 2.5%;
-  background-color: #f5f5f5;
-  border: unset;
-  font-family: "Lato", sans-serif;
+/*================
+  GLOBAL STYLES
+
+  1. LIST MESSAGES
+  2. EMPTY LIST
+
+  AUTHOR: MARCIN PIERZYNOWSKI
+  ================*/
+
+/*================
+  1. LIST MESSAGES
+=================*/
+
+main.list-messages {
+  padding: 15px;
+  background-color: #eff3f6;
 }
 
-.title-section {
-  font-size: 25px;
-  font-weight: 600;
-  font-style: italic;
-  color: #011b66;
-  float: left;
-  width: 100%;
-}
-
-.settings-card {
-  width: 100%;
-  float: left;
-  font-family: "Lato", sans-serif;
-}
-
-.list-messages-section {
-  float: left;
-  width: 100%;
-  box-shadow: 0 1px 2px 0 rgba(117, 117, 117, 0.2);
+.card-messages {
+  min-height: 1px;
+  position: relative;
+  border: 1px solid #dfe3e9;
+  border-radius: 4px;
   background-color: #fff;
-  min-height: 50px;
-  margin-bottom: 20px;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
-.img-error {
-  float: left;
-  width: 100%;
-  min-height: 200px;
-  text-align: center;
+.card-messages::-webkit-scrollbar-track {
+  background-color: #ffffff;
 }
 
-.text-messages {
-  float: left;
-  text-align: center;
-  width: 100%;
+.card-messages::-webkit-scrollbar {
+  height: 8px;
+  background-color: #ffffff;
+}
+
+.card-messages::-webkit-scrollbar-thumb {
+  background-color: rgba(114, 115, 118);
+  border: 2px solid rgba(114, 115, 118);
+  border-radius: 1.5px;
+}
+
+.card-messages:hover {
+  overflow-x: overlay;
+}
+
+/*
+* List Messages
+*/
+
+.desc-list {
+  padding: 25px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.desc-list > h5 {
+  color: #354052;
   font-size: 18px;
-  font-weight: 500;
-  margin: 10px 0px 10px 0px;
+  font-weight: 400;
+  margin: 0;
 }
 
-.filter-contain {
-  text-align: center;
-  float: left;
+.desc-list span {
+  color: #2ea1f8;
+  font-size: 12px;
+}
+
+.desc-list span:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+table {
   width: 100%;
-  box-shadow: 0 1px 2px 0 rgba(117, 117, 117, 0.2);
-  background-color: #fff;
-  margin-top: 10px;
-  padding-top: 10px;
-  padding-bottom: 10px;
 }
 
-.filter-contain input {
+.list-header {
+  background-color: #f5f8fa;
+  border: 1px solid #e6eaee;
+  height: 62px;
+  max-height: 62px;
+  align-items: center;
+  white-space: nowrap;
+  display: grid;
+  grid-template-columns: 
+    minmax(80px, 5%) minmax(200px, 35%) minmax(200px, 20%)
+    minmax(200px, 20%) minmax(200px, 10%) minmax(200px, 5%) minmax(150px, 5%);
+}
+
+.list-header th {
+  color: #7f8fa4;
+  font-weight: 400;
+  font-size: 14px;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 100%;
+  text-overflow: ellipsis;
+  padding: 10px 0px 10px 10px;
+}
+
+.list-body {
+  border-bottom: 1px solid #e6eaee;
+  display: grid;
+  align-items: center;
+  grid-template-columns: 
+    minmax(80px, 5%) minmax(200px, 35%) minmax(200px, 20%)
+    minmax(200px, 20%) minmax(200px, 10%) minmax(200px, 5%) minmax(150px, 5%);
+}
+
+.list-body th {
+  color: #354052;
+  font-weight: 400;
+  font-size: 14px;
+  overflow: hidden;
+  width: 100%;
+  text-overflow: ellipsis;
+  padding: 10px 0px 10px 30px;
+}
+
+.list-body p {
+  margin: 0;
+}
+
+.basic-info {
+  display: flex;
+  align-items: center;
+}
+
+.basic-info img {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+}
+
+.basic-info p {
+  align-self: flex-start;
   margin-left: 5px;
-  text-align: center;
-  width: 150px;
-}
-
-.filter-contain p {
-  font-size: 18px;
-  font-weight: 550;
-  color: #011b66;
-}
-
-.logo-form {
-  padding: 5.5px 7px 5.5px 7px;
-  margin-left: -2px;
-  border-bottom-right-radius: 3px;
-  border-top-right-radius: 3px;
-  background-color: #255190;
-  color: #fff;
-}
-
-.edit-message-section {
+  color: #354052;
+  font-size: 12px;
   margin-top: 20px;
-  float: left;
-  width: 100%;
-  box-shadow: 0 1px 2px 0 rgba(117, 117, 117, 0.2);
-  background-color: #fff;
-  min-height: 50px;
-  margin-bottom: 20px;
+  max-height: 80px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.title-second-section {
-  float: left;
-  width: 100%;
-  font-size: 15px;
-  text-align: center;
-  opacity: 0.7;
-  margin-top: 20px;
-  margin-bottom: 10px;
+.date {
+  color: #7f8fa4;
 }
 
-.title-second-section p {
-  margin: 0px;
-  font-size: 18px;
-  font-weight: 600;
+.check-answer i {
+  font-size: 20px;
 }
 
-.submit-section {
-  float: left;
-  width: 100%;
-  text-align: center;
-  margin-bottom: 20px;
+.detail-message {
+  font-size: 20px;
+  color: #7f8fa4;
 }
 
-.exit-edit {
-  margin: 5px;
-  background-color: #5f6368;
-  color: white;
-  width: 120px;
-  margin-top: 15px;
+.delete-message {
+  color: #ed1c24;
+  font-size: 20px;
 }
 
-.delete-submit {
-  background-color: red;
-  color: white;
-  width: 120px;
-  margin-top: 15px;
+.detail-message,
+.delete-message:hover {
+  cursor: pointer;
 }
 
-.information-message {
-  float: left;
-  width: 100%;
-  padding: 10px;
-}
-
-.information-message h6 {
-  text-align: center;
-  opacity: 0.7;
-}
-
-.information-message input {
-  width: 80%;
-  text-align: center;
-  border: 1px solid lightgray;
-  border-radius: 5px;
-  padding: 5px;
-  margin-left: 10%;
-  margin-right: 10%;
-}
-
-.information-message textarea {
-  width: 80%;
-  text-align: center;
-  border: 1px solid lightgray;
-  border-radius: 5px;
-  padding: 5px;
-  margin-left: 10%;
-  margin-right: 10%;
-  resize: none;
-  height: 150px;
-}
-
-@media only screen and (min-width: 720px) {
-  .title-section {
-    font-size: 35px;
+@media screen and (min-width: 992px) {
+  main.list-messages {
+    padding: 30px 10%;
   }
+}
+
+/*================
+    2. EMPTY LIST
+  =================*/
+
+.empty-list {
+  text-align: center;
+  margin-top: 30px;
+  color: #7f8fa4;
+  position: relative;
+}
+
+.empty-list i {
+  font-size: 200px;
 }

@@ -23,7 +23,7 @@
         <!-- Input Email -->
         <div class="control-register">
           <label for="register-email" basic-form>Email:</label>
-          <input id="register-email" basic-form placeholder="Email" formControlName="email" />
+          <input id="register-email" basic-form placeholder="Email" formControlName="email" valid-input />
 
           <!-- Alert Validate-->
           <div class="text-danger" *ngIf="checkValidate('email', 'required')" [@fadeInOutTranslate]>
@@ -44,7 +44,7 @@
             </span>
           </label>
           <input #password id="register-password" type="password" basic-form placeholder="Hasło"
-            formControlName="password" />
+            formControlName="password" valid-input />
 
           <!-- Alert Validate-->
           <div class="text-danger" *ngIf="checkValidate('password', 'required')" [@fadeInOutTranslate]>
@@ -68,7 +68,7 @@
             </span>
           </label>
           <input #repeatPassword id="register-repeatPassword" type="password" basic-form placeholder="Powtórz Hasło"
-            formControlName="repeatPassword" />
+            formControlName="repeatPassword" valid-input />
 
           <!-- Alert Validate-->
           <div class="text-danger" *ngIf="checkValidate('repeatPassword', 'required')" [@fadeInOutTranslate]>
