@@ -10,6 +10,9 @@ import { AppMyProfilComponent } from './my-account/app-my-profil/app-my-profil.c
 import { AppMySettingsComponent } from './my-account/app-my-settings/app-my-settings.component';
 import { AppAddProductsComponent } from './my-products/app-add-products/app-add-products.component';
 import { AppListProductsComponent } from './my-products/app-list-products/app-list-products.component';
+import { AppNewOrdersComponent } from './my-orders/app-new-orders/app-new-orders.component';
+import { AppCompletedOrdersComponent } from './my-orders/app-completed-orders/app-completed-orders.component';
+import { AppDetailOrderComponent } from './my-orders/app-detail-order/app-detail-order.component';
 import { AppNewMessagesComponent } from './messages/app-new-messages/app-new-messages.component';
 import { AppReceivedMessagesComponent } from './messages/app-received-messages/app-received-messages.component';
 import { AppReviewsComponent } from './notifications/app-reviews/app-reviews.component';
@@ -42,6 +45,9 @@ import { ReceivedMessageModalComponent } from 'src/shared/components/received-me
     AppAddProductsComponent,
     AppListProductsComponent,
     AppDetailsProductComponent,
+    AppNewOrdersComponent,
+    AppCompletedOrdersComponent,
+    AppDetailOrderComponent,
     AppNewMessagesComponent,
     AppReceivedMessagesComponent,
     AppReviewsComponent,

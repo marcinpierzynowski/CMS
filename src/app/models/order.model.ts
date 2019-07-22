@@ -10,6 +10,9 @@ export interface Order {
     address: string;
     contact: string;
     url: string;
+    ref: string;
+    executed: boolean;
+    realized?: AdminRealized;
 }
 
 export interface ProductData {
@@ -17,4 +20,10 @@ export interface ProductData {
     ref: string;
     detail: Product;
     price: number;
+}
+
+export interface AdminRealized {
+    email: string;
+    date: Date | string;
+    status: boolean;
 }

@@ -56,7 +56,7 @@ main.list-products {
   align-items: center;
 }
 
-.desc-list>h5 {
+.desc-list > h5 {
   color: #354052;
   font-size: 18px;
   font-weight: 400;

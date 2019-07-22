@@ -14,6 +14,8 @@ export class CurrentPageService {
         '/list-customers': 'fas fa-users',
         '/add-product': 'fas fa-cart-plus',
         '/list-products': 'fas fa-shopping-bag',
+        '/list-new-orders': 'fas fa-folder-plus',
+        '/list-completed-orders': 'fas fa-folder-open',
         '/new-messages': 'fas fa-envelope',
         '/received-messages': 'fas fa-envelope-open-text',
         '/evaluations': 'fas fa-star-half-alt',
@@ -32,6 +34,8 @@ export class CurrentPageService {
         '/list-customers': '/ Klienci',
         '/add-product': '/ Dodaj Produkt',
         '/list-products': '/ Lista Produktów',
+        '/list-new-orders': '/ Nowe Zamówienia',
+        '/list-completed-orders': '/ Zrealizowane Zamówienia',
         '/new-messages': '/ Nowe Wiadomości',
         '/received-messages': '/ Przeczytane Wiadomości',
         '/evaluations': '/ Oceny',
@@ -62,6 +66,12 @@ export class CurrentPageService {
                 iconClass = this.urlsClass['/details-product'];
                 namePages = this.namePages['/details-product'] + texts[2];
             }
+
+            if (texts[1] === 'detail-order') {
+                iconClass = 'fas fa-folder-plus';
+                namePages = '/ Zamówienie nr. ' + texts[2];
+            }
+
             this.iconClass.next(iconClass);
             this.urlText.next(namePages);
         }

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 import { FirebaseService } from './firebase.service';
-import { Order } from '../models/page.model';
+import { Order } from '../models/order.model';
 
 @Injectable()
 export class OrdersManageService {

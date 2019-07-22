@@ -78,7 +78,7 @@ export class AppListProductsComponent implements OnInit {
     }
 
     this.time = setTimeout(() => {
-      this.limit = 10;
+      this.limit = 5;
       const productsManage = this.productManageService.productsData.getValue().slice();
       if (this.sortState === 1) {
         this.products = productsManage.sort(this.sortAscending);
@@ -122,7 +122,7 @@ export class AppListProductsComponent implements OnInit {
     }
   }
 
-  deleteProduct(ref) {
+  public deleteProduct(ref): void {
     swal.fire({
       title: 'Usunięcie Produktu',
       text: 'Czy jesteś pewny że chcesz usunąć produkt?',
@@ -145,7 +145,7 @@ export class AppListProductsComponent implements OnInit {
     });
   }
 
-  generateSwalWaitingFromRequest(type, title, text) {
+  public generateSwalWaitingFromRequest(type, title, text): void {
     swal.fire({
       type,
       title,

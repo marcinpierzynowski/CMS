@@ -1,0 +1,208 @@
+/*================
+  GLOBAL STYLES
+
+  1. LIST ORDERS
+  2. EMPTY LIST
+
+  AUTHOR: MARCIN PIERZYNOWSKI
+  ================*/
+
+/*================
+  1. LIST ORDERS
+=================*/
+
+main.list-orders {
+    padding: 15px;
+    background-color: #eff3f6;
+}
+
+.card-orders {
+    min-height: 1px;
+    position: relative;
+    border: 1px solid #dfe3e9;
+    border-radius: 4px;
+    background-color: #fff;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+.card-orders::-webkit-scrollbar-track {
+    background-color: #ffffff;
+}
+
+.card-orders::-webkit-scrollbar {
+    height: 8px;
+    background-color: #ffffff;
+}
+
+.card-orders::-webkit-scrollbar-thumb {
+    background-color: rgba(114, 115, 118);
+    border: 2px solid rgba(114, 115, 118);
+    border-radius: 1.5px;
+}
+
+.card-orders:hover {
+    overflow-x: overlay;
+}
+
+/*
+  * List Orders
+  */
+
+.desc-list {
+    padding: 25px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.desc-list > h5 {
+    color: #354052;
+    font-size: 18px;
+    font-weight: 400;
+    margin: 0;
+}
+
+.desc-list span {
+    color: #2ea1f8;
+    font-size: 12px;
+}
+
+.desc-list span:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+table {
+    width: 100%;
+}
+
+.list-header {
+    background-color: #f5f8fa;
+    border: 1px solid #e6eaee;
+    height: 62px;
+    max-height: 62px;
+    align-items: center;
+    white-space: nowrap;
+    display: grid;
+    grid-template-columns: 
+        minmax(80px, 5%) minmax(200px, 25%) minmax(200px, 15%) minmax(200px, 15%) 
+        minmax(200px, 20%) minmax(150px, 15%) minmax(125px, 5%) minmax(100px, 5%);
+}
+
+.list-header th {
+    color: #7f8fa4;
+    font-weight: 400;
+    font-size: 14px;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 100%;
+    text-overflow: ellipsis;
+    padding: 10px 0px 10px 10px;
+}
+
+.sort-price:hover {
+    cursor: pointer;
+}
+
+.sort-price i {
+    margin-left: 5px;
+    transition: 0.25s linear;
+}
+
+.list-body {
+    border-bottom: 1px solid #e6eaee;
+    display: grid;
+    align-items: center;
+    grid-template-columns: 
+        minmax(80px, 5%) minmax(200px, 20%) minmax(200px, 15%) minmax(200px, 15%)
+        minmax(200px, 20%) minmax(150px, 15%) minmax(125px, 5%) minmax(100px, 5%);
+}
+
+.list-body th {
+    color: #354052;
+    font-weight: 400;
+    font-size: 14px;
+    overflow: hidden;
+    width: 100%;
+    text-overflow: ellipsis;
+    padding: 10px 0px 10px 30px;
+}
+
+.list-body p {
+    margin: 0;
+}
+
+.basic-info {
+    display: flex;
+    align-items: center;
+}
+
+.basic-info img {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+}
+
+.basic-info p {
+    align-self: flex-start;
+    margin-left: 5px;
+    color: #354052;
+    font-size: 12px;
+    margin-top: 20px;
+    max-height: 80px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.address {
+    color: #7f8fa4;
+}
+
+.edit-order {
+    color: #2ea1f8;
+    font-size: 20px;
+}
+
+.edit-order:hover {
+    text-decoration: unset;
+}
+
+.show-detail-order {
+    color: #354052;
+    font-size: 20px;
+}
+
+.show-detail-order:hover {
+    text-decoration: unset;
+}
+
+.delete-order {
+    color: #ed1c24;
+    font-size: 20px;
+}
+
+.edit-order:hover, .show-detail-order:hover, .delete-order:hover {
+    cursor: pointer;
+}
+
+@media screen and (min-width: 992px) {
+    main.list-orders {
+        padding: 30px 10%;
+    }
+}
+
+/*================
+    2. EMPTY LIST
+=================*/
+
+.empty-list {
+    text-align: center;
+    margin-top: 30px;
+    color: #7f8fa4;
+    position: relative;
+}
+
+.empty-list i {
+    font-size: 200px;
+}

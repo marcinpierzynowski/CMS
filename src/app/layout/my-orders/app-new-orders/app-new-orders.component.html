@@ -1,0 +1,135 @@
+<div [@fadeInOutTranslate]>
+  <section class="title-section-global">Nowe zamówienia</section>
+
+  <!-- Orders -->
+  <main *ngIf="orders && orders.length > 0" class="list-orders">
+
+    <!-- Card Orders -->
+    <section [@fadeInOutTranslate] class="card-orders">
+
+      <!-- List Orders -->
+      <section>
+
+        <!-- Nav List -->
+        <nav class="desc-list">
+          <h5>Nowe Zamówienia</h5>
+          <span (click)="showAll()">Pokaż Wszystkie</span>
+        </nav>
+
+        <table>
+
+          <!-- Header List -->
+          <thead>
+            <tr [formGroup]="filter" class="list-header">
+
+              <!-- Number List -->
+              <th [style.padding-left]="'30px'">
+                No.
+              </th>
+
+              <!-- Filter Email -->
+              <th>
+                <input basic-form placeholder="E-mail" formControlName="email" (input)="filterData()" />
+              </th>
+
+              <!-- Filter Price -->
+              <th>
+                <div class="sort-price" (click)="setSortState()">
+                  Cena
+                  <i class="fas fa-arrow-down" *ngIf="sortState > 0"
+                    [style.transform]="sortState === 2 ? 'rotate(180deg)' : 'unset'" [@fadeInOutTranslate]></i></div>
+              </th>
+
+              <!-- Filter Ref -->
+              <th>
+                <input basic-form placeholder="Numer referencyjny" formControlName="ref" (input)="filterData()" />
+              </th>
+
+              <!-- Filter Name & Surname -->
+              <th>
+                <input basic-form placeholder="Imię / Nazwisko" formControlName="name_surname" (input)="filterData()" />
+              </th>
+
+              <!-- Filter Date -->
+              <th>
+                <input basic-form placeholder="Data dodania" formControlName="date" (input)="filterData()" />
+              </th>
+
+              <!-- Details -->
+              <th>Szczegóły</th>
+
+              <!-- Delete -->
+              <th>Usuń</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr class="list-body" *ngFor="let order of cpOrders.slice(0, limit); let i = index">
+              <!-- No -->
+              <th>
+                <p>{{ i + 1 }}</p>
+              </th>
+
+              <!-- Basic -->
+              <th>
+                <div class="basic-info">
+                  <div>
+                    <img [src]="order.url" />
+                  </div>
+                  <p>{{ order.email }}</p>
+                </div>
+              </th>
+
+              <!-- Price -->
+              <th>
+                <p>{{ order.price }} PLN</p>
+              </th>
+
+              <!-- Ref -->
+              <th>
+                <p>#{{ order.ref }}</p>
+              </th>
+
+              <!-- Name & Surname -->
+              <th>
+                <p>{{ order.name + ' ' + order.surname }}</p>
+              </th>
+
+              <!-- Date -->
+              <th>
+                <p>
+                  {{ order.date }}
+                </p>
+              </th>
+
+              <!-- Details -->
+              <th>
+                <a [routerLink]="'/detail-order/' + order.ref" class="fas fa-eye show-detail-order"></a>
+              </th>
+
+              <!-- Delete -->
+              <th>
+                <i (click)="deleteOrder(order.ref)" class="far fa-trash-alt delete-order"></i>
+              </th>
+            </tr>
+          </tbody>
+
+          <!-- Next Five orders -->
+          <div class="title-section-global" [style.margin-bottom]="'25px'" *ngIf="cpOrders.length > limit">
+            <button class="show-more-global" (click)="setLimit()">
+              <i class="fas fa-arrow-down"></i>
+            </button>
+          </div>
+        </table>
+
+      </section>
+
+    </section>
+  </main>
+
+  <!-- Empty List orders -->
+  <section *ngIf="orders && orders.length === 0" class="empty-list">
+    <i class="fas fa-folder-plus"></i>
+    <h4 [style.margin-top]="'10px'">Brak Zamówień</h4>
+  </section>
+</div>

@@ -1,0 +1,197 @@
+<div [@fadeInOutTranslate]>
+  <section class="title-section-global">Dane Klienta</section>
+
+  <main class="details-order" *ngIf="order">
+
+    <!-- Card Customer -->
+    <section [@fadeInOutTranslate] class="card-order">
+      <div class="basic-info">
+        <div>
+          <img [src]="order.url" />
+          <p [style.color]="'#7f8fa4'">{{ order.email }}</p>
+        </div>
+
+        <div class="info-customer">
+          <div>
+            <p class="info-desc">Klient Sklepu</p>
+          </div>
+
+          <div class="all-info">
+            <p class="info-type">Email</p>
+            <p (click)="showNotification()" class="info-value" ngxClipboard [cbContent]="order.email">
+              {{ order.email }}
+              <i class="far fa-clone copy-data"></i>
+            </p>
+
+            <p class="info-type">Imię i Nazwisko</p>
+            <p (click)="showNotification()" class="info-value" ngxClipboard
+              [cbContent]="order.name + ' ' + order.surname">
+              {{ order.name + ' ' + order.surname }}
+              <i class="far fa-clone copy-data"></i>
+            </p>
+
+            <p class="info-type">Adres</p>
+            <p (click)="showNotification()" class="info-value" ngxClipboard [cbContent]="order.address">
+              {{ order.address }}
+              <i class="far fa-clone copy-data"></i>
+            </p>
+
+            <p class="info-type">Dane Kontaktowe</p>
+            <p (click)="showNotification()" class="info-value" ngxClipboard [cbContent]="order.contact">
+              {{ order.contact }}
+              <i class="far fa-clone copy-data"></i>
+            </p>
+          </div>
+        </div>
+        <div class="status-product">
+          <div>
+            <p class="info-desc">Wykonał Zamówienie</p>
+          </div>
+
+          <div *ngIf="order.realized; else waiting" class="all-info">
+            <p class="info-type">Email</p>
+            <p class="info-value status">
+              {{ order.realized.email }}
+            </p>
+
+            <p class="info-type">Data</p>
+            <p class="info-value status">
+              {{ order.realized.date }}
+            </p>
+
+            <p class="info-type">Status</p>
+            <p class="info-value status">
+              <span *ngIf="order.realized.status">Zrealizowano <i
+                  class="fas fa-clipboard-check success-status"></i></span>
+              <span *ngIf="!order.realized.status">Odrzucono <i class="far fa-calendar-times error-status"></i></span>
+            </p>
+
+          </div>
+
+          <!-- Check Status -->
+          <ng-template #waiting>
+            <div class="status-wait-contain">
+              <i class="fas fa-user-edit"></i>
+              <p>Oczekuje Na Realizację</p>
+            </div>
+          </ng-template>
+
+        </div>
+      </div>
+    </section>
+
+
+  </main>
+
+  <section [style.margin-top]="'0'" class="title-section-global">Szczegóły Zamówienia</section>
+
+  <main class="details-products" *ngIf="order">
+
+    <!-- Products Info -->
+    <section [@fadeInOutTranslate] class="card-products">
+      <!-- List Products -->
+      <!-- Nav List -->
+      <nav class="desc-list">
+        <h5>Lista Produktów</h5>
+        <span (click)="showSummary(summary)">Pokaż Podsumowanie</span>
+      </nav>
+
+      <table>
+
+        <!-- Header List -->
+        <thead>
+          <tr class="list-header">
+
+            <!-- Picture -->
+            <th>
+              Zdjęcie
+            </th>
+
+            <!-- Name Product -->
+            <th>
+              Nazwa
+            </th>
+
+            <!-- Quantity -->
+            <th>
+              Ilość
+            </th>
+
+            <!-- Price -->
+            <th>
+              Cena
+            </th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr class="list-body" *ngFor="let product of order.products; let i = index">
+
+            <!-- Pricture -->
+            <th>
+              <div class="basic-info-product">
+                <img [src]="product.detail.image.url" />
+              </div>
+            </th>
+
+            <!-- Name Product -->
+            <th>
+              <p>{{ product.detail.name }}</p>
+            </th>
+
+            <!-- Quantity -->
+            <th>
+              <p>{{ product.amount }}</p>
+            </th>
+
+            <!-- Price -->
+            <th>
+              <p>{{ product.price }}</p>
+            </th>
+          </tr>
+        </tbody>
+      </table>
+      <table>
+        <tbody>
+          <tr class="summary-table">
+            <th>
+              Cena Całkowita
+            </th>
+            <th>
+              {{ order.price }} PLN
+            </th>
+          </tr>
+          <tr class="summary-table">
+            <th>
+              Koszty Dostawy
+            </th>
+            <th>
+              25 PLN
+            </th>
+          </tr>
+          <tr class="summary-table">
+            <th>
+              Podatek Vat
+            </th>
+            <th>
+              {{ getTax(order.price) }} PLN
+            </th>
+          </tr>
+          <tr class="summary-table">
+            <th>
+              <b>Do zapłaty</b>
+            </th>
+            <th>
+              <b>{{ (getTax(order.price) + 25 + order.price) }} PLN</b>
+            </th>
+          </tr>
+        </tbody>
+      </table>
+      <div #summary class="submit">
+        <button *ngIf="!order.realized" (click)="discardOrder()" danger-form>Odrzuć</button>
+        <button *ngIf="!order.realized" (click)="realizeOrder()" info-form>Zatwierdź</button>
+      </div>
+    </section>
+  </main>
+
+</div>

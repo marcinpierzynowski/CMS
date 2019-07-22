@@ -13,6 +13,9 @@ import { AppEvaluationComponent } from './notifications/app-evaluation/app-evalu
 import { AppListAdminsComponent } from './my-users/app-list-admins/app-list-admins.component';
 import { AppListCustomersComponent } from './my-users/app-list-customers/app-list-customers.component';
 import { AppDetailsProductComponent } from './my-products/app-list-products/app-details-product/app-details-product.component';
+import { AppNewOrdersComponent } from './my-orders/app-new-orders/app-new-orders.component';
+import { AppCompletedOrdersComponent } from './my-orders/app-completed-orders/app-completed-orders.component';
+import { AppDetailOrderComponent } from './my-orders/app-detail-order/app-detail-order.component';
 
 const routes: Routes = [
   {
@@ -55,6 +58,18 @@ const routes: Routes = [
       {
         path: 'list-products',
         component: AppListProductsComponent
+      },
+      {
+        path: 'list-new-orders',
+        component: AppNewOrdersComponent
+      },
+      {
+        path: 'list-completed-orders',
+        component: AppCompletedOrdersComponent
+      },
+      {
+        path: 'detail-order/:id',
+        component: AppDetailOrderComponent
       },
       {
         path: 'details-product/:id',

@@ -9,11 +9,11 @@ import { CurrentPageService } from '../services/current-page.service';
 import { OrdersManageService } from '../services/orders-manage.service';
 import { Admin } from '../models/admin.model';
 import { Notificaction } from '../models/notification.model';
-import { Order } from '../models/page.model';
 import ManageData from './app-manage-data';
 
 import { fadeInOutTranslate, fadeOutTranslate, zoomOut } from '../../shared/animations/animation';
 import swal from 'sweetalert2';
+import { Order } from '../models/order.model';
 
 @Component({
   selector: 'app-layout',
@@ -96,7 +96,12 @@ export class AppLayoutComponent implements OnInit {
       }
     });
 
-    this.ordersManageService.ordersData.subscribe(orders => this.orders = orders);
+    this.ordersManageService.ordersData.subscribe(
+      orders => {
+        if (orders) {
+          this.orders = orders.filter(o => !o.executed).reverse();
+        }
+      });
   }
 
   public checkPanel(): void {
@@ -213,15 +218,19 @@ export class AppLayoutComponent implements OnInit {
   }
 
   public resetNotification(key, url): void {
-    this.vissibleOptions[1] = false;
-    this.notification[key] = 0;
-    const notif = this.notification;
-    if (!notif.evaluations && !notif.messages && !notif.reviews) {
-      this.notification = null;
+    if (key !== 'messages') {
+      this.vissibleOptions[1] = false;
+      this.notification[key] = 0;
+      const notif = this.notification;
+      if (!notif.evaluations && !notif.messages && !notif.reviews) {
+        this.notification = null;
+      }
+      this.firebaseService.getDataBaseRef('notification').set(this.notification)
+        .then(() => {
+          this.router.navigate([url]);
+        });
+    } else {
+      this.router.navigate([url]);
     }
-    this.firebaseService.getDataBaseRef('notification').set(this.notification)
-      .then(() => {
-        this.router.navigate([url]);
-      });
   }
 }

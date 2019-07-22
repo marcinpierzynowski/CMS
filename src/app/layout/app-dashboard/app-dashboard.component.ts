@@ -12,6 +12,8 @@ import { FirebaseService } from 'src/app/services/firebase.service';
 import Swal from 'sweetalert2';
 import { Product } from 'src/app/models/product.model';
 import { Message } from 'src/app/models/message.model';
+import { OrdersManageService } from 'src/app/services/orders-manage.service';
+import { Order } from 'src/app/models/order.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -30,6 +32,7 @@ export class AppDashboardComponent implements OnInit {
   public messages: Array<Message>;
   public products: Array<Product>;
   public admins: Array<Admin>;
+  public orders: Array<Order>;
 
   private chartFirst: any;
   private chartSecond: any;
@@ -39,7 +42,8 @@ export class AppDashboardComponent implements OnInit {
     private firebaseService: FirebaseService,
     private layoutManageService: LayoutManageService,
     private productManageService: ProductsManageService,
-    private messagesManageService: MessagesManageService
+    private messagesManageService: MessagesManageService,
+    private ordersManageService: OrdersManageService
     ) {}
 
   ngOnInit() {
@@ -47,10 +51,12 @@ export class AppDashboardComponent implements OnInit {
     const admins = this.layoutManageService.adminsData.getValue();
 
     this.tasks = this.layoutManageService.tasksData.getValue();
+    this.user = admins.find(admin => admin.email === email);
+
     this.layoutManageService.adminsData.subscribe(ad => this.admins = ad);
     this.productManageService.productsData.subscribe(pr => this.products = pr);
     this.messagesManageService.messageData.subscribe(m => this.messages = m);
-    this.user = admins.find(admin => admin.email === email);
+    this.ordersManageService.ordersData.subscribe(o => this.orders = o);
 
     this.createFirstChart();
     this.createSecondChart();
@@ -160,6 +166,12 @@ export class AppDashboardComponent implements OnInit {
       if (!this.products) { return null; }
       const product = this.products[this.products.length - 1];
       return product;
+    }
+
+    public getNewOrder(): Order {
+      if (!this.orders) { return null; }
+      const order = this.orders.filter(o => !o.executed).reverse()[0];
+      return order;
     }
 
     public getNewMessage(): Message {

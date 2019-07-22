@@ -1,0 +1,345 @@
+/*================
+  GLOBAL STYLES
+
+  1. DETAILS CUSTOMER
+  2. PARAMS PRODUCT
+
+  AUTHOR: MARCIN PIERZYNOWSKI
+  ================*/
+
+/*================
+  1. DETAILS CUSTOMER
+=================*/
+
+main.details-order {
+    padding: 15px;
+    background-color: #eff3f6;
+    font-family: Source Sans Pro, sans-serif;
+}
+
+.card-order {
+    min-height: 1px;
+    padding: 15px;
+    position: relative;
+    border: 1px solid #dfe3e9;
+    border-radius: 4px;
+    background-color: #fff;
+}
+
+.info-customer {
+    text-align: center;
+    border: 1px solid #e6eaee;
+    border-radius: 4px;
+}
+
+.basic-info {
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.basic-info > div:nth-child(1) {
+    text-align: center;
+    margin: 10px;
+    flex-direction: column;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.basic-info > div:nth-child(1) img {
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+}
+
+.info-desc {
+    color: #354052;
+    font-size: 18px;
+    font-weight: 400;
+    padding: 7.5px 30px 7.5px 30px;
+    margin: 0;
+    background-color: #f5f8fa;
+    color: #7f8fa4;
+}
+
+.all-info {
+    padding: 15px 30px;
+}
+
+.info-type {
+    color: #7f8fa4;
+    font-size: 12px;
+    margin: 0;
+    margin-top: 10px;
+}
+
+.info-value {
+    font-size: 16px;
+    color: #354052;
+    transition: 0.25s ease-in;
+}
+
+.info-value:hover {
+    cursor: pointer;
+}
+
+.info-value i {
+    font-size: 20px;
+    color: #354052;
+    margin-left: 10px;
+    display: none;
+}
+
+.info-value:hover i {
+    display: initial;
+}
+
+.status-product {
+    margin-top: 20px;
+    text-align: center;
+    border: 1px solid #e6eaee;
+    border-radius: 4px;
+}
+
+.status:hover {
+    cursor: initial;
+}
+
+.status i {
+    display: initial;
+    margin-left: 5px;
+}
+
+span i.success-status {
+    color: #1bb934;
+}
+
+span i.error-status {
+    color: #ed1c24;
+}
+
+.status-wait-contain {
+    min-height: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #7f8fa4;
+}
+
+.status-wait-contain i {
+    font-size: 30px;
+}
+
+.status-wait-contain p {
+    font-size: 20px;
+}
+
+@media screen and (min-width: 768px) {
+    .basic-info {
+        grid-template-columns: 1fr 2fr 2fr;
+        grid-gap: 10px;
+    }
+
+    .info-customer {
+        text-align: left;
+    }
+
+    .status-product {
+        margin-top: 0;
+        text-align: left;
+    }
+
+    .status-wait-contain {
+        height: calc(100% - 41px);
+    }
+}
+
+/*====================
+   2. PARAMS PRODUCT
+=====================*/
+
+main.details-products {
+    padding: 15px;
+    background-color: #eff3f6;
+}
+
+.card-products {
+    min-height: 1px;
+    position: relative;
+    border: 1px solid #dfe3e9;
+    border-radius: 4px;
+    background-color: #fff;
+    max-width: 100%;
+    overflow-x: hidden;
+    padding-bottom: 40px;
+}
+
+.card-products::-webkit-scrollbar-track {
+    background-color: #ffffff;
+}
+
+.card-products::-webkit-scrollbar {
+    height: 8px;
+    background-color: #ffffff;
+}
+
+.card-products::-webkit-scrollbar-thumb {
+    background-color: rgba(114, 115, 118);
+    border: 2px solid rgba(114, 115, 118);
+    border-radius: 1.5px;
+}
+
+.card-products:hover {
+    overflow-x: overlay;
+}
+
+.desc-list {
+    padding: 25px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.desc-list > h5 {
+    color: #354052;
+    font-size: 18px;
+    font-weight: 400;
+    margin: 0;
+}
+
+.desc-list span {
+    color: #2ea1f8;
+    font-size: 12px;
+}
+
+.desc-list span:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+table {
+    width: calc(100% - 40px);
+    margin: 0 20px;
+}
+
+.list-header {
+    background-color: #f5f8fa;
+    border: 1px solid #e6eaee;
+    height: 62px;
+    max-height: 62px;
+    align-items: center;
+    white-space: nowrap;
+    display: grid;
+    grid-template-columns: minmax(200px, 25%) minmax(200px, 25%) minmax(200px, 25%) minmax(200px, 25%);
+}
+
+.list-header th {
+    color: #7f8fa4;
+    font-weight: 400;
+    font-size: 14px;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 100%;
+    text-overflow: ellipsis;
+    padding: 10px 0px 10px 10px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.list-header th:nth-child(-1n + 3) {
+    border-right: 1px solid #e6eaee;
+}
+
+.list-body {
+    border: 1px solid #e6eaee;
+    border-top: 0;
+    display: grid;
+    align-items: center;
+    grid-template-columns: minmax(200px, 25%) minmax(200px, 25%) minmax(200px, 25%) minmax(200px, 25%);
+}
+
+.list-body th {
+    color: #354052;
+    font-weight: 400;
+    font-size: 14px;
+    overflow: hidden;
+    width: 100%;
+    text-overflow: ellipsis;
+    padding: 10px 0px 10px 10px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.list-body th:nth-child(-1n + 3) {
+    border-right: 1px solid #e6eaee;
+}
+
+.list-body p {
+    margin: 0;
+}
+
+.basic-info-product {
+    display: flex;
+    align-items: center;
+}
+
+.basic-info-product img {
+    height: 50px;
+    width: 50px;
+}
+
+.basic-info-product p {
+    align-self: flex-start;
+    margin-left: 5px;
+    color: #354052;
+    font-size: 12px;
+    margin-top: 20px;
+    max-height: 80px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.summary-table {
+    border: 1px solid #e6eaee;
+    border-top: 0;
+    display: grid;
+    align-items: center;
+    grid-template-columns: minmax(600px, 75%) minmax(200px, 25%);
+}
+
+.summary-table th {
+    padding: 10px 10px;
+    color: #354052;
+    font-weight: 400;
+    font-size: 14px;
+    overflow: hidden;
+    width: 100%;
+    text-overflow: ellipsis;
+    padding: 10px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.summary-table th:first-child {
+    border-right: 1px solid #e6eaee;
+    justify-content: flex-end;
+}
+
+.submit {
+    padding: 20px;
+    text-align: right;
+}
+
+.submit button {
+    margin: 0 10px;
+}
+
+@media screen and (min-width: 992px) {
+    main.list-products {
+        padding: 30px 10%;
+    }
+}

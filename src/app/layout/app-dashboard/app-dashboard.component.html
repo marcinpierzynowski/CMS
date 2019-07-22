@@ -122,7 +122,8 @@
                 <p>{{ getNewProduct()?.ref }}</p>
                 <p>{{ getNewProduct()?.date }}</p>
                 <p>Nowy / Produkt</p>
-                <p>{{ getDaysCreated(getNewProduct()?.date) ? getDaysCreated(getNewProduct()?.date) + ' dni temu' : 'Dzisiaj' }}
+                <p>
+                    {{ getDaysCreated(getNewProduct()?.date) ? getDaysCreated(getNewProduct()?.date) + ' dni temu' : 'Dzisiaj' }}
                 </p>
             </div>
 
@@ -141,12 +142,19 @@
                 <h4>Nowe Zamówienie</h4>
                 <p>Dodano nowe zamówienie.</p>
             </div>
-            <div>
-                <p>ref: 152sd58</p>
-                <p>2019-05-12</p>
+            <div *ngIf="orders && orders.length > 0; else emptyOrder">
+                <p>{{ getNewOrder().ref }}</p>
+                <p>{{ getNewOrder().date }}</p>
                 <p>Nowe / Zamówienie</p>
-                <p>10 dni temu</p>
+                <p>
+                    {{ getDaysCreated(getNewOrder()?.date) ? getDaysCreated(getNewOrder()?.date) + ' dni temu' : 'Dzisiaj' }}
+                </p>
             </div>
+
+            <!-- Empty -->
+            <ng-template #emptyOrder>
+                <p class="empty-info">Brak nowych</p>
+            </ng-template>
         </div>
 
         <!-- New Messages -->
