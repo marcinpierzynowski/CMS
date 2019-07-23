@@ -60,18 +60,7 @@ export class AppLayoutComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // import * as jsPDF from 'jspdf';
-    // import html2canvas from 'html2canvas';
-    // setTimeout(() => {
-    //   const filename  = 'ThisIsYourPDFFilename.pdf';
-
-    //   html2canvas(document.querySelector('#test'), {scale: 10}).then(canvas => {
-    //     let pdf = new jsPDF('p', 'px', 'a4');
-    //     pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 100, 0, 239, 337);
-    //     pdf.save(filename);
-    //   });
-    // }, 5000)
-    this.router.events.subscribe(() => {
+    this.router.events.subscribe((event) => {
       this.url = this.router.url;
       this.currentPageService.update(this.url);
       this.checkPanel();
@@ -232,5 +221,10 @@ export class AppLayoutComponent implements OnInit {
     } else {
       this.router.navigate([url]);
     }
+  }
+
+  public showDetailOrder(ref: string): void {
+    this.vissibleOptions[0] = false;
+    this.router.navigateByUrl('/detail-order/' + ref);
   }
 }

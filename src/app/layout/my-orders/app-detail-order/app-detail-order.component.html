@@ -190,6 +190,9 @@
       <div #summary class="submit">
         <button *ngIf="!order.realized" (click)="discardOrder()" danger-form>Odrzuć</button>
         <button *ngIf="!order.realized" (click)="realizeOrder()" info-form>Zatwierdź</button>
+        <ng-container *ngIf="order.realized">
+          <button *ngIf="order.realized.status" (click)="showInvoice()" fancy-form>Faktura</button>
+        </ng-container>
       </div>
     </section>
   </main>

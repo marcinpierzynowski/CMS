@@ -16,6 +16,7 @@ import { AppDetailsProductComponent } from './my-products/app-list-products/app-
 import { AppNewOrdersComponent } from './my-orders/app-new-orders/app-new-orders.component';
 import { AppCompletedOrdersComponent } from './my-orders/app-completed-orders/app-completed-orders.component';
 import { AppDetailOrderComponent } from './my-orders/app-detail-order/app-detail-order.component';
+import { AppInvoiceComponent } from './my-orders/app-detail-order/app-invoice/app-invoice.component';
 
 const routes: Routes = [
   {
@@ -70,6 +71,10 @@ const routes: Routes = [
       {
         path: 'detail-order/:id',
         component: AppDetailOrderComponent
+      },
+      {
+        path: 'invoice/:id',
+        component: AppInvoiceComponent
       },
       {
         path: 'details-product/:id',

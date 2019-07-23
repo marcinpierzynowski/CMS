@@ -33,6 +33,7 @@ import { SelectFilterComponent } from 'src/shared/components/select-filter/selec
 import { AppDetailsProductComponent } from './my-products/app-list-products/app-details-product/app-details-product.component';
 import ManageData from './app-manage-data';
 import { ReceivedMessageModalComponent } from 'src/shared/components/received-message-modal/received-message-modal.component';
+import { AppInvoiceComponent } from './my-orders/app-detail-order/app-invoice/app-invoice.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { ReceivedMessageModalComponent } from 'src/shared/components/received-me
     AppNewOrdersComponent,
     AppCompletedOrdersComponent,
     AppDetailOrderComponent,
+    AppInvoiceComponent,
     AppNewMessagesComponent,
     AppReceivedMessagesComponent,
     AppReviewsComponent,

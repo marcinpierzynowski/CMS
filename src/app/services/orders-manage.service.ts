@@ -7,6 +7,11 @@ import { Order } from '../models/order.model';
 @Injectable()
 export class OrdersManageService {
     public ordersData: BehaviorSubject<Array<Order>> = new BehaviorSubject(null);
+    public templateProgress = ``
+    + `<div class="progress"><div id="save-document" class="progress-bar `
+    + `progress-bar-striped progress-bar-animated" `
+    + `role="progressbar" aria-valuenow="0" aria-valuemin="0" `
+    + `aria-valuemax="100" style="width: 0%"></div></div>`;
 
     constructor(private firebaseService: FirebaseService) {
         this.init();

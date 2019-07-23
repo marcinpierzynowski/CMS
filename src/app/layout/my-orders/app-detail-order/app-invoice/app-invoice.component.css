@@ -1,0 +1,204 @@
+main.invoice {
+    background-color: #eff3f6;
+    font-family: Source Sans Pro, sans-serif;
+}
+
+.card-invoice {
+    padding: 30mm 15mm 10mm 15mm;
+    min-height: 280mm;
+    width: 200mm;
+    margin: 5mm auto;
+    position: relative;
+    border: 0.2mm solid #dfe3e9;
+    border-radius: 1mm;
+    background-color: #fff;
+    max-width: 100%;
+    overflow-x: hidden;
+    position: relative;
+}
+
+.info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: space-between;
+}
+
+.title-image {
+    width: 12.5mm;
+    height: 12.5mm;
+}
+
+.company-info p {
+    color: #354052;
+    font-size: 6mm;
+    font-weight: 400;
+    margin-top: 5mm;
+}
+
+.date-invoice {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.date-invoice h4 {
+    color: #354052;
+    font-size: 5mm;
+    font-weight: 400;
+}
+
+.date-invoice p {
+    color: #7f8fa4;
+}
+
+.date-contain {
+    width: 50mm;
+}
+
+.address {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: space-between;
+    margin-top: 20mm;
+}
+
+.address p {
+    color: #7f8fa4;
+    font-size: 4mm;
+    font-weight: 400;
+    margin: 0;
+}
+
+.contain-company {
+    width: 50mm;
+}
+
+.customer-address {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.contain-customer {
+    width: 50mm;
+}
+
+.detail-order {
+    display: grid;
+    grid-template-columns: 35mm 125mm;
+    grid-gap: 10mm;
+    margin-top: 20mm;
+}
+
+.detail-order h4 {
+    color: #354052;
+    font-size: 5mm;
+    font-weight: 400;
+}
+
+.detail-order > div:nth-child(1) p {
+    color: #7f8fa4;
+    font-size: 4mm;
+    font-weight: 400;
+    margin: 0;
+}
+
+table {
+    border: 1px solid #e6eaee;
+    width: 120mm;
+}
+
+thead th {
+    color: #7f8fa4;
+    padding: 2mm 0mm 2mm 5mm;
+    background-color: #f5f8fa;
+    font-size: 4mm;
+    font-weight: 400;
+    border-radius: 1mm;
+}
+
+tbody th {
+    color: #354052;
+    font-size: 3.5mm;
+    font-weight: 400;
+    padding: 2mm 0mm 2mm 5mm;
+    border-top: 1px solid #e6eaee;
+}
+
+thead.products tr,
+tbody.products tr {
+    display: grid;
+    grid-template-columns: 60mm 20mm 40mm;
+}
+
+table.total thead tr,
+table.total tbody tr {
+    display: grid;
+    grid-template-columns: 80mm 40mm;
+}
+
+hr {
+    margin-top: 25mm;
+}
+
+footer {
+    position: absolute;
+    width: calc(100% - 20mm);
+    bottom: 10mm;
+}
+
+footer div {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    justify-content: space-between;
+    align-items: center;
+}
+
+footer p {
+    display: flex;
+    justify-content: flex-end;
+    margin: 0;
+    font-size: 4.5mm;
+    color: #354052;
+    font-weight: 400;
+}
+
+.card-download {
+    padding: 20px 30px;
+    min-height: 1px;
+    width: 200mm;
+    margin: 20px auto;
+    position: relative;
+    border: 0.2mm solid #dfe3e9;
+    border-radius: 1mm;
+    background-color: #fff;
+    max-width: 100%;
+    overflow-x: hidden;
+    display: grid;
+}
+
+.card-download h4 {
+    margin: 0;
+    color: #354052;
+    font-weight: 400;
+    font-size: 18px;
+    text-align: center;
+}
+
+.card-download div {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.card-download button {
+    width: 50mm;
+}
+
+.card-download button i {
+    margin-left: 10px;
+}
+
+.invoice-print {
+    transition: 0.25s linear;
+}

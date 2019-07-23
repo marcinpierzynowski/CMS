@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import { DatePipe } from '@angular/common';
+import { ActivatedRoute, Router } from '@angular/router';
 
+import { LayoutManageService } from 'src/app/services/layout-manage.service';
 import { OrdersManageService } from 'src/app/services/orders-manage.service';
 import { FirebaseService } from 'src/app/services/firebase.service';
+import { Order } from 'src/app/models/order.model';
 
 import swal from 'sweetalert2';
 import { fadeInOutTranslate } from '../../../../shared/animations/animation';
-import { Order } from 'src/app/models/order.model';
-import { ActivatedRoute } from '@angular/router';
-import { LayoutManageService } from 'src/app/services/layout-manage.service';
-import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-detail-order',
@@ -18,6 +18,7 @@ import { DatePipe } from '@angular/common';
 })
 export class AppDetailOrderComponent implements OnInit {
   public order: Order;
+  public orders: Array<Order>;
 
   private ref: string;
 
@@ -26,7 +27,8 @@ export class AppDetailOrderComponent implements OnInit {
     private firebaseService: FirebaseService,
     private layoutManageService: LayoutManageService,
     private route: ActivatedRoute,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -34,7 +36,19 @@ export class AppDetailOrderComponent implements OnInit {
 
     this.ordersManageService.ordersData.subscribe(ords => {
       if (ords) {
+        this.orders = ords;
         this.order = ords.find(or => or.ref === this.ref);
+      }
+    });
+    this.selectedListOrders();
+  }
+
+  public selectedListOrders(): void {
+    this.router.events.subscribe(() => {
+      this.ref = this.route.snapshot.params.id;
+
+      if (this.orders) {
+        this.order = this.orders.find(or => or.ref === this.ref);
       }
     });
   }
@@ -89,8 +103,8 @@ export class AppDetailOrderComponent implements OnInit {
     });
   }
 
-  updateOrderToDatabase(status: boolean, title: string, message: string) {
-    const orders = this.ordersManageService.ordersData.getValue();
+  public updateOrderToDatabase(status: boolean, title: string, message: string): void {
+    const orders = this.orders.filter(or => or.ref !== this.order.ref);
     const email = this.layoutManageService.emailData.getValue();
     this.order.realized = {
       email,
@@ -98,9 +112,14 @@ export class AppDetailOrderComponent implements OnInit {
       status
     };
     this.order.executed = true;
+    orders.push(this.order);
 
     this.firebaseService.getDataBaseRef('orders').set(orders)
       .then(() => swal.fire(title, 'Zamówienie zostało ' + message, 'success'));
+  }
+
+  public showInvoice(): void {
+    this.router.navigateByUrl('/invoice/' + this.order.ref);
   }
 
 }

@@ -118,7 +118,7 @@
 
 .user-picture {
   position: absolute;
-  bottom: -35px;
+  bottom: -40px;
   left: 50%;
   transform: translateX(-50%);
   background-color: #222c3c;

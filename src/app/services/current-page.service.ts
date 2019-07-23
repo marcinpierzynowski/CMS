@@ -72,6 +72,11 @@ export class CurrentPageService {
                 namePages = '/ Zamówienie nr. ' + texts[2];
             }
 
+            if (texts[1] === 'invoice') {
+                iconClass = 'fas fa-file-alt';
+                namePages = '/ Faktura nr. ' + texts[2];
+            }
+
             this.iconClass.next(iconClass);
             this.urlText.next(namePages);
         }

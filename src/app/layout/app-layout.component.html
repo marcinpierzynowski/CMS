@@ -158,8 +158,8 @@
       </div>
 
       <!-- Zrealizowane Zamówienia -->
-      <div class="menu-item" [class.active-menu-item]="url === '/list-completed-orders'" routerLink="/list-completed-orders"
-        [style.justify-content]="vissibleLeftPanel ? 'initial' : 'center'">
+      <div class="menu-item" [class.active-menu-item]="url === '/list-completed-orders'"
+        routerLink="/list-completed-orders" [style.justify-content]="vissibleLeftPanel ? 'initial' : 'center'">
         <div [class.active]="url === '/list-completed-orders'" class="section-item"></div>
         <div class="item" [style.paddingLeft]="vissibleLeftPanel ? '15px' : '0px'">
           <i class="fas fa-folder-open icon-panel"></i>
@@ -273,8 +273,9 @@
         <span [style.left]="'25px'">{{ orders? orders.length : 0 }}</span>
         <div (click)="$event.stopPropagation()" class="more-options-user" *ngIf="vissibleOptions[0] && orders"
           [@fadeInOutTranslate]>
-          <a *ngFor="let order of orders" [routerLink]="'/detail-order/' + order.ref"
-            (click)="vissibleOptions[1] = false; $event.stopPropagation()">
+
+          <!-- Link To Detail Order -->
+          <a *ngFor="let order of orders" (click)="showDetailOrder(order.ref); $event.stopPropagation()">
             <div class="icon-notification">
               <img [src]="order.url" />
             </div>
@@ -283,6 +284,8 @@
               <p>Złożył/a zamówienie {{ order.date }}</p>
             </div>
           </a>
+
+          <!-- Empty Orders -->
           <a *ngIf="orders && orders.length === 0" (click)="vissibleOptions[1] = false; $event.stopPropagation()">
             <div class="icon-notification">
               <img src="../../assets/images/user-empty.png" />

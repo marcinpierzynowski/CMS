@@ -1,0 +1,178 @@
+<div [@fadeInOutTranslate]>
+
+  <section class="title-section-global">Faktura Podgląd</section>
+
+  <!-- Invoice -->
+  <main *ngIf="order && FLAG_READY" class="invoice">
+
+    <!-- Card Invoice -->
+    <section *ngIf="order.realized" [@fadeInOutTranslate] class="card-invoice invoice-print">
+      <h2>Główne Dane</h2>
+      <hr />
+
+      <!-- Basic Info -->
+      <div class="info">
+        <div class="company-info">
+          <img class="title-image" src="./assets/images/home-welcome.png" />
+          <p class="company-name">Stoma Shop</p>
+        </div>
+        <div class="date-invoice">
+          <div class="date-contain">
+            <h4>Faktura</h4>
+            <p>{{ order.realized.date }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Address Company -->
+      <div class="address">
+        <div class="company-address">
+          <div class="contain-company">
+            <p>Nadawca</p>
+            <h5>Stoma Shop sp. z o.o.</h5>
+            <p>Mazowiecka 34/8 Szczecin, 70-503</p>
+            <p>888-888-888</p>
+          </div>
+        </div>
+
+        <!-- Address Customer -->
+        <div class="customer-address">
+          <div class="contain-customer">
+            <p>Odbiorca</p>
+            <h5>Klient</h5>
+            <p>{{ order.name + ' ' + order.surname }}</p>
+            <p>{{ order.address }}</p>
+            <p>{{ order.contact }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer Info -->
+      <footer>
+        <hr />
+        <div>
+          <img class="title-image" src="./assets/images/home-welcome.png" />
+          <p>strona 1 z {{ 2 + counter.length }}</p>
+        </div>
+      </footer>
+    </section>
+
+    <!-- Pages Products Divide 5 part -->
+    <section *ngFor="let empty of counter; let i = index" [@fadeInOutTranslate] class="card-invoice invoice-print">
+      <h2>
+        Spis Produktów {{ (i * 5) + 1 }} - {{ (i * 5 + 5) < order.products.length ? (i * 5 + 5) : order.products.length }}
+      </h2>
+      <hr />
+      <!-- Detail Order -->
+      <div class="detail-order">
+        <div>
+          <h4>Faktura nr.</h4>
+          <p>{{ order.ref }}</p>
+        </div>
+        <div>
+          <table>
+            <thead class="products">
+              <tr>
+                <th>Opis</th>
+                <th>Ilość</th>
+                <th>Cena</th>
+              </tr>
+            </thead>
+            <tbody class="products">
+              <tr *ngFor="let product of order.products.slice(i * 5, i * 5 + 5)">
+                <th>{{ product.detail.name }}</th>
+                <th>{{ product.amount }}</th>
+                <th>{{ product.price }}</th>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Footer Info -->
+      <footer>
+        <hr />
+        <div>
+          <img class="title-image" src="./assets/images/home-welcome.png" />
+          <p>strona {{ 1 + i + 1 }} z {{ 2 + counter.length }}</p>
+        </div>
+      </footer>
+    </section>
+
+
+    <!-- Summary -->
+    <section class="card-invoice invoice-print">
+      <h2>Podsumowanie</h2>
+      <hr />
+      <!-- Detail Order -->
+      <div class="detail-order">
+        <div>
+          <h4>Faktura nr.</h4>
+          <p>{{ order.ref }}</p>
+        </div>
+        <div>
+          <table class="total">
+            <thead class="products">
+              <tr>
+                <th>Opis</th>
+                <th>Cena</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="summary-table">
+                <th>
+                  Cena Całkowita
+                </th>
+                <th>
+                  {{ order.price }} PLN
+                </th>
+              </tr>
+              <tr class="summary-table">
+                <th>
+                  Koszty Dostawy
+                </th>
+                <th>
+                  25 PLN
+                </th>
+              </tr>
+              <tr class="summary-table">
+                <th>
+                  Podatek Vat
+                </th>
+                <th>
+                  {{ getTax(order.price) }} PLN
+                </th>
+              </tr>
+              <tr class="summary-table">
+                <th>
+                  Do zapłaty
+                </th>
+                <th>
+                  {{ (getTax(order.price) + 25 + order.price) }} PLN
+                </th>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Footer Info -->
+      <footer>
+        <hr />
+        <div>
+          <img class="title-image" src="./assets/images/home-welcome.png" />
+          <p>strona {{ 2 + counter.length }} z {{ 2 + counter.length }}</p>
+        </div>
+      </footer>
+    </section>
+
+    <!-- Prepare Download -->
+    <section class="title-section-global">Pobierz Fakturę</section>
+    <div class="card-download">
+      <h4>Pobierz Fakture</h4>
+      <div>
+        <button secondary-form (click)="getInvoice()">Pobierz <i class="fas fa-download"></i></button>
+      </div>
+    </div>
+  </main>
+</div>

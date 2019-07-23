@@ -84,7 +84,7 @@ export class ProductsManageService {
 
     public addProduct(product: Product, image): void {
         this.progress = 0;
-        this.proportion = 100 / (2);
+        this.proportion = 100 / 2;
         const products = this.productsData.getValue();
         products.push(product);
 
