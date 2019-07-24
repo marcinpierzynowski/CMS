@@ -97,7 +97,7 @@ export class AppListProductsComponent implements OnInit {
           }
         }
         return true;
-      });
+      }).reverse();
       this.time = null;
     }, 500);
   }
