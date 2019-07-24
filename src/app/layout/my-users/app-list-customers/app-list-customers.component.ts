@@ -33,7 +33,7 @@ export class AppListCustomersComponent implements OnInit {
   ngOnInit(): void {
     this.layoutManageService.customersData.subscribe(c => {
       if (c) {
-        this.customers = c.reverse();
+        this.customers = c.slice().reverse();
         this.copyCustomers = c.slice().reverse();
         this.initForm();
       }
