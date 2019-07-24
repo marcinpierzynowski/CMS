@@ -187,11 +187,11 @@ export class AppMyProfilComponent implements OnInit {
     for (const rec of this.records) {
      const { input, dataKey } = rec;
      if (input === 'excludeIp') {
-      rec.data = rec.data.filter(r => !r[dataKey].includes(this.form.value[input]));
+      rec.data = rec.data.filter(r => !r[dataKey].includes(this.form.value[input])).reverse();
      } else {
-      rec.data = rec.data.filter(r => r[dataKey].includes(this.form.value[input]));
+      rec.data = rec.data.filter(r => r[dataKey].includes(this.form.value[input])).reverse();
      }
-     rec.data = rec.data.filter(r => r.time.includes(time));
+     rec.data = rec.data.filter(r => r.time.includes(time)).reverse();
     }
   }
 
