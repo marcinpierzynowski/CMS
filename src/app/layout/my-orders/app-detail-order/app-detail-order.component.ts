@@ -9,6 +9,7 @@ import { Order } from 'src/app/models/order.model';
 
 import swal from 'sweetalert2';
 import { fadeInOutTranslate } from '../../../../shared/animations/animation';
+import { RealizedOrder } from 'src/app/models/admin.model';
 
 @Component({
   selector: 'app-detail-order',
@@ -78,6 +79,7 @@ export class AppDetailOrderComponent implements OnInit {
     }).then(result => {
       if (result.value) {
         this.updateOrderToDatabase(true, 'Zrealizowanie Zamówienia', 'zrealizowane');
+        this.addHistoryFromUser();
       } else {
         swal.fire('Zrealizowanie Zamówienia', 'Zamówienie nadal czeka na realizację.', 'info');
       }
@@ -101,6 +103,24 @@ export class AppDetailOrderComponent implements OnInit {
         swal.fire('Odrzuczenie Zamówienia', 'Zamówienie nadal czeka na realizację.', 'info');
       }
     });
+  }
+
+  public addHistoryFromUser(): void {
+    const data: RealizedOrder = {
+      data: this.datePipe.transform(new Date(), 'yyyy-MM-dd'),
+      ref: this.ref,
+      time: this.datePipe.transform(new Date(), 'HH:mm:ss')
+    };
+    const email = this.layoutManageService.emailData.getValue();
+    const admins = this.layoutManageService.adminsData.getValue();
+    const admin = this.layoutManageService.adminsData.getValue()
+          .find(a => a.email === email);
+
+    let realizedOrder = admin.realizedOrder;
+
+    realizedOrder ? realizedOrder.push(data) : realizedOrder = [data];
+    admin.realizedOrder = realizedOrder;
+    this.firebaseService.getDataBaseRef('admins').set(admins);
   }
 
   public updateOrderToDatabase(status: boolean, title: string, message: string): void {
