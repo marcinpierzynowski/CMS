@@ -7,7 +7,7 @@ import { FirebaseService } from '../services/firebase.service';
 import { LayoutManageService } from '../services/layout-manage.service';
 import { CurrentPageService } from '../services/current-page.service';
 import { OrdersManageService } from '../services/orders-manage.service';
-import { Admin } from '../models/admin.model';
+import { Admin, Login } from '../models/admin.model';
 import { Notificaction } from '../models/notification.model';
 import ManageData from './app-manage-data';
 
@@ -141,13 +141,13 @@ export class AppLayoutComponent implements OnInit {
   }
 
   public setNewDataLogin(): void {
-    // fetch('https://api.ipify.org?format=json')
-    //   .then(response => response.json())
-    //   .then(data => {
-    //     const login: Login = { ip: data.ip, data: this.getFullData(), time: this.getFullTime() };
-    //     this.user.logins ? this.user.logins.push(login) : this.user.logins = [login];
-    //     this.firebaseService.getDataBaseRef('admins').set(this.admins);
-    //   });
+    fetch('https://api.ipify.org?format=json')
+      .then(response => response.json())
+      .then(data => {
+        const login: Login = { ip: data.ip, data: this.getFullData(), time: this.getFullTime() };
+        this.user.logins ? this.user.logins.push(login) : this.user.logins = [login];
+        this.firebaseService.getDataBaseRef('admins').set(this.admins);
+      });
   }
 
   public deleteNotification(index): void {
